@@ -1,6 +1,6 @@
 import { WorkerHandle } from '../../engine/worker-handle';
 import type { CombinedToolDefinition, OutputFile } from '../../engine/types';
-import { detectFormat } from '../image-format';
+import { HEIC_ACCEPTS, detectInputFormat } from '../image-format';
 import type { PdfPageMode } from '../convert/options';
 import type { PdfWorkerApi } from './worker';
 
@@ -8,7 +8,7 @@ export interface ImagesToPdfOptions {
   pdfPage: PdfPageMode;
 }
 
-export const IMAGES_TO_PDF_ACCEPTS = ['image/jpeg', 'image/png', 'image/webp'] as const;
+export const IMAGES_TO_PDF_ACCEPTS = ['image/jpeg', 'image/png', 'image/webp', ...HEIC_ACCEPTS] as const;
 
 const handle = new WorkerHandle<PdfWorkerApi>(
   () => new Worker(new URL('./worker.ts', import.meta.url), { type: 'module' }),
@@ -22,8 +22,8 @@ export const imagesToPdfTool: CombinedToolDefinition<ImagesToPdfOptions> = {
     if (files.length === 0) throw new Error('Add at least one image.');
     await handle.call((api) => api.begin(), ctx.signal);
     for (const [i, file] of files.entries()) {
-      const format = detectFormat(file);
-      if (!format) throw new Error(`${file.name}: unsupported image type. Use JPG, PNG or WebP.`);
+      const format = detectInputFormat(file);
+      if (!format) throw new Error(`${file.name}: unsupported image type. Use JPG, PNG, WebP or HEIC.`);
       const buffer = await file.arrayBuffer();
       try {
         await handle.call((api) => api.addImage(buffer, format, options.pdfPage), ctx.signal);

@@ -1,7 +1,7 @@
 import type { PDFDocument } from '@cantoo/pdf-lib';
 import { pdfPlacement, type PdfPageMode } from '../convert/options';
 import { decodeToImageData, encodeImage } from './codec';
-import type { ImageFormat } from '../image-format';
+import type { InputFormat } from '../image-format';
 
 /**
  * Add one image as one page. PNG is embedded as is, which keeps transparency. JPEG and WebP go
@@ -12,7 +12,7 @@ import type { ImageFormat } from '../image-format';
 export async function addImagePage(
   doc: PDFDocument,
   buffer: ArrayBuffer,
-  format: ImageFormat,
+  format: InputFormat,
   mode: PdfPageMode,
 ): Promise<void> {
   let image;

@@ -1,6 +1,6 @@
 import { WorkerHandle, progressProxy } from '../../engine/worker-handle';
 import type { OutputFile, ToolDefinition } from '../../engine/types';
-import { detectFormat } from '../image-format';
+import { detectInputFormat } from '../image-format';
 import type { ConvertWorkerApi } from './worker';
 import {
   CONVERT_ACCEPTS,
@@ -19,8 +19,8 @@ export const convertTool: ToolDefinition<ConvertOptions> = {
   accepts: CONVERT_ACCEPTS,
   defaultOptions: defaultConvertOptions,
   async run(file, options, ctx): Promise<OutputFile[]> {
-    const input = detectFormat(file);
-    if (!input) throw new Error('Unsupported image type. Use JPG, PNG or WebP.');
+    const input = detectInputFormat(file);
+    if (!input) throw new Error('Unsupported image type. Use JPG, PNG, WebP or HEIC.');
     const buffer = await file.arrayBuffer();
 
     const result = await handle.call(

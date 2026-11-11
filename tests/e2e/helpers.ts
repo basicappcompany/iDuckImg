@@ -4,7 +4,8 @@ export type TestImageType = 'image/jpeg' | 'image/png' | 'image/webp';
 
 export interface TestImage {
   name: string;
-  mimeType: TestImageType;
+  /** Any MIME type, so tests can also hand over files the browser cannot draw (HEIC, corrupt data). */
+  mimeType: string;
   buffer: Buffer;
 }
 
