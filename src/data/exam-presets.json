@@ -1,0 +1,93 @@
+{
+  "about": "Photo and signature requirements copied from official exam documents. Every exam needs a source URL, where in the document the numbers are, and the date we read it. Never add a requirement that is not in an official document. Requirements change between exam cycles, so each entry names the cycle it was read from.",
+  "exams": [
+    {
+      "id": "ibps-po-xv",
+      "name": "IBPS PO/MT (CRP PO/MT-XV)",
+      "cycle": "CRP PO/MT-XV, vacancies of 2026-27 (registration dates in the document: 01.07.2025 to 21.07.2025)",
+      "source": {
+        "title": "Notification CRP PO/MT-XV, Annexure III: Guidelines for Scanning and Upload of Documents",
+        "url": "https://www.ibps.in/wp-content/uploads/Detailed-Notification_CRP-PO-XV.pdf",
+        "location": "PDF pages 38 to 40",
+        "retrieved": "2026-11-12"
+      },
+      "notes": [
+        "IBPS marks the pixel sizes as preferred, and the file sizes as the limits to meet.",
+        "The document states the file type as jpg/jpeg for the thumb impression and the declaration. It does not state it for the photograph and signature; this tool always makes JPG.",
+        "A live photograph is also captured in the application itself, separate from this upload."
+      ],
+      "documents": [
+        {
+          "id": "photo",
+          "name": "Photograph",
+          "width": 200,
+          "height": 230,
+          "minKb": 20,
+          "maxKb": 50,
+          "fit": "crop",
+          "physical": "4.5 cm x 3.5 cm"
+        },
+        {
+          "id": "signature",
+          "name": "Signature",
+          "width": 140,
+          "height": 60,
+          "minKb": 10,
+          "maxKb": 20,
+          "fit": "pad",
+          "note": "Sign on white paper with a black pen. A signature in capital letters is not accepted."
+        },
+        {
+          "id": "left-thumb",
+          "name": "Left thumb impression",
+          "width": 240,
+          "height": 240,
+          "minKb": 20,
+          "maxKb": 50,
+          "fit": "crop",
+          "physical": "3 cm x 3 cm at 200 DPI",
+          "note": "Use black or blue ink on white paper."
+        },
+        {
+          "id": "declaration",
+          "name": "Handwritten declaration",
+          "width": 800,
+          "height": 400,
+          "minKb": 50,
+          "maxKb": 100,
+          "fit": "pad",
+          "physical": "10 cm x 5 cm at 200 DPI",
+          "note": "It must be in your own handwriting, in English, and not in capital letters."
+        }
+      ]
+    },
+    {
+      "id": "ssc-cgl-2026",
+      "name": "SSC CGL 2026",
+      "cycle": "Combined Graduate Level Examination, 2026 (online applications until 22.06.2026)",
+      "source": {
+        "title": "Notice of the Combined Graduate Level Examination, 2026",
+        "url": "https://ssc.gov.in/api/attachment/uploads/masterData/NoticeBoards/Notice_of_adv_cgl_2025.pdf",
+        "location": "paragraph 9.6, page 18 of 132 (repeated on page 52)",
+        "retrieved": "2026-11-12"
+      },
+      "notes": [
+        "In this notice the photograph is captured with the camera inside the application form, so there is no photo file to upload.",
+        "The notice gives the signature size in centimetres only, with no pixel size, so this tool keeps your image's pixel size and only fits the file size."
+      ],
+      "documents": [
+        {
+          "id": "signature",
+          "name": "Signature",
+          "width": null,
+          "height": null,
+          "minKb": 10,
+          "maxKb": 20,
+          "fit": "pad",
+          "physical": "about 6.0 cm x 2.0 cm",
+          "note": "Blurred or miniature signatures are rejected."
+        }
+      ]
+    }
+  ]
+}

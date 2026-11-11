@@ -6,6 +6,7 @@ const TOOL_PATHS = [
   '/convert-image/',
   '/images-to-pdf/',
   '/rotate-image/',
+  '/exam-photo-resizer/',
   '/remove-exif-data/',
 ];
 
