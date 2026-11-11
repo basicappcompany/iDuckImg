@@ -3,6 +3,7 @@ import { expect, test } from '@playwright/test';
 const TOOL_PATHS = [
   '/compress-images/',
   '/resize-image/',
+  '/crop-image/',
   '/convert-image/',
   '/images-to-pdf/',
   '/rotate-image/',
