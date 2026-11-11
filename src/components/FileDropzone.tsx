@@ -35,9 +35,8 @@ export default function FileDropzone({ accepts, onFiles, multiple = true, disabl
   return (
     <div>
       <div
-        class={`rounded-2xl border-2 border-dashed p-8 text-center transition-colors ${
-          dragging ? 'border-pond-600 bg-duck-400/20' : 'border-pond-600/40 bg-white'
-        } ${disabled ? 'opacity-50' : ''}`}
+        class={`dropzone ${disabled ? 'opacity-50' : ''}`}
+        data-dragging={dragging ? 'true' : 'false'}
         onDragOver={(e) => {
           e.preventDefault();
           if (!disabled) setDragging(true);
@@ -49,14 +48,14 @@ export default function FileDropzone({ accepts, onFiles, multiple = true, disabl
           handle(e.dataTransfer?.files);
         }}
       >
-        <p class="text-lg font-semibold">Drop {multiple ? 'images' : 'an image'} here</p>
-        <p class="mt-1 text-sm text-pond-900/70">or paste from your clipboard</p>
+        <p class="text-xl font-black">Drop {multiple ? 'images' : 'an image'} here</p>
+        <p class="mt-1 text-sm text-muted">or paste from your clipboard</p>
         <div class="mt-4 flex flex-wrap justify-center gap-3">
           <button
             type="button"
             disabled={disabled}
             onClick={() => galleryRef.current?.click()}
-            class="rounded-lg bg-pond-600 px-5 py-3 font-semibold text-white hover:bg-pond-900 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-pond-600"
+            class="btn btn-primary btn-lg"
           >
             Choose {multiple ? 'files' : 'file'}
           </button>
@@ -64,7 +63,7 @@ export default function FileDropzone({ accepts, onFiles, multiple = true, disabl
             type="button"
             disabled={disabled}
             onClick={() => cameraRef.current?.click()}
-            class="rounded-lg border border-pond-600 px-5 py-3 font-semibold text-pond-600 hover:bg-duck-400/20 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-pond-600 md:hidden"
+            class="btn btn-lg md:hidden"
           >
             Take photo
           </button>
@@ -97,7 +96,7 @@ export default function FileDropzone({ accepts, onFiles, multiple = true, disabl
         />
       </div>
       {rejected.length > 0 && (
-        <p role="alert" class="mt-2 text-sm text-red-700">
+        <p role="alert" class="mt-2 text-sm font-bold text-danger">
           Skipped unsupported {rejected.length === 1 ? 'file' : 'files'}: {rejected.join(', ')}
         </p>
       )}

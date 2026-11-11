@@ -1,7 +1,7 @@
 ---
-import '../styles/global.css';
+import AppShell from './AppShell.astro';
 import AdSlot from './AdSlot.astro';
-import { otherTools, toolPath } from '../lib/tools';
+import { groupMates, toolForPath, toolPath } from '../lib/tools';
 
 interface Props {
   title: string;
@@ -11,49 +11,70 @@ interface Props {
   clientSide?: boolean;
 }
 const { title, description, heading, clientSide = true } = Astro.props;
-const canonical = new URL(Astro.url.pathname, Astro.site).href;
-const more = otherTools(Astro.url.pathname);
+const tool = toolForPath(Astro.url.pathname);
+const mates = tool ? groupMates(tool) : [];
 ---
 
-<!doctype html>
-<html lang="en">
-  <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>{title}</title>
-    <meta name="description" content={description} />
-    <link rel="canonical" href={canonical} />
-  </head>
-  <body class="bg-duck-50 text-pond-900">
-    <main class="mx-auto max-w-3xl px-4 py-8">
-      <p class="mb-4 text-sm"><a href="/" class="font-semibold text-pond-600 underline">iDuckImg</a></p>
-      <h1 class="text-3xl font-bold">{heading}</h1>
-      {
-        clientSide && (
-          <p class="mt-2 text-sm font-medium text-pond-600">
-            Your files never leave your device.
-          </p>
-        )
-      }
-      <section class="mt-6 grid gap-5" aria-label="Tool">
-        <slot />
+<AppShell title={title} description={description}>
+  {
+    tool && (
+      <p class="eyebrow">
+        <a href="/" class="underline decoration-2 underline-offset-2">Home</a>
+        <span aria-hidden="true"> / </span>
+        {tool.group}
+      </p>
+    )
+  }
+  <h1 class="display mt-2 flex items-center gap-3 text-4xl sm:text-5xl">
+    {tool && <span aria-hidden="true" class="text-4xl sm:text-5xl">{tool.emoji}</span>}
+    <span>{heading}</span>
+  </h1>
+  {tool && <p class="mt-3 text-lg text-muted">{tool.summary}</p>}
+
+  <div class="mt-3 flex flex-wrap gap-2">
+    {clientSide && <span class="pill pill-ok">Runs in your browser</span>}
+    <span class="pill">No sign-up</span>
+    <span class="pill">No watermark</span>
+  </div>
+  {clientSide && <p class="mt-3 text-sm font-bold">Your files never leave your device.</p>}
+
+  {
+    tool && (
+      <section aria-label="Quick answer" class="card mt-5 p-4">
+        <p class="eyebrow">Quick answer</p>
+        <p class="mt-1 leading-relaxed">{tool.quick}</p>
       </section>
-      <AdSlot name="below-tool" width={728} height={90} />
-      <slot name="content" />
-      <nav class="mt-10" aria-label="More tools">
-        <h2 class="text-lg font-semibold">More free tools</h2>
-        <ul class="mt-2 grid gap-1 text-sm sm:grid-cols-2">
-          {
-            more.map((tool) => (
-              <li>
-                <a href={toolPath(tool.slug)} class="text-pond-600 underline">
-                  {tool.name}
-                </a>
-              </li>
-            ))
-          }
+    )
+  }
+
+  <section class="mt-5 grid gap-5" aria-label="Tool">
+    <slot />
+  </section>
+
+  <AdSlot name="below-tool" width={728} height={90} />
+
+  <div class="mt-12">
+    <slot name="content" />
+  </div>
+
+  {
+    tool && mates.length > 0 && (
+      <nav class="mt-12" aria-label={`More in ${tool.group}`}>
+        <h2 class="text-2xl font-black tracking-tight">More in "{tool.group}"</h2>
+        <ul class="mt-3 grid gap-4 sm:grid-cols-2">
+          {mates.map((mate) => (
+            <li>
+              <a href={toolPath(mate.slug)} class="card card-link h-full p-4">
+                <span class="flex items-center gap-2 text-lg font-black">
+                  <span aria-hidden="true">{mate.emoji}</span>
+                  {mate.name}
+                </span>
+                <span class="mt-1 block text-sm text-muted">{mate.summary}</span>
+              </a>
+            </li>
+          ))}
         </ul>
       </nav>
-    </main>
-  </body>
-</html>
+    )
+  }
+</AppShell>

@@ -32,7 +32,7 @@ export default function ExifTool() {
             {files.length} {files.length === 1 ? 'image' : 'images'} selected.{' '}
             <button
               type="button"
-              class="font-medium text-pond-600 underline"
+              class="link"
               disabled={running}
               onClick={() => {
                 runner.reset();
@@ -43,7 +43,7 @@ export default function ExifTool() {
             </button>
           </p>
 
-          <div class="rounded-2xl bg-white p-5 text-sm shadow-sm">
+          <div class="card p-5 text-sm">
             <p class="font-semibold">What happens</p>
             <ul class="mt-2 list-disc pl-5">
               <li>Removed: camera and phone details, date and time, GPS location, XMP, IPTC and comments.</li>
@@ -59,7 +59,7 @@ export default function ExifTool() {
               type="button"
               disabled={running}
               onClick={() => runner.run(files, exifTool.defaultOptions)}
-              class="rounded-lg bg-pond-600 px-6 py-3 font-semibold text-white hover:bg-pond-900 disabled:opacity-60"
+              class="btn btn-primary btn-lg"
             >
               {running ? 'Removing...' : 'Remove metadata'}
             </button>
@@ -67,7 +67,7 @@ export default function ExifTool() {
               <button
                 type="button"
                 onClick={runner.cancel}
-                class="rounded-lg border border-pond-600 px-6 py-3 font-semibold text-pond-600"
+                class="btn btn-lg"
               >
                 Cancel
               </button>

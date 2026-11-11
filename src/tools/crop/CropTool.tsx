@@ -21,9 +21,9 @@ import {
   type RectField,
 } from './geometry';
 
-const inputClass = 'rounded-lg border border-pond-600/40 bg-white p-2 w-full';
+const inputClass = 'input w-full';
 const smallButton =
-  'rounded-lg border border-pond-600 px-4 py-2 text-sm font-semibold text-pond-600 hover:bg-duck-400/20 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-pond-600 disabled:opacity-60';
+  'btn btn-sm';
 
 /** Where each handle sits on the box, and the cursor that hints at its direction. */
 const HANDLES: { id: Handle; style: string; cursor: string }[] = [
@@ -160,7 +160,7 @@ export default function CropTool() {
             {bounds && ` (${bounds.width} x ${bounds.height} px)`}.{' '}
             <button
               type="button"
-              class="font-medium text-pond-600 underline"
+              class="link"
               disabled={running}
               onClick={() => {
                 runner.reset();
@@ -175,12 +175,12 @@ export default function CropTool() {
           </p>
 
           {loadError && (
-            <p role="alert" class="text-sm text-red-700">
+            <p role="alert" class="text-sm text-danger font-bold">
               This picture could not be shown. It may be damaged.
             </p>
           )}
 
-          <div class="rounded-2xl bg-white p-3 shadow-sm">
+          <div class="card p-3">
             <div
               ref={stage}
               class="relative mx-auto inline-block max-w-full select-none overflow-hidden align-top"
@@ -200,7 +200,7 @@ export default function CropTool() {
                   tabIndex={0}
                   role="group"
                   aria-label="Crop area. Use the arrow keys to move it."
-                  class="absolute cursor-move border-2 border-white outline-1 outline-pond-600 focus-visible:outline-2 focus-visible:outline-duck-500"
+                  class="absolute cursor-move border-2 border-white outline outline-1 outline-duckink"
                   style={{
                     left: pct(rect.x, bounds.width),
                     top: pct(rect.y, bounds.height),
@@ -219,7 +219,7 @@ export default function CropTool() {
                     <div
                       key={h.id}
                       data-handle={h.id}
-                      class="absolute h-6 w-6 -translate-x-1/2 -translate-y-1/2 rounded-sm border-2 border-pond-600 bg-white"
+                      class="absolute h-6 w-6 -translate-x-1/2 -translate-y-1/2 rounded-md border-2 border-duckink bg-duck"
                       style={`${h.style};cursor:${h.cursor};touch-action:none`}
                       onPointerDown={begin(h.id)}
                       onPointerMove={onMove}
@@ -272,7 +272,7 @@ export default function CropTool() {
                 Whole picture
               </button>
             </div>
-            <p class="text-xs text-pond-900/70">
+            <p class="text-xs text-muted">
               Drag the box or its handles, or type exact numbers. With the keyboard, focus the box and use the
               arrow keys (hold Shift for bigger steps). JPG and WebP are saved again at high quality; PNG stays
               lossless.
@@ -284,7 +284,7 @@ export default function CropTool() {
               type="button"
               disabled={running || !rect}
               onClick={() => rect && runner.run([file], { rect, quality: cropTool.defaultOptions.quality })}
-              class="rounded-lg bg-pond-600 px-6 py-3 font-semibold text-white hover:bg-pond-900 disabled:opacity-60"
+              class="btn btn-primary btn-lg"
             >
               {running ? 'Cropping...' : 'Crop'}
             </button>
@@ -292,7 +292,7 @@ export default function CropTool() {
               <button
                 type="button"
                 onClick={runner.cancel}
-                class="rounded-lg border border-pond-600 px-6 py-3 font-semibold text-pond-600"
+                class="btn btn-lg"
               >
                 Cancel
               </button>

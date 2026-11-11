@@ -1,48 +1,151 @@
 ---
-import '../styles/global.css';
-import { TOOLS, toolPath } from '../lib/tools';
+import AppShell from '../components/AppShell.astro';
+import DuckMark from '../components/DuckMark.astro';
+import { TOOLS, TOOL_GROUPS, toolPath, toolsInGroup } from '../lib/tools';
 
-const canonical = new URL('/', Astro.site).href;
+const faqs = [
+  {
+    q: 'What is iDuckImg?',
+    a: 'A free set of image tools: compress, resize, crop, convert, rotate and flip, combine images into one PDF, remove EXIF data, and prepare photos and signatures for exam forms.',
+  },
+  {
+    q: 'Is iDuckImg free?',
+    a: 'Yes. There is no sign-up and no watermark on your results. We may show ads to cover the running costs.',
+  },
+  {
+    q: 'Are my images uploaded to a server?',
+    a: 'No. Every tool runs in your browser, so your pictures stay on your device and are not sent to us.',
+  },
+  {
+    q: 'Which image formats work?',
+    a: 'JPG, PNG and WebP work in every tool. The converter and the PDF tools also open HEIC photos from an iPhone.',
+  },
+  {
+    q: 'Do I need to install anything?',
+    a: 'No. Open a tool in any modern browser, on a computer or a phone.',
+  },
+];
+
+const faqJsonLd = JSON.stringify({
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: faqs.map((f) => ({ '@type': 'Question', name: f.q, acceptedAnswer: { '@type': 'Answer', text: f.a } })),
+});
+
+const why = [
+  { emoji: '🔒', title: 'Your files stay with you', text: 'Every tool runs in your browser. Your pictures are not uploaded to our servers.' },
+  { emoji: '🎁', title: 'No account, no watermark', text: 'Open a tool and use it. Nothing to install, and nothing stamped on your results.' },
+  { emoji: '📱', title: 'Made for phones too', text: 'Pick a photo from your gallery or take one, and every tool works at phone size.' },
+];
 ---
 
-<!doctype html>
-<html lang="en">
-  <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>iDuckImg: free online image tools</title>
-    <meta
-      name="description"
-      content="Compress, resize, convert and clean images free in your browser. No upload, no signup. Your files never leave your device."
-    />
-    <link rel="canonical" href={canonical} />
-  </head>
-  <body class="bg-duck-50 text-pond-900">
-    <main class="mx-auto max-w-4xl px-4 py-10">
-      <h1 class="text-4xl font-bold">iDuckImg</h1>
-      <p class="mt-2 text-lg">Free image tools that run in your browser.</p>
-      <p class="mt-1 text-sm font-medium text-pond-600">
-        No upload and no signup: your files never leave your device.
-      </p>
+<AppShell
+  title="iDuckImg: free online image tools"
+  description="Compress, resize, crop, convert and clean images free in your browser. No upload, no signup. Your files never leave your device."
+>
+  <section class="text-center">
+    <DuckMark size={96} class="mx-auto" />
+    <h1 class="display mt-4 text-4xl min-[420px]:text-5xl sm:text-6xl">Images, <span class="mark">sorted</span>.</h1>
+    <p class="mx-auto mt-4 max-w-xl text-lg text-muted">
+      {TOOLS.length} free tools to shrink, resize, crop, convert and clean your images. No sign-up, no
+      watermark, and everything runs in your browser tab.
+    </p>
+    <div class="mt-4 flex flex-wrap justify-center gap-2">
+      <span class="pill pill-ok">Runs in your browser</span>
+      <span class="pill">No sign-up</span>
+      <span class="pill">No watermark</span>
+    </div>
 
-      <section class="mt-8" aria-label="Tools">
-        <h2 class="sr-only">All tools</h2>
-        <ul class="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-          {
-            TOOLS.map((tool) => (
-              <li>
-                <a
-                  href={toolPath(tool.slug)}
-                  class="block h-full rounded-2xl bg-white p-5 shadow-sm transition-shadow hover:shadow-md focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-pond-600"
-                >
-                  <span class="block text-lg font-semibold">{tool.name}</span>
-                  <span class="mt-1 block text-sm text-pond-900/80">{tool.summary}</span>
+    <div class="mx-auto mt-6 max-w-xl text-left">
+      <label class="sr-only" for="hero-search">Find a tool</label>
+      <input
+        id="hero-search"
+        type="search"
+        class="input card py-3 text-lg"
+        placeholder="What do you want to do?"
+        autocomplete="off"
+      />
+    </div>
+  </section>
+
+  <section class="mt-10" aria-label="Tools">
+    <h2 class="sr-only">All tools</h2>
+    {
+      TOOL_GROUPS.map((group) => (
+        <div class="mt-8 first:mt-0" data-card-group>
+          <h3 class="text-2xl font-black tracking-tight">{group}</h3>
+          <ul class="mt-3 grid gap-4 sm:grid-cols-2">
+            {toolsInGroup(group).map((tool) => (
+              <li data-card data-slug={tool.slug}>
+                <a href={toolPath(tool.slug)} class="card card-link h-full p-4">
+                  <span class="flex items-center gap-3 text-lg font-black">
+                    <span aria-hidden="true" class="text-2xl">
+                      {tool.emoji}
+                    </span>
+                    {tool.name}
+                  </span>
+                  <span class="mt-1 block text-sm text-muted">{tool.summary}</span>
                 </a>
               </li>
-            ))
-          }
-        </ul>
-      </section>
-    </main>
-  </body>
-</html>
+            ))}
+          </ul>
+        </div>
+      ))
+    }
+    <p id="hero-no-match" hidden class="mt-6 text-center text-muted">
+      No tool matches that. Try "pdf", "heic" or "resize".
+    </p>
+  </section>
+
+  <section class="mt-14" aria-label="Why iDuckImg">
+    <ul class="grid gap-4 sm:grid-cols-3">
+      {
+        why.map((item) => (
+          <li class="card p-4">
+            <span aria-hidden="true" class="text-2xl">
+              {item.emoji}
+            </span>
+            <h3 class="mt-2 text-lg font-black">{item.title}</h3>
+            <p class="mt-1 text-sm text-muted">{item.text}</p>
+          </li>
+        ))
+      }
+    </ul>
+  </section>
+
+  <section class="mt-14" aria-label="Common questions">
+    <h2 class="text-3xl font-black tracking-tight">Common questions</h2>
+    <div class="mt-4 grid gap-3">
+      {
+        faqs.map((f) => (
+          <details class="card px-4 py-3">
+            <summary class="cursor-pointer text-lg font-black">{f.q}</summary>
+            <p class="mt-2 leading-relaxed">{f.a}</p>
+          </details>
+        ))
+      }
+    </div>
+  </section>
+
+  <script type="application/ld+json" set:html={faqJsonLd} />
+
+  <script>
+    import { searchTools } from '../lib/tools';
+
+    const input = document.getElementById('hero-search') as HTMLInputElement | null;
+    const noMatch = document.getElementById('hero-no-match');
+    input?.addEventListener('input', () => {
+      const slugs = new Set(searchTools(input.value).map((t) => t.slug));
+      let visible = 0;
+      document.querySelectorAll<HTMLElement>('[data-card]').forEach((card) => {
+        const show = slugs.has(card.dataset['slug'] ?? '');
+        card.hidden = !show;
+        if (show) visible++;
+      });
+      document.querySelectorAll<HTMLElement>('[data-card-group]').forEach((g) => {
+        g.hidden = g.querySelectorAll('[data-card]:not([hidden])').length === 0;
+      });
+      if (noMatch) noMatch.hidden = visible > 0;
+    });
+  </script>
+</AppShell>

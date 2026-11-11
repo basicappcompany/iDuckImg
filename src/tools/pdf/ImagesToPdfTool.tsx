@@ -9,7 +9,7 @@ import { moveItem, removeAt } from '../../lib/list';
 import { imagesToPdfTool, type ImagesToPdfOptions } from './tool';
 
 const smallButton =
-  'rounded-lg border border-pond-600 px-3 py-1 text-sm font-semibold text-pond-600 hover:bg-duck-400/20 disabled:opacity-40 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-pond-600';
+  'btn btn-sm';
 
 export default function ImagesToPdfTool() {
   const [files, setFiles] = useState<File[]>([]);
@@ -32,24 +32,24 @@ export default function ImagesToPdfTool() {
 
       {files.length > 0 && (
         <>
-          <section aria-label="Pages" class="rounded-2xl bg-white p-5 shadow-sm">
+          <section aria-label="Pages" class="card p-5">
             <div class="mb-2 flex items-center justify-between">
               <p class="font-semibold">
                 {files.length} {files.length === 1 ? 'page' : 'pages'} ({formatBytes(totalBytes)})
               </p>
               <button
                 type="button"
-                class="text-sm font-medium text-pond-600 underline"
+                class="link text-sm"
                 disabled={running}
                 onClick={() => update([])}
               >
                 Clear
               </button>
             </div>
-            <ol class="divide-y divide-pond-600/10">
+            <ol class="divide-y divide-line/20">
               {files.map((file, i) => (
                 <li key={`${file.name}-${file.size}-${i}`} class="flex items-center gap-3 py-2">
-                  <span class="w-6 text-sm text-pond-900/70">{i + 1}</span>
+                  <span class="w-6 text-sm text-muted">{i + 1}</span>
                   <img src={thumbs[i] ?? ''} alt="" class="h-12 w-12 rounded object-cover" />
                   <span class="min-w-0 flex-1 truncate text-sm" title={file.name}>
                     {file.name}
@@ -90,7 +90,7 @@ export default function ImagesToPdfTool() {
             <Field id="pdfPage" label="Page size">
               <select
                 id="pdfPage"
-                class="w-full rounded-lg border border-pond-600/40 bg-white p-2"
+                class="input w-full"
                 value={options.pdfPage}
                 disabled={running}
                 onChange={(e) => {
@@ -109,7 +109,7 @@ export default function ImagesToPdfTool() {
               type="button"
               disabled={running}
               onClick={() => runner.run(files, options)}
-              class="rounded-lg bg-pond-600 px-6 py-3 font-semibold text-white hover:bg-pond-900 disabled:opacity-60"
+              class="btn btn-primary btn-lg"
             >
               {running ? 'Creating PDF...' : 'Create PDF'}
             </button>
@@ -117,7 +117,7 @@ export default function ImagesToPdfTool() {
               <button
                 type="button"
                 onClick={runner.cancel}
-                class="rounded-lg border border-pond-600 px-6 py-3 font-semibold text-pond-600"
+                class="btn btn-lg"
               >
                 Cancel
               </button>
