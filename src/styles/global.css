@@ -1,9 +1,437 @@
 @import 'tailwindcss';
 
-@theme {
-  --color-duck-50: #fffbeb;
-  --color-duck-400: #fbbf24;
-  --color-duck-500: #f59e0b;
-  --color-pond-600: #1d4ed8;
-  --color-pond-900: #172554;
+/*
+ * Colours are CSS variables so light and dark share one set of rules. The values are repeated in
+ * src/lib/theme.ts (the source of truth); tests/unit/theme.test.ts fails if they drift apart.
+ * Dark applies from the system setting unless the visitor chose light, or from an explicit choice.
+ */
+:root {
+  --d-bg: #fffdf5;
+  --d-card: #ffffff;
+  --d-ink: #17160f;
+  --d-muted: #6b685b;
+  --d-line: #17160f;
+  --d-soft: #f3efe0;
+  --d-duck: #ffd23f;
+  --d-duckInk: #17160f;
+  --d-orange: #ff8a1f;
+  --d-ok: #1f9d55;
+  --d-danger: #d64545;
+  --d-dangerText: #b32323;
+  --d-shadow: #17160f;
+  color-scheme: light;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --d-bg: #121212;
+    --d-card: #1c1c1e;
+    --d-ink: #f5f5f5;
+    --d-muted: #a1a1a6;
+    --d-line: #f5f5f5;
+    --d-soft: #26262a;
+    --d-duck: #ffd23f;
+    --d-duckInk: #17160f;
+    --d-orange: #ff8a1f;
+    --d-ok: #4cd98a;
+    --d-danger: #ff6b6b;
+    --d-dangerText: #ff6b6b;
+    --d-shadow: #000000;
+    color-scheme: dark;
+  }
+}
+
+:root[data-theme="dark"] {
+  --d-bg: #121212;
+  --d-card: #1c1c1e;
+  --d-ink: #f5f5f5;
+  --d-muted: #a1a1a6;
+  --d-line: #f5f5f5;
+  --d-soft: #26262a;
+  --d-duck: #ffd23f;
+  --d-duckInk: #17160f;
+  --d-orange: #ff8a1f;
+  --d-ok: #4cd98a;
+  --d-danger: #ff6b6b;
+  --d-dangerText: #ff6b6b;
+  --d-shadow: #000000;
+  color-scheme: dark;
+}
+
+@theme inline {
+  --color-page: var(--d-bg);
+  --color-card: var(--d-card);
+  --color-ink: var(--d-ink);
+  --color-muted: var(--d-muted);
+  --color-line: var(--d-line);
+  --color-soft: var(--d-soft);
+  --color-duck: var(--d-duck);
+  --color-duckink: var(--d-duckInk);
+  --color-orange: var(--d-orange);
+  --color-ok: var(--d-ok);
+  --color-danger: var(--d-dangerText);
+  --font-sans: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+}
+
+html {
+  background: var(--d-bg);
+  scroll-behavior: smooth;
+}
+
+body {
+  background: var(--d-bg);
+  color: var(--d-ink);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  *,
+  *::before,
+  *::after {
+    transition-duration: 0.01ms !important;
+    animation-duration: 0.01ms !important;
+  }
+}
+
+/* A strong, always-visible keyboard focus ring in both themes. */
+:focus-visible {
+  outline: 3px solid var(--d-orange);
+  outline-offset: 2px;
+}
+
+@layer components {
+  /* ---- surfaces ---- */
+  .card {
+    background: var(--d-card);
+    border: 2px solid var(--d-line);
+    border-radius: 14px;
+    box-shadow: 3px 3px 0 0 var(--d-shadow);
+  }
+  .card-flat {
+    background: var(--d-card);
+    border: 2px solid var(--d-line);
+    border-radius: 14px;
+  }
+  .card-link {
+    display: block;
+    transition: transform 0.08s ease, box-shadow 0.08s ease;
+  }
+  .card-link:hover {
+    transform: translate(-1px, -1px);
+    box-shadow: 4px 4px 0 0 var(--d-shadow);
+  }
+  .card-link:active {
+    transform: translate(2px, 2px);
+    box-shadow: 1px 1px 0 0 var(--d-shadow);
+  }
+
+  /* ---- buttons ---- */
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    background: var(--d-card);
+    color: var(--d-ink);
+    border: 2px solid var(--d-line);
+    border-radius: 12px;
+    padding: 0.5rem 0.9rem;
+    font-weight: 800;
+    font-size: 0.9rem;
+    line-height: 1.2;
+    box-shadow: 3px 3px 0 0 var(--d-shadow);
+    cursor: pointer;
+    text-decoration: none;
+    transition: transform 0.08s ease, box-shadow 0.08s ease;
+  }
+  .btn:hover:not(:disabled) {
+    transform: translate(-1px, -1px);
+    box-shadow: 4px 4px 0 0 var(--d-shadow);
+  }
+  .btn:active:not(:disabled) {
+    transform: translate(2px, 2px);
+    box-shadow: 1px 1px 0 0 var(--d-shadow);
+  }
+  .btn:disabled {
+    opacity: 0.55;
+    cursor: not-allowed;
+    box-shadow: none;
+  }
+  .btn-primary {
+    background: var(--d-duck);
+    color: var(--d-duckInk);
+  }
+  .btn-ink {
+    background: var(--d-ink);
+    color: var(--d-bg);
+  }
+  .btn-sm {
+    padding: 0.3rem 0.65rem;
+    font-size: 0.8rem;
+    border-radius: 10px;
+    box-shadow: 2px 2px 0 0 var(--d-shadow);
+  }
+  .btn-lg {
+    padding: 0.7rem 1.4rem;
+    font-size: 1rem;
+  }
+
+  /* ---- form controls ---- */
+  .input {
+    width: 100%;
+    background: var(--d-card);
+    color: var(--d-ink);
+    border: 2px solid var(--d-line);
+    border-radius: 10px;
+    padding: 0.5rem 0.65rem;
+    font-size: 1rem;
+  }
+  .input::placeholder {
+    color: var(--d-muted);
+  }
+  .input:disabled {
+    opacity: 0.55;
+  }
+  input[type='range'] {
+    accent-color: var(--d-orange);
+    width: 100%;
+  }
+  input[type='checkbox'] {
+    accent-color: var(--d-orange);
+    width: 1.1rem;
+    height: 1.1rem;
+  }
+
+  /* ---- text ---- */
+  .link {
+    color: var(--d-ink);
+    font-weight: 700;
+    text-decoration: underline;
+    text-decoration-color: var(--d-orange);
+    text-decoration-thickness: 2px;
+    text-underline-offset: 3px;
+  }
+  .link:hover {
+    background: var(--d-duck);
+    color: var(--d-duckInk);
+  }
+  .display {
+    font-weight: 900;
+    letter-spacing: -0.03em;
+    line-height: 1.12;
+  }
+  /* A highlighted word. inline-block keeps its box from overlapping the line above when it wraps. */
+  .mark {
+    display: inline-block;
+    background: var(--d-duck);
+    color: var(--d-duckInk);
+    border-radius: 8px;
+    padding: 0 0.22em;
+    line-height: 1.12;
+  }
+  .pill {
+    display: inline-block;
+    border: 2px solid var(--d-line);
+    border-radius: 999px;
+    padding: 0.1rem 0.6rem;
+    font-size: 0.68rem;
+    font-weight: 900;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    color: var(--d-ink);
+  }
+  .pill-ok {
+    background: var(--d-ok);
+    color: var(--d-duckInk);
+  }
+  .eyebrow {
+    font-size: 0.7rem;
+    font-weight: 900;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--d-muted);
+  }
+
+  /* ---- upload area ---- */
+  .dropzone {
+    background: var(--d-card);
+    border: 3px dashed var(--d-line);
+    border-radius: 18px;
+    padding: 2rem 1rem;
+    text-align: center;
+    transition: background 0.1s ease;
+  }
+  .dropzone[data-dragging='true'] {
+    background: var(--d-soft);
+    border-style: solid;
+  }
+
+  /* ---- progress ---- */
+  .meter {
+    height: 0.9rem;
+    border: 2px solid var(--d-line);
+    border-radius: 999px;
+    background: var(--d-card);
+    overflow: hidden;
+  }
+  .meter > div {
+    height: 100%;
+    background: var(--d-duck);
+    border-right: 2px solid var(--d-line);
+  }
+
+  /* ---- page chrome ---- */
+  .shell {
+    min-height: 100vh;
+  }
+  .sidebar {
+    background: var(--d-bg);
+    border-right: 2px solid var(--d-line);
+  }
+  .nav-item {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    border-radius: 12px;
+    padding: 0.45rem 0.7rem;
+    font-weight: 800;
+    font-size: 0.95rem;
+    color: var(--d-ink);
+    text-decoration: none;
+  }
+  .nav-item:hover {
+    background: var(--d-soft);
+  }
+  .nav-item[aria-current='page'] {
+    background: var(--d-duck);
+    color: var(--d-duckInk);
+  }
+  .topbar {
+    background: var(--d-bg);
+    border-bottom: 2px solid var(--d-line);
+  }
+
+  /* ---- written guides on each tool page ---- */
+  .prose h2 {
+    font-size: 1.5rem;
+    font-weight: 900;
+    letter-spacing: -0.02em;
+    line-height: 1.2;
+    margin-top: 2rem;
+  }
+  .prose h2:first-child {
+    margin-top: 0;
+  }
+  .prose p,
+  .prose li {
+    color: var(--d-ink);
+    line-height: 1.6;
+  }
+  .prose a {
+    font-weight: 700;
+    text-decoration: underline;
+    text-decoration-color: var(--d-orange);
+    text-decoration-thickness: 2px;
+    text-underline-offset: 3px;
+    color: var(--d-ink);
+  }
+  .prose a:hover {
+    background: var(--d-duck);
+    color: var(--d-duckInk);
+  }
+  /* Numbered lists become a row of "Step n" cards. */
+  .prose ol {
+    list-style: none;
+    padding: 0;
+    margin-top: 0.75rem;
+    display: grid;
+    gap: 0.75rem;
+    grid-template-columns: repeat(auto-fit, minmax(14rem, 1fr));
+    counter-reset: step;
+  }
+  .prose ol > li {
+    counter-increment: step;
+    background: var(--d-card);
+    border: 2px solid var(--d-line);
+    border-radius: 14px;
+    box-shadow: 3px 3px 0 0 var(--d-shadow);
+    padding: 0.9rem 1rem;
+  }
+  .prose ol > li::before {
+    content: 'Step ' counter(step);
+    display: block;
+    margin-bottom: 0.25rem;
+    font-size: 0.7rem;
+    font-weight: 900;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--d-muted);
+  }
+}
+
+/* Sidebar drawer on small screens. */
+@media (max-width: 899px) {
+  .sidebar {
+    position: fixed;
+    inset: 0 auto 0 0;
+    z-index: 40;
+    width: min(20rem, 86vw);
+    transform: translateX(-105%);
+    transition: transform 0.18s ease;
+    overflow-y: auto;
+  }
+  body[data-menu='open'] .sidebar {
+    transform: none;
+    box-shadow: 8px 0 0 0 var(--d-shadow);
+  }
+  .scrim {
+    display: none;
+  }
+  body[data-menu='open'] .scrim {
+    display: block;
+    position: fixed;
+    inset: 0;
+    z-index: 30;
+    background: rgb(0 0 0 / 0.45);
+  }
+}
+
+@media (min-width: 900px) {
+  .shell {
+    display: grid;
+    grid-template-columns: 17.5rem minmax(0, 1fr);
+  }
+  .sidebar {
+    position: sticky;
+    top: 0;
+    height: 100vh;
+    overflow-y: auto;
+  }
+  .scrim,
+  [data-menu-button] {
+    display: none !important;
+  }
+}
+
+/* The sun shows in dark mode and the moon in light mode. */
+[data-theme-icon='sun'] {
+  display: none;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme='light']) [data-theme-icon='moon'] {
+    display: none;
+  }
+  :root:not([data-theme='light']) [data-theme-icon='sun'] {
+    display: inline;
+  }
+}
+:root[data-theme='dark'] [data-theme-icon='moon'] {
+  display: none;
+}
+:root[data-theme='dark'] [data-theme-icon='sun'] {
+  display: inline;
 }

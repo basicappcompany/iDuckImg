@@ -17,7 +17,7 @@ import {
 } from './options';
 
 const buttonClass =
-  'rounded-lg border border-pond-600 px-4 py-2 font-semibold text-pond-600 hover:bg-duck-400/20 disabled:opacity-60 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-pond-600';
+  'btn btn-sm';
 
 export default function RotateTool() {
   const [files, setFiles] = useState<File[]>([]);
@@ -54,7 +54,7 @@ export default function RotateTool() {
             {files.length} {files.length === 1 ? 'image' : 'images'} selected.{' '}
             <button
               type="button"
-              class="font-medium text-pond-600 underline"
+              class="link"
               disabled={running}
               onClick={() => {
                 runner.reset();
@@ -68,7 +68,7 @@ export default function RotateTool() {
 
           {previewUrl && (
             <div
-              class="mx-auto flex h-64 w-64 items-center justify-center overflow-hidden rounded-2xl bg-white shadow-sm"
+              class="card mx-auto flex h-64 w-64 items-center justify-center overflow-hidden"
               aria-label="Preview of the first image"
             >
               <img
@@ -103,7 +103,7 @@ export default function RotateTool() {
                 Reset
               </button>
             </div>
-            <p class="text-xs text-pond-900/70">
+            <p class="text-xs text-muted">
               The preview shows the first image. The same change is applied to every image. JPG and WebP are
               saved again at high quality, so the file size can change slightly.
             </p>
@@ -114,7 +114,7 @@ export default function RotateTool() {
               type="button"
               disabled={running || isIdentity(options)}
               onClick={() => runner.run(files, options)}
-              class="rounded-lg bg-pond-600 px-6 py-3 font-semibold text-white hover:bg-pond-900 disabled:opacity-60"
+              class="btn btn-primary btn-lg"
             >
               {running ? 'Working...' : 'Apply'}
             </button>
@@ -122,7 +122,7 @@ export default function RotateTool() {
               <button
                 type="button"
                 onClick={runner.cancel}
-                class="rounded-lg border border-pond-600 px-6 py-3 font-semibold text-pond-600"
+                class="btn btn-lg"
               >
                 Cancel
               </button>

@@ -9,9 +9,9 @@ import ImagesToPdfTool from '../tools/pdf/ImagesToPdfTool';
   heading="Combine images into one PDF"
 >
   <ImagesToPdfTool client:load />
-  <section slot="content" class="prose mt-10">
-    <h2 class="text-xl font-semibold">How to make a PDF from images</h2>
-    <ol class="mt-2 list-decimal pl-6">
+  <section slot="content" class="prose">
+    <h2>How to make a PDF from images</h2>
+    <ol>
       <li>Drop your JPG, PNG or WebP images. You can add more at any time.</li>
       <li>Put them in the order you want with Up and Down. Remove any you do not need.</li>
       <li>Choose A4 with margins, or pages that match each image, then press Create PDF.</li>
@@ -19,7 +19,7 @@ import ImagesToPdfTool from '../tools/pdf/ImagesToPdfTool';
     <p class="mt-3 text-sm">
       Each image becomes one page. Your images are combined in your browser and never uploaded. Need a
       separate PDF for every image instead? Use the
-      <a class="text-pond-600 underline" href="/convert-image/">image converter</a>.
+      <a class="link" href="/convert-image/">image converter</a>.
     </p>
   </section>
 </ToolLayout>

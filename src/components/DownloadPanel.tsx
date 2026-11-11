@@ -51,8 +51,8 @@ export default function DownloadPanel({ inputs, results, beforeBytes }: Props) {
   if (rows.length === 0 && failed.length === 0) return null;
 
   return (
-    <section aria-label="Results" class="rounded-2xl bg-white p-5 shadow-sm">
-      <ul class="divide-y divide-pond-600/10">
+    <section aria-label="Results" class="card p-5">
+      <ul class="divide-y-2 divide-line/20">
         {rows.map(({ result, output }, i) => {
           const before = beforeBytes ?? inputs[result.index]?.size ?? 0;
           const after = output.blob.size;
@@ -60,8 +60,8 @@ export default function DownloadPanel({ inputs, results, beforeBytes }: Props) {
           return (
             <li key={`${result.index}-${output.name}`} class="flex items-center justify-between gap-3 py-3">
               <div class="min-w-0">
-                <p class="truncate font-medium">{output.name}</p>
-                <p class="text-sm text-pond-900/70">
+                <p class="truncate font-black">{output.name}</p>
+                <p class="text-sm text-muted">
                   {formatBytes(before)} to {formatBytes(after)}
                   {before > 0 && ` (${change > 0 ? '+' : ''}${change}%)`}
                 </p>
@@ -69,7 +69,7 @@ export default function DownloadPanel({ inputs, results, beforeBytes }: Props) {
               <a
                 href={urls[i] ?? ''}
                 download={output.name}
-                class="shrink-0 rounded-lg bg-pond-600 px-4 py-2 font-semibold text-white hover:bg-pond-900 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-pond-600"
+                class="btn btn-primary shrink-0"
               >
                 Download
               </a>
@@ -78,7 +78,7 @@ export default function DownloadPanel({ inputs, results, beforeBytes }: Props) {
         })}
       </ul>
       {failed.length > 0 && (
-        <ul role="alert" class="mt-3 text-sm text-red-700">
+        <ul role="alert" class="mt-3 text-sm font-bold text-danger">
           {failed.map((r) => (
             <li key={r.index}>
               {r.fileName}: {r.error ?? 'could not be processed'}
@@ -91,7 +91,7 @@ export default function DownloadPanel({ inputs, results, beforeBytes }: Props) {
           type="button"
           onClick={downloadZip}
           disabled={zipping}
-          class="mt-4 w-full rounded-lg bg-duck-500 px-5 py-3 font-semibold text-pond-900 hover:bg-duck-400 disabled:opacity-60"
+          class="btn btn-ink btn-lg mt-4 w-full"
         >
           {zipping ? 'Preparing ZIP...' : `Download all (${rows.length}) as ZIP`}
         </button>

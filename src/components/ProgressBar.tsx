@@ -8,7 +8,7 @@ export default function ProgressBar({ value, label }: Props) {
   const percent = value === undefined ? undefined : Math.round(Math.min(1, Math.max(0, value)) * 100);
   return (
     <div>
-      <div class="mb-1 flex justify-between text-sm">
+      <div class="mb-1 flex justify-between text-sm font-bold">
         <span>{label}</span>
         {percent !== undefined && <span>{percent}%</span>}
       </div>
@@ -18,10 +18,10 @@ export default function ProgressBar({ value, label }: Props) {
         aria-valuemin={0}
         aria-valuemax={100}
         {...(percent !== undefined ? { 'aria-valuenow': percent } : {})}
-        class="h-2 overflow-hidden rounded-full bg-pond-600/15"
+        class="meter"
       >
         <div
-          class={`h-full rounded-full bg-duck-500 ${percent === undefined ? 'w-1/3 animate-pulse' : 'transition-[width]'}`}
+          class={percent === undefined ? 'w-1/3 animate-pulse' : 'transition-[width]'}
           style={percent === undefined ? undefined : { width: `${percent}%` }}
         />
       </div>
