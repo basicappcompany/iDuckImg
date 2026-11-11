@@ -52,9 +52,17 @@ export async function makeImage(
 }
 
 /** Give files to the tool through its real file input, as a user choosing files would. */
-export async function addFiles(page: Page, images: TestImage[]): Promise<void> {
+export async function addFiles(
+  page: Page,
+  images: TestImage[],
+  /** Text that appears once the tool has accepted the files. Differs for tools that list pages. */
+  ready: RegExp = /\d+ images? selected/,
+): Promise<void> {
+  // Astro hydrates the tool after the HTML loads. Files given before that are silently lost
+  // because nothing is listening yet, so wait until no island is still waiting to hydrate.
+  await page.waitForFunction(() => document.querySelector('astro-island[ssr]') === null);
   await page.getByLabel('Choose files').setInputFiles(images);
-  await expect(page.getByText(/\d+ images? selected/)).toBeVisible();
+  await expect(page.getByText(ready).first()).toBeVisible();
 }
 
 export interface Downloaded {

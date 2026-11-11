@@ -6,6 +6,8 @@ interface Props {
   /** Original files, same order the batch was submitted in. */
   inputs: readonly File[];
   results: readonly FileResult[];
+  /** Size to compare each output against. Set it for combined tools, where one output comes from many inputs. */
+  beforeBytes?: number;
 }
 
 function useObjectUrls(blobs: readonly Blob[]): string[] {
@@ -15,7 +17,7 @@ function useObjectUrls(blobs: readonly Blob[]): string[] {
 }
 
 /** Per-file download with before/after sizes, plus one ZIP for batches. */
-export default function DownloadPanel({ inputs, results }: Props) {
+export default function DownloadPanel({ inputs, results, beforeBytes }: Props) {
   const rows = useMemo(
     () =>
       results.flatMap((r) =>
@@ -52,7 +54,7 @@ export default function DownloadPanel({ inputs, results }: Props) {
     <section aria-label="Results" class="rounded-2xl bg-white p-5 shadow-sm">
       <ul class="divide-y divide-pond-600/10">
         {rows.map(({ result, output }, i) => {
-          const before = inputs[result.index]?.size ?? 0;
+          const before = beforeBytes ?? inputs[result.index]?.size ?? 0;
           const after = output.blob.size;
           const change = percentChange(before, after);
           return (

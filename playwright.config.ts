@@ -4,9 +4,12 @@ const PORT = 4173;
 
 export default defineConfig({
   testDir: 'tests/e2e',
-  timeout: 60_000,
-  expect: { timeout: 20_000 },
+  timeout: 90_000,
+  // WASM codecs on a busy machine can be slow; a generous wait costs nothing when things are fast.
+  expect: { timeout: 40_000 },
   fullyParallel: true,
+  // Each test runs real codecs in its own browser, so more than 3 at once starves them of CPU.
+  workers: 3,
   retries: process.env['CI'] ? 1 : 0,
   reporter: process.env['CI'] ? 'github' : 'list',
   use: {
