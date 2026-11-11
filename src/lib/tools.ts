@@ -16,6 +16,7 @@ export const TOOLS: readonly ToolLink[] = [
   { slug: 'convert-image', name: 'Convert images', summary: 'Open iPhone HEIC photos, switch between JPG, PNG and WebP, or make a PDF.' },
   { slug: 'images-to-pdf', name: 'Combine images into PDF', summary: 'Put several images in one PDF and choose the page order.' },
   { slug: 'rotate-image', name: 'Rotate and flip', summary: 'Turn an image 90, 180 or 270 degrees, or mirror it.' },
+  { slug: 'exam-photo-resizer', name: 'Exam photo and signature resizer', summary: 'Exact pixels and KB for exam forms, with requirements and sources.' },
   { slug: 'remove-exif-data', name: 'Remove EXIF data', summary: 'Strip location, camera and date details before you share a photo.' },
 ];
 
