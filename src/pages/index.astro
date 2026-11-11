@@ -1,7 +1,11 @@
 ---
 import '../styles/global.css';
+import { TOOLS, toolPath } from '../lib/tools';
+
+const canonical = new URL('/', Astro.site).href;
 ---
 
+<!doctype html>
 <html lang="en">
   <head>
     <meta charset="utf-8" />
@@ -9,13 +13,36 @@ import '../styles/global.css';
     <title>iDuckImg: free online image tools</title>
     <meta
       name="description"
-      content="Compress, resize, crop and convert images free in your browser. Your files never leave your device."
+      content="Compress, resize, convert and clean images free in your browser. No upload, no signup. Your files never leave your device."
     />
+    <link rel="canonical" href={canonical} />
   </head>
   <body class="bg-duck-50 text-pond-900">
-    <main class="mx-auto max-w-3xl p-6">
-      <h1 class="text-3xl font-bold">iDuckImg</h1>
-      <p>Free image tools, coming soon.</p>
+    <main class="mx-auto max-w-4xl px-4 py-10">
+      <h1 class="text-4xl font-bold">iDuckImg</h1>
+      <p class="mt-2 text-lg">Free image tools that run in your browser.</p>
+      <p class="mt-1 text-sm font-medium text-pond-600">
+        No upload and no signup: your files never leave your device.
+      </p>
+
+      <section class="mt-8" aria-label="Tools">
+        <h2 class="sr-only">All tools</h2>
+        <ul class="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+          {
+            TOOLS.map((tool) => (
+              <li>
+                <a
+                  href={toolPath(tool.slug)}
+                  class="block h-full rounded-2xl bg-white p-5 shadow-sm transition-shadow hover:shadow-md focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-pond-600"
+                >
+                  <span class="block text-lg font-semibold">{tool.name}</span>
+                  <span class="mt-1 block text-sm text-pond-900/80">{tool.summary}</span>
+                </a>
+              </li>
+            ))
+          }
+        </ul>
+      </section>
     </main>
   </body>
 </html>
