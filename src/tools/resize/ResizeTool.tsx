@@ -7,7 +7,7 @@ import { useToolRunner } from '../../engine/useToolRunner';
 import { resizeTool } from './tool';
 import type { ResizeOptions } from './options';
 
-const inputClass = 'rounded-lg border border-pond-600/40 bg-white p-2 w-full';
+const inputClass = 'input w-full';
 
 function toNumber(value: string): number | null {
   if (value.trim() === '') return null;
@@ -46,7 +46,7 @@ export default function ResizeTool() {
             {files.length} {files.length === 1 ? 'image' : 'images'} selected.{' '}
             <button
               type="button"
-              class="font-medium text-pond-600 underline"
+              class="link"
               disabled={running}
               onClick={() => {
                 runner.reset();
@@ -159,7 +159,7 @@ export default function ResizeTool() {
               </select>
             </Field>
             {pngWithTarget && (
-              <p role="alert" class="text-sm text-red-700">
+              <p role="alert" class="text-sm text-danger font-bold">
                 PNG is lossless, so a target size cannot be met. Choose JPG or WebP, or clear the target.
               </p>
             )}
@@ -187,7 +187,7 @@ export default function ResizeTool() {
               type="button"
               disabled={running || pngWithTarget}
               onClick={() => runner.run(files, options)}
-              class="rounded-lg bg-pond-600 px-6 py-3 font-semibold text-white hover:bg-pond-900 disabled:opacity-60"
+              class="btn btn-primary btn-lg"
             >
               {running ? 'Resizing...' : 'Resize'}
             </button>
@@ -195,7 +195,7 @@ export default function ResizeTool() {
               <button
                 type="button"
                 onClick={runner.cancel}
-                class="rounded-lg border border-pond-600 px-6 py-3 font-semibold text-pond-600"
+                class="btn btn-lg"
               >
                 Cancel
               </button>

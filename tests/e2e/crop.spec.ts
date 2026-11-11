@@ -55,6 +55,10 @@ async function colourAt(page: Page, x: number, y: number): Promise<string> {
 }
 
 test.describe('crop', () => {
+  // Playwright's mouse works in viewport coordinates, so the crop area (below the page header and
+  // the quick answer) must be on screen. A tall viewport keeps all of it visible.
+  test.use({ viewport: { width: 1280, height: 1500 } });
+
   test('starts with a box over the middle of the picture', async ({ page }) => {
     await open(page, await quadrants(page));
     expect(await read(page)).toEqual({ x: 40, y: 20, width: 320, height: 160 });

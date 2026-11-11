@@ -8,7 +8,7 @@ import { EXAMS, describeRequirements, type FitMode } from '../../lib/exam-preset
 import { examTool } from './tool';
 import { checkOptions, presetOptions, type ExamOptions } from './options';
 
-const inputClass = 'rounded-lg border border-pond-600/40 bg-white p-2 w-full';
+const inputClass = 'input w-full';
 const CUSTOM = 'custom';
 
 function toNumber(value: string): number | null {
@@ -109,7 +109,7 @@ export default function ExamTool() {
       </OptionsPanel>
 
       {exam && doc && (
-        <section aria-label="Requirements" class="rounded-2xl bg-white p-5 text-sm shadow-sm">
+        <section aria-label="Requirements" class="card p-5 text-sm">
           <p class="font-semibold">
             {exam.name}: {doc.name}
           </p>
@@ -121,9 +121,9 @@ export default function ExamTool() {
               <li key={n}>{n}</li>
             ))}
           </ul>
-          <p class="mt-3 text-pond-900/80">
+          <p class="mt-3 text-muted">
             Copied from{' '}
-            <a class="text-pond-600 underline" href={exam.source.url} rel="noopener noreferrer" target="_blank">
+            <a class="link" href={exam.source.url} rel="noopener noreferrer" target="_blank">
               {exam.source.title}
             </a>
             , {exam.source.location}. Exam round: {exam.cycle}. We read it on {exam.source.retrieved}.
@@ -196,7 +196,7 @@ export default function ExamTool() {
             </select>
           </Field>
           {problems.length > 0 && (
-            <p role="alert" class="text-sm text-red-700">
+            <p role="alert" class="text-sm text-danger font-bold">
               {problems[0]}
             </p>
           )}
@@ -215,7 +215,7 @@ export default function ExamTool() {
             {files.length} {files.length === 1 ? 'image' : 'images'} selected.{' '}
             <button
               type="button"
-              class="font-medium text-pond-600 underline"
+              class="link"
               disabled={running}
               onClick={() => choose(() => setFiles([]))}
             >
@@ -227,7 +227,7 @@ export default function ExamTool() {
               type="button"
               disabled={running || problems.length > 0}
               onClick={() => runner.run(files, options)}
-              class="rounded-lg bg-pond-600 px-6 py-3 font-semibold text-white hover:bg-pond-900 disabled:opacity-60"
+              class="btn btn-primary btn-lg"
             >
               {running ? 'Working...' : 'Make my file'}
             </button>
@@ -235,7 +235,7 @@ export default function ExamTool() {
               <button
                 type="button"
                 onClick={runner.cancel}
-                class="rounded-lg border border-pond-600 px-6 py-3 font-semibold text-pond-600"
+                class="btn btn-lg"
               >
                 Cancel
               </button>

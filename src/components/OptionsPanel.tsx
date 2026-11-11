@@ -8,8 +8,8 @@ interface PanelProps {
 /** Groups a tool's controls. Children are usually <Field>s. */
 export function OptionsPanel({ title = 'Options', children }: PanelProps) {
   return (
-    <fieldset class="rounded-2xl bg-white p-5 shadow-sm">
-      <legend class="px-2 font-semibold">{title}</legend>
+    <fieldset class="card p-5">
+      <legend class="rounded-md bg-duck px-2 text-sm font-black text-duckink">{title}</legend>
       <div class="grid gap-4">{children}</div>
     </fieldset>
   );
@@ -26,11 +26,11 @@ interface FieldProps {
 export function Field({ id, label, hint, children }: FieldProps) {
   return (
     <div class="grid gap-1">
-      <label for={id} class="text-sm font-medium">
+      <label for={id} class="text-sm font-bold">
         {label}
       </label>
       {children}
-      {hint && <p class="text-xs text-pond-900/70">{hint}</p>}
+      {hint && <p class="text-xs text-muted">{hint}</p>}
     </div>
   );
 }

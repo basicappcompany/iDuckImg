@@ -7,7 +7,7 @@ import { useToolRunner } from '../../engine/useToolRunner';
 import { convertTool } from './tool';
 import { losesTransparency, type ConvertOptions } from './options';
 
-const inputClass = 'rounded-lg border border-pond-600/40 bg-white p-2 w-full';
+const inputClass = 'input w-full';
 
 export default function ConvertTool() {
   const [files, setFiles] = useState<File[]>([]);
@@ -40,7 +40,7 @@ export default function ConvertTool() {
             {files.length} {files.length === 1 ? 'image' : 'images'} selected.{' '}
             <button
               type="button"
-              class="font-medium text-pond-600 underline"
+              class="link"
               disabled={running}
               onClick={() => {
                 runner.reset();
@@ -108,7 +108,7 @@ export default function ConvertTool() {
               type="button"
               disabled={running}
               onClick={() => runner.run(files, options)}
-              class="rounded-lg bg-pond-600 px-6 py-3 font-semibold text-white hover:bg-pond-900 disabled:opacity-60"
+              class="btn btn-primary btn-lg"
             >
               {running ? 'Converting...' : 'Convert'}
             </button>
@@ -116,7 +116,7 @@ export default function ConvertTool() {
               <button
                 type="button"
                 onClick={runner.cancel}
-                class="rounded-lg border border-pond-600 px-6 py-3 font-semibold text-pond-600"
+                class="btn btn-lg"
               >
                 Cancel
               </button>
