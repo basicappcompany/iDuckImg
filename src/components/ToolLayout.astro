@@ -1,0 +1,40 @@
+---
+import '../styles/global.css';
+import AdSlot from './AdSlot.astro';
+
+interface Props {
+  title: string;
+  description: string;
+  heading: string;
+  /** Show the "files never leave your device" message. Only for tools where it is true. */
+  clientSide?: boolean;
+}
+const { title, description, heading, clientSide = true } = Astro.props;
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+  </head>
+  <body class="bg-duck-50 text-pond-900">
+    <main class="mx-auto max-w-3xl px-4 py-8">
+      <h1 class="text-3xl font-bold">{heading}</h1>
+      {
+        clientSide && (
+          <p class="mt-2 text-sm font-medium text-pond-600">
+            Your files never leave your device.
+          </p>
+        )
+      }
+      <section class="mt-6 grid gap-5" aria-label="Tool">
+        <slot />
+      </section>
+      <AdSlot name="below-tool" width={728} height={90} />
+      <slot name="content" />
+    </main>
+  </body>
+</html>
