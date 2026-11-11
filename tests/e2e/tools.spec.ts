@@ -3,7 +3,7 @@ import { addFiles, makeImage, readResults } from './helpers';
 
 test.describe('compress', () => {
   test('shrinks JPG, PNG and WebP and offers a ZIP', async ({ page }) => {
-    await page.goto('/compress-images/');
+    await page.goto('/compress-image/');
     const images = [
       await makeImage(page, 'image/jpeg', 'a.jpg'),
       await makeImage(page, 'image/png', 'b.png'),
@@ -22,7 +22,7 @@ test.describe('compress', () => {
   });
 
   test('cancel stops a batch', async ({ page }) => {
-    await page.goto('/compress-images/');
+    await page.goto('/compress-image/');
     const images = [];
     for (let i = 0; i < 6; i++) images.push(await makeImage(page, 'image/jpeg', `big${i}.jpg`, 4000, 3000));
     await addFiles(page, images);

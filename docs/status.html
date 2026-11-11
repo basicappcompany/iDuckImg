@@ -254,7 +254,7 @@
    DATA. Edit here. States: done | progress | todo | waiting | later.  Owners: me | you | both | external | none.
    "me" = I can do it with no input. "you" = only you can. "both" = I do the mechanics, you sign in / approve / supply a secret.
    =================================================================================================================== */
-const VERIFIED = "12 Nov 2026 (pnpm verify and build pass on main: 169 unit tests, 9 pages; 71 browser tests pass, 4 HEIC tests skipped; live site checked; CI green on the last merges, PRs #14 and #16)";
+const VERIFIED = "12 Nov 2026 (pnpm verify and build pass on main: 169 unit tests; 81 browser tests pass, 4 HEIC tests skipped; live site checked after the 404, robots.txt and pages.dev noindex deploys; CI green on the last merges, PRs #17 to #19)";
 const REPO = "https://github.com/basicappcompany/iDuckImg";
 
 /* Tools. A row is "ready" only if its page exists on main and answers on https://iduckimg.com. Move a planned row to "ready" in the same PR that ships it. */
@@ -309,7 +309,7 @@ const PHASES = [
     I("3.3", "Deploy automatically when a pull request is merged to main", "done", "none", { when: "11 Nov", note: "Checked: after each merge the live site changed to match main, most recently the redesign from PR #16." }),
     I("3.4", "Point iduckimg.com at Cloudflare", "done", "none", { when: "11 Nov", note: "iduckimg.com is served through Cloudflare: every page answers HTTP 200 over https (checked 12 Nov)." }),
     I("3.5", "Attach iduckimg.com to Pages, HTTPS, www to apex 301", "done", "none", { when: "11 Nov", note: "www.iduckimg.com used to fail with a Cloudflare 522. You created a Redirect Rule from Cloudflare's template; I checked that `www.iduckimg.com/crop-image/` now answers 301 to `https://iduckimg.com/crop-image/`, keeping the path and query. The SSL mode (Full strict) and Always Use HTTPS settings were not checked." }),
-    I("3.6", "Keep the pages.dev address out of search results", "todo", "me", { prio: 2, effort: "15 min", note: "Checked 12 Nov: `iduckimg.pages.dev` answers 200 with no `X-Robots-Tag` header, so it can be indexed as a duplicate of the real site. The fix is a `_headers` rule in `public/` that applies only to the pages.dev host; I will confirm it on the live site after the deploy." }),
+    I("3.6", "Keep the pages.dev address out of search results", "done", "none", { when: "12 Nov", note: "PR #19. `public/_headers` sends `X-Robots-Tag: noindex` for `iduckimg.pages.dev` and for preview deployments. Checked on the live site: pages.dev sends the header and iduckimg.com sends none. A unit test fails if a noindex rule ever lacks an https pages.dev host, because a bare rule would remove the real site from search. Google may take weeks to drop pages.dev URLs it already knows about." }),
     I("3.7", "hello@iduckimg.com via Cloudflare Email Routing", "todo", "both", { prio: 3, effort: "10 min", note: "Receive only, forwarded to the business Gmail. Needed for the Contact page and AdSense." }),
     I("3.8", "Workflow rule: branch, PR, merge on green CI", "done", "none", { when: "11 Nov", note: "Followed for every merge, including when GitHub Actions was down: I waited for CI instead of merging on local results." }),
     I("3.9", "Security headers and a Content-Security-Policy", "later", "me", { effort: "half a day", note: "Not set yet (the live site sends no CSP or HSTS header). WASM and workers need explicit allowances, so this comes after the tools are stable." }),
@@ -324,14 +324,14 @@ const PHASES = [
     I("5.1", "Sitemap generated on every build", "done", "none", { when: "11 Nov", note: "`@astrojs/sitemap` lists the home page and all 8 tools (9 URLs). The live sitemap matches (checked 12 Nov)." }),
     I("5.2", "SEO head: unique title and description, canonical, Open Graph", "progress", "me", { prio: 2, effort: "2 h", note: "Done: a unique title and description on every page, a canonical URL (checked on the live site) and the favicon. Not done: Open Graph and Twitter tags." }),
     I("5.3", "Structured data: WebApplication, HowTo, FAQPage, BreadcrumbList", "progress", "me", { prio: 2, effort: "half a day", note: "Done: FAQPage on the home page. Not done: WebApplication and HowTo on each tool page, and BreadcrumbList." }),
-    I("5.4", "robots.txt and generated Open Graph images", "todo", "me", { prio: 1, effort: "2 h", note: "Checked 12 Nov: `/robots.txt` returns the home page as HTML with status 200, so crawlers get no rules and no sitemap pointer. Fix: add `public/robots.txt` (allow all, point to the sitemap). Open Graph images come after." }),
+    I("5.4", "robots.txt and generated Open Graph images", "progress", "me", { prio: 3, effort: "2 h", note: "Done in PR #18: `/robots.txt` is now plain text that allows crawling and points to the sitemap (checked on the live site 12 Nov; it used to return the home page). Not done: Open Graph share images." }),
     I("5.5", "Data-driven landing pages (target KB sizes, format pairs, exam presets)", "todo", "me", { prio: 3, effort: "1 day", note: "Not started. Each page must be genuinely useful, with unique explanatory copy and a working tool. A small curated set first, not hundreds of thin pages. The planned `/resize-image-to-20kb` and `/heic-to-jpg` are in the tool table as planned." }),
     I("5.6", "Internationalisation ready, hreflang; Hindi after launch", "todo", "me", { prio: 3, effort: "1 day", note: "Strings and tool copy are keyed per language from the start; Hindi needs a subsetted Devanagari font kept off the critical path." }),
     I("5.7", "Google Search Console: verify domain and submit the sitemap", "todo", "both", { prio: 2, effort: "10 min", note: "No longer blocked: the domain is live. Best done after 5.4 and 5.11 so crawlers see clean signals. The verification TXT record in Cloudflare DNS must never be deleted.", steps: ["In Search Console add the domain property iduckimg.com and give me the TXT record; I add it in Cloudflare DNS (or you do).", "Submit https://iduckimg.com/sitemap-index.xml."] }),
     I("5.8", "Bing Webmaster Tools import and IndexNow pings", "later", "both", { effort: "30 min" }),
     I("5.9", "Cloudflare Web Analytics with tool-usage events (opened, processed, downloaded)", "todo", "both", { prio: 3, effort: "30 min", note: "No file content is ever collected." }),
     I("5.10", "Backlinks and mentions: Product Hunt, AlternativeTo, free-tools lists", "later", "you", { effort: "1-2 h", note: "The main ranking driver and the one thing code cannot do. I draft the listings; you post from your accounts." }),
-    I("5.11", "A real 404 page", "todo", "me", { prio: 1, effort: "30 min", note: "Checked 12 Nov: an unknown URL such as `/this-page-does-not-exist/` returns the home page with status 200. Cloudflare Pages does that when the site has no 404 page. Search engines treat it as a soft 404, and it makes every wrong link look like a duplicate of the home page. Fix: add `src/pages/404.astro` with a link back to the tools." }),
+    I("5.11", "A real 404 page", "done", "none", { when: "12 Nov", note: "PR #18. Unknown addresses (checked: `/this-page-does-not-exist/`, `/compress-image/`, `/llms.txt`) now return status 404 with a page that links to every tool. It carries a noindex tag and no canonical, and the sitemap does not list it. Before this, Cloudflare Pages returned the home page with status 200, a soft 404." }),
     I("5.12", "Measure Lighthouse (mobile) on the live pages", "todo", "me", { prio: 3, effort: "1 h", note: "Not measured yet. Target is 95 or more. The HEIC and PDF code load lazily, so the first load should stay small; the measurement will confirm it." }),
   ]},
   { num: 6, name: "Monetization", summary: "Ads on the free tools first, then Pro and paid AI credits. Nothing here switches on before the site has real content and legal pages.", items: [
@@ -381,6 +381,8 @@ const TIMELINE = [
   ["11 Nov 2026", "GitHub Actions outage", "CI runs sat queued for about an hour. I waited, replaced the stuck run with an empty commit, and merged only after CI passed."],
   ["11 Nov 2026", "Crop and the iDuckPDF redesign (PRs #14 and #16)", "Crop with a draggable box and ratios. The whole site was restyled to match iDuckPDF, with a sidebar, search and a light and dark theme."],
   ["12 Nov 2026", "Docs sync", "Numbers re-measured. Found that unknown URLs and /robots.txt return the home page with status 200 (items 5.4 and 5.11) and that pages.dev is not blocked from indexing (3.6)."],
+  ["12 Nov 2026", "pages.dev kept out of search (PR #19)", "A noindex header for the pages.dev addresses, checked first on the pull request's own preview deployment and then in production: pages.dev sends it, iduckimg.com does not."],
+  ["12 Nov 2026", "Real 404 page and robots.txt (PR #18)", "Fixed the soft 404 and the missing robots.txt, then checked both on the live site after the deploy: unknown addresses return 404, robots.txt is plain text with the sitemap line, real pages and the sitemap still return 200."],
 ];
 
 const SCORECARD = [
@@ -389,7 +391,7 @@ const SCORECARD = [
   { k: "CI time", v: "~2.5 min", d: "Install, type-check, lint, unit tests, build and browser tests on every pull request. The last two main runs took 2m 9s and 2m 34s." },
   { k: "Tools", v: "8 built of 10 planned", d: "All 8 Milestone 1 tools are live. The other 2 are keyword landing pages (resize to 20 KB, HEIC to JPG) that are not built." },
   { k: "Lighthouse, mobile", v: "Not measured", d: "Target is 95 or more. See item 5.12." },
-  { k: "Pages", v: "9", d: "The home page and 8 tools, all live with HTTP 200 and in the sitemap. Unknown URLs also return 200, a soft 404 (item 5.11)." },
+  { k: "Pages", v: "10", d: "The home page and 8 tools, all live with HTTP 200 and in the sitemap (9 URLs), plus a 404 page that is not in the sitemap and is marked noindex. Unknown addresses return a real 404." },
   { k: "Dependencies", v: "Exact pins", d: "Every package is pinned; lockfile committed; installs use --frozen-lockfile in CI. Two installed packages are unused (item 1.12)." },
 ];
 

@@ -15,7 +15,7 @@ const handle = new WorkerHandle<PdfWorkerApi>(
 );
 
 export const imagesToPdfTool: CombinedToolDefinition<ImagesToPdfOptions> = {
-  id: 'images-to-pdf',
+  id: 'image-to-pdf',
   accepts: IMAGES_TO_PDF_ACCEPTS,
   defaultOptions: { pdfPage: 'a4' },
   async runAll(files, options, ctx): Promise<OutputFile[]> {

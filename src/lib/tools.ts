@@ -3,7 +3,7 @@
  * here when its page ships; the homepage, the sidebar, search and the "More in this group"
  * block on each tool page all read this list.
  */
-export const TOOL_GROUPS = ['Shrink & resize', 'Convert & combine', 'Fix & clean'] as const;
+export const TOOL_GROUPS = ['Shrink & resize', 'Edit & transform', 'Convert & combine', 'Privacy & cleanup'] as const;
 export type ToolGroup = (typeof TOOL_GROUPS)[number];
 
 export interface ToolLink {
@@ -22,7 +22,7 @@ export interface ToolLink {
 
 export const TOOLS: readonly ToolLink[] = [
   {
-    slug: 'compress-images',
+    slug: 'compress-image',
     name: 'Compress images',
     summary: 'Make JPG, PNG and WebP files smaller without visible loss.',
     group: 'Shrink & resize',
@@ -45,7 +45,7 @@ export const TOOLS: readonly ToolLink[] = [
     slug: 'crop-image',
     name: 'Crop images',
     summary: 'Drag a box, pick a ratio like 1:1, or type exact pixels.',
-    group: 'Shrink & resize',
+    group: 'Edit & transform',
     emoji: '✂️',
     quick:
       'To crop an image, drag the box over the part you want to keep, or type exact pixels, then press Crop. Pick a shape such as 1:1 or 16:9 to lock the proportions.',
@@ -72,7 +72,7 @@ export const TOOLS: readonly ToolLink[] = [
     keywords: 'heic heif iphone jpg jpeg png webp pdf format change',
   },
   {
-    slug: 'images-to-pdf',
+    slug: 'image-to-pdf',
     name: 'Combine images into PDF',
     summary: 'Put several images in one PDF and choose the page order.',
     group: 'Convert & combine',
@@ -85,7 +85,7 @@ export const TOOLS: readonly ToolLink[] = [
     slug: 'rotate-image',
     name: 'Rotate and flip',
     summary: 'Turn an image 90, 180 or 270 degrees, or mirror it.',
-    group: 'Fix & clean',
+    group: 'Edit & transform',
     emoji: '🔄',
     quick:
       'To rotate or flip an image, drop it in, use the buttons until the preview looks right, and press Apply. The same change is applied to every image you add.',
@@ -95,7 +95,7 @@ export const TOOLS: readonly ToolLink[] = [
     slug: 'remove-exif-data',
     name: 'Remove EXIF data',
     summary: 'Strip location, camera and date details before you share a photo.',
-    group: 'Fix & clean',
+    group: 'Privacy & cleanup',
     emoji: '🛡️',
     quick:
       'To remove location and camera details from a photo, drop it in and press Remove metadata. The picture is not recompressed, so quality stays the same.',

@@ -18,10 +18,13 @@ describe('TOOLS', () => {
 
   it('covers every tool page (a new page must be added to the list)', async () => {
     const { readdirSync } = await import('node:fs');
+    const { COMMUNITY } = await import('../../src/lib/community');
+    const notTools = new Set(['index', '404', ...COMMUNITY.map((c) => c.slug)]);
     const pages = readdirSync('src/pages')
-      // The home page and the 404 page are not tools.
-      .filter((f) => f.endsWith('.astro') && f !== 'index.astro' && f !== '404.astro')
+      .filter((f) => f.endsWith('.astro'))
       .map((f) => f.replace('.astro', ''))
+      // The home page, the 404 page and the community pages are not tools.
+      .filter((name) => !notTools.has(name))
       .sort();
     expect(TOOLS.map((t) => t.slug).sort()).toEqual(pages);
   });
@@ -29,9 +32,9 @@ describe('TOOLS', () => {
 
 describe('otherTools', () => {
   it('leaves out the current page, with or without a trailing slash', () => {
-    expect(otherTools('/compress-images/').some((t) => t.slug === 'compress-images')).toBe(false);
-    expect(otherTools('/compress-images').some((t) => t.slug === 'compress-images')).toBe(false);
-    expect(otherTools('/compress-images/')).toHaveLength(TOOLS.length - 1);
+    expect(otherTools('/compress-image/').some((t) => t.slug === 'compress-image')).toBe(false);
+    expect(otherTools('/compress-image').some((t) => t.slug === 'compress-image')).toBe(false);
+    expect(otherTools('/compress-image/')).toHaveLength(TOOLS.length - 1);
   });
   it('returns everything for an unknown path', () => {
     expect(otherTools('/')).toHaveLength(TOOLS.length);

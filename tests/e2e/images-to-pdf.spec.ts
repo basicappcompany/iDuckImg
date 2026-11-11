@@ -17,7 +17,7 @@ const pageCount = (pdf: Uint8Array) => (Buffer.from(pdf).toString('latin1').matc
 
 test.describe('images to one PDF', () => {
   test('combines images in the order shown, one page each', async ({ page }) => {
-    await page.goto('/images-to-pdf/');
+    await page.goto('/image-to-pdf/');
     await addFiles(page, [
       await makeImage(page, 'image/jpeg', 'wide.jpg', 800, 400), // 2:1 landscape
       await makeImage(page, 'image/png', 'tall.png', 400, 800), // 1:2 portrait
@@ -36,7 +36,7 @@ test.describe('images to one PDF', () => {
   });
 
   test('reordering and removing change the PDF', async ({ page }) => {
-    await page.goto('/images-to-pdf/');
+    await page.goto('/image-to-pdf/');
     await addFiles(page, [
       await makeImage(page, 'image/jpeg', 'a.jpg', 800, 400),
       await makeImage(page, 'image/jpeg', 'b.jpg', 400, 800),
@@ -54,7 +54,7 @@ test.describe('images to one PDF', () => {
   });
 
   test('A4 pages are portrait or landscape to suit each image', async ({ page }) => {
-    await page.goto('/images-to-pdf/');
+    await page.goto('/image-to-pdf/');
     await addFiles(page, [
       await makeImage(page, 'image/jpeg', 'wide.jpg', 800, 400),
       await makeImage(page, 'image/jpeg', 'tall.jpg', 400, 800),
@@ -65,7 +65,7 @@ test.describe('images to one PDF', () => {
   });
 
   test('a broken file fails the whole job with its name, and the tool is usable again', async ({ page }) => {
-    await page.goto('/images-to-pdf/');
+    await page.goto('/image-to-pdf/');
     await addFiles(page, [
       await makeImage(page, 'image/jpeg', 'ok.jpg', 400, 300),
       { name: 'broken.png', mimeType: 'image/png', buffer: Buffer.from('definitely not a png') },
