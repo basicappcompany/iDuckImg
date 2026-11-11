@@ -1,0 +1,26 @@
+---
+import ToolLayout from '../components/ToolLayout.astro';
+import ResizeTool from '../tools/resize/ResizeTool';
+---
+
+<ToolLayout
+  title="Resize image online free: pixels, percent or KB | iDuckImg"
+  description="Resize JPG, PNG and WebP by pixels or percentage, or shrink to a target file size in KB. Free, in your browser, no upload."
+  heading="Resize images"
+>
+  <ResizeTool client:load />
+  <section slot="content" class="prose mt-10">
+    <h2 class="text-xl font-semibold">How to resize an image</h2>
+    <ol class="mt-2 list-decimal pl-6">
+      <li>Drop your JPG, PNG or WebP files, or paste them.</li>
+      <li>Set a width and height in pixels, or a percentage. Leave one box empty to keep the proportions.</li>
+      <li>Optionally enter a target size in KB, for example 100, and we pick the best quality that fits.</li>
+      <li>Press Resize and download each file, or all of them as a ZIP.</li>
+    </ol>
+    <p class="mt-3 text-sm">
+      A target size works for JPG and WebP. PNG is lossless, so a PNG with a target size is saved as
+      WebP. If the target is too small for the chosen dimensions, you will see a message and can
+      choose a smaller size.
+    </p>
+  </section>
+</ToolLayout>

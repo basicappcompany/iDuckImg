@@ -12,6 +12,14 @@ export default defineConfig({
     worker: { format: 'es' },
     // jSquash locates its .wasm files relative to its own module URL, which breaks
     // when Vite pre-bundles it in dev.
-    optimizeDeps: { exclude: ['@jsquash/jpeg', '@jsquash/png', '@jsquash/webp', '@jsquash/oxipng'] },
+    optimizeDeps: {
+      exclude: [
+        '@jsquash/jpeg',
+        '@jsquash/png',
+        '@jsquash/webp',
+        '@jsquash/oxipng',
+        '@jsquash/resize',
+      ],
+    },
   },
 });
