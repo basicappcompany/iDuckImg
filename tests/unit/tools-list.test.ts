@@ -19,7 +19,8 @@ describe('TOOLS', () => {
   it('covers every tool page (a new page must be added to the list)', async () => {
     const { readdirSync } = await import('node:fs');
     const pages = readdirSync('src/pages')
-      .filter((f) => f.endsWith('.astro') && f !== 'index.astro')
+      // The home page and the 404 page are not tools.
+      .filter((f) => f.endsWith('.astro') && f !== 'index.astro' && f !== '404.astro')
       .map((f) => f.replace('.astro', ''))
       .sort();
     expect(TOOLS.map((t) => t.slug).sort()).toEqual(pages);
