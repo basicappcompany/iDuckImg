@@ -1,0 +1,25 @@
+---
+import ToolLayout from '../components/ToolLayout.astro';
+import CropTool from '../tools/crop/CropTool';
+---
+
+<ToolLayout
+  title="Crop images online free: drag, ratios or exact pixels | iDuckImg"
+  description="Crop JPG, PNG and WebP images by dragging a box, picking a ratio such as 1:1 or 16:9, or typing exact pixels. Free, in your browser, no upload."
+  heading="Crop images"
+>
+  <CropTool client:load />
+  <section slot="content" class="prose mt-10">
+    <h2 class="text-xl font-semibold">How to crop an image</h2>
+    <ol class="mt-2 list-decimal pl-6">
+      <li>Drop your JPG, PNG or WebP image, or paste it.</li>
+      <li>Drag the box and its handles over the part you want. Pick a shape such as 1:1 or 16:9 if you need one.</li>
+      <li>Press Crop and download the result.</li>
+    </ol>
+    <p class="mt-3 text-sm">
+      You can also type the exact left, top, width and height in pixels, and move the box with the arrow
+      keys. The cropped picture keeps its original format. Your image is cropped in your browser and
+      never uploaded.
+    </p>
+  </section>
+</ToolLayout>
