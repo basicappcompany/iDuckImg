@@ -1,5 +1,5 @@
 import { withExtension } from '../../lib/files';
-import { extensionOf, type ImageFormat } from '../image-format';
+import { HEIC_ACCEPTS, extensionOf, type ImageFormat } from '../image-format';
 
 export type ConvertTarget = ImageFormat | 'pdf';
 export type PdfPageMode = 'fit' | 'a4';
@@ -14,7 +14,7 @@ export interface ConvertOptions {
 
 export const defaultConvertOptions: ConvertOptions = { target: 'jpeg', quality: 90, pdfPage: 'fit' };
 
-export const CONVERT_ACCEPTS = ['image/jpeg', 'image/png', 'image/webp'] as const;
+export const CONVERT_ACCEPTS = ['image/jpeg', 'image/png', 'image/webp', ...HEIC_ACCEPTS] as const;
 
 export const A4 = { width: 595.28, height: 841.89 } as const;
 export const A4_MARGIN = 36;

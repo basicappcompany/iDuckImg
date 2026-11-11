@@ -1,5 +1,5 @@
 import { assessPixels } from '../../engine/limits';
-import type { ImageFormat } from '../image-format';
+import type { ImageFormat, InputFormat } from '../image-format';
 
 const MIME: Record<ImageFormat, string> = {
   jpeg: 'image/jpeg',
@@ -7,8 +7,12 @@ const MIME: Record<ImageFormat, string> = {
   webp: 'image/webp',
 };
 
-/** Decode JPG/PNG/WebP bytes to pixels. Runs in a worker (OffscreenCanvas). */
-export async function decodeToImageData(buffer: ArrayBuffer, format: ImageFormat): Promise<ImageData> {
+/** Decode JPG/PNG/WebP/HEIC bytes to pixels. Runs in a worker (OffscreenCanvas). */
+export async function decodeToImageData(buffer: ArrayBuffer, format: InputFormat): Promise<ImageData> {
+  if (format === 'heic') {
+    const { decodeHeic } = await import('./heic');
+    return decodeHeic(buffer);
+  }
   const bitmap = await createImageBitmap(new Blob([buffer], { type: MIME[format] }));
   try {
     if (assessPixels(bitmap.width, bitmap.height) === 'too-large') {

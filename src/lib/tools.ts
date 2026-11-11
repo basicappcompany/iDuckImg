@@ -13,7 +13,7 @@ export interface ToolLink {
 export const TOOLS: readonly ToolLink[] = [
   { slug: 'compress-images', name: 'Compress images', summary: 'Make JPG, PNG and WebP files smaller without visible loss.' },
   { slug: 'resize-image', name: 'Resize images', summary: 'Set exact pixels or a percentage, or shrink to a target size in KB.' },
-  { slug: 'convert-image', name: 'Convert images', summary: 'Switch between JPG, PNG and WebP, or make a PDF.' },
+  { slug: 'convert-image', name: 'Convert images', summary: 'Open iPhone HEIC photos, switch between JPG, PNG and WebP, or make a PDF.' },
   { slug: 'images-to-pdf', name: 'Combine images into PDF', summary: 'Put several images in one PDF and choose the page order.' },
   { slug: 'rotate-image', name: 'Rotate and flip', summary: 'Turn an image 90, 180 or 270 degrees, or mirror it.' },
   { slug: 'remove-exif-data', name: 'Remove EXIF data', summary: 'Strip location, camera and date details before you share a photo.' },

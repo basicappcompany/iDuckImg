@@ -2,12 +2,12 @@ import * as Comlink from 'comlink';
 import { decodeToImageData, encodeImage } from '../shared/codec';
 import { addImagePage, savePdf } from '../shared/pdf';
 import { clampQuality, type ConvertOptions } from './options';
-import type { ImageFormat } from '../image-format';
+import type { InputFormat } from '../image-format';
 
 const api = {
   async convert(
     buffer: ArrayBuffer,
-    inputFormat: ImageFormat,
+    inputFormat: InputFormat,
     options: ConvertOptions,
     onProgress: (fraction: number) => void,
   ): Promise<ArrayBuffer> {
