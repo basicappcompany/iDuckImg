@@ -1,6 +1,7 @@
 ---
 import '../styles/global.css';
 import AdSlot from './AdSlot.astro';
+import { otherTools, toolPath } from '../lib/tools';
 
 interface Props {
   title: string;
@@ -10,6 +11,8 @@ interface Props {
   clientSide?: boolean;
 }
 const { title, description, heading, clientSide = true } = Astro.props;
+const canonical = new URL(Astro.url.pathname, Astro.site).href;
+const more = otherTools(Astro.url.pathname);
 ---
 
 <!doctype html>
@@ -19,9 +22,11 @@ const { title, description, heading, clientSide = true } = Astro.props;
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>{title}</title>
     <meta name="description" content={description} />
+    <link rel="canonical" href={canonical} />
   </head>
   <body class="bg-duck-50 text-pond-900">
     <main class="mx-auto max-w-3xl px-4 py-8">
+      <p class="mb-4 text-sm"><a href="/" class="font-semibold text-pond-600 underline">iDuckImg</a></p>
       <h1 class="text-3xl font-bold">{heading}</h1>
       {
         clientSide && (
@@ -35,6 +40,20 @@ const { title, description, heading, clientSide = true } = Astro.props;
       </section>
       <AdSlot name="below-tool" width={728} height={90} />
       <slot name="content" />
+      <nav class="mt-10" aria-label="More tools">
+        <h2 class="text-lg font-semibold">More free tools</h2>
+        <ul class="mt-2 grid gap-1 text-sm sm:grid-cols-2">
+          {
+            more.map((tool) => (
+              <li>
+                <a href={toolPath(tool.slug)} class="text-pond-600 underline">
+                  {tool.name}
+                </a>
+              </li>
+            ))
+          }
+        </ul>
+      </nav>
     </main>
   </body>
 </html>
