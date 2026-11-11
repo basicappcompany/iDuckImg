@@ -68,6 +68,19 @@ export interface Downloaded {
   head: string;
 }
 
+/** Raw bytes of the Nth result file. */
+export async function resultBytes(page: Page, index: number): Promise<Uint8Array> {
+  const link = page.getByRole('region', { name: 'Results' }).locator('a[download]').nth(index);
+  await expect(link).toBeVisible();
+  const base64 = await link.evaluate(async (a) => {
+    const bytes = new Uint8Array(await (await fetch((a as HTMLAnchorElement).href)).arrayBuffer());
+    let binary = '';
+    for (let i = 0; i < bytes.length; i += 0x8000) binary += String.fromCharCode(...bytes.subarray(i, i + 0x8000));
+    return btoa(binary);
+  });
+  return new Uint8Array(Buffer.from(base64, 'base64'));
+}
+
 /** Read every result link back from the page and describe the file behind it. */
 export async function readResults(page: Page, count: number): Promise<Downloaded[]> {
   const results = page.getByRole('region', { name: 'Results' });
