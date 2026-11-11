@@ -1,0 +1,9 @@
+@import 'tailwindcss';
+
+@theme {
+  --color-duck-50: #fffbeb;
+  --color-duck-400: #fbbf24;
+  --color-duck-500: #f59e0b;
+  --color-pond-600: #1d4ed8;
+  --color-pond-900: #172554;
+}
