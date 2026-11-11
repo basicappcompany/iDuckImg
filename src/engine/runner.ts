@@ -1,4 +1,4 @@
-import { isAbortError, type FileResult, type ToolDefinition } from './types';
+import { isAbortError, type CombinedToolDefinition, type FileResult, type ToolDefinition } from './types';
 
 export interface BatchCallbacks {
   /** Called whenever any file's result changes. Receives a fresh copy. */
@@ -54,6 +54,44 @@ export async function runBatch<Options>(
 
   emit();
   return results;
+}
+
+/**
+ * Run a combined tool: all files in, one job. Reports a single result (index 0). The result's
+ * file name is the first output's name so the UI has something to show on failure too.
+ */
+export async function runCombined<Options>(
+  tool: CombinedToolDefinition<Options>,
+  files: readonly File[],
+  options: Options,
+  signal: AbortSignal,
+  callbacks: BatchCallbacks = {},
+): Promise<FileResult[]> {
+  const result: FileResult = { index: 0, fileName: tool.id, status: 'running', outputs: [] };
+  const emit = () => callbacks.onUpdate?.([{ ...result }]);
+  if (signal.aborted) {
+    result.status = 'cancelled';
+    emit();
+    return [result];
+  }
+  emit();
+  try {
+    result.outputs = await tool.runAll(files, options, {
+      signal,
+      onProgress: (fraction) => callbacks.onFileProgress?.(0, clamp01(fraction)),
+    });
+    result.fileName = result.outputs[0]?.name ?? tool.id;
+    result.status = 'done';
+  } catch (error) {
+    if (signal.aborted || isAbortError(error)) {
+      result.status = 'cancelled';
+    } else {
+      result.status = 'error';
+      result.error = error instanceof Error ? error.message : String(error);
+    }
+  }
+  emit();
+  return [result];
 }
 
 function clamp01(n: number): number {

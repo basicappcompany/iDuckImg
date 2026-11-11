@@ -23,7 +23,24 @@ export interface ToolDefinition<Options> {
   run: (file: File, options: Options, ctx: JobContext) => Promise<OutputFile[]>;
 }
 
-export type FileStatus = 'queued' | 'running' | 'done' | 'error' | 'cancelled';
+/**
+ * A tool that turns the whole batch into one result, such as several images into one PDF.
+ * Unlike ToolDefinition it sees every file at once; any error fails the whole job.
+ */
+export interface CombinedToolDefinition<Options> {
+  id: string;
+  accepts: readonly string[];
+  defaultOptions: Options;
+  runAll: (files: readonly File[], options: Options, ctx: JobContext) => Promise<OutputFile[]>;
+}
+
+export function isCombinedTool<Options>(
+  tool: ToolDefinition<Options> | CombinedToolDefinition<Options>,
+): tool is CombinedToolDefinition<Options> {
+  return 'runAll' in tool;
+}
+
+export type FileStatus ='queued' | 'running' | 'done' | 'error' | 'cancelled';
 
 export interface FileResult {
   /** Index of the file in the submitted batch. */

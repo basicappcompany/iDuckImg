@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest';
-import { runBatch } from '../../src/engine/runner';
-import { AbortError, type ToolDefinition } from '../../src/engine/types';
+import { runBatch, runCombined } from '../../src/engine/runner';
+import { AbortError, type CombinedToolDefinition, type ToolDefinition } from '../../src/engine/types';
 
 const file = (name: string) => new File(['x'], name);
 
@@ -60,5 +60,68 @@ describe('runBatch', () => {
       onFileProgress: (_i, fraction) => seen.push(fraction),
     });
     expect(seen).toEqual([0, 0.5, 1]);
+  });
+});
+
+describe('runCombined', () => {
+  const combined = (
+    runAll: CombinedToolDefinition<Record<string, never>>['runAll'],
+  ): CombinedToolDefinition<Record<string, never>> => ({
+    id: 'combo',
+    accepts: ['image/png'],
+    defaultOptions: {},
+    runAll,
+  });
+
+  it('gives one result with the output, named after the output file', async () => {
+    const t = combined(async (files) => [{ name: 'all.pdf', blob: new Blob([String(files.length)]) }]);
+    const results = await runCombined(t, [file('a'), file('b'), file('c')], {}, new AbortController().signal);
+    expect(results).toHaveLength(1);
+    expect(results[0]).toMatchObject({ index: 0, status: 'done', fileName: 'all.pdf' });
+    expect(results[0]?.outputs).toHaveLength(1);
+  });
+
+  it('turns a failure into one error result', async () => {
+    const t = combined(async () => {
+      throw new Error('bad.png: broken');
+    });
+    const results = await runCombined(t, [file('a')], {}, new AbortController().signal);
+    expect(results[0]).toMatchObject({ status: 'error', error: 'bad.png: broken' });
+  });
+
+  it('reports cancellation, not an error', async () => {
+    const controller = new AbortController();
+    const t = combined(async () => {
+      controller.abort();
+      throw new AbortError();
+    });
+    const results = await runCombined(t, [file('a')], {}, controller.signal);
+    expect(results[0]?.status).toBe('cancelled');
+  });
+
+  it('does not start when already cancelled', async () => {
+    const controller = new AbortController();
+    controller.abort();
+    let called = false;
+    const t = combined(async () => {
+      called = true;
+      return [];
+    });
+    const results = await runCombined(t, [file('a')], {}, controller.signal);
+    expect(called).toBe(false);
+    expect(results[0]?.status).toBe('cancelled');
+  });
+
+  it('forwards progress for index 0', async () => {
+    const seen: [number, number][] = [];
+    const t = combined(async (_f, _o, ctx) => {
+      ctx.onProgress(0.5);
+      ctx.onProgress(2); // clamped
+      return [];
+    });
+    await runCombined(t, [file('a')], {}, new AbortController().signal, {
+      onFileProgress: (i, f) => seen.push([i, f]),
+    });
+    expect(seen).toEqual([[0, 0.5], [0, 1]]);
   });
 });

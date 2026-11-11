@@ -1,11 +1,14 @@
 import { useCallback, useRef, useState } from 'preact/hooks';
-import { runBatch } from './runner';
-import type { FileResult, ToolDefinition } from './types';
+import { runBatch, runCombined } from './runner';
+import { isCombinedTool, type CombinedToolDefinition, type FileResult, type ToolDefinition } from './types';
 
 export type RunnerState = 'idle' | 'running' | 'finished';
 
-/** Preact hook that drives a tool over a batch and exposes progress and cancel. */
-export function useToolRunner<Options>(tool: ToolDefinition<Options>) {
+/**
+ * Preact hook that drives a tool over a batch and exposes progress and cancel. Works with
+ * per-file tools (one result per file) and combined tools (one result for the whole batch).
+ */
+export function useToolRunner<Options>(tool: ToolDefinition<Options> | CombinedToolDefinition<Options>) {
   const [state, setState] = useState<RunnerState>('idle');
   const [results, setResults] = useState<FileResult[]>([]);
   const [progress, setProgress] = useState<Record<number, number>>({});
@@ -18,11 +21,14 @@ export function useToolRunner<Options>(tool: ToolDefinition<Options>) {
       controller.current = abort;
       setState('running');
       setProgress({});
-      const final = await runBatch(tool, files, options, abort.signal, {
+      const callbacks = {
         onUpdate: setResults,
-        onFileProgress: (index, fraction) =>
+        onFileProgress: (index: number, fraction: number) =>
           setProgress((prev) => ({ ...prev, [index]: fraction })),
-      });
+      };
+      const final = isCombinedTool(tool)
+        ? await runCombined(tool, files, options, abort.signal, callbacks)
+        : await runBatch(tool, files, options, abort.signal, callbacks);
       if (controller.current === abort) setState('finished');
       return final;
     },
