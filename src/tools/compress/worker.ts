@@ -1,22 +1,6 @@
 import * as Comlink from 'comlink';
-import { assessPixels } from '../../engine/limits';
-import { mimeOf, type ImageFormat } from './options';
-
-async function decode(buffer: ArrayBuffer, mime: string): Promise<ImageData> {
-  const bitmap = await createImageBitmap(new Blob([buffer], { type: mime }));
-  try {
-    if (assessPixels(bitmap.width, bitmap.height) === 'too-large') {
-      throw new Error('Image is too large to process on this device (over 100 megapixels).');
-    }
-    const canvas = new OffscreenCanvas(bitmap.width, bitmap.height);
-    const ctx = canvas.getContext('2d');
-    if (!ctx) throw new Error('Could not read the image.');
-    ctx.drawImage(bitmap, 0, 0);
-    return ctx.getImageData(0, 0, bitmap.width, bitmap.height);
-  } finally {
-    bitmap.close();
-  }
-}
+import { decodeToImageData, encodeImage } from '../shared/codec';
+import type { ImageFormat } from '../image-format';
 
 const api = {
   async compress(
@@ -36,19 +20,9 @@ const api = {
       return out;
     }
 
-    const image = await decode(buffer, mimeOf(inputFormat));
+    const image = await decodeToImageData(buffer, inputFormat);
     onProgress(0.4);
-    let out: ArrayBuffer;
-    if (outputFormat === 'jpeg') {
-      const { encode } = await import('@jsquash/jpeg');
-      out = await encode(image, { quality });
-    } else if (outputFormat === 'webp') {
-      const { encode } = await import('@jsquash/webp');
-      out = await encode(image, { quality });
-    } else {
-      const { encode } = await import('@jsquash/png');
-      out = await encode(image);
-    }
+    const out = await encodeImage(image, outputFormat, quality);
     onProgress(1);
     return out;
   },
