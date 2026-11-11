@@ -34,3 +34,6 @@ Free online image tools (iLovePDF/iLoveIMG style). Original brand, duck mascot. 
 ## Milestones
 1. Free client-side tools: compress, resize (incl. target KB), crop, convert (incl. HEIC, image to PDF), rotate/flip, EXIF removal, exam photo resizer.
 2. More free tools and SEO expansion. 3. AI tools (BYO key and paid credits; document CORS findings here). 4. Accounts.
+
+## Engine (src/engine)
+- types.ts: ToolDefinition/FileResult contract. runner.ts: sequential batch, per-file errors, cancel. worker-handle.ts: lazy reusable Comlink worker, abort = terminate. limits.ts: pixel caps (warn 25MP, max 100MP). useToolRunner.ts: Preact hook.
