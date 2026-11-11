@@ -1,0 +1,25 @@
+---
+import ToolLayout from '../components/ToolLayout.astro';
+import CompressTool from '../tools/compress/CompressTool';
+---
+
+<ToolLayout
+  title="Compress images online free: JPG, PNG, WebP | iDuckImg"
+  description="Reduce image file size in your browser. Compress JPG, PNG and WebP with no upload and no signup. Your files never leave your device."
+  heading="Compress images"
+>
+  <CompressTool client:load />
+  <section slot="content" class="prose mt-10">
+    <h2 class="text-xl font-semibold">How to compress an image</h2>
+    <ol class="mt-2 list-decimal pl-6">
+      <li>Drop your JPG, PNG or WebP files, or paste them.</li>
+      <li>Pick a quality. Around 75 keeps photos looking the same at a much smaller size.</li>
+      <li>Press Compress and download each file, or all of them as a ZIP.</li>
+    </ol>
+    <p class="mt-3 text-sm">
+      JPG and WebP are compressed with adjustable quality. PNG is optimised losslessly, so the
+      picture is unchanged but savings are smaller. If a file cannot be made smaller, you get the
+      original back.
+    </p>
+  </section>
+</ToolLayout>
