@@ -120,3 +120,36 @@ test.describe('exam photo resizer', () => {
     await expect(page.getByRole('alert').filter({ hasText: 'Could not get under 1 KB' })).toBeVisible();
   });
 });
+
+test.describe('exam landing pages', () => {
+  test('open with the exam and document already chosen, and make a file in range', async ({ page }) => {
+    await page.goto('/ibps-po-signature-size/');
+    await page.waitForFunction(() => document.querySelector('astro-island[ssr]') === null);
+    await expect(page.getByRole('heading', { level: 1 })).toContainText('IBPS PO signature size');
+    await expect(page.getByLabel('Exam', { exact: true })).toHaveValue('ibps-po-xv');
+    await expect(page.getByLabel('Document')).toHaveValue('signature');
+    await expect(page.getByRole('region', { name: 'Requirements' })).toContainText('140 x 60 px, 10 to 20 KB, JPG');
+    await addFiles(page, [await signatureScan(page)]);
+    await make(page);
+    const [r] = await readResults(page, 1);
+    expect([r!.width, r!.height]).toEqual([140, 60]);
+    expect(kb(r!.size)).toBeGreaterThanOrEqual(10);
+    expect(kb(r!.size)).toBeLessThanOrEqual(20);
+  });
+
+  test('the SSC page opens SSC and gives no pixel size', async ({ page }) => {
+    await page.goto('/ssc-cgl-signature-size/');
+    await page.waitForFunction(() => document.querySelector('astro-island[ssr]') === null);
+    await expect(page.getByLabel('Exam', { exact: true })).toHaveValue('ssc-cgl-2026');
+    const card = page.getByRole('region', { name: 'Requirements' });
+    await expect(card).toContainText('10 to 20 KB, JPG');
+    await expect(card).not.toContainText(' px');
+  });
+
+  test('show the source and date in the page text, and carry FAQ data', async ({ page }) => {
+    await page.goto('/ibps-po-photo-size/');
+    await expect(page.getByText('read on 12 Nov 2026').first()).toBeVisible();
+    const ld = await page.locator('script[type="application/ld+json"]').allTextContents();
+    expect(ld.join(' ')).toContain('FAQPage');
+  });
+});

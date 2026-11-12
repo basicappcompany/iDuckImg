@@ -1,5 +1,6 @@
 import { TOOLS, toolPath } from './tools';
 import { LANDING_PAGES, landingName, landingPath } from './landing';
+import { EXAM_LANDING_PAGES } from './exam-landing';
 
 /**
  * The "Quick tools" at the top of the sidebar: the jobs people come for most, in a few
@@ -61,7 +62,7 @@ export const QUICK_GROUPS: readonly QuickGroupDef[] = [
     id: 'forms',
     name: 'Photos for forms',
     emoji: '🪪',
-    slugs: ['exam-photo-resizer', 'remove-exif-data', 'blur-image'],
+    slugs: ['exam-photo-resizer', ...EXAM_LANDING_PAGES.map((p) => p.slug), 'remove-exif-data', 'blur-image'],
   },
   {
     id: 'edit',

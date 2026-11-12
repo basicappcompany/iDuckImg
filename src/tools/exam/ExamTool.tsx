@@ -25,10 +25,17 @@ interface Custom {
   fit: FitMode;
 }
 
-export default function ExamTool() {
+interface Props {
+  /** Landing pages open with one exam and document already chosen. */
+  initialExam?: string;
+  initialDoc?: string;
+}
+
+export default function ExamTool({ initialExam, initialDoc }: Props = {}) {
+  const start = EXAMS.find((e) => e.id === initialExam) ?? EXAMS[0];
   const [files, setFiles] = useState<File[]>([]);
-  const [examId, setExamId] = useState<string>(EXAMS[0]?.id ?? CUSTOM);
-  const [docId, setDocId] = useState<string>(EXAMS[0]?.documents[0]?.id ?? '');
+  const [examId, setExamId] = useState<string>(start?.id ?? CUSTOM);
+  const [docId, setDocId] = useState<string>(start?.documents.find((d) => d.id === initialDoc)?.id ?? start?.documents[0]?.id ?? '');
   const [custom, setCustom] = useState<Custom>({ width: 200, height: 230, minKb: 20, maxKb: 50, fit: 'crop' });
   const runner = useToolRunner(examTool);
   const running = runner.state === 'running';
