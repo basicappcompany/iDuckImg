@@ -76,7 +76,11 @@ test.describe('languages', () => {
     await expect(links).toHaveCount(10);
     await expect(links.nth(7)).toHaveText('Español');
     await expect(links.nth(0)).toHaveAttribute('aria-current', 'true');
+    // Each language has a flag in the list, and the open language's flag shows on the button.
+    await expect(page.locator('[data-lang-menu] .lang-list svg.flag')).toHaveCount(10);
+    await expect(page.locator('[data-lang-menu] summary svg.flag')).toHaveCount(1);
     await page.getByRole('link', { name: 'Español' }).click();
+    await expect(page.locator('[data-lang-menu] summary svg.flag')).toHaveCount(1);
     await expect(page).toHaveURL(/\/es\/compress-image\/$/);
     await expect(page.getByRole('heading', { level: 1 })).toContainText('Comprimir imágenes');
 
@@ -95,11 +99,14 @@ test.describe('languages', () => {
 
   test('the tool on a translated page really works', async ({ page }) => {
     await page.goto('/fr/compress-image/');
-    await addFiles(page, [await makeImage(page, 'image/jpeg', 'photo.jpg', 1200, 800)]);
+    await expect(page.getByText('Déposez vos images ici')).toBeVisible();
+    await addFiles(page, [await makeImage(page, 'image/jpeg', 'photo.jpg', 1200, 800)], /1 image sélectionnée/);
+    await expect(page.getByRole('button', { name: 'Effacer' })).toBeVisible();
     await page.getByRole('button', { name: 'Compress', exact: true }).click();
     const [r] = await readResults(page, 1);
     expect(r!.type).toBe('image/jpeg');
     expect(r!.size).toBeGreaterThan(0);
+    await expect(page.getByRole('link', { name: 'Télécharger' })).toBeVisible();
   });
 
   test('the sidebar is translated and links to the same language', async ({ page }) => {

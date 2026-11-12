@@ -534,8 +534,21 @@ body {
     border-radius: 12px;
     box-shadow: 4px 4px 0 0 var(--d-shadow);
   }
+  .flag {
+    display: inline-block;
+    flex: none;
+    border-radius: 2px;
+    box-shadow: 0 0 0 1px var(--d-line);
+  }
+  .lang > summary {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+  }
   .lang-list a {
-    display: block;
+    display: flex;
+    align-items: center;
+    gap: 10px;
     padding: 6px 10px;
     border-radius: 8px;
     font-weight: 700;

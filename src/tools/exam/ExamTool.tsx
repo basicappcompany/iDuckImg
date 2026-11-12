@@ -7,6 +7,7 @@ import { useToolRunner } from '../../engine/useToolRunner';
 import { EXAMS, describeRequirements, type FitMode } from '../../lib/exam-presets';
 import { examTool } from './tool';
 import { checkOptions, presetOptions, type ExamOptions } from './options';
+import { fill, useUi } from '../../i18n/ui';
 
 const inputClass = 'input w-full';
 const CUSTOM = 'custom';
@@ -32,6 +33,7 @@ interface Props {
 }
 
 export default function ExamTool({ initialExam, initialDoc }: Props = {}) {
+  const ui = useUi();
   const start = EXAMS.find((e) => e.id === initialExam) ?? EXAMS[0];
   const [files, setFiles] = useState<File[]>([]);
   const [examId, setExamId] = useState<string>(start?.id ?? CUSTOM);
@@ -219,14 +221,14 @@ export default function ExamTool({ initialExam, initialDoc }: Props = {}) {
       {files.length > 0 && (
         <>
           <p class="text-sm">
-            {files.length} {files.length === 1 ? 'image' : 'images'} selected.{' '}
+            {fill(files.length === 1 ? ui.selectedOne : ui.selectedMany, { n: files.length })}{' '}
             <button
               type="button"
               class="link"
               disabled={running}
               onClick={() => choose(() => setFiles([]))}
             >
-              Clear
+              {ui.clear}
             </button>
           </p>
           <div class="flex gap-3">
@@ -236,7 +238,7 @@ export default function ExamTool({ initialExam, initialDoc }: Props = {}) {
               onClick={() => runner.run(files, options)}
               class="btn btn-primary btn-lg"
             >
-              {running ? 'Working...' : 'Make my file'}
+              {running ? ui.working : 'Make my file'}
             </button>
             {running && (
               <button
@@ -244,7 +246,7 @@ export default function ExamTool({ initialExam, initialDoc }: Props = {}) {
                 onClick={runner.cancel}
                 class="btn btn-lg"
               >
-                Cancel
+                {ui.cancel}
               </button>
             )}
           </div>

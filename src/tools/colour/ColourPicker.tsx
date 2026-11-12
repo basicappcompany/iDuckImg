@@ -9,6 +9,7 @@ import {
   rgbToHsl,
   type Rgb,
 } from "../../lib/colour";
+import { fill, useUi } from '../../i18n/ui';
 
 /** A very large picture is drawn smaller; picking a colour from it is the same to the eye. */
 const MAX_SIDE = 1600;
@@ -48,6 +49,7 @@ function Value({ label, text }: { label: string; text: string }) {
 }
 
 export default function ColourPicker() {
+  const ui = useUi();
   const [file, setFile] = useState<File | null>(null);
   const [problem, setProblem] = useState("");
   const canvas = useRef<HTMLCanvasElement>(null);
@@ -158,7 +160,7 @@ export default function ColourPicker() {
         multiple={false}
         onFiles={(f) => setFile(f[0] ?? null)}
       />
-      {file && <p class="text-sm">1 image selected.</p>}
+      {file && <p class="text-sm">{fill(ui.selectedOne, { n: 1 })}</p>}
       {problem && (
         <p role="alert" class="text-sm font-bold text-danger">
           {problem}

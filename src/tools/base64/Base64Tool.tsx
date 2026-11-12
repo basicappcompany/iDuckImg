@@ -4,6 +4,7 @@ import { Field } from '../../components/OptionsPanel';
 import { formatBytes } from '../../lib/files';
 import { copyText } from '../../lib/clipboard';
 import { OUTPUT_STYLES, formatOutput, parseBase64Image, sniffMime, type OutputStyle, type ParsedImage } from '../../lib/base64';
+import { fill, useUi } from '../../i18n/ui';
 
 type Mode = 'encode' | 'decode';
 
@@ -31,6 +32,7 @@ export default function Base64Tool() {
 }
 
 function Encode() {
+  const ui = useUi();
   const [file, setFile] = useState<File | null>(null);
   const [bytes, setBytes] = useState<Uint8Array | null>(null);
   const [style, setStyle] = useState<OutputStyle>('datauri');
@@ -69,7 +71,7 @@ function Encode() {
   return (
     <div class="grid gap-5">
       <FileDropzone accepts={ANY_IMAGE} multiple={false} onFiles={(f) => setFile(f[0] ?? null)} />
-      {file && <p class="text-sm">1 image selected.</p>}
+      {file && <p class="text-sm">{fill(ui.selectedOne, { n: 1 })}</p>}
       {problem && (
         <p role="alert" class="text-sm font-bold text-danger">
           {problem}

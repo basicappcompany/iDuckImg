@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from 'preact/hooks';
 import { partitionFiles } from '../lib/files';
 import { EXTRA_ACCEPTS, EXTRA_LABELS, detectExtraFormat, takesPictures } from '../lib/extra-formats';
 import { normalizeInput } from '../tools/shared/normalize';
+import { fill, useUi } from '../i18n/ui';
 
 interface Props {
   /** MIME types or extensions, e.g. ['image/jpeg', '.heic']. */
@@ -13,6 +14,7 @@ interface Props {
 
 /** Drop, click, paste (Ctrl/Cmd+V) or take a photo. Keyboard accessible. */
 export default function FileDropzone({ accepts, onFiles, multiple = true, disabled = false }: Props) {
+  const ui = useUi();
   const [dragging, setDragging] = useState(false);
   const [rejected, setRejected] = useState<string[]>([]);
   const [problems, setProblems] = useState<string[]>([]);
@@ -46,7 +48,7 @@ export default function FileDropzone({ accepts, onFiles, multiple = true, disabl
       try {
         ready.push(await normalizeInput(file));
       } catch (error) {
-        failed.push(`${file.name} ${error instanceof Error ? error.message : 'could not be read'}`);
+        failed.push(`${file.name} ${error instanceof Error ? error.message : ui.couldNotRead}`);
       }
     }
     setConverting(false);
@@ -78,16 +80,16 @@ export default function FileDropzone({ accepts, onFiles, multiple = true, disabl
           handle(e.dataTransfer?.files);
         }}
       >
-        <p class="text-xl font-black">Drop {multiple ? 'images' : 'an image'} here</p>
-        <p class="mt-1 text-sm text-muted">or paste from your clipboard</p>
+        <p class="text-xl font-black">{multiple ? ui.dropMany : ui.dropOne}</p>
+        <p class="mt-1 text-sm text-muted">{ui.paste}</p>
         {withExtras && (
           <p class="mt-1 text-xs text-muted">
-            Also takes {EXTRA_LABELS}. They are turned into PNG first (a GIF keeps its first frame).
+            {fill(ui.alsoTakes, { formats: EXTRA_LABELS })}
           </p>
         )}
         {converting && (
           <p role="status" class="mt-2 text-sm font-bold">
-            Reading your pictures...
+            {ui.reading}
           </p>
         )}
         <div class="mt-4 flex flex-wrap justify-center gap-3">
@@ -97,7 +99,7 @@ export default function FileDropzone({ accepts, onFiles, multiple = true, disabl
             onClick={() => galleryRef.current?.click()}
             class="btn btn-primary btn-lg"
           >
-            Choose {multiple ? 'files' : 'file'}
+            {multiple ? ui.chooseMany : ui.chooseOne}
           </button>
           <button
             type="button"
@@ -105,7 +107,7 @@ export default function FileDropzone({ accepts, onFiles, multiple = true, disabl
             onClick={() => cameraRef.current?.click()}
             class="btn btn-lg md:hidden"
           >
-            Take photo
+            {ui.takePhoto}
           </button>
         </div>
         <input
@@ -142,7 +144,7 @@ export default function FileDropzone({ accepts, onFiles, multiple = true, disabl
       )}
       {rejected.length > 0 && (
         <p role="alert" class="mt-2 text-sm font-bold text-danger">
-          Skipped unsupported {rejected.length === 1 ? 'file' : 'files'}: {rejected.join(', ')}
+          {fill(rejected.length === 1 ? ui.skippedOne : ui.skippedMany, { names: rejected.join(', ') })}
         </p>
       )}
     </div>

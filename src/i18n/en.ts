@@ -22,7 +22,7 @@ export const en: Dict = {
   footerTerms: 'Terms',
   footerFeedback: 'Feedback',
   footerGuides: 'How-to guides',
-  machineNote: 'This page is machine-translated. The tool controls and the how-to guides are in English for now.',
+  machineNote: 'This page is machine-translated. The tool options and the how-to guides are in English for now.',
 
   breadcrumbHome: 'Home',
   runsInBrowser: 'Runs in your browser',
@@ -32,7 +32,7 @@ export const en: Dict = {
   quickAnswer: 'Quick answer',
   readGuide: 'Read the guide (in English)',
   moreIn: 'More in "{group}"',
-  controlsEnglish: 'The tool controls below are in English for now.',
+  controlsEnglish: 'The file picker and download buttons below are translated. The options and buttons of the tool itself are in English for now.',
   toolDescSuffix: 'Free, in your browser, no upload.',
 
   homeTitle: 'iDuckImg: free online image tools',

@@ -12,12 +12,14 @@ import {
   type PaletteColour,
   type PixelData,
 } from "../../lib/palette";
+import { fill, useUi } from '../../i18n/ui';
 
 /** Colours are found on a small copy of the picture, which is fast and just as accurate to the eye. */
 const SAMPLE_SIDE = 200;
 const ACCEPTS = ["image/jpeg", "image/png", "image/webp"] as const;
 
 export default function PaletteTool() {
+  const ui = useUi();
   const [file, setFile] = useState<File | null>(null);
   const [count, setCount] = useState(6);
   const [pixels, setPixels] = useState<PixelData | null>(null);
@@ -77,7 +79,7 @@ export default function PaletteTool() {
         multiple={false}
         onFiles={(f) => setFile(f[0] ?? null)}
       />
-      {file && <p class="text-sm">1 image selected.</p>}
+      {file && <p class="text-sm">{fill(ui.selectedOne, { n: 1 })}</p>}
       {problem && (
         <p role="alert" class="text-sm font-bold text-danger">
           {problem}

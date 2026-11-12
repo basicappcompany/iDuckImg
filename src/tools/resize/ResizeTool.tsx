@@ -6,6 +6,7 @@ import DownloadPanel from '../../components/DownloadPanel';
 import { useToolRunner } from '../../engine/useToolRunner';
 import { resizeTool } from './tool';
 import type { ResizeOptions } from './options';
+import { fill, useUi } from '../../i18n/ui';
 
 const inputClass = 'input w-full';
 
@@ -16,6 +17,7 @@ function toNumber(value: string): number | null {
 }
 
 export default function ResizeTool({ initial }: { initial?: Partial<ResizeOptions> } = {}) {
+  const ui = useUi();
   const [files, setFiles] = useState<File[]>([]);
   const [options, setOptions] = useState<ResizeOptions>({ ...resizeTool.defaultOptions, ...initial });
   const runner = useToolRunner(resizeTool);
@@ -43,7 +45,7 @@ export default function ResizeTool({ initial }: { initial?: Partial<ResizeOption
       {files.length > 0 && (
         <>
           <p class="text-sm">
-            {files.length} {files.length === 1 ? 'image' : 'images'} selected.{' '}
+            {fill(files.length === 1 ? ui.selectedOne : ui.selectedMany, { n: files.length })}{' '}
             <button
               type="button"
               class="link"
@@ -53,7 +55,7 @@ export default function ResizeTool({ initial }: { initial?: Partial<ResizeOption
                 setFiles([]);
               }}
             >
-              Clear
+              {ui.clear}
             </button>
           </p>
 
@@ -197,7 +199,7 @@ export default function ResizeTool({ initial }: { initial?: Partial<ResizeOption
                 onClick={runner.cancel}
                 class="btn btn-lg"
               >
-                Cancel
+                {ui.cancel}
               </button>
             )}
           </div>

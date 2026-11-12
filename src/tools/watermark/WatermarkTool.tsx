@@ -7,10 +7,12 @@ import { useToolRunner } from '../../engine/useToolRunner';
 import { watermarkTool } from './tool';
 import { drawWatermark } from './draw';
 import { MAX_TEXT_LENGTH, WATERMARK_POSITIONS, cleanText, type WatermarkOptions, type WatermarkPosition } from './options';
+import { fill, useUi } from '../../i18n/ui';
 
 const PREVIEW_WIDTH = 560;
 
 export default function WatermarkTool() {
+  const ui = useUi();
   const [files, setFiles] = useState<File[]>([]);
   const [options, setOptions] = useState<WatermarkOptions>(watermarkTool.defaultOptions);
   const runner = useToolRunner(watermarkTool);
@@ -81,7 +83,7 @@ export default function WatermarkTool() {
       {files.length > 0 && (
         <>
           <p class="text-sm">
-            {files.length} {files.length === 1 ? 'image' : 'images'} selected.{' '}
+            {fill(files.length === 1 ? ui.selectedOne : ui.selectedMany, { n: files.length })}{' '}
             <button
               type="button"
               class="link"
@@ -91,7 +93,7 @@ export default function WatermarkTool() {
                 setFiles([]);
               }}
             >
-              Clear
+              {ui.clear}
             </button>
           </p>
 
@@ -182,11 +184,11 @@ export default function WatermarkTool() {
               onClick={() => runner.run(files, options)}
               class="btn btn-primary btn-lg"
             >
-              {running ? 'Working...' : 'Add watermark'}
+              {running ? ui.working : 'Add watermark'}
             </button>
             {running && (
               <button type="button" onClick={runner.cancel} class="btn btn-lg">
-                Cancel
+                {ui.cancel}
               </button>
             )}
           </div>

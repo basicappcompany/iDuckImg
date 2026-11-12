@@ -8,8 +8,10 @@ import { formatBytes } from '../../lib/files';
 import { moveItem, removeAt } from '../../lib/list';
 import { mergeTool } from './tool';
 import { MAX_GAP, MIN_IMAGES, clampGap, type MergeBackground, type MergeDirection, type MergeFormat, type MergeMatch, type MergeOptions } from './options';
+import { useUi } from '../../i18n/ui';
 
 export default function MergeTool() {
+  const ui = useUi();
   const [files, setFiles] = useState<File[]>([]);
   const [options, setOptions] = useState<MergeOptions>(mergeTool.defaultOptions);
   const runner = useToolRunner(mergeTool);
@@ -42,7 +44,7 @@ export default function MergeTool() {
                 {files.length} {files.length === 1 ? 'picture' : 'pictures'} ({formatBytes(totalBytes)})
               </p>
               <button type="button" class="link text-sm" disabled={running} onClick={() => update([])}>
-                Clear
+                {ui.clear}
               </button>
             </div>
             <ol class="divide-y divide-line/20">
@@ -111,7 +113,7 @@ export default function MergeTool() {
             </button>
             {running && (
               <button type="button" onClick={runner.cancel} class="btn btn-lg">
-                Cancel
+                {ui.cancel}
               </button>
             )}
           </div>

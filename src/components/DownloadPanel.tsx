@@ -2,6 +2,7 @@ import { originalSizeOf } from '../tools/shared/normalize';
 import { useEffect, useMemo, useState } from 'preact/hooks';
 import { dedupeNames, formatBytes, percentChange } from '../lib/files';
 import type { FileResult } from '../engine/types';
+import { fill, useUi } from '../i18n/ui';
 
 interface Props {
   /** Original files, same order the batch was submitted in. */
@@ -19,6 +20,7 @@ function useObjectUrls(blobs: readonly Blob[]): string[] {
 
 /** Per-file download with before/after sizes, plus one ZIP for batches. */
 export default function DownloadPanel({ inputs, results, beforeBytes }: Props) {
+  const ui = useUi();
   const rows = useMemo(
     () =>
       results.flatMap((r) =>
@@ -63,7 +65,7 @@ export default function DownloadPanel({ inputs, results, beforeBytes }: Props) {
               <div class="min-w-0">
                 <p class="truncate font-black">{output.name}</p>
                 <p class="text-sm text-muted">
-                  {formatBytes(before)} to {formatBytes(after)}
+                  {fill(ui.sizes, { before: formatBytes(before), after: formatBytes(after) })}
                   {before > 0 && ` (${change > 0 ? '+' : ''}${change}%)`}
                 </p>
               </div>
@@ -72,7 +74,7 @@ export default function DownloadPanel({ inputs, results, beforeBytes }: Props) {
                 download={output.name}
                 class="btn btn-primary shrink-0"
               >
-                Download
+                {ui.download}
               </a>
             </li>
           );
@@ -82,7 +84,7 @@ export default function DownloadPanel({ inputs, results, beforeBytes }: Props) {
         <ul role="alert" class="mt-3 text-sm font-bold text-danger">
           {failed.map((r) => (
             <li key={r.index}>
-              {r.fileName}: {r.error ?? 'could not be processed'}
+              {r.fileName}: {r.error ?? ui.couldNotProcess}
             </li>
           ))}
         </ul>
@@ -94,7 +96,7 @@ export default function DownloadPanel({ inputs, results, beforeBytes }: Props) {
           disabled={zipping}
           class="btn btn-ink btn-lg mt-4 w-full"
         >
-          {zipping ? 'Preparing ZIP...' : `Download all (${rows.length}) as ZIP`}
+          {zipping ? ui.preparingZip : fill(ui.downloadAll, { n: rows.length })}
         </button>
       )}
     </section>

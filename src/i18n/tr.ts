@@ -23,7 +23,7 @@ export const tr: LocaleData = {
     footerTerms: `Koşullar`,
     footerFeedback: `Geri bildirim`,
     footerGuides: `Nasıl yapılır rehberleri`,
-    machineNote: `Bu sayfa makine çevirisidir. Araç kontrolleri ve nasıl yapılır rehberleri şimdilik İngilizcedir.`,
+    machineNote: `Bu sayfa makine çevirisidir. Araç seçenekleri ve nasıl yapılır rehberleri şimdilik İngilizcedir.`,
 
     breadcrumbHome: `Ana sayfa`,
     runsInBrowser: `Tarayıcınızda çalışır`,
@@ -33,7 +33,7 @@ export const tr: LocaleData = {
     quickAnswer: `Kısa yanıt`,
     readGuide: `Rehberi okuyun (İngilizce)`,
     moreIn: `"{group}" içinde daha fazlası`,
-    controlsEnglish: `Aşağıdaki araç kontrolleri şimdilik İngilizcedir.`,
+    controlsEnglish: `Aşağıdaki dosya seçici ve indirme düğmeleri çevrilmiştir. Aracın kendi seçenekleri ve düğmeleri şimdilik İngilizcedir.`,
     toolDescSuffix: `Ücretsiz, tarayıcınızda, yükleme yok.`,
 
     homeTitle: `iDuckImg: ücretsiz çevrimiçi görsel araçları`,

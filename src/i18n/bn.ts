@@ -23,7 +23,7 @@ export const bn: LocaleData = {
     footerTerms: `শর্তাবলি`,
     footerFeedback: `মতামত`,
     footerGuides: `কীভাবে করবেন গাইড`,
-    machineNote: `এই পেজটি মেশিনের মাধ্যমে অনুবাদ করা। টুলের নিয়ন্ত্রণ ও কীভাবে করবেন গাইড আপাতত ইংরেজিতে আছে।`,
+    machineNote: `এই পেজটি মেশিনের মাধ্যমে অনুবাদ করা। টুলের অপশন ও কীভাবে করবেন গাইড আপাতত ইংরেজিতে আছে।`,
 
     breadcrumbHome: `হোম`,
     runsInBrowser: `আপনার ব্রাউজারে চলে`,
@@ -33,7 +33,7 @@ export const bn: LocaleData = {
     quickAnswer: `সংক্ষিপ্ত উত্তর`,
     readGuide: `গাইড পড়ুন (ইংরেজিতে)`,
     moreIn: `"{group}"-এ আরও`,
-    controlsEnglish: `নিচের টুলের নিয়ন্ত্রণগুলো আপাতত ইংরেজিতে আছে।`,
+    controlsEnglish: `নিচে ফাইল বাছাই ও ডাউনলোডের বোতামগুলো অনুবাদ করা। টুলের নিজস্ব অপশন ও বোতাম আপাতত ইংরেজিতে আছে।`,
     toolDescSuffix: `বিনামূল্যে, আপনার ব্রাউজারে, আপলোড ছাড়াই।`,
 
     homeTitle: `iDuckImg: বিনামূল্যের অনলাইন ইমেজ টুল`,
