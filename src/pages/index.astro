@@ -2,6 +2,7 @@
 import AppShell from '../components/AppShell.astro';
 import DuckMark from '../components/DuckMark.astro';
 import { TOOLS, TOOL_GROUPS, toolPath, toolsInGroup } from '../lib/tools';
+import { popularTools } from '../lib/quick';
 import { LANDING_PAGES, landingName, landingPath, landingsInGroup } from '../lib/landing';
 import { faqLd, organizationLd, websiteLd } from '../lib/seo';
 
@@ -53,23 +54,60 @@ const why = [
       <span class="pill">No watermark</span>
     </div>
 
-    <div class="mx-auto mt-6 max-w-xl text-left">
-      <label class="sr-only" for="hero-search">Find a tool</label>
-      <input
+    <div class="mx-auto mt-6 max-w-xl">
+      <button
+        type="button"
         id="hero-search"
-        type="search"
-        class="input card py-3 text-lg"
-        placeholder="What do you want to do?"
-        autocomplete="off"
-      />
+        class="hero-search"
+        aria-label="Search tools, pages and actions"
+        data-open-palette
+      >
+        <span aria-hidden="true" class="text-lg">🔍</span>
+        <span class="flex-1 text-left">What do you want to do with your picture?</span>
+        <kbd aria-hidden="true">Ctrl K</kbd>
+      </button>
+      <p class="mt-2 text-sm text-muted">Press <b>Ctrl K</b> (or <b>/</b>) on any page to search.</p>
     </div>
   </section>
 
-  <section class="mt-10" aria-label="Tools">
-    <h2 class="sr-only">All tools</h2>
+  <section class="mt-10" aria-label="Popular right now">
+    <h2 class="text-2xl font-black tracking-tight">Popular right now</h2>
+    <ul class="mt-3 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+      {
+        popularTools().map((p) => (
+          <li>
+            <a href={p.href} class="card card-link h-full p-4">
+              <span class="flex items-center gap-3 text-lg font-black">
+                <span aria-hidden="true" class="text-2xl">{p.emoji}</span>
+                {p.name}
+              </span>
+              <span class="mt-1 block text-sm text-muted">{p.summary}</span>
+            </a>
+          </li>
+        ))
+      }
+    </ul>
+  </section>
+
+  <section class="mt-12" aria-label="Tools">
+    <h2 class="text-2xl font-black tracking-tight">All {TOOLS.length + LANDING_PAGES.length} tools</h2>
+    <p class="mt-1 text-muted">Pick a group to narrow the list, or press Ctrl K to search.</p>
+    <div class="mt-3 flex flex-wrap gap-2" role="group" aria-label="Filter by group">
+      <button type="button" class="chip" role="switch" aria-checked="true" data-filter="all">
+        Everything ({TOOLS.length + LANDING_PAGES.length})
+      </button>
+      {
+        TOOL_GROUPS.map((group) => (
+          <button type="button" class="chip" role="switch" aria-checked="false" data-filter={group}>
+            {group} ({toolsInGroup(group).length + landingsInGroup(group).length})
+          </button>
+        ))
+      }
+    </div>
+    <div class="mt-6">
     {
       TOOL_GROUPS.map((group) => (
-        <div class="mt-8 first:mt-0" data-card-group>
+        <div class="mt-8 first:mt-0" data-card-group data-group={group}>
           <h3 class="text-2xl font-black tracking-tight">{group}</h3>
           <ul class="mt-3 grid gap-4 sm:grid-cols-2">
             {toolsInGroup(group).map((tool) => (
@@ -102,9 +140,18 @@ const why = [
         </div>
       ))
     }
-    <p id="hero-no-match" hidden class="mt-6 text-center text-muted">
-      No tool matches that. Try "pdf", "heic" or "resize".
-    </p>
+    </div>
+  </section>
+
+  <section class="mt-14" aria-label="Ask the helper">
+    <div class="card flex flex-wrap items-center gap-4 bg-duck p-5 text-duckink">
+      <span aria-hidden="true" class="text-4xl">💬</span>
+      <div class="min-w-48 flex-1">
+        <h2 class="text-xl font-black tracking-tight">Not sure which tool you need?</h2>
+        <p class="opacity-80">Describe the job in plain words and the helper will point you to the right one.</p>
+      </div>
+      <a href="/chat/" class="btn btn-ink">Ask the helper</a>
+    </div>
   </section>
 
   <section class="mt-14" aria-label="Why iDuckImg">
@@ -138,25 +185,21 @@ const why = [
   </section>
 
   <script>
-    import { TOOLS, searchTools } from '../lib/tools';
-    import { landingAsTools } from '../lib/landing';
+    // The big search box is a button for the Ctrl K window, which lives in the page shell.
+    document.querySelectorAll('[data-open-palette]').forEach((el) =>
+      el.addEventListener('click', () => document.getElementById('search-open')?.click()),
+    );
 
-    const ALL = [...TOOLS, ...landingAsTools()];
-
-    const input = document.getElementById('hero-search') as HTMLInputElement | null;
-    const noMatch = document.getElementById('hero-no-match');
-    input?.addEventListener('input', () => {
-      const slugs = new Set(searchTools(input.value, ALL).map((t) => t.slug));
-      let visible = 0;
-      document.querySelectorAll<HTMLElement>('[data-card]').forEach((card) => {
-        const show = slugs.has(card.dataset['slug'] ?? '');
-        card.hidden = !show;
-        if (show) visible++;
-      });
-      document.querySelectorAll<HTMLElement>('[data-card-group]').forEach((g) => {
-        g.hidden = g.querySelectorAll('[data-card]:not([hidden])').length === 0;
-      });
-      if (noMatch) noMatch.hidden = visible > 0;
-    });
+    // Group chips narrow the list of tools; "Everything" shows all of them again.
+    const chips = Array.from(document.querySelectorAll<HTMLButtonElement>('[data-filter]'));
+    chips.forEach((chip) =>
+      chip.addEventListener('click', () => {
+        const wanted = chip.dataset['filter'] ?? 'all';
+        chips.forEach((c) => c.setAttribute('aria-checked', String(c === chip)));
+        document.querySelectorAll<HTMLElement>('[data-card-group]').forEach((g) => {
+          g.hidden = wanted !== 'all' && g.dataset['group'] !== wanted;
+        });
+      }),
+    );
   </script>
 </AppShell>

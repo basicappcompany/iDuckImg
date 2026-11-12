@@ -176,8 +176,9 @@ test.describe('site', () => {
     });
 
     test('"/" opens it too, but not while typing in a field', async ({ page }) => {
-      await page.goto('/');
-      await page.getByLabel('Find a tool').focus();
+      await page.goto('/chat/');
+      await page.waitForLoadState('networkidle');
+      await page.getByLabel('Describe what you want to do').focus();
       await page.keyboard.type('a/b');
       await expect(dialog(page)).toBeHidden();
       await page.locator('body').click({ position: { x: 5, y: 5 } });
@@ -233,16 +234,39 @@ test.describe('site', () => {
       await expect(dialog(page)).toBeHidden();
     });
 
-    test('the homepage search box filters the cards', async ({ page }) => {
+    test('the big search box on the home page opens the same window, and Ctrl K works from it', async ({ page }) => {
       await page.goto('/');
-      await page.getByLabel('Find a tool').fill('exif');
-      const cards = page.locator('[data-card]:not([hidden])');
-      await expect(cards).toHaveCount(1);
-      await expect(cards.first()).toContainText('Remove EXIF data');
-      await page.getByLabel('Find a tool').fill('zzzz');
-      await expect(page.getByText('No tool matches that. Try "pdf", "heic" or "resize".').last()).toBeVisible();
-      await page.getByLabel('Find a tool').fill('');
+      await page.waitForLoadState('networkidle');
+      const hero = page.getByRole('button', { name: 'Search tools, pages and actions' }).first();
+      await expect(hero).toContainText('Ctrl K');
+      await hero.click();
+      await expect(dialog(page)).toBeVisible();
+      await expect(box(page)).toBeFocused();
+      await page.keyboard.press('Escape');
+      await expect(dialog(page)).toBeHidden();
+      await hero.focus();
+      await page.keyboard.press('Control+k');
+      await expect(dialog(page)).toBeVisible();
+      await page.keyboard.press('Escape');
+      await expect(page.getByRole('region', { name: 'Ask the helper' }).getByRole('link', { name: 'Ask the helper' })).toHaveAttribute('href', '/chat/');
       await expect(page.locator('[data-card]:not([hidden])')).toHaveCount(LISTED.length);
+    });
+
+    test('Popular right now links to real pages, and the group chips narrow the tool list', async ({ page, request }) => {
+      await page.goto('/');
+      await page.waitForLoadState('networkidle');
+      const popular = await hrefs(page, page.getByRole('region', { name: 'Popular right now' }).getByRole('link'));
+      expect(popular).toHaveLength(6);
+      for (const href of popular) expect((await request.get(href)).status(), href).toBe(200);
+
+      const cards = page.locator('[data-card-group]:not([hidden]) [data-card]');
+      await expect(cards).toHaveCount(LISTED.length);
+      await page.getByRole('switch', { name: /^Add text & effects/ }).click();
+      await expect(cards).toHaveCount(GROUPS['Add text & effects']!.length);
+      await expect(page.getByRole('switch', { name: /^Add text & effects/ })).toHaveAttribute('aria-checked', 'true');
+      await expect(page.getByRole('switch', { name: /^Everything/ })).toHaveAttribute('aria-checked', 'false');
+      await page.getByRole('switch', { name: /^Everything/ }).click();
+      await expect(cards).toHaveCount(LISTED.length);
     });
   });
 
