@@ -17,16 +17,20 @@ const SHORTCUTS: Record<string, string[]> = {
     '/webp-to-png/', '/jpg-to-webp/', '/png-to-webp/', '/jpg-to-pdf/', '/png-to-pdf/',
   ],
 };
-/** The Quick tools list at the top of the sidebar, in order. */
-const QUICK = [
-  '/compress-image/',
-  '/resize-image/',
-  '/compress-image-to-100kb/',
-  '/heic-to-jpg/',
-  '/png-to-jpg/',
-  '/jpg-to-pdf/',
-  '/exam-photo-resizer/',
-];
+/** The Quick tools sub-categories at the top of the sidebar, in order. */
+const QUICK: Record<string, string[]> = {
+  'Compress & resize': [
+    '/compress-image/', '/resize-image/', '/compress-image-to-100kb/', '/compress-image-to-50kb/',
+    '/compress-image-to-200kb/', '/compress-image-to-20kb/',
+  ],
+  'Convert a format': [
+    '/heic-to-jpg/', '/heic-to-png/', '/png-to-jpg/', '/jpg-to-png/', '/webp-to-jpg/',
+    '/webp-to-png/', '/jpg-to-webp/', '/png-to-webp/',
+  ],
+  'Make a PDF': ['/jpg-to-pdf/', '/png-to-pdf/', '/image-to-pdf/'],
+  'Photos for forms': ['/exam-photo-resizer/', '/remove-exif-data/'],
+  'Quick edits': ['/crop-image/', '/rotate-image/', '/add-watermark-to-image/', '/circle-crop-image/'],
+};
 /** Everything the home page and the sidebar list, in order: each group's tools, then its shortcuts. */
 const LISTED = Object.entries(GROUPS).flatMap(([group, paths]) => [...paths, ...(SHORTCUTS[group] ?? [])]);
 const groupOf = (path: string) => Object.entries(GROUPS).find(([, paths]) => paths.includes(path))![0];
@@ -62,9 +66,16 @@ test.describe('site', () => {
       for (const button of await sidebar.locator('[data-nav-group]').all()) {
         if ((await button.getAttribute('aria-expanded')) === 'false') await button.click();
       }
-      expect(await hrefs(page, sidebar.getByRole('link'))).toEqual(LISTED);
+      expect(await hrefs(page, sidebar.getByRole('link'))).toEqual(TOOL_PATHS);
       expect(await hrefs(page, page.getByRole('navigation', { name: 'Main' }).getByRole('link'))).toEqual(['/', '/chat/', '/image-tools/']);
-      expect(await hrefs(page, page.getByRole('navigation', { name: 'Quick tools' }).getByRole('link'))).toEqual(QUICK);
+
+      // Quick tools: a collapsible section with sub-categories that open and close.
+      const quick = page.getByRole('navigation', { name: 'Quick tools' });
+      await expect(quick.locator('[data-nav-group][aria-expanded="true"]')).not.toHaveCount(0);
+      for (const button of await quick.locator('[data-nav-group]').all()) {
+        if ((await button.getAttribute('aria-expanded')) === 'false') await button.click();
+      }
+      expect(await hrefs(page, quick.getByRole('link'))).toEqual(Object.values(QUICK).flat());
       await expect(sidebar.locator('a[aria-current="page"]')).toHaveAttribute('href', path);
 
       await expect(page.getByRole('region', { name: 'Quick answer' })).toContainText('To ');

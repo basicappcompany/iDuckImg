@@ -377,6 +377,27 @@ body {
     text-transform: uppercase;
     color: var(--d-muted);
   }
+  .nav-label-btn {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    margin: 12px 0 2px;
+    border: 0;
+    border-radius: 8px;
+    background: transparent;
+    cursor: pointer;
+    text-align: left;
+  }
+  .nav-label-btn:hover {
+    background: var(--d-soft);
+  }
+  .nav-label-btn[aria-expanded='true'] .nav-chevron {
+    transform: rotate(90deg);
+  }
+  #quick-body[hidden] {
+    display: none;
+  }
   .nav-item,
   .nav-group {
     display: flex;
