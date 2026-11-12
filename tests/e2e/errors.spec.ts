@@ -21,6 +21,10 @@ const TOOL_PATHS = [
   '/aspect-ratio-calculator/',
   '/adjust-image-colors/',
   '/add-border-to-image/',
+  '/color-picker-from-image/',
+  '/color-palette-generator/',
+  '/image-to-base64/',
+  '/favicon-generator/',
 ];
 
 test.describe('unknown addresses', () => {

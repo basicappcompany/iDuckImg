@@ -103,10 +103,10 @@ export const PLAN: readonly PlannedTool[] = [
   t('image-to-pdf', '📄', 'Combine images into PDF', 'Put several images in one PDF and choose the page order.', CONVERT, 'live', 'M'),
   t('svg-to-png', '🧷', 'SVG to PNG', 'Turn an SVG drawing into a PNG of any size.', CONVERT, 'next', 'S'),
   t('png-to-svg', '🖋️', 'PNG to SVG', 'Trace a picture into a scalable vector drawing.', CONVERT, 'soon', 'M'),
-  t('image-to-base64', '🧬', 'Image to Base64', 'Turn an image into text for code, and back.', CONVERT, 'next', 'S'),
+  t('image-to-base64', '🧬', 'Image to Base64', 'Turn an image into text for code, and back.', CONVERT, 'live', 'S'),
   t('gif-maker', '🎞️', 'GIF maker', 'Make an animated GIF from several pictures.', CONVERT, 'soon', 'M'),
   t('gif-to-frames', '🎬', 'GIF to images', 'Save every frame of a GIF as a picture.', CONVERT, 'next', 'S'),
-  t('favicon-generator', '⭐', 'Favicon generator', 'Make the icon files a website needs from one picture.', CONVERT, 'next', 'S'),
+  t('favicon-generator', '⭐', 'Favicon generator', 'Make the icon files a website needs from one picture.', CONVERT, 'live', 'S'),
   t('image-to-text', '🔤', 'Image to text (OCR)', 'Copy the text out of a photo, a screenshot or a scan.', CONVERT, 'soon', 'M', 'browser', 'Large first download; self-host the engine and language files.'),
   t('collage-maker', '🗂️', 'Collage maker', 'Arrange several photos in a grid layout.', CONVERT, 'soon', 'L'),
 
@@ -120,8 +120,8 @@ export const PLAN: readonly PlannedTool[] = [
 
   // ---- Create & design (9) ----
   t('signature-maker', '✍️', 'Signature maker', 'Draw or type a signature and save it as a transparent PNG.', CREATE, 'next', 'M'),
-  t('color-picker-from-image', '🎯', 'Colour picker from an image', 'Click a picture to get the exact colour code.', CREATE, 'next', 'S'),
-  t('color-palette-generator', '🎨', 'Colour palette generator', 'Pull the main colours out of a picture.', CREATE, 'next', 'S'),
+  t('color-picker-from-image', '🎯', 'Colour picker from an image', 'Click a picture to get the exact colour code.', CREATE, 'live', 'S'),
+  t('color-palette-generator', '🎨', 'Colour palette generator', 'Pull the main colours out of a picture.', CREATE, 'live', 'S'),
   t('placeholder-image-generator', '🧱', 'Placeholder image generator', 'Make a plain image of any size for a design or a test.', CREATE, 'next', 'S'),
   t('sticker-maker', '🏷️', 'Sticker maker', 'Cut out a subject and add an outline.', CREATE, 'soon', 'M', 'local-model', 'Needs the background remover first.'),
   t('id-photo-print-sheet', '🖨️', 'ID photo print sheet', 'Lay out passport photos on a 4x6 sheet to print.', CREATE, 'soon', 'M', 'browser', SPECS),

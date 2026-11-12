@@ -12,6 +12,8 @@ interface Props<O> {
   /** False keeps the run button disabled, for example while a required text box is empty. */
   canRun: boolean;
   runLabel: string;
+  /** One picture at a time: a new drop replaces the old one instead of adding to it. */
+  single?: boolean;
   /** Shown under a disabled run button, to say what is missing. */
   missing?: string;
   /** The preview and option panels. Call `reset` when an option changes so old results disappear. */
@@ -22,7 +24,7 @@ interface Props<O> {
  * The frame shared by the simple one-picture-in, results-out tools: drop zone, file count, your
  * option panels, the run and cancel buttons, progress and downloads. Tools supply the middle.
  */
-export default function SimpleToolShell<O>({ tool, options, canRun, runLabel, missing, children }: Props<O>) {
+export default function SimpleToolShell<O>({ tool, options, canRun, runLabel, missing, single = false, children }: Props<O>) {
   const [files, setFiles] = useState<File[]>([]);
   const runner = useToolRunner(tool);
   const running = runner.state === 'running';
@@ -36,12 +38,12 @@ export default function SimpleToolShell<O>({ tool, options, canRun, runLabel, mi
 
   const addFiles = (added: File[]) => {
     runner.reset();
-    setFiles((prev) => [...prev, ...added]);
+    setFiles((prev) => (single ? added.slice(0, 1) : [...prev, ...added]));
   };
 
   return (
     <div class="grid gap-5">
-      <FileDropzone accepts={tool.accepts} onFiles={addFiles} disabled={running} />
+      <FileDropzone accepts={tool.accepts} onFiles={addFiles} disabled={running} multiple={!single} />
 
       {files.length > 0 && (
         <>

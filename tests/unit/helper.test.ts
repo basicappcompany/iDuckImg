@@ -12,6 +12,10 @@ describe('the helper', () => {
     expect(first('put my name on my photos')).toBe('add-watermark-to-image');
     expect(first('put my logo on my photos')).toBe('add-logo-to-image');
     expect(first('make my photo black and white')).toBe('adjust-image-colors');
+    expect(first('what is the hex code of a colour in my picture')).toBe('color-picker-from-image');
+    expect(first('get the main colours from a picture')).toBe('color-palette-generator');
+    expect(first('convert an image to base64')).toBe('image-to-base64');
+    expect(first('make a favicon for my website')).toBe('favicon-generator');
     expect(first('make a picture brighter')).toBe('adjust-image-colors');
     expect(first('put a white frame around it')).toBe('add-border-to-image');
     expect(first('how many pixels is 5 cm')).toBe('pixel-to-cm-converter');

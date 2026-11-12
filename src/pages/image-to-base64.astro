@@ -1,0 +1,52 @@
+---
+import ToolLayout from '../components/ToolLayout.astro';
+import ToolGuide from '../components/ToolGuide.astro';
+import Base64Tool from '../tools/base64/Base64Tool';
+
+const steps = [
+  'To turn a picture into text, choose Image to Base64 and drop the picture in. Any picture type works, and the original file is encoded as it is.',
+  'Pick the format you need: a data URI, plain Base64, a CSS background or an HTML image tag.',
+  'Press Copy, or download the text as a .txt file.',
+  'To go the other way, choose Base64 to image, paste the text and download the picture.',
+];
+const notes = [
+  'Base64 writes the bytes of a file as ordinary text, so a small picture can sit inside a web page, a stylesheet or an email without a separate file. The text is about a third longer than the file.',
+  'It suits small images such as icons and logos. For a large photo the text becomes very long and a normal image file loads faster, so the tool warns you above 100 KB.',
+  'Pasted text can be a full data URI or just the Base64 characters. The tool works out what kind of picture it is from the data itself (PNG, JPG, GIF, WebP, BMP, AVIF, SVG or ICO) and tells you plainly if the text is cut off or is not a picture.',
+];
+const faqs = [
+  {
+    q: 'How do I convert an image to Base64?',
+    a: 'Choose Image to Base64, drop the picture in and copy the result. The default is a data URI, which you can paste straight into an HTML or CSS file.',
+  },
+  {
+    q: 'What is a data URI?',
+    a: 'A way to put a file inside a web address. It starts with data: and the file type, then ;base64, then the Base64 text, for example data:image/png;base64,iVBOR...',
+  },
+  {
+    q: 'How do I turn Base64 back into an image?',
+    a: 'Choose Base64 to image, paste the text (with or without the data: start) and download the picture it decodes to.',
+  },
+  {
+    q: 'Why is the Base64 text bigger than my file?',
+    a: 'Base64 uses four text characters for every three bytes, so the text is about 33 percent longer than the file.',
+  },
+  {
+    q: 'Is my picture uploaded?',
+    a: 'No. The encoding and decoding happen in your browser, so your pictures and your text stay on your device.',
+  },
+];
+---
+
+<ToolLayout
+  title="Image to Base64 converter and decoder online | iDuckImg"
+  description="Turn a picture into Base64 or a data URI for HTML and CSS, or paste Base64 and get the image back. Free, in your browser, no upload."
+  heading="Image to Base64"
+  steps={steps}
+  faqs={faqs}
+>
+  <Base64Tool client:load />
+  <div slot="content">
+    <ToolGuide title="How to convert an image to Base64" steps={steps} notes={notes} faqs={faqs} />
+  </div>
+</ToolLayout>
