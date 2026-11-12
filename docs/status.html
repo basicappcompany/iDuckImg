@@ -254,7 +254,7 @@
    DATA. Edit here. States: done | progress | todo | waiting | later.  Owners: me | you | both | external | none.
    "me" = I can do it with no input. "you" = only you can. "both" = I do the mechanics, you sign in / approve / supply a secret.
    =================================================================================================================== */
-const VERIFIED = "12 Nov 2026 (pnpm verify and build pass on main: 169 unit tests; 81 browser tests pass, 4 HEIC tests skipped; live site checked after the 404, robots.txt and pages.dev noindex deploys; CI green on the last merges, PRs #17 to #19)";
+const VERIFIED = "12 Nov 2026 (pnpm verify and build pass on main: 304 unit tests in 30 files; 155 browser tests pass in 17 files, 4 HEIC tests skipped; CI green on every merge, PRs #20 to #34; live site spot-checked after each deploy)";
 const REPO = "https://github.com/basicappcompany/iDuckImg";
 
 /* Tools. A row is "ready" only if its page exists on main and answers on https://iduckimg.com. Move a planned row to "ready" in the same PR that ships it. */
@@ -292,7 +292,18 @@ const TOOLS_DATA = [
   {"id": "jpg-to-webp", "name": "JPG to WebP (landing page)", "icon": "⚡", "category": "Landing pages", "slug": "jpg-to-webp", "status": "ready"},
   {"id": "png-to-webp", "name": "PNG to WebP (landing page)", "icon": "⚡", "category": "Landing pages", "slug": "png-to-webp", "status": "ready"},
   {"id": "jpg-to-pdf", "name": "JPG to PDF (landing page)", "icon": "📄", "category": "Landing pages", "slug": "jpg-to-pdf", "status": "ready"},
-  {"id": "png-to-pdf", "name": "PNG to PDF (landing page)", "icon": "📄", "category": "Landing pages", "slug": "png-to-pdf", "status": "ready"}
+  {"id": "png-to-pdf", "name": "PNG to PDF (landing page)", "icon": "📄", "category": "Landing pages", "slug": "png-to-pdf", "status": "ready"},
+  {"id": "avif-to-jpg", "name": "AVIF to JPG (landing page)", "icon": "🖼️", "category": "Landing pages", "slug": "avif-to-jpg", "status": "ready"},
+  {"id": "avif-to-png", "name": "AVIF to PNG (landing page)", "icon": "🖼️", "category": "Landing pages", "slug": "avif-to-png", "status": "ready"},
+  {"id": "svg-to-png", "name": "SVG to PNG (landing page)", "icon": "✏️", "category": "Landing pages", "slug": "svg-to-png", "status": "ready"},
+  {"id": "svg-to-jpg", "name": "SVG to JPG (landing page)", "icon": "✏️", "category": "Landing pages", "slug": "svg-to-jpg", "status": "ready"},
+  {"id": "bmp-to-jpg", "name": "BMP to JPG (landing page)", "icon": "🗂️", "category": "Landing pages", "slug": "bmp-to-jpg", "status": "ready"},
+  {"id": "gif-to-png", "name": "GIF to PNG (landing page)", "icon": "🎞️", "category": "Landing pages", "slug": "gif-to-png", "status": "ready"},
+  {"id": "ibps-po-photo-size", "name": "IBPS PO photograph size (landing page)", "icon": "📸", "category": "Landing pages", "slug": "ibps-po-photo-size", "status": "ready"},
+  {"id": "ibps-po-signature-size", "name": "IBPS PO signature size (landing page)", "icon": "📝", "category": "Landing pages", "slug": "ibps-po-signature-size", "status": "ready"},
+  {"id": "ibps-po-thumb-impression-size", "name": "IBPS PO left thumb impression size (landing page)", "icon": "👍", "category": "Landing pages", "slug": "ibps-po-thumb-impression-size", "status": "ready"},
+  {"id": "ibps-po-declaration-size", "name": "IBPS PO handwritten declaration size (landing page)", "icon": "📃", "category": "Landing pages", "slug": "ibps-po-declaration-size", "status": "ready"},
+  {"id": "ssc-cgl-signature-size", "name": "SSC CGL signature size (landing page)", "icon": "📝", "category": "Landing pages", "slug": "ssc-cgl-signature-size", "status": "ready"}
 ];
 
 const I = (id, name, state, owner, o = {}) => Object.assign({ id, name, state, owner }, o);
@@ -301,7 +312,7 @@ const PHASES = [
   { num: 1, name: "Foundation", summary: "The project skeleton, the tool engine, the shared UI, the design system and the tests. Built once, used by every tool.", items: [
     I("1.1", "Astro 7 + Preact 11 + Tailwind 4 project with exact-pinned dependencies", "done", "none", { when: "11 Nov", note: "PR #1. TypeScript is pinned to 6.0.3 because `@astrojs/check` does not support 7 yet. HEIC uses `libheif-js` (heic2any has not been updated since 2023) and PDF uses `@cantoo/pdf-lib` (the maintained fork; the original is stale since 2022)." }),
     I("1.2", "CLAUDE.md with decisions, conventions and commands", "done", "none", { when: "12 Nov", note: "Kept current as the work moves. The 12 Nov docs-sync added the milestone status, the design system, how to add a tool and the gotchas learned (see the Decisions section)." }),
-    I("1.3", "GitHub Actions CI on every pull request", "done", "none", { when: "11 Nov", note: "`pnpm install --frozen-lockfile`, type-check, lint, unit tests, build and the Playwright suite. About 2.5 minutes (the last two main runs took 2m 9s and 2m 34s). Actions are pinned to their latest release versions. GitHub Actions had an outage on 11 Nov and runs sat queued for about an hour; one stuck run was replaced by pushing an empty commit, and nothing was merged without green CI." }),
+    I("1.3", "GitHub Actions CI on every pull request", "done", "none", { when: "11 Nov", note: "`pnpm install --frozen-lockfile`, type-check, lint, unit tests, build and the Playwright suite. About 3 to 4 minutes now that there are many more browser tests (the last four main runs took 2m 41s to 4m 0s). Actions are pinned to their latest release versions. GitHub Actions had an outage on 11 Nov and runs sat queued for about an hour; one stuck run was replaced by pushing an empty commit, and nothing was merged without green CI." }),
     I("1.4", "Tool engine: contract, sequential batch runner, worker handle, pixel limits", "done", "none", { when: "11 Nov", note: "PR #2. One bad file never stops a batch, cancel marks the rest cancelled, aborting terminates the worker so WASM stops, and decoded images are capped at 25 MP (warn) and 100 MP (refuse) for phone memory. PR #10 added combined tools (the whole batch in, one result out), used by Combine images into PDF. The worker handle and the hook are covered by the browser tests, including a Cancel test." }),
     I("1.5", "Shared UI: drop zone, options, progress, download panel, tool layout, ad slot", "done", "none", { when: "11 Nov", note: "PR #3, restyled in PR #16. Drag and drop, paste, a phone camera button, before/after sizes and a lazy-loaded ZIP download. Checked in desktop Chrome through the browser tests; not yet on a real phone (see 2.12)." }),
     I("1.6", "Playwright setup and end-to-end tests", "done", "none", { when: "11 Nov", note: "PR #7. Runs in the Chrome installed on the machine (GitHub's runners have it too) against the production build. All pass locally (the count changes often, so run `pnpm test:e2e`); 4 HEIC tests are skipped unless `HEIC_FIXTURE` points at a .heic file, because no fixture is committed (there is no HEIC encoder to make one, and sample images carry their own licences). The tests wait for the page to hydrate before adding files, which fixed an intermittent failure." }),
@@ -359,7 +370,7 @@ const PHASES = [
     I("4.4", "Professional legal review", "later", "external", { effort: "days", note: "Worth it before taking meaningful money." }),
   ]},
   { num: 5, name: "Search, discovery and analytics (SEO)", summary: "One fast, well-structured page per tool and per high-intent query. Rankings can never be guaranteed; these are the things that move them.", items: [
-    I("5.1", "Sitemap generated on every build", "done", "none", { when: "11 Nov", note: "`@astrojs/sitemap` lists the home page, the tools, the 25 landing pages, the hub and the indexable community and legal pages (29 URLs in the local build). Form and settings pages are filtered out. Live sitemap not re-checked until this is deployed." }),
+    I("5.1", "Sitemap generated on every build", "done", "none", { when: "11 Nov", note: "`@astrojs/sitemap` lists the home page, the tools, the 25 landing pages, the hub and the indexable community and legal pages (52 URLs in the local build, 12 Nov). Form and settings pages are filtered out. Live sitemap lists the same pages." }),
     I("5.2", "SEO head: unique title and description, canonical, Open Graph", "done", "none", { when: "12 Nov", note: "Every page has a unique title, description, canonical link, Open Graph and Twitter card tags, and a 1200x630 share image (`public/og.png`). Pages that must stay out of search (forms, settings, 404) carry noindex and are left out of the sitemap." }),
     I("5.3", "Structured data: WebApplication, HowTo, FAQPage, BreadcrumbList", "done", "none", { when: "12 Nov", note: "Built by `src/lib/seo.ts` and checked by tests: WebApplication and BreadcrumbList on every tool page, HowTo and FAQPage on every landing page, WebSite, Organization and FAQPage on the home page. Whether Google shows rich results is up to Google." }),
     I("5.4", "robots.txt, llms.txt and the share image", "done", "none", { when: "12 Nov", note: "`robots.txt` allows all crawlers and names the main AI crawlers (GPTBot, OAI-SearchBot, ClaudeBot, PerplexityBot, Google-Extended and others) so answer engines may read and quote the pages. `/llms.txt` is generated from the tool and page lists, so it cannot go stale." }),
@@ -423,15 +434,25 @@ const TIMELINE = [
   ["12 Nov 2026", "Docs sync", "Numbers re-measured. Found that unknown URLs and /robots.txt return the home page with status 200 (items 5.4 and 5.11) and that pages.dev is not blocked from indexing (3.6)."],
   ["12 Nov 2026", "pages.dev kept out of search (PR #19)", "A noindex header for the pages.dev addresses, checked first on the pull request's own preview deployment and then in production: pages.dev sends it, iduckimg.com does not."],
   ["12 Nov 2026", "Real 404 page and robots.txt (PR #18)", "Fixed the soft 404 and the missing robots.txt, then checked both on the live site after the deploy: unknown addresses return 404, robots.txt is plain text with the sitemap line, real pages and the sitemap still return 200."],
+  ["12 Nov 2026", "Landing pages, SEO and legal pages (PR #20)", "14 landing pages that open the real tool with options preset, Open Graph and structured data, the generated /llms.txt, robots.txt naming AI crawlers, the /image-tools/ hub, the community pages, and the Privacy and Terms pages."],
+  ["12 Nov 2026", "Command palette and watermark (PR #21)", "The Ctrl K search window and the text watermark tool."],
+  ["12 Nov 2026", "Sidebar, top bar and shortcuts as tools (PRs #22 and #23)", "The shell was matched to iDuckPDF, and the shortcut pages now appear as cards on the home page and as items in the sidebar."],
+  ["12 Nov 2026", "Four tools (PR #24)", "Circle crop, split into a grid, add text and pixel art."],
+  ["12 Nov 2026", "Quick tools, helper and home page (PRs #25 to #27)", "Collapsible Quick tools with sub-categories, Ask the helper (a keyword matcher, not an AI), and a home page with the Ctrl K search button, Popular right now and group chips."],
+  ["12 Nov 2026", "Merge, blur and logo (PRs #28 and #29)", "Merge images, blur or hide parts of an image, and the logo watermark."],
+  ["12 Nov 2026", "More input formats (PR #31)", "BMP, GIF, SVG and AVIF open in every picture tool, with six new landing pages."],
+  ["12 Nov 2026", "Exam landing pages (PR #32)", "One page per exam document, built from the preset data so numbers and sources cannot drift."],
+  ["12 Nov 2026", "Four more tools (PR #33)", "Adjust colours and filters, add a border, the pixel, cm and inch converter and the aspect ratio calculator."],
+  ["12 Nov 2026", "Card sizing and sidebar (PRs #30 and #34)", "Four cards per row at iDuckPDF's content width and card sizes, and Quick tools stay folded when a real tool is open."],
 ];
 
 const SCORECARD = [
-  { k: "Unit tests", v: "169", d: "In 15 files: the engine runner (including combined tools), format detection, the logic of every tool, crop geometry (26 tests, including 4,000 random drags), EXIF stripping on hand-built files, exam preset rules, and theme tokens with contrast checks (29). All pass locally and in CI." },
-  { k: "Browser tests", v: "71 (+4 skipped)", d: "Playwright in Chrome against the production build: real output of every tool, the theme, search, the phone menu and no sideways scroll on every page. The 4 HEIC tests are skipped unless a .heic file is supplied; they pass with one." },
-  { k: "CI time", v: "~2.5 min", d: "Install, type-check, lint, unit tests, build and browser tests on every pull request. The last two main runs took 2m 9s and 2m 34s." },
-  { k: "Tools", v: "8 built of 10 planned", d: "All 8 Milestone 1 tools are live. The other 2 are keyword landing pages (resize to 20 KB, HEIC to JPG) that are not built." },
+  { k: "Unit tests", v: "304", d: "In 30 files: the engine runner, format detection, the pure logic of every tool (layouts, pixel maths, colour and size arithmetic), the landing, exam and quick-tool lists, the helper, SEO data, the plan, EXIF stripping on hand-built files, crop geometry (4,000 random drags) and theme tokens with contrast checks. All pass locally and in CI." },
+  { k: "Browser tests", v: "155 (+4 skipped)", d: "Playwright in Chrome against the production build, in 17 files: real output of every tool (pixels, colours, sizes, transparency), BMP, GIF, SVG and AVIF fixture files, the exam pages, the helper, search, the sidebar, the theme, the phone menu and no sideways scroll on every page. The 4 HEIC tests are skipped unless a .heic file is supplied; they pass with one." },
+  { k: "CI time", v: "~3 to 4 min", d: "Install, type-check, lint, unit tests, build and browser tests on every pull request. The last four main runs took 2m 41s to 4m 0s." },
+  { k: "Tools", v: "20 built of 59 planned", d: "20 real tools plus 25 shortcut pages (45 pages people can open) are live. The master plan in `src/lib/tool-plan.ts` lists 59; the rest are marked next, soon or later, and the AI ones wait for the security policy." },
   { k: "Lighthouse, mobile", v: "Not measured", d: "Target is 95 or more. See item 5.12." },
-  { k: "Pages", v: "10", d: "The home page and 8 tools, all live with HTTP 200 and in the sitemap (9 URLs), plus a 404 page that is not in the sitemap and is marked noindex. Unknown addresses return a real 404." },
+  { k: "Pages", v: "57 built", d: "57 pages in the build and 52 URLs in the sitemap: the home page, the hub, the 20 tools, the 25 shortcut pages and the community and legal pages. The helper, the forms and the 404 page are marked noindex. Unknown addresses return a real 404." },
   { k: "Dependencies", v: "Exact pins", d: "Every package is pinned; lockfile committed; installs use --frozen-lockfile in CI. Two installed packages are unused (item 1.12)." },
 ];
 

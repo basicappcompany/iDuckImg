@@ -1,6 +1,6 @@
 ﻿# iDuckImg
 
-Free online image tools that run in your browser: compress, resize, crop, convert (including iPhone HEIC), combine images into one PDF, rotate and flip, remove EXIF data, and resize photos and signatures for exam forms. No sign-up, no watermark, and the files never leave the device.
+Free online image tools that run in your browser: compress, resize, crop, convert (including iPhone HEIC, AVIF, SVG, GIF and BMP), combine images into one PDF or one picture, rotate and flip, watermark with text or a logo, add text or a border, adjust colours, blur or hide parts, circle crop, split into a grid, pixel art, remove EXIF data, resize photos and signatures for exam forms, plus a pixel/cm/inch converter and an aspect ratio calculator. No sign-up, no watermark, and the files never leave the device.
 
 Live at https://iduckimg.com. The look follows [iDuckPDF](https://iduckpdf.com).
 
@@ -39,7 +39,8 @@ HEIC_FIXTURE=/path/to/photo.heic pnpm test:e2e -g HEIC
 | `src/tools/shared/` | Decoding and encoding, HEIC, pixel transforms and PDF pages shared by tools |
 | `src/engine/` | The tool contract, the batch runner, the worker handle and the Preact hook |
 | `src/components/` | App shell, tool layout, drop zone, options, progress and download panels |
-| `src/lib/` | The tool list (`tools.ts`), theme colours (`theme.ts`), exam preset rules and helpers |
+| `src/lib/` | The tool list (`tools.ts`), the 59-tool plan (`tool-plan.ts`), landing pages (`landing.ts`, `exam-landing.ts`), Quick tools (`quick.ts`), the helper, SEO data, theme colours and the pure maths for the calculators |
+| `src/calculators/` | Tools that take no file (pixel/cm/inch converter, aspect ratio calculator) |
 | `src/data/exam-presets.json` | Photo and signature requirements, each with its official source |
 | `docs/status.html` | The status page: every phase and item, what is done and who owns what |
 

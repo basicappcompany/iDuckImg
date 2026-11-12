@@ -33,7 +33,7 @@ Free online image tools (iLovePDF/iLoveIMG style). Original brand, duck mascot. 
 
 ## Milestones
 1. Free client-side tools. DONE: compress, resize (pixels, percent, target KB), crop, convert (JPG/PNG/WebP/PDF, HEIC input), images to one PDF, rotate/flip, EXIF removal, exam photo resizer (IBPS PO, SSC CGL 2026 signature, custom). Each lives in `src/tools/<name>/` with a page in `src/pages/` and an entry in `src/lib/tools.ts`.
-2. More free tools and SEO expansion. Landing pages DONE (14, see below); still to do: more exam presets, HEIC for compress/resize/crop. 3. AI tools (BYO key and paid credits; document CORS findings here). 4. Accounts.
+2. More free tools and SEO expansion. DONE: 25 landing pages, the SEO/GEO/AEO layer, circle crop, split grid, add text, pixel art, merge, blur, text and logo watermark, adjust colours, border, the pixel/cm/inch converter and the aspect ratio calculator, BMP/GIF/SVG/AVIF input. Still to do: the rest of the plan's `next` tools, more exam presets (needs the user's list), HEIC for compress/resize/crop. 3. AI tools (BYO key and paid credits; document CORS findings here). 4. Accounts.
 
 ## Engine (src/engine)
 - types.ts: ToolDefinition (one file in, outputs out) and CombinedToolDefinition (whole batch in, one result out, e.g. images to PDF). runner.ts: runBatch (sequential, per-file errors, cancel) and runCombined. worker-handle.ts: lazy reusable Comlink worker, abort = terminate. limits.ts: pixel caps (warn 25MP, max 100MP). useToolRunner.ts: Preact hook for both kinds.
@@ -47,6 +47,8 @@ Free online image tools (iLovePDF/iLoveIMG style). Original brand, duck mascot. 
 
 ## Adding a tool
 Create `src/tools/<name>/` (options.ts pure logic, worker.ts, tool.ts, <Name>Tool.tsx), add `src/pages/<slug>.astro`, add it to `src/lib/tools.ts` (a unit test fails if a page is missing from the list), add unit tests for the pure logic and e2e tests that check real output (pixel size, bytes, colours), and add the path to `tests/e2e/site.spec.ts`.
+
+Checklist, because every tool touches the same places: `src/lib/tools.ts` (name and group must equal the plan row), `src/lib/tool-plan.ts` (flip the row to `live`), `src/lib/quick.ts` if it belongs in Quick tools, a line in `tests/unit/helper.test.ts` if people would find it by plain words (add a synonym in `src/lib/helper.ts` if not), `GROUPS` and `QUICK` in `tests/e2e/site.spec.ts`, `TOOL_PATHS` in `tests/e2e/errors.spec.ts`, the live count in `tests/unit/tool-plan.test.ts`, then `docs/status.html` (an item and a `TOOLS_DATA` row), this file and `docs/HANDOFF.md`. A new group also needs `TOOL_GROUPS` in `tools.ts` and a matching plan category.
 
 ## Gotchas (learned the hard way)
 - jSquash packages are excluded from Vite prebundling (`astro.config.ts`) and `wasm-feature-detect` is pinned to 1.9.0 (`pnpm-workspace.yaml` overrides): 1.10 contains `import.source()`, a syntax error in current browsers, which broke WebP/PNG in dev. Production was unaffected (tree-shaken). Retest before lifting the pin.
