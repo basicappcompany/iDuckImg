@@ -87,7 +87,7 @@ test.describe('site', () => {
         if ((await button.getAttribute('aria-expanded')) === 'false') await button.click();
       }
       expect(await hrefs(page, sidebar.getByRole('link'))).toEqual(TOOL_PATHS);
-      expect(await hrefs(page, page.getByRole('navigation', { name: 'Main' }).getByRole('link'))).toEqual(['/', '/chat/', '/image-tools/']);
+      expect(await hrefs(page, page.getByRole('navigation', { name: 'Main' }).getByRole('link'))).toEqual(['/', '/chat/', '/image-tools/', '/guides/']);
 
       // Quick tools: a collapsible section with sub-categories that open and close.
       const quick = page.getByRole('navigation', { name: 'Quick tools' });

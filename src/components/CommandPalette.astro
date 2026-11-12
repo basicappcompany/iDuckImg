@@ -156,6 +156,7 @@
 <script>
   import { TOOLS, searchTools, toolPath } from '../lib/tools';
   import { COMMUNITY, communityPath } from '../lib/community';
+  import { GUIDES, guidePath } from '../lib/guides';
   import { landingAsTools } from '../lib/landing';
   import { landingPath } from '../lib/landing';
   import { browserTheme } from '../lib/theme-client';
@@ -179,10 +180,12 @@
     location.href = href;
   };
 
-  const PAGES = [
+  const PAGES: { to: string; label: string; icon: string; kw: string; hint?: string }[] = [
     { to: '/', label: 'Home', icon: '🏠', kw: 'start main' },
     { to: '/chat/', label: 'Ask the helper', icon: '💬', kw: 'chat assistant help which tool' },
     { to: '/image-tools/', label: 'All image tools', icon: '🧰', kw: 'browse list everything' },
+    { to: '/guides/', label: 'How-to guides', icon: '📖', kw: 'learn tutorial help steps how to', hint: 'Guides' },
+    ...GUIDES.map((g) => ({ to: guidePath(g.slug), label: g.title, icon: '📖', kw: g.description, hint: 'Guide' })),
     ...COMMUNITY.map((p) => ({
       to: communityPath(p.slug),
       label: p.name,
@@ -219,7 +222,7 @@
       id: `p-${p.to}`,
       label: p.label,
       icon: p.icon,
-      hint: 'Page',
+      hint: p.hint ?? 'Page',
       group: 'Pages',
       run: go(p.to),
     }));

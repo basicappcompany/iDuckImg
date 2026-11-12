@@ -3,6 +3,7 @@ import AppShell from './AppShell.astro';
 import AdSlot from './AdSlot.astro';
 import { groupMates, toolForPath, toolPath } from '../lib/tools';
 import { breadcrumbLd, faqLd, howToLd, webApplicationLd } from '../lib/seo';
+import { guideForTool, guidePath } from '../lib/guides';
 
 interface Props {
   title: string;
@@ -24,6 +25,7 @@ const { title, description, heading, clientSide = true, usesFiles = true, landin
 const own = toolForPath(Astro.url.pathname);
 const tool = own ?? (landing ? toolForPath(toolPath(landing.parentSlug)) : undefined);
 const info = own ?? landing;
+const guide = tool ? guideForTool(tool.slug) : undefined;
 const mates = tool ? (own ? groupMates(tool) : [tool, ...groupMates(tool)]) : [];
 const path = Astro.url.pathname.endsWith('/') ? Astro.url.pathname : `${Astro.url.pathname}/`;
 const trail = [{ name: 'Home', path: '/' }, ...(tool ? [{ name: tool.group, path: '/image-tools/' }] : []), { name: heading, path }];
@@ -63,6 +65,11 @@ const jsonLd = [
       <section aria-label="Quick answer" class="card mt-5 p-4">
         <p class="eyebrow">Quick answer</p>
         <p class="mt-1 leading-relaxed">{info.quick}</p>
+        {guide && (
+          <p class="mt-2 text-sm">
+            <span aria-hidden="true">📖</span> <a class="link" href={guidePath(guide.slug)}>Read the guide: {guide.title}</a>
+          </p>
+        )}
       </section>
     )
   }
