@@ -1,0 +1,15 @@
+---
+import CommunityLayout from '../components/CommunityLayout.astro';
+import ChatHelper from '../components/ChatHelper';
+---
+
+<CommunityLayout
+  title="Ask the helper | iDuckImg"
+  description="Describe your picture job in plain words and get pointed to the right free tool."
+  before="Ask the"
+  mark="helper"
+  intro="Describe your picture job in plain words and get pointed to the right free tool."
+  noindex
+>
+  <ChatHelper client:load />
+</CommunityLayout>

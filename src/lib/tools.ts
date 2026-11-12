@@ -26,7 +26,7 @@ export const TOOLS: readonly ToolLink[] = [
     name: 'Compress images',
     summary: 'Make JPG, PNG and WebP files smaller without visible loss.',
     group: 'Shrink & resize',
-    emoji: '🗜️',
+    emoji: '📦',
     quick:
       'To compress an image, drop it in, choose a quality (around 75 looks the same for most photos) and press Compress. You get a smaller file in the same format, made in your browser tab.',
     keywords: 'reduce size smaller shrink optimise optimize jpg jpeg png webp kb mb',

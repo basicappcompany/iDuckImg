@@ -48,7 +48,7 @@ const kbPage = (kb: number, extra: string, who: string): LandingPage => ({
   slug: `compress-image-to-${kb}kb`,
   engine: 'resize',
   initial: { mode: 'percent', percent: 100, width: null, height: null, targetKb: kb, format: 'same' },
-  emoji: '🗜️',
+  emoji: '📦',
   h1: `Compress image to ${kb} KB`,
   title: `Compress image to ${kb}KB online free`,
   description: `Reduce a JPG, PNG or WebP photo to ${kb} KB or less, free, in your browser. No upload, no sign-up, no watermark.`,

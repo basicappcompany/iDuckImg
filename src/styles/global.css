@@ -321,9 +321,15 @@ body {
   }
   .nav-scroll {
     display: grid;
+    grid-template-columns: minmax(0, 1fr);
     gap: 3px;
     align-content: start;
-    padding: 12px;
+    padding: 12px 12px 28px;
+  }
+  .nav-scroll ul {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    gap: 1px;
   }
   .nav-brand {
     display: flex;
@@ -398,8 +404,10 @@ body {
   }
   .nav-icon {
     width: 22px;
+    flex: none;
     text-align: center;
     font-size: 1rem;
+    line-height: 1;
   }
   .nav-small .nav-icon {
     font-size: 0.875rem;
@@ -412,6 +420,9 @@ body {
     white-space: nowrap;
   }
   .nav-chevron {
+    width: 14px;
+    text-align: center;
+    flex: none;
     color: var(--d-muted);
     font-weight: 900;
     transition: transform 0.12s ease;
@@ -419,9 +430,10 @@ body {
   .nav-group[aria-expanded='true'] .nav-chevron {
     transform: rotate(90deg);
   }
+  /* The rule sits under the middle of the group icon, and child icons line up with the group names. */
   .nav-children {
-    margin-left: 20px;
-    padding-left: 6px;
+    margin: 1px 0 4px 20px;
+    padding-left: 9px;
     border-left: 2px solid var(--d-soft);
   }
   .nav-children[hidden] {
