@@ -151,6 +151,26 @@ export const TOOLS: readonly ToolLink[] = [
       'To turn a photo into pixel art, drop it in, set how many big pixels go across with the slider and press Make pixel art. You get a PNG at the same size, with sharp edges.',
     keywords: 'pixelate pixelated 8-bit retro game mosaic blocky',
   },
+  {
+    slug: 'merge-images',
+    name: 'Merge images side by side',
+    summary: 'Join several pictures into one, in a row or a column.',
+    group: 'Edit & transform',
+    emoji: '🪢',
+    quick:
+      'To join pictures, drop two or more in, put them in order, choose side by side or stacked, and press Join pictures. You get one picture, made in your browser.',
+    keywords: 'combine join stitch collage side by side stack vertical horizontal before after',
+  },
+  {
+    slug: 'blur-image',
+    name: 'Blur or hide parts of an image',
+    summary: 'Blur, pixelate or cover areas such as names and numbers.',
+    group: 'Add text & effects',
+    emoji: '🌫️',
+    quick:
+      'To hide part of a picture, drop it in, drag a box over the name, number or face, choose Blur, Pixelate or Cover, and press the button. The new picture is made in your browser.',
+    keywords: 'censor redact hide face number name privacy pixelate cover mask obscure',
+  },
 ];
 
 export function toolPath(slug: string): string {

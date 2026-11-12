@@ -3,8 +3,8 @@ import { expect, test, type Page } from '@playwright/test';
 /** Same order as the sidebar and the homepage: grouped. */
 const GROUPS: Record<string, string[]> = {
   'Shrink & resize': ['/compress-image/', '/resize-image/', '/exam-photo-resizer/'],
-  'Edit & transform': ['/crop-image/', '/rotate-image/', '/circle-crop-image/', '/split-image-into-grid/'],
-  'Add text & effects': ['/add-watermark-to-image/', '/add-text-to-image/', '/pixel-art-maker/'],
+  'Edit & transform': ['/crop-image/', '/rotate-image/', '/circle-crop-image/', '/split-image-into-grid/', '/merge-images/'],
+  'Add text & effects': ['/add-watermark-to-image/', '/add-text-to-image/', '/pixel-art-maker/', '/blur-image/'],
   'Convert & combine': ['/convert-image/', '/image-to-pdf/'],
   'Privacy & cleanup': ['/remove-exif-data/'],
 };
@@ -28,8 +28,8 @@ const QUICK: Record<string, string[]> = {
     '/webp-to-png/', '/jpg-to-webp/', '/png-to-webp/',
   ],
   'Make a PDF': ['/jpg-to-pdf/', '/png-to-pdf/', '/image-to-pdf/'],
-  'Photos for forms': ['/exam-photo-resizer/', '/remove-exif-data/'],
-  'Quick edits': ['/crop-image/', '/rotate-image/', '/add-watermark-to-image/', '/circle-crop-image/'],
+  'Photos for forms': ['/exam-photo-resizer/', '/remove-exif-data/', '/blur-image/'],
+  'Quick edits': ['/crop-image/', '/rotate-image/', '/add-watermark-to-image/', '/circle-crop-image/', '/merge-images/'],
 };
 /** Everything the home page and the sidebar list, in order: each group's tools, then its shortcuts. */
 const LISTED = Object.entries(GROUPS).flatMap(([group, paths]) => [...paths, ...(SHORTCUTS[group] ?? [])]);

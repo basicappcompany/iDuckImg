@@ -55,13 +55,13 @@ export const QUICK_GROUPS: readonly QuickGroupDef[] = [
     id: 'forms',
     name: 'Photos for forms',
     emoji: '🪪',
-    slugs: ['exam-photo-resizer', 'remove-exif-data'],
+    slugs: ['exam-photo-resizer', 'remove-exif-data', 'blur-image'],
   },
   {
     id: 'edit',
     name: 'Quick edits',
     emoji: '✂️',
-    slugs: ['crop-image', 'rotate-image', 'add-watermark-to-image', 'circle-crop-image'],
+    slugs: ['crop-image', 'rotate-image', 'add-watermark-to-image', 'circle-crop-image', 'merge-images'],
   },
 ];
 
