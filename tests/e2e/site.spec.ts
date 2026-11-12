@@ -9,6 +9,16 @@ const GROUPS: Record<string, string[]> = {
   'Privacy & cleanup': ['/remove-exif-data/'],
 };
 const TOOL_PATHS = Object.values(GROUPS).flat();
+/** The shortcuts (landing pages) listed under the tool they open, after the group's own tools. */
+const SHORTCUTS: Record<string, string[]> = {
+  'Shrink & resize': ['/compress-image-to-100kb/', '/compress-image-to-50kb/', '/compress-image-to-200kb/', '/compress-image-to-20kb/'],
+  'Convert & combine': [
+    '/heic-to-jpg/', '/heic-to-png/', '/png-to-jpg/', '/jpg-to-png/', '/webp-to-jpg/',
+    '/webp-to-png/', '/jpg-to-webp/', '/png-to-webp/', '/jpg-to-pdf/', '/png-to-pdf/',
+  ],
+};
+/** Everything the home page and the sidebar list, in order: each group's tools, then its shortcuts. */
+const LISTED = Object.entries(GROUPS).flatMap(([group, paths]) => [...paths, ...(SHORTCUTS[group] ?? [])]);
 const groupOf = (path: string) => Object.entries(GROUPS).find(([, paths]) => paths.includes(path))![0];
 
 const hrefs = (_page: Page, selector: ReturnType<Page['locator']>) =>
@@ -24,7 +34,7 @@ test.describe('site', () => {
     await page.goto('/');
     await expect(page.getByRole('heading', { level: 1 })).toHaveText('Images, sorted.');
     await expect(page.getByText(/coming soon/i)).toHaveCount(0);
-    expect(await hrefs(page, page.getByRole('region', { name: 'Tools' }).getByRole('link'))).toEqual(TOOL_PATHS);
+    expect(await hrefs(page, page.getByRole('region', { name: 'Tools' }).getByRole('link'))).toEqual(LISTED);
     for (const group of Object.keys(GROUPS)) await expect(page.getByRole('heading', { name: group })).toBeVisible();
     await expect(page.getByRole('region', { name: 'Common questions' }).locator('details')).toHaveCount(5);
   });
@@ -42,7 +52,7 @@ test.describe('site', () => {
       for (const button of await sidebar.locator('[data-nav-group]').all()) {
         if ((await button.getAttribute('aria-expanded')) === 'false') await button.click();
       }
-      expect(await hrefs(page, sidebar.getByRole('link'))).toEqual(['/', '/image-tools/', ...TOOL_PATHS]);
+      expect(await hrefs(page, sidebar.getByRole('link'))).toEqual(['/', '/image-tools/', ...LISTED]);
       await expect(sidebar.locator('a[aria-current="page"]')).toHaveAttribute('href', path);
 
       await expect(page.getByRole('region', { name: 'Quick answer' })).toContainText('To ');
@@ -161,7 +171,7 @@ test.describe('site', () => {
       await box(page).fill('heic');
       const options = dialog(page).getByRole('option');
       await expect(options.first()).toContainText('Convert images');
-      await expect(dialog(page).getByText('Shortcuts', { exact: true })).toBeVisible();
+      await expect(options.filter({ hasText: 'HEIC to JPG' })).toHaveCount(1);
       await expect(options.first()).toHaveAttribute('aria-selected', 'true');
       await page.keyboard.press('ArrowDown');
       await expect(options.nth(1)).toHaveAttribute('aria-selected', 'true');
@@ -209,7 +219,7 @@ test.describe('site', () => {
       await page.getByLabel('Find a tool').fill('zzzz');
       await expect(page.getByText('No tool matches that. Try "pdf", "heic" or "resize".').last()).toBeVisible();
       await page.getByLabel('Find a tool').fill('');
-      await expect(page.locator('[data-card]:not([hidden])')).toHaveCount(TOOL_PATHS.length);
+      await expect(page.locator('[data-card]:not([hidden])')).toHaveCount(LISTED.length);
     });
   });
 

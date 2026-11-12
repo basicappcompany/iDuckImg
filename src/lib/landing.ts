@@ -5,6 +5,8 @@
  * A unit test checks every slug is unique, never clashes with a tool or community page, and that
  * each page has real content.
  */
+import { TOOLS, type ToolGroup, type ToolLink } from './tools';
+
 export type LandingEngine = 'compress' | 'resize' | 'convert';
 
 export interface LandingFaq {
@@ -342,4 +344,37 @@ export function landingForSlug(slug: string): LandingPage | undefined {
 
 export function landingPath(slug: string): string {
   return `/${slug}/`;
+}
+
+const PARENT_SLUG: Record<LandingEngine, string> = { compress: 'compress-image', resize: 'resize-image', convert: 'convert-image' };
+
+/** The tool this page opens (its "parent"). */
+export function landingParent(page: LandingPage): ToolLink {
+  return TOOLS.find((t) => t.slug === PARENT_SLUG[page.engine])!;
+}
+
+/** Shortcuts sit in the same group as the tool they open, so they appear next to it. */
+export function landingGroup(page: LandingPage): ToolGroup {
+  return landingParent(page).group;
+}
+
+export function landingName(page: LandingPage): string {
+  return page.h1.replace(' converter', '');
+}
+
+export function landingsInGroup(group: ToolGroup): LandingPage[] {
+  return LANDING_PAGES.filter((p) => landingGroup(p) === group);
+}
+
+/** Shortcuts in the shape of a tool, so search and card lists can treat them the same. */
+export function landingAsTools(): ToolLink[] {
+  return LANDING_PAGES.map((p) => ({
+    slug: p.slug,
+    name: landingName(p),
+    summary: p.summary,
+    group: landingGroup(p),
+    emoji: p.emoji,
+    quick: p.quick,
+    keywords: p.slug.replace(/-/g, ' '),
+  }));
 }

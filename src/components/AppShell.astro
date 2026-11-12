@@ -2,11 +2,11 @@
 import '../styles/global.css';
 import DuckMark from './DuckMark.astro';
 import CommandPalette from './CommandPalette.astro';
-import { TOOLS, TOOL_GROUPS, toolForPath, toolPath, toolsInGroup } from '../lib/tools';
+import { TOOL_GROUPS, toolForPath, toolPath, toolsInGroup } from '../lib/tools';
 import { PLAN_CATEGORIES } from '../lib/tool-plan';
 import { THEME_STORAGE_KEY } from '../lib/theme';
 import { COMMUNITY, communityPath } from '../lib/community';
-import { LANDING_PAGES, landingPath } from '../lib/landing';
+import { LANDING_PAGES, landingGroup, landingName, landingPath, landingsInGroup } from '../lib/landing';
 import { OG_IMAGE, SITE_NAME, serialize } from '../lib/seo';
 
 interface Props {
@@ -23,10 +23,9 @@ const path = Astro.url.pathname.endsWith('/') ? Astro.url.pathname : `${Astro.ur
 const isHome = path === '/';
 const groupIcon = (group: string) => PLAN_CATEGORIES.find((c) => c.id === group)?.emoji ?? '🧰';
 // The group holding the current page starts open, like iDuckPDF's sidebar; otherwise the first one does.
-const landingParent = { compress: 'compress-image', resize: 'resize-image', convert: 'convert-image' };
 const landing = LANDING_PAGES.find((p) => landingPath(p.slug) === path);
-const currentTool = toolForPath(path) ?? (landing ? TOOLS.find((t) => t.slug === landingParent[landing.engine]) : undefined);
-const openGroup = currentTool?.group ?? TOOL_GROUPS[0];
+const currentGroup = toolForPath(path)?.group ?? (landing ? landingGroup(landing) : undefined);
+const openGroup = currentGroup ?? TOOL_GROUPS[0];
 ---
 
 <!doctype html>
@@ -120,6 +119,18 @@ const openGroup = currentTool?.group ?? TOOL_GROUPS[0];
                           >
                             <span class="nav-icon" aria-hidden="true">{tool.emoji}</span>
                             <span class="nav-text">{tool.name}</span>
+                          </a>
+                        </li>
+                      ))}
+                      {landingsInGroup(group).map((page) => (
+                        <li data-tool={page.slug}>
+                          <a
+                            class="nav-item nav-small"
+                            href={landingPath(page.slug)}
+                            aria-current={path === landingPath(page.slug) ? 'page' : undefined}
+                          >
+                            <span class="nav-icon" aria-hidden="true">{page.emoji}</span>
+                            <span class="nav-text">{landingName(page)}</span>
                           </a>
                         </li>
                       ))}

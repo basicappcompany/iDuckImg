@@ -156,7 +156,8 @@
 <script>
   import { TOOLS, searchTools, toolPath } from '../lib/tools';
   import { COMMUNITY, communityPath } from '../lib/community';
-  import { LANDING_PAGES, landingPath } from '../lib/landing';
+  import { landingAsTools } from '../lib/landing';
+  import { landingPath } from '../lib/landing';
   import { browserTheme } from '../lib/theme-client';
 
   type Group = 'Tools' | 'Shortcuts' | 'Pages' | 'Actions';
@@ -203,24 +204,16 @@
 
   function build(query: string): Item[] {
     const q = query.trim();
-    const tools: Item[] = (q ? searchTools(q) : TOOLS.slice(0, 8)).map((t) => ({
+    const landingSlugs = new Set(landingAsTools().map((t) => t.slug));
+    const tools: Item[] = (q ? searchTools(q, [...TOOLS, ...landingAsTools()]) : TOOLS.slice(0, 8)).map((t) => ({
       id: `t-${t.slug}`,
       label: t.name,
       icon: t.emoji,
       hint: 'Tool',
       group: 'Tools',
-      run: go(toolPath(t.slug)),
+      run: go(landingSlugs.has(t.slug) ? landingPath(t.slug) : toolPath(t.slug)),
     }));
-    const shortcuts: Item[] = q
-      ? LANDING_PAGES.filter((p) => matches(q, `${p.h1} ${p.summary}`)).map((p) => ({
-          id: `s-${p.slug}`,
-          label: p.h1.replace(' converter', ''),
-          icon: p.emoji,
-          hint: 'Shortcut',
-          group: 'Shortcuts',
-          run: go(landingPath(p.slug)),
-        }))
-      : [];
+    const shortcuts: Item[] = [];
     const pages: Item[] = PAGES.filter((p) => matches(q, `${p.label} ${p.kw}`)).map((p) => ({
       id: `p-${p.to}`,
       label: p.label,
@@ -241,7 +234,7 @@
           },
         ]
       : [];
-    return [...tools.slice(0, 8), ...shortcuts.slice(0, 5), ...pages, ...actions].slice(0, MAX);
+    return [...tools.slice(0, 10), ...shortcuts, ...pages, ...actions].slice(0, MAX);
   }
 
   let items: Item[] = [];
