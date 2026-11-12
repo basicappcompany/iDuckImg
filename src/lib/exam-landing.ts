@@ -96,6 +96,18 @@ function examPage(exam: ExamPreset, doc: ExamDocument): LandingPage {
 
   return {
     slug: examPageSlug(exam, doc),
+    kind: {
+      kind: 'exam',
+      short,
+      examName: exam.name,
+      docId: doc.id,
+      req,
+      size: sizeOnly(doc),
+      source: exam.source.title,
+      location: exam.source.location,
+      retrieved: exam.source.retrieved,
+      cycle: exam.cycle,
+    },
     engine: 'exam',
     initial: { examId: exam.id, docId: doc.id },
     emoji: DOC_EMOJI[doc.id] ?? '🪪',

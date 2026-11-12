@@ -18,6 +18,9 @@ import {
 } from '../../src/i18n';
 import type { Dict } from '../../src/i18n/types';
 import { UI_TEXT, fill } from '../../src/i18n/ui';
+import { LANDING_PAGES } from '../../src/lib/landing';
+import { SHORTCUT_TEXT, localizedLanding, localizedQuickGroups } from '../../src/i18n/shortcuts';
+import { QUICK_GROUPS } from '../../src/lib/quick';
 import { flagSvg } from '../../src/i18n/flags';
 import { COMPRESS_TEXT } from '../../src/i18n/tools/compress';
 import { CONVERT_TEXT } from '../../src/i18n/tools/convert';
@@ -184,6 +187,80 @@ describe.each(OTHER_LOCALES.map((l) => l.code))('translation: %s', (code) => {
   });
 });
 
+describe('translated shortcut pages', () => {
+  const english = SHORTCUT_TEXT.en!;
+  const convertSlugs = LANDING_PAGES.filter((p) => p.kind.kind === 'convert').map((p) => p.slug);
+
+  it('has a template, a reason for every conversion, and every placeholder, in every language', () => {
+    expect(Object.keys(english.why).sort()).toEqual([...convertSlugs].sort());
+    for (const code of OTHER_LOCALES.map((l) => l.code)) {
+      const t = SHORTCUT_TEXT[code]!;
+      expect(Object.keys(t.why).sort(), code).toEqual([...convertSlugs].sort());
+      for (const kind of ['kb', 'convert', 'exam'] as const) {
+        expect(t[kind].steps, `${code} ${kind} steps`).toHaveLength(4);
+        expect(t[kind].faqs, `${code} ${kind} faqs`).toHaveLength(english[kind].faqs.length);
+        for (const key of ['name', 'title', 'description', 'summary', 'quick'] as const) {
+          expect(placeholders(t[kind][key]), `${code} ${kind} ${key}`).toEqual(placeholders(english[kind][key]));
+          expect(t[kind][key], `${code} ${kind} ${key} left in English`).not.toBe(english[kind][key]);
+        }
+        english[kind].steps.forEach((s, i) => expect(placeholders(t[kind].steps[i]!), `${code} ${kind} step ${i}`).toEqual(placeholders(s)));
+        english[kind].faqs.forEach((f, i) => {
+          expect(placeholders(t[kind].faqs[i]!.q), `${code} ${kind} faq ${i} q`).toEqual(placeholders(f.q));
+          expect(placeholders(t[kind].faqs[i]!.a), `${code} ${kind} faq ${i} a`).toEqual(placeholders(f.a));
+        });
+      }
+      expect(Object.keys(t.chrome.groups).sort(), code).toEqual(Object.keys(english.chrome.groups).sort());
+      expect(Object.keys(t.chrome.communityPages).sort(), code).toEqual(Object.keys(english.chrome.communityPages).sort());
+      expect(Object.keys(t.docs).sort(), code).toEqual(Object.keys(english.docs).sort());
+    }
+  });
+
+  it('builds every page in every language with real, filled-in text', () => {
+    for (const code of OTHER_LOCALES.map((l) => l.code)) {
+      const names = new Set<string>();
+      for (const page of LANDING_PAGES) {
+        const p = localizedLanding(page, code);
+        const where = `${code} ${page.slug}`;
+        for (const [key, value] of Object.entries({ name: p.name, h1: p.h1, title: p.title, description: p.description, summary: p.summary, quick: p.quick })) {
+          expect(value.trim().length, `${where} ${key}`).toBeGreaterThan(3);
+          expect(value, `${where} ${key}`).not.toMatch(/\{\w+\}|undefined|\[object/);
+        }
+        expect(p.title.length, `${where} title`).toBeLessThanOrEqual(75);
+        expect(p.description.length, `${where} description`).toBeGreaterThan(60);
+        expect(p.description.length, `${where} description`).toBeLessThanOrEqual(220);
+        expect(p.quick.length, `${where} quick`).toBeGreaterThan(80);
+        expect(p.steps, where).toHaveLength(4);
+        expect(p.faqs.length, where).toBeGreaterThanOrEqual(2);
+        for (const f of p.faqs) expect(`${f.q} ${f.a}`, where).not.toMatch(/\{\w+\}|undefined/);
+        expect(p.title, where).not.toBe(page.title);
+        expect(p.quick, where).not.toBe(page.quick);
+        names.add(p.name);
+      }
+      expect(names.size, `${code} duplicate names`).toBe(LANDING_PAGES.length);
+    }
+  });
+
+  it('names the translated run button in the quick answer', () => {
+    const resize = LANDING_PAGES.find((p) => p.slug === 'compress-image-to-100kb')!;
+    expect(localizedLanding(resize, 'es').quick).toContain('"Cambiar tamaño"');
+    const convert = LANDING_PAGES.find((p) => p.slug === 'heic-to-jpg')!;
+    expect(localizedLanding(convert, 'de').quick).toContain('„Umwandeln“');
+    expect(localizedLanding(convert, 'de').quick).toContain('HEIC');
+  });
+
+  it('lists every Quick tools group and shortcut in the sidebar, in the language', () => {
+    for (const code of OTHER_LOCALES.map((l) => l.code)) {
+      const groups = localizedQuickGroups(code);
+      expect(groups.map((g) => g.id)).toEqual(QUICK_GROUPS.map((g) => g.id));
+      expect(groups.flatMap((g) => g.items)).toHaveLength(QUICK_GROUPS.flatMap((g) => g.slugs).length);
+      for (const g of groups) {
+        expect(g.name.length).toBeGreaterThan(3);
+        for (const i of g.items) expect(i.href.startsWith(`/${OTHER_LOCALES.find((l) => l.code === code)!.path}/`), i.href).toBe(true);
+      }
+    }
+  });
+});
+
 describe('translated tool controls', () => {
   it('has every key, every placeholder and no English left in place, for every language', () => {
     const tables = { compress: COMPRESS_TEXT, resize: RESIZE_TEXT, convert: CONVERT_TEXT, crop: CROP_TEXT, pdf: PDF_TEXT, text: TEXT_TEXT, watermark: WATERMARK_TEXT, logo: LOGO_TEXT, rotate: ROTATE_TEXT, exif: EXIF_TEXT, positions: POSITION_TEXT } as unknown as Record<string, Record<string, Record<string, string>>>;
@@ -242,7 +319,8 @@ describe('lookups', () => {
   it('knows which pages have translations', () => {
     expect(hasTranslations('/')).toBe(true);
     for (const t of TOOLS) expect(hasTranslations(toolPath(t.slug))).toBe(true);
-    for (const p of ['/guides/', '/privacy/', '/heic-to-jpg/', '/chat/']) expect(hasTranslations(p)).toBe(false);
+    for (const t of LANDING_PAGES) expect(hasTranslations(`/${t.slug}/`), t.slug).toBe(true);
+    for (const p of ['/guides/', '/privacy/', '/chat/', '/about/']) expect(hasTranslations(p)).toBe(false);
   });
 
   it('lists every language version of a translated page for hreflang', () => {

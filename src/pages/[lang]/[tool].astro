@@ -29,21 +29,89 @@ import TextTool from '../../tools/text/TextTool';
 import WatermarkTool from '../../tools/watermark/WatermarkTool';
 import LengthConverter from '../../calculators/LengthConverter';
 import RatioCalculator from '../../calculators/RatioCalculator';
-import { TOOLS } from '../../lib/tools';
-import { OTHER_LOCALES, dictFor, localeByPath, toolText } from '../../i18n';
+import { LANDING_PAGES, landingParent, landingPath } from '../../lib/landing';
+import { TOOLS, toolPath } from '../../lib/tools';
+import { localizedLanding, shortcutText } from '../../i18n/shortcuts';
+import { OTHER_LOCALES, dictFor, localeByPath, localePath, toolText } from '../../i18n';
 
 
 export function getStaticPaths() {
-  return OTHER_LOCALES.flatMap((locale) => TOOLS.map((tool) => ({ params: { lang: locale.path, tool: tool.slug } })));
+  return OTHER_LOCALES.flatMap((locale) => [...TOOLS, ...LANDING_PAGES].map((item) => ({ params: { lang: locale.path, tool: item.slug } })));
 }
 
 // Astro needs every hydrated component imported by name, so each tool is listed out below rather than looked up.
 const { lang, tool: slug } = Astro.params as { lang: string; tool: string };
 const locale = localeByPath(lang)!;
 const d = dictFor(locale.code);
+const page = LANDING_PAGES.find((p) => p.slug === slug);
 const text = toolText(locale.code, slug);
+const local = page ? localizedLanding(page, locale.code) : undefined;
+const sc = shortcutText(locale.code);
+const relatedLinks = (page?.related ?? []).flatMap((rel) => {
+  const tool = TOOLS.find((t) => t.slug === rel);
+  if (tool) return [{ href: localePath(locale.code, toolPath(tool.slug)), label: toolText(locale.code, tool.slug).name, emoji: tool.emoji }];
+  const other = LANDING_PAGES.find((p) => p.slug === rel);
+  if (other) return [{ href: localePath(locale.code, landingPath(other.slug)), label: localizedLanding(other, locale.code).name, emoji: other.emoji }];
+  return [];
+});
 ---
 
+{
+  page && local ? (
+    <ToolLayout
+      locale={locale.code}
+      title={`${local.title} | iDuckImg`}
+      description={local.description}
+      heading={local.h1}
+      landing={{ emoji: page.emoji, summary: local.summary, quick: local.quick, parentSlug: landingParent(page).slug }}
+      steps={local.steps}
+      faqs={local.faqs}
+    >
+      {page.engine === 'compress' && <CompressTool client:load initial={page.initial} />}
+      {page.engine === 'resize' && <ResizeTool client:load initial={page.initial} />}
+      {page.engine === 'convert' && <ConvertTool client:load initial={page.initial} />}
+      {page.engine === 'exam' && <ExamTool client:load initialExam={String(page.initial['examId'])} initialDoc={String(page.initial['docId'])} />}
+
+      <div slot="content" class="grid gap-8">
+        <section class="prose" aria-label={sc.chrome.howToUse}>
+          <h2>{sc.chrome.howToUse}</h2>
+          <ol>
+            {local.steps.map((step) => <li>{step}</li>)}
+          </ol>
+        </section>
+
+        <section aria-label={d.faqHeading}>
+          <h2 class="text-3xl font-black tracking-tight">{d.faqHeading}</h2>
+          <div class="mt-4 grid gap-3">
+            {
+              local.faqs.map((f) => (
+                <details class="card px-4 py-3">
+                  <summary class="cursor-pointer text-lg font-black">{f.q}</summary>
+                  <p class="mt-2 leading-relaxed">{f.a}</p>
+                </details>
+              ))
+            }
+          </div>
+        </section>
+
+        <nav aria-label={sc.chrome.related}>
+          <h2 class="text-2xl font-black tracking-tight">{sc.chrome.related}</h2>
+          <ul class="mt-3 flex flex-wrap gap-2">
+            {
+              relatedLinks.map((l) => (
+                <li>
+                  <a href={l.href} class="btn btn-sm">
+                    <span aria-hidden="true">{l.emoji}</span>
+                    {l.label}
+                  </a>
+                </li>
+              ))
+            }
+          </ul>
+        </nav>
+      </div>
+    </ToolLayout>
+  ) : (
 <ToolLayout locale={locale.code} title={`${text.name} | iDuckImg`} description={`${text.summary} ${d.toolDescSuffix}`} heading={text.name}>
   {slug === 'compress-image' && <CompressTool client:load />}
   {slug === 'resize-image' && <ResizeTool client:load />}
@@ -70,3 +138,5 @@ const text = toolText(locale.code, slug);
   {slug === 'image-to-base64' && <Base64Tool client:load />}
   {slug === 'favicon-generator' && <FaviconTool client:load />}
 </ToolLayout>
+  )
+}
