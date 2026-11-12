@@ -15,8 +15,34 @@ export interface LandingFaq {
   a: string;
 }
 
+/**
+ * What a page is made of, so a translated version can be built from a per-language template instead of
+ * being written page by page. English copy stays in this file; the other languages live in src/i18n/shortcuts.
+ */
+export type LandingKind =
+  | { kind: 'kb'; kb: number }
+  | { kind: 'convert'; from: string; to: string }
+  | {
+      kind: 'exam';
+      /** Short exam name, such as "IBPS PO". */
+      short: string;
+      examName: string;
+      docId: string;
+      /** The requirements as shown, such as "200 x 230 px, 20 to 50 KB, JPG". */
+      req: string;
+      /** The requirements without the format, such as "200 x 230 px, 20 to 50 KB". */
+      size: string;
+      source: string;
+      location: string;
+      /** ISO date the notice was read. */
+      retrieved: string;
+      cycle: string;
+    };
+
 export interface LandingPage {
   slug: string;
+  /** What the page is made of; used to build translated versions. */
+  kind: LandingKind;
   engine: LandingEngine;
   /** Options handed to the tool component. */
   initial: Record<string, unknown>;
@@ -47,6 +73,7 @@ const KB_STEPS = (kb: number): string[] => [
 
 const kbPage = (kb: number, extra: string, who: string): LandingPage => ({
   slug: `compress-image-to-${kb}kb`,
+  kind: { kind: 'kb', kb },
   engine: 'resize',
   initial: { mode: 'percent', percent: 100, width: null, height: null, targetKb: kb, format: 'same' },
   emoji: '📦',
@@ -90,6 +117,7 @@ const convertPage = (
   p: Pick<LandingPage, 'emoji' | 'notes' | 'faqs' | 'related'> & { why: string },
 ): LandingPage => ({
   slug,
+  kind: { kind: 'convert', from, to },
   engine: 'convert',
   initial: { target },
   emoji: p.emoji,

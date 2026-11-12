@@ -13,6 +13,9 @@ const LANGS = [
   { code: 'tr', path: 'tr', native: 'Türkçe', h1: 'Görseller', toolName: 'Görselleri sıkıştır' },
 ] as const;
 
+/** Links in the Quick tools sidebar: the shortcut pages plus the tools some groups list. */
+const QUICK_LINKS = 39;
+
 const hreflangs = (page: Page) =>
   page.locator('link[rel="alternate"][hreflang]').evaluateAll((links) =>
     links.map((l) => [l.getAttribute('hreflang'), new URL((l as HTMLLinkElement).href).pathname] as const),
@@ -62,7 +65,7 @@ test.describe('languages', () => {
   });
 
   test('pages with no translation do not claim to have one', async ({ page }) => {
-    for (const path of ['/guides/', '/guides/how-to-compress-an-image/', '/heic-to-jpg/', '/privacy/']) {
+    for (const path of ['/guides/', '/guides/how-to-compress-an-image/', '/privacy/', '/about/']) {
       await page.goto(path);
       expect(await hreflangs(page), path).toEqual([]);
       await expect(page.locator('html')).toHaveAttribute('lang', 'en');
@@ -117,11 +120,23 @@ test.describe('languages', () => {
     await expect(tools.getByText('Herramientas', { exact: true })).toBeVisible();
     await expect(tools.locator('a[href="/es/crop-image/"]')).toHaveAttribute('aria-current', 'page');
     await expect(tools.locator('a[href="/es/crop-image/"]')).toContainText('Recortar imágenes');
-    // The English-only parts of the sidebar are not shown with English labels on a Spanish page.
-    await expect(page.getByRole('navigation', { name: 'Quick tools' })).toHaveCount(0);
+    // The whole sidebar is there in Spanish: the helper, Quick tools with its groups, Community and the sister site.
     await expect(page.getByText('Ask the helper')).toHaveCount(0);
+    const quick = page.getByRole('navigation', { name: 'Quick tools' });
+    await expect(quick).toBeVisible();
+    await expect(quick.getByRole('button', { name: /Herramientas rápidas/ })).toBeVisible();
+    await expect(quick.getByRole('button', { name: /Comprimir y cambiar tamaño/ })).toHaveAttribute('aria-expanded', 'true');
+    await expect(quick.locator('a[href="/es/compress-image-to-100kb/"]')).toContainText('Comprimir imagen a 100 KB');
+    for (const button of await quick.locator('[data-nav-group]').all()) {
+      if ((await button.getAttribute('aria-expanded')) === 'false') await button.click();
+    }
+    await expect(quick.locator('a[href="/es/heic-to-jpg/"]')).toContainText('HEIC a JPG');
+    expect(await quick.getByRole('link').count()).toBe(QUICK_LINKS);
+    await expect(page.getByText('Comunidad', { exact: true })).toBeVisible();
+    await expect(page.getByRole('link', { name: 'Acerca de' })).toHaveAttribute('href', '/about/');
+    await expect(page.getByRole('link', { name: 'Preguntar al asistente' }).first()).toHaveAttribute('href', '/chat/');
     await expect(page.getByRole('navigation', { name: 'Main' }).getByRole('link', { name: 'Inicio' })).toHaveAttribute('href', '/es/');
-    await expect(page.getByRole('link', { name: 'Apoyar' })).toBeVisible();
+    await expect(page.getByRole('link', { name: 'Apoyar' }).last()).toBeVisible();
     await expect(page.getByRole('navigation', { name: 'Main' }).getByRole('link', { name: 'Guías prácticas' })).toHaveAttribute('href', '/guides/');
   });
 
@@ -186,6 +201,42 @@ test.describe('languages', () => {
     await page.goto('/');
     const fill = await page.locator('svg[aria-label="iDuck mascot"] circle').first().getAttribute('fill');
     expect(fill).toBe('#000');
+  });
+
+  test('a shortcut page is translated, works, and is tagged for every language', async ({ page }) => {
+    await page.goto('/es/heic-to-jpg/');
+    await expect(page.locator('html')).toHaveAttribute('lang', 'es');
+    await expect(page.getByRole('heading', { level: 1 })).toContainText('Convertir HEIC a JPG');
+    await expect(page).toHaveTitle(/HEIC a JPG.*iDuckImg/);
+    await expect(page.getByRole('region', { name: 'Cómo usarlo' }).getByRole('listitem')).toHaveCount(4);
+    await expect(page.getByRole('region', { name: 'Preguntas frecuentes' }).locator('details')).toHaveCount(2);
+    await expect(page.getByRole('navigation', { name: 'Relacionado' }).locator('a[href^="/es/"]').first()).toBeVisible();
+    const tags = await hreflangs(page);
+    expect(tags.map(([c]) => c)).toEqual(['en', 'hi', 'bn', 'pt-BR', 'id', 'ru', 'de', 'es', 'fr', 'tr', 'x-default']);
+    expect(tags.find(([c]) => c === 'de')![1]).toBe('/de/heic-to-jpg/');
+    // The English page now points at its translations.
+    await page.goto('/heic-to-jpg/');
+    expect((await hreflangs(page)).find(([c]) => c === 'fr')![1]).toBe('/fr/heic-to-jpg/');
+    // The language menu keeps you on the same page.
+    await page.locator('[data-lang-menu] summary').click();
+    await expect(page.locator('[data-lang-menu] a[hreflang="tr"]')).toHaveAttribute('href', '/tr/heic-to-jpg/');
+  });
+
+  test('a translated shortcut page converts a picture with the right option already set', async ({ page }) => {
+    await page.goto('/pt-br/png-to-jpg/');
+    await expect(page.getByRole('heading', { level: 1 })).toContainText('Conversor de PNG para JPG');
+    await addFiles(page, [await makeImage(page, 'image/png', 'logo.png', 300, 200)], /1 imagem selecionada/);
+    await page.getByRole('button', { name: 'Converter', exact: true }).click();
+    const [r] = await readResults(page, 1);
+    expect(r!.type).toBe('image/jpeg');
+  });
+
+  test('exam and size shortcut pages are translated', async ({ page }) => {
+    await page.goto('/ru/ibps-po-photo-size/');
+    await expect(page.getByRole('heading', { level: 1 })).toContainText('IBPS PO');
+    await expect(page.getByText('200 x 230 px').first()).toBeVisible();
+    await page.goto('/de/compress-image-to-50kb/');
+    await expect(page.getByRole('heading', { level: 1 })).toContainText('Bild auf 50 KB komprimieren');
   });
 
   test('the English pages are unchanged', async ({ page }) => {

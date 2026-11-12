@@ -10,6 +10,7 @@ import { THEME_STORAGE_KEY } from '../lib/theme';
 import { COMMUNITY, communityPath } from '../lib/community';
 import { OG_IMAGE, SITE_NAME, serialize } from '../lib/seo';
 import { flagSvg } from '../i18n/flags';
+import { localizedQuickGroups, shortcutText } from '../i18n/shortcuts';
 import { dictFor, languageLinks, localeByCode, localePath, splitLocalePath, toolText, type Alternate } from '../i18n';
 
 interface Props {
@@ -40,9 +41,15 @@ const groupIcon = (group: string) => PLAN_CATEGORIES.find((c) => c.id === group)
 // The Tools group holding the current page starts open (the first one otherwise). A Quick tools
 // sub-category opens only on a shortcut page, which the Tools list does not hold; on a real tool the
 // visitor chose it from Tools (or the home page), so Quick tools stays folded.
-const quick = quickGroups();
+const sc = shortcutText(locale);
+const localNames = isEn ? null : new Map(localizedQuickGroups(locale).flatMap((g) => g.items.map((i) => [i.slug, i.name] as const)));
+const quick = quickGroups().map((g) => ({
+  ...g,
+  name: isEn ? g.name : sc.chrome.groups[g.id as keyof typeof sc.chrome.groups],
+  items: g.items.map((i) => ({ ...i, name: localNames?.get(i.slug) ?? i.name })),
+}));
 // Only "Compress & resize" is open to start with. A shortcut page opens its own group instead.
-const openQuick = quick.find((g) => g.items.some((i) => i.href === path))?.id ?? 'compress';
+const openQuick = (toolForPath(path) ? undefined : quick.find((g) => g.items.some((i) => i.href === path))?.id) ?? 'compress';
 const openGroup = toolForPath(path)?.group ?? TOOL_GROUPS[0];
 ---
 
@@ -109,11 +116,9 @@ const openGroup = toolForPath(path)?.group ?? TOOL_GROUPS[0];
             <a class="nav-item" href={lp('/')} aria-current={isHome ? 'page' : undefined}>
               <span class="nav-icon" aria-hidden="true">🏠</span><span class="nav-text">{d.navHome}</span>
             </a>
-            {isEn && (
-              <a class="nav-item" href="/chat/" aria-current={path === '/chat/' ? 'page' : undefined}>
-                <span class="nav-icon" aria-hidden="true">💬</span><span class="nav-text">Ask the helper</span>
-              </a>
-            )}
+            <a class="nav-item" href="/chat/" aria-current={path === '/chat/' ? 'page' : undefined}>
+              <span class="nav-icon" aria-hidden="true">💬</span><span class="nav-text">{isEn ? 'Ask the helper' : d.helperButton}</span>
+            </a>
             {isEn && (
               <a class="nav-item" href="/image-tools/" aria-current={path === '/image-tools/' ? 'page' : undefined}>
                 <span class="nav-icon" aria-hidden="true">🧰</span><span class="nav-text">All image tools</span>
@@ -125,7 +130,6 @@ const openGroup = toolForPath(path)?.group ?? TOOL_GROUPS[0];
 
           </nav>
 
-          {isEn && (
           <nav aria-label="Quick tools">
             <button
               type="button"
@@ -134,7 +138,7 @@ const openGroup = toolForPath(path)?.group ?? TOOL_GROUPS[0];
               aria-expanded="true"
               aria-controls="quick-body"
             >
-              <span>⚡ Quick tools</span>
+              <span>⚡ {sc.chrome.quickTools}</span>
               <span class="nav-chevron" aria-hidden="true">›</span>
             </button>
             <div id="quick-body" class="grid gap-px" style="grid-template-columns: minmax(0, 1fr)">
@@ -157,7 +161,7 @@ const openGroup = toolForPath(path)?.group ?? TOOL_GROUPS[0];
                       <ul class="nav-children" id={`quick-${group.id}`} hidden={!open}>
                         {group.items.map((q) => (
                           <li>
-                            <a class="nav-item nav-small" href={q.href} aria-current={path === q.href ? 'page' : undefined}>
+                            <a class="nav-item nav-small" href={lp(q.href)} aria-current={path === q.href ? 'page' : undefined}>
                               <span class="nav-icon" aria-hidden="true">{q.emoji}</span>
                               <span class="nav-text">{q.name}</span>
                             </a>
@@ -170,7 +174,6 @@ const openGroup = toolForPath(path)?.group ?? TOOL_GROUPS[0];
               }
             </div>
           </nav>
-          )}
 
           <nav aria-label="Tools">
             <p class="nav-label">{d.toolsLabel}</p>
@@ -210,9 +213,7 @@ const openGroup = toolForPath(path)?.group ?? TOOL_GROUPS[0];
             }
           </nav>
 
-          {isEn && (
-          <>
-          <p class="nav-label">Community</p>
+          <p class="nav-label">{sc.chrome.community}</p>
           <ul>
             {
               COMMUNITY.map((page) => (
@@ -223,19 +224,17 @@ const openGroup = toolForPath(path)?.group ?? TOOL_GROUPS[0];
                     aria-current={path === communityPath(page.slug) ? 'page' : undefined}
                   >
                     <span class="nav-icon" aria-hidden="true">{page.emoji}</span>
-                    <span class="nav-text">{page.name}</span>
+                    <span class="nav-text">{isEn ? page.name : sc.chrome.communityPages[page.slug as keyof typeof sc.chrome.communityPages]}</span>
                   </a>
                 </li>
               ))
             }
           </ul>
 
-          <p class="nav-label">Also from iDuck</p>
+          <p class="nav-label">{sc.chrome.alsoFrom}</p>
           <a class="nav-item" href="https://iduckpdf.com/" rel="noopener">
-            <span class="nav-icon" aria-hidden="true">📚</span><span class="nav-text">iDuckPDF: PDF tools</span>
+            <span class="nav-icon" aria-hidden="true">📚</span><span class="nav-text">{sc.chrome.iduckpdf}</span>
           </a>
-          </>
-          )}
         </div>
       </aside>
 
