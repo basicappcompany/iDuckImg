@@ -4,6 +4,7 @@ import { expect, test, type Page } from '@playwright/test';
 const GROUPS: Record<string, string[]> = {
   'Shrink & resize': ['/compress-image/', '/resize-image/', '/exam-photo-resizer/'],
   'Edit & transform': ['/crop-image/', '/rotate-image/'],
+  'Add text & effects': ['/add-watermark-to-image/'],
   'Convert & combine': ['/convert-image/', '/image-to-pdf/'],
   'Privacy & cleanup': ['/remove-exif-data/'],
 };
@@ -119,37 +120,78 @@ test.describe('site', () => {
   test.describe('search', () => {
     test.use({ viewport: { width: 1280, height: 900 } });
 
-    test('the sidebar search filters tools by words in their name or keywords', async ({ page }) => {
-      await page.goto('/');
-      const search = page.getByLabel('Search tools');
-      const visibleTools = page.locator('#sidebar [data-tool]:not([hidden])');
-      await expect(visibleTools).toHaveCount(TOOL_PATHS.length);
+    const dialog = (page: Page) => page.getByRole('dialog', { name: 'Search' });
+    const box = (page: Page) => page.getByRole('combobox', { name: /Search tools, pages and actions/ });
 
-      await search.fill('heic');
-      await expect(visibleTools).toHaveCount(1);
-      await expect(visibleTools.first()).toContainText('Convert images');
-      // Group headings with nothing left are hidden too.
-      await expect(page.locator('#sidebar [data-group]:not([hidden])')).toHaveCount(1);
-
-      await search.fill('pdf');
-      expect(await hrefs(page, visibleTools.getByRole('link'))).toEqual(['/convert-image/', '/image-to-pdf/']);
-
-      await search.fill('qqqqq');
-      await expect(page.getByText('No tool matches that. Try "pdf"').first()).toBeVisible();
-      await expect(visibleTools).toHaveCount(0);
+    test('Ctrl K opens the search window from anywhere, focuses it, and Esc closes it', async ({ page }) => {
+      await page.goto('/rotate-image/');
+      await page.waitForLoadState('networkidle');
+      await page.keyboard.press('Control+k');
+      await expect(dialog(page)).toBeVisible();
+      await expect(box(page)).toBeFocused();
+      await page.keyboard.press('Control+k');
+      await expect(dialog(page)).toBeHidden();
+      await page.keyboard.press('Control+k');
+      await page.keyboard.press('Escape');
+      await expect(dialog(page)).toBeHidden();
     });
 
-    test('Enter opens the first match', async ({ page }) => {
+    test('"/" opens it too, but not while typing in a field', async ({ page }) => {
       await page.goto('/');
-      await page.getByLabel('Search tools').fill('signature');
+      await page.getByLabel('Find a tool').focus();
+      await page.keyboard.type('a/b');
+      await expect(dialog(page)).toBeHidden();
+      await page.locator('body').click({ position: { x: 5, y: 5 } });
+      await page.keyboard.press('/');
+      await expect(dialog(page)).toBeVisible();
+    });
+
+    test('it groups results, filters by words, moves with the arrows and Enter opens the pick', async ({ page }) => {
+      await page.goto('/');
+      await page.keyboard.press('Control+k');
+      await expect(dialog(page).getByText('Tools', { exact: true })).toBeVisible();
+      await expect(dialog(page).getByText('Pages', { exact: true })).toBeVisible();
+
+      await box(page).fill('heic');
+      const options = dialog(page).getByRole('option');
+      await expect(options.first()).toContainText('Convert images');
+      await expect(dialog(page).getByText('Shortcuts', { exact: true })).toBeVisible();
+      await expect(options.first()).toHaveAttribute('aria-selected', 'true');
+      await page.keyboard.press('ArrowDown');
+      await expect(options.nth(1)).toHaveAttribute('aria-selected', 'true');
+      await page.keyboard.press('ArrowUp');
+      await page.keyboard.press('Enter');
+      await expect(page).toHaveURL(/\/convert-image\/$/);
+    });
+
+    test('it finds exam signatures, pages and the theme action, and says so when nothing matches', async ({ page }) => {
+      await page.goto('/');
+      await page.keyboard.press('Control+k');
+      await box(page).fill('signature');
       await page.keyboard.press('Enter');
       await expect(page).toHaveURL(/\/exam-photo-resizer\/$/);
+      await page.waitForLoadState('networkidle');
+
+      await page.keyboard.press('Control+k');
+      await box(page).fill('privacy');
+      await expect(dialog(page).getByRole('option', { name: /Privacy policy/ })).toBeVisible();
+
+      await box(page).fill('dark');
+      await dialog(page).getByRole('option', { name: /Switch light \/ dark/ }).click();
+      await expect(dialog(page)).toBeHidden();
+      await expect(page.locator('html')).toHaveAttribute('data-theme', /light|dark/);
+
+      await page.keyboard.press('Control+k');
+      await box(page).fill('qqqqq');
+      await expect(dialog(page).getByText('Nothing matches')).toBeVisible();
     });
 
-    test('Ctrl K jumps to the search box from anywhere', async ({ page }) => {
-      await page.goto('/rotate-image/');
-      await page.keyboard.press('Control+k');
-      await expect(page.getByLabel('Search tools')).toBeFocused();
+    test('clicking the dim backdrop closes it', async ({ page }) => {
+      await page.goto('/');
+      await page.getByRole('button', { name: 'Open search' }).click();
+      await expect(dialog(page)).toBeVisible();
+      await page.mouse.click(5, 5);
+      await expect(dialog(page)).toBeHidden();
     });
 
     test('the homepage search box filters the cards', async ({ page }) => {
@@ -194,11 +236,11 @@ test.describe('site', () => {
       await expect(page).toHaveURL(/\/rotate-image\/$/);
     });
 
-    test('the search button opens the drawer with the search box ready', async ({ page }) => {
+    test('the search button opens the search window with the box ready', async ({ page }) => {
       await page.goto('/');
       await page.getByRole('button', { name: 'Open search' }).click();
-      await expect(page.locator('#sidebar')).toBeInViewport();
-      await expect(page.locator('#tool-search')).toBeFocused();
+      await expect(page.getByRole('dialog', { name: 'Search' })).toBeVisible();
+      await expect(page.getByRole('combobox', { name: /Search tools, pages and actions/ })).toBeFocused();
     });
   });
 });

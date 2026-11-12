@@ -1,0 +1,61 @@
+---
+import ToolLayout from '../components/ToolLayout.astro';
+import WatermarkTool from '../tools/watermark/WatermarkTool';
+
+const steps = [
+  'Drop your JPG, PNG or WebP pictures, or paste them.',
+  'Type your watermark text, for example your name or a copyright line.',
+  'Choose where it goes, how big and how see-through it is, and its colour. The preview updates as you change them.',
+  'Press Add watermark and download each file, or all of them as a ZIP.',
+];
+const faqs = [
+  {
+    q: 'Can I put a watermark on many pictures at once?',
+    a: 'Yes. Add as many pictures as you like. The same watermark is placed on every one, at the same relative size, and you can download them together as a ZIP.',
+  },
+  {
+    q: 'Is my picture uploaded?',
+    a: 'No. The watermark is drawn in your browser, so your pictures stay on your device.',
+  },
+  {
+    q: 'Can someone remove a watermark?',
+    a: 'A visible watermark discourages copying, but a determined person can crop or edit it out. Put it across the middle or repeat it across the whole picture to make that harder.',
+  },
+  {
+    q: 'Does it work on a phone?',
+    a: 'Yes. Choose pictures from your gallery, type the text and download the results.',
+  },
+];
+---
+
+<ToolLayout
+  title="Add a watermark to images online free | iDuckImg"
+  description="Add a text watermark to JPG, PNG and WebP pictures. Choose position, size, opacity and colour, or repeat it across the picture. Free, in your browser, no upload."
+  heading="Add a watermark"
+  steps={steps}
+  faqs={faqs}
+>
+  <WatermarkTool client:load />
+  <section slot="content" class="prose">
+    <h2>How to add a watermark to a picture</h2>
+    <ol>
+      {steps.map((step) => <li>{step}</li>)}
+    </ol>
+    <p class="mt-3 text-sm">
+      The text size is a share of the picture width, so the watermark looks the same on a small photo and on a large
+      one. Choose "Repeat across the picture" for a diagonal pattern that covers the whole image. Pictures are saved in
+      their own format. JPG and WebP are saved again at high quality, and PNG stays lossless.
+    </p>
+    <h2 class="mt-8">Common questions</h2>
+    <div class="mt-4 grid gap-3">
+      {
+        faqs.map((f) => (
+          <details class="card px-4 py-3">
+            <summary class="cursor-pointer text-lg font-black">{f.q}</summary>
+            <p class="mt-2 leading-relaxed">{f.a}</p>
+          </details>
+        ))
+      }
+    </div>
+  </section>
+</ToolLayout>

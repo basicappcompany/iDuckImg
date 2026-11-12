@@ -16,8 +16,8 @@ The branch `feat/community-pages` now holds the community pages, the 58-tool pla
 3. Run Lighthouse (mobile) on the home page and one landing page (status 5.12).
 
 ## Next, in this order
-1. Command-palette search (Ctrl K modal with TOOLS and PAGES sections, like iDuckPDF).
-2. Watermark tool, then BMP/GIF/SVG/AVIF inputs (cheap).
+1. DONE: command palette and text watermark. Next cheap ones: add text to image and image/logo watermark, then BMP/GIF/SVG/AVIF inputs.
+2. (see 1)
 3. A starting-choice prop on the exam preset picker, then one landing page per exam.
 4. AI foundation with the visitor's own key (shared settings + provider adapters; "Describe an image" and "Image to text"). The security headers / CSP (status 3.9) must come first. Provider browser access (preflight only, tested 2026-11-12): Anthropic needs the header `anthropic-dangerous-direct-browser-access`; OpenAI, Gemini, OpenRouter, Mistral, Groq, Stability and remove.bg allow it; Replicate does not (needs a proxy). Real responses and image input are not tested. AI pages must not carry ads and must say the image goes to the provider.
 5. OCR, then background remover (check each model's licence for commercial use first).
