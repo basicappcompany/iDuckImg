@@ -72,7 +72,7 @@ const why = [
 
   <section class="mt-10" aria-label="Popular right now">
     <h2 class="text-2xl font-black tracking-tight">Popular right now</h2>
-    <ul class="mt-3 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+    <ul class="mt-3 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
       {
         popularTools().map((p) => (
           <li>
@@ -109,7 +109,7 @@ const why = [
       TOOL_GROUPS.map((group) => (
         <div class="mt-8 first:mt-0" data-card-group data-group={group}>
           <h3 class="text-2xl font-black tracking-tight">{group}</h3>
-          <ul class="mt-3 grid gap-4 sm:grid-cols-2">
+          <ul class="mt-3 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
             {toolsInGroup(group).map((tool) => (
               <li data-card data-slug={tool.slug}>
                 <a href={toolPath(tool.slug)} class="card card-link h-full p-4">
