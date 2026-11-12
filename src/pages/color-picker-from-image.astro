@@ -1,0 +1,47 @@
+---
+import ToolLayout from '../components/ToolLayout.astro';
+import ToolGuide from '../components/ToolGuide.astro';
+import ColourPicker from '../tools/colour/ColourPicker';
+
+const steps = [
+  'Drop a JPG, PNG or WebP picture, or paste it. BMP, GIF, SVG and AVIF work too.',
+  'Move over the picture to preview the colour under the pointer.',
+  'Click or tap to pick it. The HEX, RGB and HSL codes appear, each with a Copy button.',
+  'Pick as many colours as you like. The last ten stay below so you can go back to them.',
+];
+const notes = [
+  'The colour is read from the pixel you click, exactly as it is in the picture. A very large picture is shown smaller on the page, which does not change the colours you can pick.',
+  'No mouse? Click the picture once, then use the arrow keys to move and Enter to pick (hold Shift to move ten pixels at a time). If a pixel is partly see-through, the page says so, because the colour you see on screen also depends on what is behind it.',
+];
+const faqs = [
+  {
+    q: 'How do I get the HEX code of a colour in a picture?',
+    a: 'Drop the picture, click the colour you want and copy the HEX code that appears. It looks like #1E90FF.',
+  },
+  {
+    q: 'What is the difference between HEX, RGB and HSL?',
+    a: 'They are three ways to write the same colour. HEX is the short code used in web pages, RGB gives the red, green and blue amounts from 0 to 255, and HSL gives hue, saturation and lightness.',
+  },
+  {
+    q: 'Why does a photo give slightly different codes in nearby spots?',
+    a: 'A photo is made of millions of slightly different pixels, so two spots that look the same can differ by a few steps. Click a few places, or use the colour palette tool to find the main colours.',
+  },
+  {
+    q: 'Is my picture uploaded?',
+    a: 'No. The colour is read in your browser, so your picture stays on your device.',
+  },
+];
+---
+
+<ToolLayout
+  title="Colour picker from an image: get HEX, RGB, HSL | iDuckImg"
+  description="Click any picture to get the exact colour code in HEX, RGB and HSL, with a one-click copy. Works with the keyboard too. Free, in your browser, no upload."
+  heading="Colour picker from an image"
+  steps={steps}
+  faqs={faqs}
+>
+  <ColourPicker client:load />
+  <div slot="content">
+    <ToolGuide title="How to pick a colour from a picture" steps={steps} notes={notes} faqs={faqs} />
+  </div>
+</ToolLayout>

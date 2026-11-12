@@ -30,7 +30,8 @@ export default function FileDropzone({ accepts, onFiles, multiple = true, disabl
     setProblems([]);
     const chosen = multiple ? accepted : accepted.slice(0, 1);
     if (chosen.length === 0) return;
-    if (!chosen.some((f) => detectExtraFormat(f))) {
+    // Only tools that take ordinary pictures convert BMP, GIF, SVG and AVIF. Others (Base64) keep the file as it is.
+    if (!withExtras || !chosen.some((f) => detectExtraFormat(f))) {
       onFiles(chosen);
       return;
     }

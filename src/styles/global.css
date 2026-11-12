@@ -282,7 +282,8 @@ body {
   .chip:hover {
     background: var(--d-soft);
   }
-  .chip[aria-checked='true'] {
+  .chip[aria-checked='true'],
+  .chip[aria-pressed='true'] {
     background: var(--d-duck);
     color: var(--d-duckInk);
   }

@@ -74,6 +74,9 @@ const SYNONYMS: Record<string, string> = {
   brighten: 'adjust colours',
   darken: 'adjust colours',
   frame: 'border',
+  base64: 'base64',
+  favicon: 'favicon',
+  eyedropper: 'colour picker',
   location: 'exif metadata gps',
   gps: 'exif metadata',
   privacy: 'exif metadata',
@@ -84,7 +87,7 @@ const SYNONYMS: Record<string, string> = {
   document: 'pdf',
 };
 
-const STOP = new Set(['a', 'an', 'the', 'my', 'me', 'i', 'to', 'of', 'for', 'and', 'or', 'it', 'is', 'in', 'on', 'this', 'that', 'want', 'need', 'how', 'can', 'do', 'make', 'get', 'with', 'please', 'help']);
+const STOP = new Set(['from', 'a', 'an', 'the', 'my', 'me', 'i', 'to', 'of', 'for', 'and', 'or', 'it', 'is', 'in', 'on', 'this', 'that', 'want', 'need', 'how', 'can', 'do', 'make', 'get', 'with', 'please', 'help']);
 
 function words(text: string): string[] {
   return text

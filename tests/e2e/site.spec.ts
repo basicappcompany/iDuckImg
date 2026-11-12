@@ -5,8 +5,9 @@ const GROUPS: Record<string, string[]> = {
   'Shrink & resize': ['/compress-image/', '/resize-image/', '/exam-photo-resizer/', '/pixel-to-cm-converter/', '/aspect-ratio-calculator/'],
   'Edit & transform': ['/crop-image/', '/rotate-image/', '/circle-crop-image/', '/split-image-into-grid/', '/merge-images/', '/adjust-image-colors/', '/add-border-to-image/'],
   'Add text & effects': ['/add-watermark-to-image/', '/add-logo-to-image/', '/add-text-to-image/', '/pixel-art-maker/', '/blur-image/'],
-  'Convert & combine': ['/convert-image/', '/image-to-pdf/'],
+  'Convert & combine': ['/convert-image/', '/image-to-pdf/', '/image-to-base64/', '/favicon-generator/'],
   'Privacy & cleanup': ['/remove-exif-data/'],
+  'Create & design': ['/color-picker-from-image/', '/color-palette-generator/'],
 };
 const TOOL_PATHS = Object.values(GROUPS).flat();
 /** The shortcuts (landing pages) listed under the tool they open, after the group's own tools. */

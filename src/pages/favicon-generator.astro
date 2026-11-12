@@ -1,0 +1,52 @@
+---
+import ToolLayout from '../components/ToolLayout.astro';
+import ToolGuide from '../components/ToolGuide.astro';
+import FaviconTool from '../tools/favicon/FaviconTool';
+
+const steps = [
+  'Drop one JPG, PNG or WebP picture, or paste it. A square picture of 512 pixels or more works best.',
+  'If it is not square, choose whether to cut it to a square from the middle or keep all of it with see-through bars.',
+  'Press Make favicons.',
+  'Download the files one by one or all in a ZIP, put them in the root folder of your site and paste the code shown into the head of your pages.',
+];
+const notes = [
+  'You get favicon.ico (16, 32 and 48 pixel versions in one file), favicon-16x16.png and favicon-32x32.png for browser tabs, apple-touch-icon.png (180 pixels) for iPhones and iPads, and 192 and 512 pixel icons for Android and installable web apps.',
+  'A favicon is tiny, so a simple shape with strong colours reads best. The preview shows your icon at 16, 32 and 64 pixels so you can check it before you download.',
+  'A picture smaller than 512 pixels is enlarged for the biggest icons and can look soft, and the page tells you when that happens. A picture with a see-through background keeps it.',
+];
+const faqs = [
+  {
+    q: 'What files does a website need for a favicon?',
+    a: 'A favicon.ico, a 32 by 32 and a 16 by 16 PNG for tabs, an apple-touch-icon.png of 180 pixels for Apple devices, and 192 and 512 pixel icons for Android. This tool makes all of them.',
+  },
+  {
+    q: 'What size should my picture be?',
+    a: 'Square and at least 512 by 512 pixels. Smaller pictures still work but the large icons are enlarged and look soft.',
+  },
+  {
+    q: 'What if my logo is not square?',
+    a: 'Choose to cut it to a square from the middle, or keep all of it with see-through bars on the sides or top.',
+  },
+  {
+    q: 'Is the favicon.ico a real ICO file?',
+    a: 'Yes. It holds the 16, 32 and 48 pixel icons in one standard ICO file that every current browser and Windows version reads.',
+  },
+  {
+    q: 'Is my picture uploaded?',
+    a: 'No. The icons are made in your browser, so your picture stays on your device.',
+  },
+];
+---
+
+<ToolLayout
+  title="Favicon generator: ICO and PNG from one image | iDuckImg"
+  description="Make favicon.ico, 16 and 32 pixel PNGs, an Apple touch icon and Android icons from one picture, with the code for your page. Free, in your browser, no upload."
+  heading="Favicon generator"
+  steps={steps}
+  faqs={faqs}
+>
+  <FaviconTool client:load />
+  <div slot="content">
+    <ToolGuide title="How to make a favicon" steps={steps} notes={notes} faqs={faqs} />
+  </div>
+</ToolLayout>

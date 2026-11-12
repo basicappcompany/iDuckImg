@@ -3,7 +3,7 @@
  * here when its page ships; the homepage, the sidebar, search and the "More in this group"
  * block on each tool page all read this list.
  */
-export const TOOL_GROUPS = ['Shrink & resize', 'Edit & transform', 'Add text & effects', 'Convert & combine', 'Privacy & cleanup'] as const;
+export const TOOL_GROUPS = ['Shrink & resize', 'Edit & transform', 'Add text & effects', 'Convert & combine', 'Privacy & cleanup', 'Create & design'] as const;
 export type ToolGroup = (typeof TOOL_GROUPS)[number];
 
 export interface ToolLink {
@@ -220,6 +220,46 @@ export const TOOLS: readonly ToolLink[] = [
     quick:
       'To add a border, drop your picture in, set the thickness and choose a colour, then press Add border. The border goes around the picture, so nothing is cut off. It is drawn in your browser.',
     keywords: 'frame padding margin outline white border black border edge surround',
+  },
+  {
+    slug: 'color-picker-from-image',
+    name: 'Colour picker from an image',
+    summary: 'Click a picture to get the exact colour code.',
+    group: 'Create & design',
+    emoji: '🎯',
+    quick:
+      'To get a colour from a picture, drop it in and click the colour you want. The HEX, RGB and HSL codes appear with a Copy button. It runs in your browser.',
+    keywords: 'eyedropper hex rgb hsl colour color code pick sample dropper css',
+  },
+  {
+    slug: 'color-palette-generator',
+    name: 'Colour palette generator',
+    summary: 'Pull the main colours out of a picture.',
+    group: 'Create & design',
+    emoji: '🎨',
+    quick:
+      'To get the main colours of a picture, drop it in. Up to 12 swatches appear with their HEX codes and how much of the picture each covers. Copy one, or the whole palette as CSS.',
+    keywords: 'colours colors dominant swatches scheme theme brand hex css extract',
+  },
+  {
+    slug: 'image-to-base64',
+    name: 'Image to Base64',
+    summary: 'Turn an image into text for code, and back.',
+    group: 'Convert & combine',
+    emoji: '🧬',
+    quick:
+      'To turn an image into Base64, drop it in and copy the data URI. To go back, choose Base64 to image, paste the text and download the picture. Nothing is uploaded.',
+    keywords: 'base64 data uri datauri encode decode embed inline html css text string',
+  },
+  {
+    slug: 'favicon-generator',
+    name: 'Favicon generator',
+    summary: 'Make the icon files a website needs from one picture.',
+    group: 'Convert & combine',
+    emoji: '⭐',
+    quick:
+      'To make a favicon, drop one picture in and press Make favicons. You get favicon.ico, 16 and 32 pixel PNGs, an Apple touch icon and Android icons, with the code to paste in your page.',
+    keywords: 'icon ico apple touch android website tab browser logo site favicon.ico',
   },
 ];
 
