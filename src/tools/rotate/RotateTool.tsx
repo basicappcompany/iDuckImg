@@ -15,13 +15,15 @@ import {
   rotateRight,
   type RotateOptions,
 } from './options';
-import { fill, useUi } from '../../i18n/ui';
+import { fill, useText, useUi } from '../../i18n/ui';
+import { ROTATE_TEXT } from '../../i18n/tools/rotate';
 
 const buttonClass =
   'btn btn-sm';
 
 export default function RotateTool() {
   const ui = useUi();
+  const t = useText(ROTATE_TEXT);
   const [files, setFiles] = useState<File[]>([]);
   const [options, setOptions] = useState<RotateOptions>(rotateTool.defaultOptions);
   const runner = useToolRunner(rotateTool);
@@ -71,30 +73,30 @@ export default function RotateTool() {
           {previewUrl && (
             <div
               class="card mx-auto flex h-64 w-64 items-center justify-center overflow-hidden"
-              aria-label="Preview of the first image"
+              aria-label={t.previewAria}
             >
               <img
                 src={previewUrl}
-                alt="Preview"
+                alt={t.alt}
                 class="max-h-full max-w-full transition-transform"
                 style={{ transform: previewTransform(options) }}
               />
             </div>
           )}
 
-          <OptionsPanel title="Rotate and flip">
+          <OptionsPanel title={t.title}>
             <div class="flex flex-wrap gap-3">
               <button type="button" class={buttonClass} disabled={running} onClick={() => change(rotateLeft(options))}>
-                Rotate left
+                {t.left}
               </button>
               <button type="button" class={buttonClass} disabled={running} onClick={() => change(rotateRight(options))}>
-                Rotate right
+                {t.right}
               </button>
               <button type="button" class={buttonClass} disabled={running} onClick={() => change(flipHorizontal(options))}>
-                Flip horizontal
+                {t.flipH}
               </button>
               <button type="button" class={buttonClass} disabled={running} onClick={() => change(flipVertical(options))}>
-                Flip vertical
+                {t.flipV}
               </button>
               <button
                 type="button"
@@ -102,12 +104,11 @@ export default function RotateTool() {
                 disabled={running || isIdentity(options)}
                 onClick={() => change(defaultRotateOptions)}
               >
-                Reset
+                {t.reset}
               </button>
             </div>
             <p class="text-xs text-muted">
-              The preview shows the first image. The same change is applied to every image. JPG and WebP are
-              saved again at high quality, so the file size can change slightly.
+              {t.note}
             </p>
           </OptionsPanel>
 
@@ -118,7 +119,7 @@ export default function RotateTool() {
               onClick={() => runner.run(files, options)}
               class="btn btn-primary btn-lg"
             >
-              {running ? ui.working : 'Apply'}
+              {running ? ui.working : t.run}
             </button>
             {running && (
               <button

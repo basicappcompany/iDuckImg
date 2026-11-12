@@ -9,12 +9,16 @@ import { logoTool } from './tool';
 import { drawLogo } from './draw';
 import { LOGO_ACCEPTS, LOGO_POSITIONS, type LogoOptions } from './options';
 import type { WatermarkPosition } from '../watermark/options';
-import { fill, useUi } from '../../i18n/ui';
+import { fill, useText, useUi } from '../../i18n/ui';
+import { LOGO_TEXT } from '../../i18n/tools/logo';
+import { POSITION_TEXT } from '../../i18n/tools/positions';
 
 const PREVIEW_WIDTH = 560;
 
 export default function LogoTool() {
   const ui = useUi();
+  const t = useText(LOGO_TEXT);
+  const pos = useText(POSITION_TEXT);
   const [files, setFiles] = useState<File[]>([]);
   const [options, setOptions] = useState<LogoOptions>(logoTool.defaultOptions);
   const [logoError, setLogoError] = useState('');
@@ -105,7 +109,7 @@ export default function LogoTool() {
     input.value = '';
     if (!file) return;
     if (!isAccepted(file, LOGO_ACCEPTS)) {
-      setLogoError('Use a PNG, JPG or WebP picture for the logo. A PNG with a transparent background looks best.');
+      setLogoError(t.logoError);
       return;
     }
     setLogoError('');
@@ -135,15 +139,15 @@ export default function LogoTool() {
             </button>
           </p>
 
-          <div class="card mx-auto overflow-hidden" aria-label="Preview of the first image">
-            <canvas ref={canvas} class="block max-h-[28rem] max-w-full" role="img" aria-label="Preview with the logo" />
+          <div class="card mx-auto overflow-hidden" aria-label={t.previewAria}>
+            <canvas ref={canvas} class="block max-h-[28rem] max-w-full" role="img" aria-label={t.canvasAria} />
           </div>
 
-          <OptionsPanel title="Logo">
+          <OptionsPanel title={t.title}>
             <Field
               id="logo-file"
-              label="Your logo"
-              hint="A PNG with a transparent background looks best. It stays on your device."
+              label={t.yourLogo}
+              hint={t.logoHint}
             >
               <input
                 id="logo-file"
@@ -156,7 +160,7 @@ export default function LogoTool() {
             </Field>
             {hasLogo && (
               <p class="text-sm">
-                Logo: <strong>{options.logo instanceof File ? options.logo.name : 'chosen'}</strong>
+                {t.logoLabel} <strong>{options.logo instanceof File ? options.logo.name : t.chosen}</strong>
               </p>
             )}
             {logoError && (
@@ -165,7 +169,7 @@ export default function LogoTool() {
               </p>
             )}
 
-            <Field id="logo-position" label="Position">
+            <Field id="logo-position" label={t.position}>
               <select
                 id="logo-position"
                 class="input w-full"
@@ -174,13 +178,13 @@ export default function LogoTool() {
                 onChange={(e) => set({ position: (e.currentTarget as HTMLSelectElement).value as WatermarkPosition })}
               >
                 {LOGO_POSITIONS.map((p) => (
-                  <option value={p.id}>{p.label}</option>
+                  <option value={p.id}>{pos[p.id]}</option>
                 ))}
               </select>
             </Field>
 
             <div class="grid gap-4 sm:grid-cols-2">
-              <Field id="logo-size" label={`Size: ${options.sizePct}% of the width`}>
+              <Field id="logo-size" label={fill(t.size, { n: options.sizePct })}>
                 <input
                   id="logo-size"
                   type="range"
@@ -192,7 +196,7 @@ export default function LogoTool() {
                   onInput={(e) => set({ sizePct: Number((e.currentTarget as HTMLInputElement).value) })}
                 />
               </Field>
-              <Field id="logo-opacity" label={`Opacity: ${options.opacity}%`}>
+              <Field id="logo-opacity" label={fill(t.opacity, { n: options.opacity })}>
                 <input
                   id="logo-opacity"
                   type="range"
@@ -206,9 +210,7 @@ export default function LogoTool() {
               </Field>
             </div>
             <p class="text-xs text-muted">
-              The preview shows the first image; the same logo goes on every image at the same relative size. JPG and
-              WebP are saved again at high quality, so the file size can change slightly. A logo discourages copying
-              but can be cropped out, so it does not protect a picture.
+              {t.note}
             </p>
           </OptionsPanel>
 
@@ -219,7 +221,7 @@ export default function LogoTool() {
               onClick={() => runner.run(files, options)}
               class="btn btn-primary btn-lg"
             >
-              {running ? ui.working : 'Add logo'}
+              {running ? ui.working : t.run}
             </button>
             {running && (
               <button type="button" onClick={runner.cancel} class="btn btn-lg">
@@ -227,7 +229,7 @@ export default function LogoTool() {
               </button>
             )}
           </div>
-          {!hasLogo && <p class="text-sm text-muted">Choose your logo to continue.</p>}
+          {!hasLogo && <p class="text-sm text-muted">{t.missing}</p>}
         </>
       )}
 

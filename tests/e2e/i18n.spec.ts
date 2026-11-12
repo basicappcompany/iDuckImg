@@ -152,6 +152,26 @@ test.describe('languages', () => {
     await expect(page.getByRole('button', { name: 'Resize', exact: true })).toBeVisible();
   });
 
+  test('the watermark, text, logo, rotate and metadata tools are translated too', async ({ page }) => {
+    const cases: [string, string, RegExp, string][] = [
+      ['/de/add-watermark-to-image/', 'Wasserzeichen hinzufügen', /1 Bild ausgewählt/, 'Position'],
+      ['/fr/add-text-to-image/', 'Ajouter le texte', /1 image sélectionnée/, 'Position'],
+      ['/pt-br/add-logo-to-image/', 'Adicionar logotipo', /1 imagem selecionada/, 'Posição'],
+      ['/tr/rotate-image/', 'Uygula', /1 görsel seçildi/, ''],
+      ['/id/remove-exif-data/', 'Hapus metadata', /1 gambar dipilih/, ''],
+    ];
+    for (const [path, button, ready, label] of cases) {
+      await page.goto(path);
+      await addFiles(page, [await makeImage(page, 'image/jpeg', 'a.jpg', 400, 300)], ready);
+      await expect(page.getByRole('button', { name: button, exact: true }), path).toBeVisible();
+      if (label) await expect(page.getByLabel(label, { exact: true }).first(), path).toBeVisible();
+    }
+    // The position list is translated.
+    await page.goto('/es/add-watermark-to-image/');
+    await addFiles(page, [await makeImage(page, 'image/jpeg', 'a.jpg', 400, 300)], /1 imagen seleccionada/);
+    await expect(page.getByRole('option', { name: 'Abajo a la derecha' })).toHaveCount(1);
+  });
+
   test('the home page of each language has the Ask the helper card, English only on the English page', async ({ page }) => {
     await page.goto('/de/');
     const card = page.getByRole('region', { name: 'Den Helfer fragen' });

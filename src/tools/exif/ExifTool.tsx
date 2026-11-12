@@ -4,10 +4,12 @@ import ProgressBar from '../../components/ProgressBar';
 import DownloadPanel from '../../components/DownloadPanel';
 import { useToolRunner } from '../../engine/useToolRunner';
 import { exifTool } from './tool';
-import { fill, useUi } from '../../i18n/ui';
+import { bare, fill, useText, useUi } from '../../i18n/ui';
+import { EXIF_TEXT } from '../../i18n/tools/exif';
 
 export default function ExifTool() {
   const ui = useUi();
+  const t = useText(EXIF_TEXT);
   const [files, setFiles] = useState<File[]>([]);
   const runner = useToolRunner(exifTool);
   const running = runner.state === 'running';
@@ -46,13 +48,10 @@ export default function ExifTool() {
           </p>
 
           <div class="card p-5 text-sm">
-            <p class="font-semibold">What happens</p>
+            <p class="font-semibold">{t.what}</p>
             <ul class="mt-2 list-disc pl-5">
-              <li>Removed: camera and phone details, date and time, GPS location, XMP, IPTC and comments.</li>
-              <li>
-                The picture is not recompressed, so quality and size stay the same. The exception is a JPG that
-                is stored sideways and relies on a rotation tag: it is saved again so it stays upright.
-              </li>
+              <li>{t.removed}</li>
+              <li>{t.kept}</li>
             </ul>
           </div>
 
@@ -63,7 +62,7 @@ export default function ExifTool() {
               onClick={() => runner.run(files, exifTool.defaultOptions)}
               class="btn btn-primary btn-lg"
             >
-              {running ? 'Removing...' : 'Remove metadata'}
+              {running ? t.running : t.run}
             </button>
             {running && (
               <button
@@ -78,7 +77,7 @@ export default function ExifTool() {
         </>
       )}
 
-      {running && <ProgressBar value={overall} label="Removing metadata" />}
+      {running && <ProgressBar value={overall} label={bare(t.running)} />}
       {runner.state !== 'idle' && <DownloadPanel inputs={files} results={runner.results} />}
     </div>
   );

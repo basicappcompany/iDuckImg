@@ -1,6 +1,9 @@
 import { useEffect, useRef, useState } from 'preact/hooks';
 import SimpleToolShell from '../../components/SimpleToolShell';
 import OptionsPanel, { Field } from '../../components/OptionsPanel';
+import { fill, useText } from '../../i18n/ui';
+import { TEXT_TEXT } from '../../i18n/tools/text';
+import { POSITION_TEXT } from '../../i18n/tools/positions';
 import { textTool } from './tool';
 import { drawText } from './draw';
 import {
@@ -17,6 +20,7 @@ import {
 const PREVIEW_WIDTH = 560;
 
 export default function TextTool() {
+  const t = useText(TEXT_TEXT);
   const [options, setOptions] = useState<TextOptions>(textTool.defaultOptions);
 
   return (
@@ -24,8 +28,8 @@ export default function TextTool() {
       tool={textTool}
       options={options}
       canRun={cleanLines(options.text).length > 0}
-      runLabel="Add text"
-      missing="Type the text to continue."
+      runLabel={t.run}
+      missing={t.missing}
     >
       {({ files, running, reset }) => {
         const set = (patch: Partial<TextOptions>) => {
@@ -49,6 +53,8 @@ function Panels({
   options: TextOptions;
   set: (patch: Partial<TextOptions>) => void;
 }) {
+  const t = useText(TEXT_TEXT);
+  const pos = useText(POSITION_TEXT);
   const canvas = useRef<HTMLCanvasElement>(null);
   const [bitmap, setBitmap] = useState<ImageBitmap | null>(null);
 
@@ -79,25 +85,25 @@ function Panels({
 
   return (
     <>
-      <div class="card mx-auto overflow-hidden" aria-label="Preview of the first image">
-        <canvas ref={canvas} class="block max-h-[28rem] max-w-full" role="img" aria-label="Preview with the text" />
+      <div class="card mx-auto overflow-hidden" aria-label={t.previewAria}>
+        <canvas ref={canvas} class="block max-h-[28rem] max-w-full" role="img" aria-label={t.canvasAria} />
       </div>
 
-      <OptionsPanel title="Text">
-        <Field id="tx-text" label="Text" hint={`Up to ${MAX_LINES} lines of ${MAX_LINE_LENGTH} characters. Press Enter for a new line.`}>
+      <OptionsPanel title={t.title}>
+        <Field id="tx-text" label={t.text} hint={fill(t.hint, { lines: MAX_LINES, chars: MAX_LINE_LENGTH })}>
           <textarea
             id="tx-text"
             class="input w-full"
             rows={3}
             value={options.text}
             disabled={running}
-            placeholder="Write something..."
+            placeholder={t.placeholder}
             onInput={(e) => set({ text: (e.currentTarget as HTMLTextAreaElement).value })}
           />
         </Field>
 
         <div class="grid gap-4 sm:grid-cols-2">
-          <Field id="tx-position" label="Position">
+          <Field id="tx-position" label={t.position}>
             <select
               id="tx-position"
               class="input w-full"
@@ -106,11 +112,11 @@ function Panels({
               onChange={(e) => set({ position: (e.currentTarget as HTMLSelectElement).value as TextPosition })}
             >
               {TEXT_POSITIONS.map((p) => (
-                <option value={p.id}>{p.label}</option>
+                <option value={p.id}>{pos[p.id]}</option>
               ))}
             </select>
           </Field>
-          <Field id="tx-size" label={`Size: ${options.sizePct}% of the width`}>
+          <Field id="tx-size" label={fill(t.size, { n: options.sizePct })}>
             <input
               id="tx-size"
               type="range"
@@ -122,7 +128,7 @@ function Panels({
               onInput={(e) => set({ sizePct: Number((e.currentTarget as HTMLInputElement).value) })}
             />
           </Field>
-          <Field id="tx-colour" label="Colour">
+          <Field id="tx-colour" label={t.colour}>
             <select
               id="tx-colour"
               class="input w-full"
@@ -130,13 +136,13 @@ function Panels({
               disabled={running}
               onChange={(e) => set({ colour: (e.currentTarget as HTMLSelectElement).value as TextColour })}
             >
-              <option value="white">White</option>
-              <option value="black">Black</option>
-              <option value="yellow">Yellow</option>
-              <option value="red">Red</option>
+              <option value="white">{t.white}</option>
+              <option value="black">{t.black}</option>
+              <option value="yellow">{t.yellow}</option>
+              <option value="red">{t.red}</option>
             </select>
           </Field>
-          <Field id="tx-box" label="Panel behind the text">
+          <Field id="tx-box" label={t.box}>
             <select
               id="tx-box"
               class="input w-full"
@@ -144,15 +150,14 @@ function Panels({
               disabled={running}
               onChange={(e) => set({ box: (e.currentTarget as HTMLSelectElement).value as TextBox })}
             >
-              <option value="dark">Dark panel</option>
-              <option value="light">Light panel</option>
-              <option value="none">No panel</option>
+              <option value="dark">{t.dark}</option>
+              <option value="light">{t.light}</option>
+              <option value="none">{t.none}</option>
             </select>
           </Field>
         </div>
         <p class="text-xs text-muted">
-          The preview shows the first image; the same text goes on every image. JPG and WebP are saved again at high
-          quality, so the file size can change slightly.
+          {t.note}
         </p>
       </OptionsPanel>
     </>
