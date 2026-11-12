@@ -16,7 +16,7 @@ export default defineConfig({
       filter: (page) => !NOINDEX_PATHS.some((path) => page.endsWith(path)),
       i18n: {
         defaultLocale: 'en',
-        locales: Object.fromEntries(LOCALES.filter((l) => l.status !== 'planned').map((l) => [l.path || 'en', l.code])),
+        locales: Object.fromEntries(LOCALES.filter((l) => l.status !== 'planned').map((l) => [l.path || 'en', l.hreflang])),
       },
     }),
   ],

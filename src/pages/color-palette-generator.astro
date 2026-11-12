@@ -5,20 +5,20 @@ import PaletteTool from '../tools/colour/PaletteTool';
 
 const steps = [
   'Drop a JPG, PNG or WebP picture, or paste it. BMP, GIF, SVG and AVIF work too.',
-  'The main colours appear straight away. Use the slider to ask for fewer or more, from 2 to 12.',
-  'Click a colour to copy its HEX code, or copy the whole palette as a list or as CSS variables.',
+  'The main colors appear straight away. Use the slider to ask for fewer or more, from 2 to 12.',
+  'Click a color to copy its HEX code, or copy the whole palette as a list or as CSS variables.',
 ];
 const notes = [
-  'The colours are found by grouping similar pixels and averaging each group, so a colour that fills most of the picture comes first. The percentage on each swatch is how much of the picture that group covers. Fully or mostly see-through pixels are ignored.',
-  'If the picture has fewer distinct colours than you asked for, you get only the colours it has. A plain logo with three colours gives three swatches, not twelve.',
+  'The colors are found by grouping similar pixels and averaging each group, so a color that fills most of the picture comes first. The percentage on each swatch is how much of the picture that group covers. Fully or mostly see-through pixels are ignored.',
+  'If the picture has fewer distinct colors than you asked for, you get only the colors it has. A plain logo with three colors gives three swatches, not twelve.',
 ];
 const faqs = [
   {
-    q: 'How do I get the colours out of a picture?',
-    a: 'Drop the picture and the main colours appear as swatches with their HEX codes. Click a swatch to copy its code.',
+    q: 'How do I get the colors out of a picture?',
+    a: 'Drop the picture and the main colors appear as swatches with their HEX codes. Click a swatch to copy its code.',
   },
   {
-    q: 'How many colours can I get?',
+    q: 'How many colors can I get?',
     a: 'From 2 to 12. Six is a good start for a brand or a design palette.',
   },
   {
@@ -26,25 +26,25 @@ const faqs = [
     a: 'Yes. Copy as CSS variables gives you custom properties such as --colour-1 that you can paste into a stylesheet.',
   },
   {
-    q: 'What if I need one exact colour?',
-    a: 'Use the colour picker from an image, which reads the exact pixel you click.',
+    q: 'What if I need one exact color?',
+    a: 'Use the color picker from an image, which reads the exact pixel you click.',
   },
   {
     q: 'Is my picture uploaded?',
-    a: 'No. The colours are worked out in your browser, so your picture stays on your device.',
+    a: 'No. The colors are worked out in your browser, so your picture stays on your device.',
   },
 ];
 ---
 
 <ToolLayout
-  title="Colour palette generator: main colours of a picture | iDuckImg"
-  description="Pull the main colours out of any picture with their HEX codes and how much of the picture each covers. Copy as a list or CSS. Free, in your browser, no upload."
-  heading="Colour palette generator"
+  title="Color palette generator: main colors of a picture | iDuckImg"
+  description="Pull the main colors out of any picture with their HEX codes and how much of the picture each covers. Copy as a list or CSS. Free, in your browser, no upload."
+  heading="Color palette generator"
   steps={steps}
   faqs={faqs}
 >
   <PaletteTool client:load />
   <div slot="content">
-    <ToolGuide title="How to get a colour palette from a picture" steps={steps} notes={notes} faqs={faqs} />
+    <ToolGuide title="How to get a color palette from a picture" steps={steps} notes={notes} faqs={faqs} />
   </div>
 </ToolLayout>

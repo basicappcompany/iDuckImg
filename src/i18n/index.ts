@@ -1,6 +1,8 @@
 import { TOOLS, toolPath } from '../lib/tools';
 import { SITE_URL } from '../lib/seo';
 import { LANDING_PAGES, landingPath } from '../lib/landing';
+import { GUIDES, guidePath } from '../lib/guides';
+import { ukDeep } from './uk';
 import { en } from './en';
 import { LOCALES, localePath, type LocaleInfo } from './locales';
 import type { Dict, LocaleData, ToolText } from './types';
@@ -18,7 +20,22 @@ export { DEFAULT_LOCALE, LOCALES, OTHER_LOCALES, localeByCode, localeByPath, loc
 export type { Dict, LocaleData, ToolText } from './types';
 
 /** Every translated language's text, by locale code. English is built from the tool list itself. */
-export const LOCALE_DATA: Readonly<Record<string, LocaleData>> = { hi, bn, 'pt-BR': ptBR, id, ru, de, es, fr, tr };
+export const LOCALE_DATA: Readonly<Record<string, LocaleData>> = {
+  hi,
+  bn,
+  'pt-BR': ptBR,
+  id,
+  ru,
+  de,
+  es,
+  fr,
+  tr,
+  // English (UK): the English text in British spelling, made here so it cannot fall behind (see uk.ts).
+  'en-GB': {
+    dict: ukDeep(en),
+    tools: Object.fromEntries(TOOLS.map((t) => [t.slug, ukDeep({ name: t.name, summary: t.summary, quick: t.quick })])),
+  },
+};
 
 export function dictFor(code: string): Dict {
   return LOCALE_DATA[code]?.dict ?? en;
@@ -44,7 +61,7 @@ export interface Alternate {
 }
 
 /** Slugs that have a translated page, with the home page. */
-const TRANSLATED_PATHS = new Set<string>(['/', ...TOOLS.map((t) => toolPath(t.slug)), ...LANDING_PAGES.map((p) => landingPath(p.slug))]);
+const TRANSLATED_PATHS = new Set<string>(['/', ...TOOLS.map((t) => toolPath(t.slug)), ...LANDING_PAGES.map((p) => landingPath(p.slug)), '/guides/', '/chat/', ...GUIDES.map((g) => guidePath(g.slug))]);
 
 /** True when this English path has a translated version in every published language. */
 export function hasTranslations(englishPath: string): boolean {
@@ -55,7 +72,7 @@ export function hasTranslations(englishPath: string): boolean {
 export function alternatesFor(englishPath: string): Alternate[] {
   if (!hasTranslations(englishPath)) return [];
   return LOCALES.filter((l) => l.status !== 'planned').map((locale) => ({
-    hreflang: locale.code,
+    hreflang: locale.hreflang,
     href: `${SITE_URL}${localePath(locale.code, englishPath)}`,
     locale,
   }));

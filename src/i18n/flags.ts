@@ -5,7 +5,9 @@
  */
 const FLAGS: Record<string, string> = {
   // United Kingdom (simplified Union Jack)
-  en: '<rect width="30" height="20" fill="#012169"/><path d="M0 0 30 20M30 0 0 20" stroke="#fff" stroke-width="4"/><path d="M0 0 30 20M30 0 0 20" stroke="#C8102E" stroke-width="1.6"/><path d="M15 0v20M0 10h30" stroke="#fff" stroke-width="6"/><path d="M15 0v20M0 10h30" stroke="#C8102E" stroke-width="3.4"/>',
+  'en-GB': '<rect width="30" height="20" fill="#012169"/><path d="M0 0 30 20M30 0 0 20" stroke="#fff" stroke-width="4"/><path d="M0 0 30 20M30 0 0 20" stroke="#C8102E" stroke-width="1.6"/><path d="M15 0v20M0 10h30" stroke="#fff" stroke-width="6"/><path d="M15 0v20M0 10h30" stroke="#C8102E" stroke-width="3.4"/>',
+  // United States (simplified: stripes and a blue canton)
+  en: '<rect width="30" height="20" fill="#fff"/><path d="M0 1.5h30M0 4.5h30M0 7.5h30M0 10.5h30M0 13.5h30M0 16.5h30M0 19h30" stroke="#B22234" stroke-width="1.5"/><rect width="13" height="10.5" fill="#3C3B6E"/><circle cx="3" cy="2.6" r="0.7" fill="#fff"/><circle cx="6.5" cy="2.6" r="0.7" fill="#fff"/><circle cx="10" cy="2.6" r="0.7" fill="#fff"/><circle cx="4.7" cy="5.2" r="0.7" fill="#fff"/><circle cx="8.3" cy="5.2" r="0.7" fill="#fff"/><circle cx="3" cy="7.8" r="0.7" fill="#fff"/><circle cx="6.5" cy="7.8" r="0.7" fill="#fff"/><circle cx="10" cy="7.8" r="0.7" fill="#fff"/>',
   // India
   hi: '<rect width="30" height="20" fill="#fff"/><rect width="30" height="6.7" fill="#FF9933"/><rect y="13.3" width="30" height="6.7" fill="#138808"/><circle cx="15" cy="10" r="2.6" fill="none" stroke="#000080" stroke-width="0.8"/>',
   // Bangladesh

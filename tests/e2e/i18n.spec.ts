@@ -57,38 +57,47 @@ test.describe('languages', () => {
     for (const [path, english, spanish] of cases) {
       await page.goto(path);
       const tags = await hreflangs(page);
-      expect(tags.map(([code]) => code), path).toEqual(['en', 'hi', 'bn', 'pt-BR', 'id', 'ru', 'de', 'es', 'fr', 'tr', 'x-default']);
+      expect(tags.map(([code]) => code), path).toEqual(['en-US', 'en-GB', 'hi', 'bn', 'pt-BR', 'id', 'ru', 'de', 'es', 'fr', 'tr', 'x-default']);
       expect(tags.find(([code]) => code === 'x-default')![1], path).toBe(english);
-      expect(tags.find(([code]) => code === 'en')![1], path).toBe(english);
+      expect(tags.find(([code]) => code === 'en-US')![1], path).toBe(english);
+      expect(tags.find(([code]) => code === 'en-GB')![1], path).toBe(english === '/' ? '/en-gb/' : `/en-gb${english}`);
       expect(tags.find(([code]) => code === 'es')![1], path).toBe(spanish);
     }
   });
 
   test('pages with no translation do not claim to have one', async ({ page }) => {
-    for (const path of ['/guides/', '/guides/how-to-compress-an-image/', '/privacy/', '/about/']) {
+    for (const path of ['/privacy/', '/terms/', '/about/']) {
       await page.goto(path);
       expect(await hreflangs(page), path).toEqual([]);
-      await expect(page.locator('html')).toHaveAttribute('lang', 'en');
+      await expect(page.locator('html')).toHaveAttribute('lang', 'en-US');
     }
   });
 
-  test('the language menu opens, lists ten languages, and switches to the same page', async ({ page }) => {
+  test('the language menu opens, lists eleven languages, and switches to the same page', async ({ page }) => {
     await page.goto('/compress-image/');
     await page.locator('[data-lang-menu] summary').click();
     const links = page.locator('[data-lang-menu] a');
-    await expect(links).toHaveCount(10);
-    await expect(links.nth(7)).toHaveText('Español');
+    await expect(links).toHaveCount(11);
+    await expect(links.nth(0)).toHaveText('English (US)');
+    await expect(links.nth(1)).toHaveText('English (UK)');
+    await expect(links.nth(8)).toHaveText('Español');
     await expect(links.nth(0)).toHaveAttribute('aria-current', 'true');
     // Each language has a flag in the list, and the open language's flag shows on the button.
-    await expect(page.locator('[data-lang-menu] .lang-list svg.flag')).toHaveCount(10);
+    await expect(page.locator('[data-lang-menu] .lang-list svg.flag')).toHaveCount(11);
     await expect(page.locator('[data-lang-menu] summary svg.flag')).toHaveCount(1);
     await page.getByRole('link', { name: 'Español' }).click();
     await expect(page.locator('[data-lang-menu] summary svg.flag')).toHaveCount(1);
     await expect(page).toHaveURL(/\/es\/compress-image\/$/);
     await expect(page.getByRole('heading', { level: 1 })).toContainText('Comprimir imágenes');
 
-    // From a page with no translation the menu goes to that language's home page.
+    // A guide has translations too, so the menu stays on the guides hub.
     await page.goto('/guides/');
+    await page.locator('[data-lang-menu] summary').click();
+    await page.getByRole('link', { name: 'Deutsch' }).click();
+    await expect(page).toHaveURL(/\/de\/guides\/$/);
+
+    // From a page with no translation the menu goes to that language's home page.
+    await page.goto('/privacy/');
     await page.locator('[data-lang-menu] summary').click();
     await page.getByRole('link', { name: 'Deutsch' }).click();
     await expect(page).toHaveURL(/\/de\/$/);
@@ -134,10 +143,10 @@ test.describe('languages', () => {
     expect(await quick.getByRole('link').count()).toBe(QUICK_LINKS);
     await expect(page.getByText('Comunidad', { exact: true })).toBeVisible();
     await expect(page.getByRole('link', { name: 'Acerca de' })).toHaveAttribute('href', '/about/');
-    await expect(page.getByRole('link', { name: 'Preguntar al asistente' }).first()).toHaveAttribute('href', '/chat/');
+    await expect(page.getByRole('link', { name: 'Preguntar al asistente' }).first()).toHaveAttribute('href', '/es/chat/');
     await expect(page.getByRole('navigation', { name: 'Main' }).getByRole('link', { name: 'Inicio' })).toHaveAttribute('href', '/es/');
     await expect(page.getByRole('link', { name: 'Apoyar' }).last()).toBeVisible();
-    await expect(page.getByRole('navigation', { name: 'Main' }).getByRole('link', { name: 'Guías prácticas' })).toHaveAttribute('href', '/guides/');
+    await expect(page.getByRole('navigation', { name: 'Main' }).getByRole('link', { name: 'Guías prácticas' })).toHaveAttribute('href', '/es/guides/');
   });
 
   test('has translated structured data and FAQ on the home page', async ({ page }) => {
@@ -191,9 +200,43 @@ test.describe('languages', () => {
     await page.goto('/de/');
     const card = page.getByRole('region', { name: 'Den Helfer fragen' });
     await expect(card).toContainText('Unsicher, welches Werkzeug Sie brauchen?');
-    await expect(card.getByRole('link', { name: 'Den Helfer fragen' })).toHaveAttribute('href', '/chat/');
+    await expect(card.getByRole('link', { name: 'Den Helfer fragen' })).toHaveAttribute('href', '/de/chat/');
     await page.goto('/');
     await expect(page.getByRole('region', { name: 'Ask the helper' }).getByRole('link')).toHaveAttribute('href', '/chat/');
+  });
+
+  test('the helper is translated: the page, the answers, and the tool it points at', async ({ page }) => {
+    await page.goto('/es/chat/');
+    await expect(page.locator('meta[name="robots"]')).toHaveAttribute('content', 'noindex');
+    await expect(page.locator('html')).toHaveAttribute('lang', 'es');
+    const log = page.getByRole('log');
+    await expect(log).toContainText('Duck');
+    await expect(log).not.toContainText('I am Duck');
+    await page.waitForLoadState('networkidle');
+    // A starter button shows its Spanish label and gets a Spanish answer that opens the Spanish page.
+    const starter = page.getByRole('group').getByRole('button').first();
+    const label = (await starter.textContent())!.trim();
+    await starter.click();
+    await expect(log.getByText(label).first()).toBeVisible();
+    const card = log.locator('a[href^="/es/"]').first();
+    await expect(card).toBeVisible();
+    await card.click();
+    await expect(page).toHaveURL(/\/es\/compress-image-to-100kb\/$/);
+    // Typing a tool's Spanish name finds it too.
+    await page.goto('/es/chat/');
+    await page.waitForLoadState('networkidle');
+    await page.getByRole('textbox').fill('Comprimir imágenes');
+    await page.getByRole('button', { name: /enviar/i }).click();
+    await expect(page.getByRole('log').locator('a[href="/es/compress-image/"]')).toBeVisible();
+  });
+
+  test('the UK helper answers in British spelling and stays on the UK pages', async ({ page }) => {
+    await page.goto('/en-gb/chat/');
+    await page.waitForLoadState('networkidle');
+    await page.getByRole('textbox').fill('make a photo black and white');
+    await page.getByRole('button', { name: 'Send' }).click();
+    await expect(page.getByRole('log').locator('a[href="/en-gb/adjust-image-colors/"]')).toBeVisible();
+    await expect(page.getByRole('log')).toContainText('Adjust colours and filters');
   });
 
   test('the duck eye is black in dark mode too', async ({ page }) => {
@@ -212,7 +255,7 @@ test.describe('languages', () => {
     await expect(page.getByRole('region', { name: 'Preguntas frecuentes' }).locator('details')).toHaveCount(2);
     await expect(page.getByRole('navigation', { name: 'Relacionado' }).locator('a[href^="/es/"]').first()).toBeVisible();
     const tags = await hreflangs(page);
-    expect(tags.map(([c]) => c)).toEqual(['en', 'hi', 'bn', 'pt-BR', 'id', 'ru', 'de', 'es', 'fr', 'tr', 'x-default']);
+    expect(tags.map(([c]) => c)).toEqual(['en-US', 'en-GB', 'hi', 'bn', 'pt-BR', 'id', 'ru', 'de', 'es', 'fr', 'tr', 'x-default']);
     expect(tags.find(([c]) => c === 'de')![1]).toBe('/de/heic-to-jpg/');
     // The English page now points at its translations.
     await page.goto('/heic-to-jpg/');
@@ -242,9 +285,63 @@ test.describe('languages', () => {
   test('the English pages are unchanged', async ({ page }) => {
     await page.goto('/');
     await expect(page.getByRole('heading', { level: 1 })).toHaveText('Images, sorted.');
-    await expect(page.locator('html')).toHaveAttribute('lang', 'en');
+    await expect(page.locator('html')).toHaveAttribute('lang', 'en-US');
     await expect(page.locator('[data-machine-note]')).toHaveCount(0);
     await expect(page.getByText('Ask the helper').first()).toBeVisible();
+  });
+
+  test('English (US) and English (UK) are both in the menu, and UK spelling shows on the UK pages only', async ({ page }) => {
+    await page.goto('/color-picker-from-image/');
+    await expect(page.getByRole('heading', { level: 1 })).toContainText('Color picker from an image');
+    await page.locator('[data-lang-menu] summary').click();
+    await page.getByRole('link', { name: 'English (UK)' }).click();
+    await expect(page).toHaveURL(/\/en-gb\/color-picker-from-image\/$/);
+    await expect(page.locator('html')).toHaveAttribute('lang', 'en-GB');
+    await expect(page.getByRole('heading', { level: 1 })).toContainText('Colour picker from an image');
+    await expect(page.locator('[data-machine-note]')).toHaveCount(0);
+    await expect(page.locator('[data-controls-note]')).toHaveCount(0);
+    await expect(page.locator('link[rel="canonical"]')).toHaveAttribute('href', 'https://iduckimg.com/en-gb/color-picker-from-image/');
+    await expect(page.locator('meta[property="og:locale"]')).toHaveAttribute('content', 'en_GB');
+    // The sidebar stays inside the UK pages.
+    await expect(page.getByRole('navigation', { name: 'Tools', exact: true }).locator('a[href="/en-gb/crop-image/"]')).toHaveCount(1);
+    // The menu shows the open language and goes back to US.
+    await page.locator('[data-lang-menu] summary').click();
+    await expect(page.locator('[data-lang-menu] a[aria-current="true"]')).toHaveText('English (UK)');
+    await page.getByRole('link', { name: 'English (US)' }).click();
+    await expect(page).toHaveURL(/\/color-picker-from-image\/$/);
+    await expect(page.getByRole('heading', { level: 1 })).toContainText('Color picker from an image');
+  });
+
+  test('a guide is translated, tagged for every language, linked from the tool page, and has its own hub', async ({ page }) => {
+    await page.goto('/de/guides/how-to-compress-an-image/');
+    await expect(page.locator('html')).toHaveAttribute('lang', 'de');
+    await expect(page.getByRole('heading', { level: 1 })).toContainText('Bild');
+    await expect(page.locator('ol li').first()).toBeVisible();
+    await expect(page.locator('article details')).toHaveCount(3);
+    const tags = await hreflangs(page);
+    expect(tags.map(([c]) => c)).toEqual(['en-US', 'en-GB', 'hi', 'bn', 'pt-BR', 'id', 'ru', 'de', 'es', 'fr', 'tr', 'x-default']);
+    expect(tags.find(([c]) => c === 'en-GB')![1]).toBe('/en-gb/guides/how-to-compress-an-image/');
+    expect(tags.find(([c]) => c === 'fr')![1]).toBe('/fr/guides/how-to-compress-an-image/');
+    await expect(page.locator('script[type="application/ld+json"]').first()).toBeAttached();
+    const ld = await page.locator('script[type="application/ld+json"]').allTextContents();
+    expect(ld.some((t) => t.includes('"inLanguage":"de"'))).toBe(true);
+    // The button opens the German tool page.
+    await expect(page.locator('a.btn-primary[href="/de/compress-image/"]')).toBeVisible();
+    // The tool page links to the German guide, not the English one.
+    await page.goto('/de/compress-image/');
+    await expect(page.locator('a[href="/de/guides/how-to-compress-an-image/"]')).toBeVisible();
+    // The hub lists every guide in German.
+    await page.goto('/de/guides/');
+    await expect(page.locator('ul[aria-label] a[href^="/de/guides/"]')).toHaveCount(25);
+    await expect(page.locator('a[href="/guides/how-to-compress-an-image/"]')).toHaveCount(0);
+  });
+
+  test('the UK guides are the English guides in British spelling', async ({ page }) => {
+    await page.goto('/en-gb/guides/how-to-adjust-the-colours-of-a-photo/');
+    await expect(page.getByRole('heading', { level: 1 })).toContainText('colours');
+    await expect(page.locator('html')).toHaveAttribute('lang', 'en-GB');
+    await page.goto('/guides/how-to-adjust-the-colours-of-a-photo/');
+    await expect(page.getByRole('heading', { level: 1 })).toContainText('colors');
   });
 
   test('is in the sitemap with language alternates', async ({ request }) => {

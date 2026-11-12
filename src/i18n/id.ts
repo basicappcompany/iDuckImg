@@ -31,7 +31,7 @@ export const id: LocaleData = {
     noWatermark: `Tanpa watermark`,
     filesNeverLeave: `File Anda tidak pernah meninggalkan perangkat Anda.`,
     quickAnswer: `Jawaban singkat`,
-    readGuide: `Baca panduannya (dalam bahasa Inggris)`,
+    readGuide: `Baca panduannya`,
     moreIn: `Lainnya di "{group}"`,
     controlsEnglish: `Pemilih file dan tombol unduh di bawah sudah diterjemahkan. Opsi dan tombol milik alat itu sendiri masih dalam bahasa Inggris untuk saat ini.`,
     toolDescSuffix: `Gratis, di browser Anda, tanpa unggah.`,

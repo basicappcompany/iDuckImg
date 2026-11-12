@@ -98,7 +98,7 @@ export default function PaletteTool() {
           </div>
 
           <OptionsPanel title="Palette">
-            <Field id="pal-count" label={`Number of colours: ${count}`}>
+            <Field id="pal-count" label={`Number of colors: ${count}`}>
               <input
                 id="pal-count"
                 type="range"
@@ -115,13 +115,13 @@ export default function PaletteTool() {
 
           {colours.length === 0 && pixels && (
             <p class="text-sm font-bold">
-              This picture has no solid colour to read. It may be fully
+              This picture has no solid color to read. It may be fully
               see-through.
             </p>
           )}
 
           {colours.length > 0 && (
-            <section aria-label="Palette colours" class="grid gap-4">
+            <section aria-label="Palette colors" class="grid gap-4">
               <ul class="card-grid" data-testid="swatches">
                 {colours.map((c) => (
                   <li>
@@ -177,8 +177,8 @@ export default function PaletteTool() {
                 </span>
               </div>
               <p class="text-xs text-muted">
-                The percentage is how much of the picture each colour covers.
-                Click a colour to copy its code.
+                The percentage is how much of the picture each color covers.
+                Click a color to copy its code.
               </p>
             </section>
           )}

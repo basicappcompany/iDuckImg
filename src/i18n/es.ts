@@ -31,7 +31,7 @@ export const es: LocaleData = {
     noWatermark: `Sin marca de agua`,
     filesNeverLeave: `Tus archivos nunca salen de tu dispositivo.`,
     quickAnswer: `Respuesta rápida`,
-    readGuide: `Lee la guía (en inglés)`,
+    readGuide: `Lee la guía`,
     moreIn: `Más en «{group}»`,
     controlsEnglish: `El selector de archivos y los botones de descarga de abajo están traducidos. Las opciones y botones propios de la herramienta están en inglés por ahora.`,
     toolDescSuffix: `Gratis, en tu navegador, sin subir archivos.`,

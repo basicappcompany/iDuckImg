@@ -31,7 +31,7 @@ export const de: LocaleData = {
     noWatermark: `Kein Wasserzeichen`,
     filesNeverLeave: `Ihre Dateien verlassen nie Ihr Gerät.`,
     quickAnswer: `Kurze Antwort`,
-    readGuide: `Anleitung lesen (auf Englisch)`,
+    readGuide: `Anleitung lesen`,
     moreIn: `Mehr in „{group}“`,
     controlsEnglish: `Die Dateiauswahl und die Download-Schaltflächen unten sind übersetzt. Die eigenen Optionen und Schaltflächen des Werkzeugs sind vorerst auf Englisch.`,
     toolDescSuffix: `Kostenlos, im Browser, ohne Upload.`,

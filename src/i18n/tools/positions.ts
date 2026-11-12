@@ -18,7 +18,7 @@ const row = (...v: string[]): PositionText => ({
 });
 
 export const POSITION_TEXT: Readonly<Record<string, PositionText>> & { en: PositionText } = {
-  en: row('Top left', 'Top centre', 'Top right', 'Middle left', 'Centre', 'Middle right', 'Bottom left', 'Bottom centre', 'Bottom right', 'Repeat across the picture'),
+  en: row('Top left', 'Top center', 'Top right', 'Middle left', 'Center', 'Middle right', 'Bottom left', 'Bottom center', 'Bottom right', 'Repeat across the picture'),
   hi: row('ऊपर बाएँ', 'ऊपर बीच में', 'ऊपर दाएँ', 'बीच में बाएँ', 'बीच में', 'बीच में दाएँ', 'नीचे बाएँ', 'नीचे बीच में', 'नीचे दाएँ', 'पूरी तस्वीर पर दोहराएँ'),
   bn: row('উপরে বাঁয়ে', 'উপরে মাঝখানে', 'উপরে ডানে', 'মাঝে বাঁয়ে', 'মাঝখানে', 'মাঝে ডানে', 'নিচে বাঁয়ে', 'নিচে মাঝখানে', 'নিচে ডানে', 'পুরো ছবিতে বারবার'),
   'pt-BR': row('Superior esquerdo', 'Superior central', 'Superior direito', 'Meio à esquerda', 'Centro', 'Meio à direita', 'Inferior esquerdo', 'Inferior central', 'Inferior direito', 'Repetir pela imagem'),

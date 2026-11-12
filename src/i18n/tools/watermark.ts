@@ -30,7 +30,7 @@ export const WATERMARK_TEXT: Readonly<Record<string, WatermarkText>> & { en: Wat
     position: 'Position',
     size: 'Size: {n}% of the width',
     opacity: 'Opacity: {n}%',
-    colour: 'Colour',
+    colour: 'Color',
     white: 'White',
     black: 'Black',
     note: 'The preview shows the first image; the same watermark goes on every image. JPG and WebP are saved again at high quality, so the file size can change slightly. A watermark discourages copying but can be cropped out, so it does not protect a picture.',

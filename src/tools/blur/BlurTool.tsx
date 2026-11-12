@@ -218,11 +218,11 @@ function Panels({
             <select id="bl-effect" class="input w-full" value={options.effect} disabled={running} onChange={(e) => set({ effect: (e.currentTarget as HTMLSelectElement).value as Effect })}>
               <option value="blur">Blur</option>
               <option value="pixelate">Pixelate</option>
-              <option value="cover">Cover with a solid colour</option>
+              <option value="cover">Cover with a solid color</option>
             </select>
           </Field>
           {options.effect === 'cover' ? (
-            <Field id="bl-cover" label="Colour">
+            <Field id="bl-cover" label="Color">
               <select id="bl-cover" class="input w-full" value={options.cover} disabled={running} onChange={(e) => set({ cover: (e.currentTarget as HTMLSelectElement).value as CoverColour })}>
                 <option value="black">Black</option>
                 <option value="white">White</option>

@@ -18,8 +18,10 @@
 export type LocaleStatus = 'machine' | 'reviewed' | 'planned';
 
 export interface LocaleInfo {
-  /** The code used in code and in hreflang: en, hi, pt-BR... */
+  /** The code used in code: en, en-GB, hi, pt-BR... */
   code: string;
+  /** The language tag for hreflang, <html lang> and the sitemap: en-US, en-GB, hi, pt-BR... */
+  hreflang: string;
   /** The URL path segment: en has none (root); others are /es/, /pt-br/... */
   path: string;
   /** English name, for people maintaining the site. */
@@ -29,21 +31,24 @@ export interface LocaleInfo {
   /** Open Graph locale, for example pt_BR. */
   og: string;
   status: LocaleStatus;
+  /** English (UK) is English with British spelling, made from the US text when the page is built; it has no translation to review. */
+  variantOf?: 'en';
 }
 
 export const DEFAULT_LOCALE = 'en';
 
 export const LOCALES: readonly LocaleInfo[] = [
-  { code: 'en', path: '', name: 'English', native: 'English', og: 'en_US', status: 'reviewed' },
-  { code: 'hi', path: 'hi', name: 'Hindi', native: 'हिन्दी', og: 'hi_IN', status: 'machine' },
-  { code: 'bn', path: 'bn', name: 'Bengali', native: 'বাংলা', og: 'bn_BD', status: 'machine' },
-  { code: 'pt-BR', path: 'pt-br', name: 'Portuguese (Brazil)', native: 'Português (Brasil)', og: 'pt_BR', status: 'machine' },
-  { code: 'id', path: 'id', name: 'Indonesian', native: 'Bahasa Indonesia', og: 'id_ID', status: 'machine' },
-  { code: 'ru', path: 'ru', name: 'Russian', native: 'Русский', og: 'ru_RU', status: 'machine' },
-  { code: 'de', path: 'de', name: 'German', native: 'Deutsch', og: 'de_DE', status: 'machine' },
-  { code: 'es', path: 'es', name: 'Spanish', native: 'Español', og: 'es_ES', status: 'machine' },
-  { code: 'fr', path: 'fr', name: 'French', native: 'Français', og: 'fr_FR', status: 'machine' },
-  { code: 'tr', path: 'tr', name: 'Turkish', native: 'Türkçe', og: 'tr_TR', status: 'machine' },
+  { code: 'en', hreflang: 'en-US', path: '', name: 'English (US)', native: 'English (US)', og: 'en_US', status: 'reviewed' },
+  { code: 'en-GB', hreflang: 'en-GB', path: 'en-gb', name: 'English (UK)', native: 'English (UK)', og: 'en_GB', status: 'reviewed', variantOf: 'en' },
+  { code: 'hi', hreflang: 'hi', path: 'hi', name: 'Hindi', native: 'हिन्दी', og: 'hi_IN', status: 'machine' },
+  { code: 'bn', hreflang: 'bn', path: 'bn', name: 'Bengali', native: 'বাংলা', og: 'bn_BD', status: 'machine' },
+  { code: 'pt-BR', hreflang: 'pt-BR', path: 'pt-br', name: 'Portuguese (Brazil)', native: 'Português (Brasil)', og: 'pt_BR', status: 'machine' },
+  { code: 'id', hreflang: 'id', path: 'id', name: 'Indonesian', native: 'Bahasa Indonesia', og: 'id_ID', status: 'machine' },
+  { code: 'ru', hreflang: 'ru', path: 'ru', name: 'Russian', native: 'Русский', og: 'ru_RU', status: 'machine' },
+  { code: 'de', hreflang: 'de', path: 'de', name: 'German', native: 'Deutsch', og: 'de_DE', status: 'machine' },
+  { code: 'es', hreflang: 'es', path: 'es', name: 'Spanish', native: 'Español', og: 'es_ES', status: 'machine' },
+  { code: 'fr', hreflang: 'fr', path: 'fr', name: 'French', native: 'Français', og: 'fr_FR', status: 'machine' },
+  { code: 'tr', hreflang: 'tr', path: 'tr', name: 'Turkish', native: 'Türkçe', og: 'tr_TR', status: 'machine' },
 ];
 
 /** The languages that get their own pages: every one except English. */

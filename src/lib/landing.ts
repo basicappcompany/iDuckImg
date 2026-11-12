@@ -164,7 +164,7 @@ export const LANDING_PAGES: readonly LandingPage[] = [
     why: 'HEIC is the format iPhones use by default, and JPG opens on every device and website.',
     notes: [
       'HEIC (also written HEIF) is the photo format that iPhones and some Android phones save by default. It makes smaller files, but Windows, many websites and most upload forms cannot open it. JPG is the format that works everywhere.',
-      'Colours and detail are kept at a high quality setting (90 by default). Live Photos are converted as a still picture. You can lower the quality in the options to make the files smaller.',
+      'Colors and detail are kept at a high quality setting (90 by default). Live Photos are converted as a still picture. You can lower the quality in the options to make the files smaller.',
     ],
     faqs: [
       {
@@ -475,7 +475,7 @@ export const LANDING_PAGES: readonly LandingPage[] = [
     why: 'You get a sharp still picture of the GIF that keeps any transparent background.',
     notes: [
       'This makes a still picture. A GIF that moves keeps only its first frame, so the PNG does not animate.',
-      'GIF can only show 256 colours, and PNG keeps them exactly. The PNG may be larger than the GIF for a simple graphic.',
+      'GIF can only show 256 colors, and PNG keeps them exactly. The PNG may be larger than the GIF for a simple graphic.',
     ],
     faqs: [
       {

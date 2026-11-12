@@ -144,11 +144,11 @@ export const TOOLS: readonly ToolLink[] = [
   {
     slug: 'add-text-to-image',
     name: 'Add text to an image',
-    summary: 'Write on a picture with any size, colour and position.',
+    summary: 'Write on a picture with any size, color and position.',
     group: 'Add text & effects',
     emoji: '🔠',
     quick:
-      'To add text to a picture, drop it in, type your words, choose where they go, how big and what colour, then press Add text. It is drawn in your browser, so nothing is uploaded.',
+      'To add text to a picture, drop it in, type your words, choose where they go, how big and what color, then press Add text. It is drawn in your browser, so nothing is uploaded.',
     keywords: 'write caption words label type font quote meme overlay',
   },
   {
@@ -184,11 +184,11 @@ export const TOOLS: readonly ToolLink[] = [
   {
     slug: 'pixel-to-cm-converter',
     name: 'Pixel, cm and inch converter',
-    summary: 'Convert between pixels, centimetres and inches at any DPI.',
+    summary: 'Convert between pixels, centimeters and inches at any DPI.',
     group: 'Shrink & resize',
     emoji: '📏',
     quick:
-      'To convert pixels to centimetres or inches, type the length, choose its unit and the DPI. At 300 DPI, 1 cm is about 118 pixels, and A4 paper is 2480 x 3508 pixels.',
+      'To convert pixels to centimeters or inches, type the length, choose its unit and the DPI. At 300 DPI, 1 cm is about 118 pixels, and A4 paper is 2480 x 3508 pixels.',
     keywords: 'px cm mm inch inches dpi ppi print size a4 centimeter centimetre millimetre calculator',
   },
   {
@@ -203,42 +203,42 @@ export const TOOLS: readonly ToolLink[] = [
   },
   {
     slug: 'adjust-image-colors',
-    name: 'Adjust colours and filters',
+    name: 'Adjust colors and filters',
     summary: 'Brightness, contrast, saturation, black and white, sepia and more.',
     group: 'Edit & transform',
     emoji: '🎚️',
     quick:
-      'To change the colours of a picture, drop it in, move the Brightness, Contrast and Colour strength sliders or pick a filter like Black and white, and press Apply. It happens in your browser.',
+      'To change the colors of a picture, drop it in, move the Brightness, Contrast and Color strength sliders or pick a filter like Black and white, and press Apply. It happens in your browser.',
     keywords: 'brightness contrast saturation grayscale greyscale black white sepia invert negative filter colour color tone brighter darker',
   },
   {
     slug: 'add-border-to-image',
     name: 'Add a border or frame',
-    summary: 'Put a coloured border or padding around a picture.',
+    summary: 'Put a colored border or padding around a picture.',
     group: 'Edit & transform',
     emoji: '🖼️',
     quick:
-      'To add a border, drop your picture in, set the thickness and choose a colour, then press Add border. The border goes around the picture, so nothing is cut off. It is drawn in your browser.',
+      'To add a border, drop your picture in, set the thickness and choose a color, then press Add border. The border goes around the picture, so nothing is cut off. It is drawn in your browser.',
     keywords: 'frame padding margin outline white border black border edge surround',
   },
   {
     slug: 'color-picker-from-image',
-    name: 'Colour picker from an image',
-    summary: 'Click a picture to get the exact colour code.',
+    name: 'Color picker from an image',
+    summary: 'Click a picture to get the exact color code.',
     group: 'Create & design',
     emoji: '🎯',
     quick:
-      'To get a colour from a picture, drop it in and click the colour you want. The HEX, RGB and HSL codes appear with a Copy button. It runs in your browser.',
+      'To get a color from a picture, drop it in and click the color you want. The HEX, RGB and HSL codes appear with a Copy button. It runs in your browser.',
     keywords: 'eyedropper hex rgb hsl colour color code pick sample dropper css',
   },
   {
     slug: 'color-palette-generator',
-    name: 'Colour palette generator',
-    summary: 'Pull the main colours out of a picture.',
+    name: 'Color palette generator',
+    summary: 'Pull the main colors out of a picture.',
     group: 'Create & design',
     emoji: '🎨',
     quick:
-      'To get the main colours of a picture, drop it in. Up to 12 swatches appear with their HEX codes and how much of the picture each covers. Copy one, or the whole palette as CSS.',
+      'To get the main colors of a picture, drop it in. Up to 12 swatches appear with their HEX codes and how much of the picture each covers. Copy one, or the whole palette as CSS.',
     keywords: 'colours colors dominant swatches scheme theme brand hex css extract',
   },
   {

@@ -42,17 +42,17 @@ export const GUIDES_C: Guide[] = [
   },
   {
     slug: 'how-to-adjust-the-colours-of-a-photo',
-    title: 'How to adjust brightness, contrast and colours, or make a photo black and white',
+    title: 'How to adjust brightness, contrast and colors, or make a photo black and white',
     seoTitle: 'How to Make a Photo Black and White or Adjust Brightness',
-    description: 'Change brightness, contrast and colour strength, or apply black and white, sepia or negative. Live preview, in your browser, no upload.',
+    description: 'Change brightness, contrast and color strength, or apply black and white, sepia or negative. Live preview, in your browser, no upload.',
     tool: 'adjust-image-colors',
     related: ['how-to-turn-a-photo-into-pixel-art', 'how-to-get-a-color-palette-from-an-image', 'how-to-compress-an-image'],
     updated: '2026-11-12',
     intro:
-      'To make a photo black and white, drop it into the Adjust colours tool, choose the Black and white filter and press Apply. The same tool changes brightness, contrast and colour strength, with a live preview.',
+      'To make a photo black and white, drop it into the Adjust colors tool, choose the Black and white filter and press Apply. The same tool changes brightness, contrast and color strength, with a live preview.',
     steps: [
-      'Open the Adjust colours and filters tool and drop in your pictures.',
-      'Move the Brightness, Contrast and Colour strength sliders, or choose a filter such as Black and white.',
+      'Open the Adjust colors and filters tool and drop in your pictures.',
+      'Move the Brightness, Contrast and Color strength sliders, or choose a filter such as Black and white.',
       'Check the live preview, and use Reset if you want to start again.',
       'Press Apply and download the files, or all of them as a ZIP.',
     ],
@@ -60,8 +60,8 @@ export const GUIDES_C: Guide[] = [
       {
         h: 'What each control does',
         p: [
-          'Brightness makes everything lighter or darker. Contrast pushes light and dark further apart or closer together. Colour strength dials the colours up, or down to grey, and the filters give black and white, sepia (a warm old-photo brown) or a negative.',
-          'Brightness and contrast are applied first, then colour strength, then the filter. Move them in small steps, because big changes flatten or blow out detail.',
+          'Brightness makes everything lighter or darker. Contrast pushes light and dark further apart or closer together. Color strength dials the colors up, or down to gray, and the filters give black and white, sepia (a warm old-photo brown) or a negative.',
+          'Brightness and contrast are applied first, then color strength, then the filter. Move them in small steps, because big changes flatten or blow out detail.',
         ],
       },
       {
@@ -80,7 +80,7 @@ export const GUIDES_C: Guide[] = [
       },
     ],
     faq: [
-      { q: 'How do I make a picture black and white?', a: 'Choose the Black and white filter and press Apply. Dragging Colour strength all the way down gives a similar result.' },
+      { q: 'How do I make a picture black and white?', a: 'Choose the Black and white filter and press Apply. Dragging Color strength all the way down gives a similar result.' },
       { q: 'How do I make a dark photo brighter?', a: 'Move the Brightness slider to the right, and add a little contrast if it looks flat.' },
       { q: 'Is my picture uploaded?', a: 'No. The changes are made in your browser.' },
     ],
@@ -88,17 +88,17 @@ export const GUIDES_C: Guide[] = [
   {
     slug: 'how-to-add-a-border-to-a-picture',
     title: 'How to add a border or frame to a picture',
-    seoTitle: 'How to Add a Border or Frame to a Picture (Any Colour)',
-    description: 'Put a white, black or coloured border around any picture, or a see-through one. Choose the thickness and see a preview. In your browser.',
+    seoTitle: 'How to Add a Border or Frame to a Picture (Any Color)',
+    description: 'Put a white, black or colored border around any picture, or a see-through one. Choose the thickness and see a preview. In your browser.',
     tool: 'add-border-to-image',
     related: ['how-to-merge-images-side-by-side', 'how-to-make-a-round-profile-picture', 'how-to-add-text-to-a-picture'],
     updated: '2026-11-12',
     intro:
-      'To add a border to a picture, drop it into the Add a border tool, set the thickness, choose a colour and press Add border. The border goes around the picture, so nothing is cut off and the result is a little bigger.',
+      'To add a border to a picture, drop it into the Add a border tool, set the thickness, choose a color and press Add border. The border goes around the picture, so nothing is cut off and the result is a little bigger.',
     steps: [
       'Open the Add a border tool and drop in your pictures.',
       'Set how thick the border is.',
-      'Choose white, black, yellow, transparent, or type your own colour code such as #1e90ff.',
+      'Choose white, black, yellow, transparent, or type your own color code such as #1e90ff.',
       'Check the preview, press Add border and download the result.',
     ],
     sections: [
@@ -113,104 +113,104 @@ export const GUIDES_C: Guide[] = [
         h: 'See-through borders',
         p: [
           'A transparent border needs a format that supports transparency, so a JPG becomes a PNG when you choose it. Other pictures keep their own format.',
-          'If you type a colour code that is not valid, the page tells you instead of guessing. Use the forms #1e90ff or #fa0.',
+          'If you type a color code that is not valid, the page tells you instead of guessing. Use the forms #1e90ff or #fa0.',
         ],
       },
       {
         h: 'Tips',
         p: [
-          'A thin white border, around 2 to 4 percent, gives a clean print or gallery look. A thicker one in a bold colour works as a frame for a social media post.',
+          'A thin white border, around 2 to 4 percent, gives a clean print or gallery look. A thicker one in a bold color works as a frame for a social media post.',
           'If you will print the picture, remember that a border makes the file bigger than the original, so check the final size against the paper or frame you have in mind.',
         ],
       },
     ],
     faq: [
-      { q: 'How do I add a white border to a photo?', a: 'Drop the photo in, keep the colour on White, set the thickness and press Add border.' },
+      { q: 'How do I add a white border to a photo?', a: 'Drop the photo in, keep the color on White, set the thickness and press Add border.' },
       { q: 'Does the border cover my picture?', a: 'No. It is added around the outside, so the picture is complete and the result is larger.' },
       { q: 'Can the border be see-through?', a: 'Yes. Choose Transparent. The result is a PNG, because JPG cannot be see-through.' },
     ],
   },
   {
     slug: 'how-to-get-a-hex-color-from-an-image',
-    title: 'How to get the HEX colour code from an image',
-    seoTitle: 'How to Get the HEX Color Code From an Image (Colour Picker)',
-    description: 'Click any picture to get the exact colour in HEX, RGB and HSL with a one-click copy. Works with the keyboard too. In your browser.',
+    title: 'How to get the HEX color code from an image',
+    seoTitle: 'How to Get the HEX Color Code From an Image (Color Picker)',
+    description: 'Click any picture to get the exact color in HEX, RGB and HSL with a one-click copy. Works with the keyboard too. In your browser.',
     tool: 'color-picker-from-image',
     related: ['how-to-get-a-color-palette-from-an-image', 'how-to-adjust-the-colours-of-a-photo', 'how-to-make-a-favicon'],
     updated: '2026-11-12',
     intro:
-      'To get the HEX code of a colour in a picture, drop it into the Colour picker, move over the picture to preview the colour and click to pick it. The HEX, RGB and HSL codes appear, each with a Copy button.',
+      'To get the HEX code of a color in a picture, drop it into the Color picker, move over the picture to preview the color and click to pick it. The HEX, RGB and HSL codes appear, each with a Copy button.',
     steps: [
-      'Open the Colour picker from an image tool and drop in a picture.',
-      'Move over the picture to preview the colour under the pointer.',
+      'Open the Color picker from an image tool and drop in a picture.',
+      'Move over the picture to preview the color under the pointer.',
       'Click or tap to pick it, then press Copy next to the code you need.',
-      'Pick as many colours as you like. The last ten stay below so you can go back to them.',
+      'Pick as many colors as you like. The last ten stay below so you can go back to them.',
     ],
     sections: [
       {
         h: 'HEX, RGB and HSL',
         p: [
-          'They are three ways to write the same colour. HEX is the short code used in web pages, like #1E90FF. RGB gives the red, green and blue amounts from 0 to 255, and HSL gives hue, saturation and lightness, which is easier to adjust by hand.',
+          'They are three ways to write the same color. HEX is the short code used in web pages, like #1E90FF. RGB gives the red, green and blue amounts from 0 to 255, and HSL gives hue, saturation and lightness, which is easier to adjust by hand.',
           'The panel shows all three, so you can paste whichever your design tool or stylesheet wants.',
         ],
       },
       {
-        h: 'Getting a reliable colour',
+        h: 'Getting a reliable color',
         p: [
-          'A photo is made of millions of slightly different pixels, so two spots that look the same can differ by a few steps. Click a few places, or use the palette tool to find the main colours instead.',
+          'A photo is made of millions of slightly different pixels, so two spots that look the same can differ by a few steps. Click a few places, or use the palette tool to find the main colors instead.',
           'Without a mouse, click the picture once, then use the arrow keys to move and Enter to pick. If a pixel is see-through, the page says so, because what you see on screen also depends on what is behind it.',
         ],
       },
     ],
     faq: [
-      { q: 'How do I find the HEX code of a colour in a picture?', a: 'Drop the picture in, click the colour and copy the HEX code that appears.' },
-      { q: 'Why do nearby pixels give different codes?', a: 'Photos contain tiny variations. Click a few spots or use the palette tool to see the main colours.' },
-      { q: 'Is my picture uploaded?', a: 'No. The colour is read in your browser.' },
+      { q: 'How do I find the HEX code of a color in a picture?', a: 'Drop the picture in, click the color and copy the HEX code that appears.' },
+      { q: 'Why do nearby pixels give different codes?', a: 'Photos contain tiny variations. Click a few spots or use the palette tool to see the main colors.' },
+      { q: 'Is my picture uploaded?', a: 'No. The color is read in your browser.' },
     ],
   },
   {
     slug: 'how-to-get-a-color-palette-from-an-image',
-    title: 'How to get a colour palette from an image',
+    title: 'How to get a color palette from an image',
     seoTitle: 'How to Get a Color Palette From an Image (HEX Codes, CSS)',
-    description: 'Pull the main colours out of a picture with their HEX codes and how much of the picture each covers. Copy as a list or CSS variables.',
+    description: 'Pull the main colors out of a picture with their HEX codes and how much of the picture each covers. Copy as a list or CSS variables.',
     tool: 'color-palette-generator',
     related: ['how-to-get-a-hex-color-from-an-image', 'how-to-adjust-the-colours-of-a-photo', 'how-to-turn-a-photo-into-pixel-art'],
     updated: '2026-11-12',
     intro:
-      'To get a colour palette from a picture, drop it into the Colour palette generator. The main colours appear as swatches with their HEX codes and the share of the picture each one covers, and you can copy them as a list or CSS.',
+      'To get a color palette from a picture, drop it into the Color palette generator. The main colors appear as swatches with their HEX codes and the share of the picture each one covers, and you can copy them as a list or CSS.',
     steps: [
-      'Open the Colour palette generator and drop in a picture.',
-      'The main colours appear straight away. Use the slider to ask for fewer or more, from 2 to 12.',
+      'Open the Color palette generator and drop in a picture.',
+      'The main colors appear straight away. Use the slider to ask for fewer or more, from 2 to 12.',
       'Click a swatch to copy its HEX code.',
       'Or copy the whole palette as a list or as CSS variables.',
     ],
     sections: [
       {
-        h: 'How the colours are chosen',
+        h: 'How the colors are chosen',
         p: [
-          'Similar pixels are grouped and each group is averaged into one colour, so a colour that fills most of the picture comes first. The percentage on a swatch is how much of the picture that group covers.',
-          'Fully or mostly see-through pixels are ignored, so a logo on a transparent background gives the logo colours, not a dark empty one.',
+          'Similar pixels are grouped and each group is averaged into one color, so a color that fills most of the picture comes first. The percentage on a swatch is how much of the picture that group covers.',
+          'Fully or mostly see-through pixels are ignored, so a logo on a transparent background gives the logo colors, not a dark empty one.',
         ],
       },
       {
         h: 'Using the palette',
         p: [
           'Copy as CSS variables gives custom properties such as --colour-1 that you can paste straight into a stylesheet. The plain list is handy for notes or a design tool.',
-          'If the picture has fewer distinct colours than you asked for, you get only the colours it has. A three-colour logo gives three swatches, not twelve. For one exact colour, use the colour picker instead.',
+          'If the picture has fewer distinct colors than you asked for, you get only the colors it has. A three-color logo gives three swatches, not twelve. For one exact color, use the color picker instead.',
         ],
       },
       {
         h: 'Tips',
         p: [
-          'Use a picture with the mood you want. A palette is only as good as the picture it comes from, and a sunset photo gives very different colours from a product shot.',
-          'Pick two or three colours from the palette rather than all of them. Most designs work best with one main colour, one accent and a neutral, and the percentages show which colours are the biggest candidates.',
+          'Use a picture with the mood you want. A palette is only as good as the picture it comes from, and a sunset photo gives very different colors from a product shot.',
+          'Pick two or three colors from the palette rather than all of them. Most designs work best with one main color, one accent and a neutral, and the percentages show which colors are the biggest candidates.',
         ],
       },
     ],
     faq: [
-      { q: 'How many colours can I get?', a: 'From 2 to 12. Six is a good start for a brand or design palette.' },
+      { q: 'How many colors can I get?', a: 'From 2 to 12. Six is a good start for a brand or design palette.' },
       { q: 'Can I use the palette on my website?', a: 'Yes. Copy as CSS variables and paste the result into your stylesheet.' },
-      { q: 'Is my picture uploaded?', a: 'No. The colours are worked out in your browser.' },
+      { q: 'Is my picture uploaded?', a: 'No. The colors are worked out in your browser.' },
     ],
   },
   {
@@ -278,7 +278,7 @@ export const GUIDES_C: Guide[] = [
       {
         h: 'Making it look good small',
         p: [
-          'A favicon is tiny, so a simple shape with strong colours reads best. Detailed pictures turn to mush at 16 pixels, so start from a simple logo or a single letter.',
+          'A favicon is tiny, so a simple shape with strong colors reads best. Detailed pictures turn to mush at 16 pixels, so start from a simple logo or a single letter.',
           'A picture smaller than 512 pixels is enlarged for the biggest icons and can look soft, and the page tells you when that happens. A see-through background is kept.',
         ],
       },

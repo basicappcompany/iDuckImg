@@ -64,7 +64,7 @@ const PRIVACY = 'Privacy & cleanup';
 const CREATE = 'Create & design';
 const AI = 'AI tools';
 const SPECS = 'Sizes must be read from official sources, each with a link and a date.';
-const MODEL = 'Check the model licence allows commercial use before choosing one.';
+const MODEL = 'Check the model license allows commercial use before choosing one.';
 const AI_FIRST = 'Needs a content-security policy and the legal pages first; test with a mock provider, then a real key.';
 
 export const PLAN: readonly PlannedTool[] = [
@@ -74,14 +74,14 @@ export const PLAN: readonly PlannedTool[] = [
   t('exam-photo-resizer', '🪪', 'Exam photo and signature resizer', 'Exact pixels and KB for exam forms, with requirements and sources.', SHRINK, 'live', 'M'),
   t('passport-photo-maker', '📷', 'Passport and visa photo maker', 'Crop to the right size for a passport or visa.', SHRINK, 'soon', 'M', 'browser', SPECS),
   t('social-media-image-resizer', '📱', 'Social media image resizer', 'Sizes for Instagram, YouTube, WhatsApp and more.', SHRINK, 'soon', 'M', 'browser', SPECS),
-  t('pixel-to-cm-converter', '📏', 'Pixel, cm and inch converter', 'Convert between pixels, centimetres and inches at any DPI.', SHRINK, 'live', 'S'),
+  t('pixel-to-cm-converter', '📏', 'Pixel, cm and inch converter', 'Convert between pixels, centimeters and inches at any DPI.', SHRINK, 'live', 'S'),
   t('aspect-ratio-calculator', '🧮', 'Aspect ratio calculator', 'Find the matching height or width for any ratio.', SHRINK, 'live', 'S'),
 
   // ---- Edit & transform (9) ----
   t('crop-image', '✂️', 'Crop images', 'Drag a box, pick a ratio like 1:1, or type exact pixels.', EDIT, 'live', 'L'),
   t('rotate-image', '🔄', 'Rotate and flip', 'Turn an image 90, 180 or 270 degrees, or mirror it.', EDIT, 'live', 'M'),
-  t('adjust-image-colors', '🎚️', 'Adjust colours and filters', 'Brightness, contrast, saturation, black and white, sepia and more.', EDIT, 'live', 'M'),
-  t('add-border-to-image', '🖼️', 'Add a border or frame', 'Put a coloured border or padding around a picture.', EDIT, 'live', 'S'),
+  t('adjust-image-colors', '🎚️', 'Adjust colors and filters', 'Brightness, contrast, saturation, black and white, sepia and more.', EDIT, 'live', 'M'),
+  t('add-border-to-image', '🖼️', 'Add a border or frame', 'Put a colored border or padding around a picture.', EDIT, 'live', 'S'),
   t('circle-crop-image', '⭕', 'Circle crop and round corners', 'Make a round profile picture or round the corners.', EDIT, 'live', 'S'),
   t('split-image-into-grid', '🧩', 'Split an image into a grid', 'Cut a picture into equal tiles for a grid post or a puzzle.', EDIT, 'live', 'S'),
   t('merge-images', '🪢', 'Merge images side by side', 'Join several pictures into one, in a row or a column.', EDIT, 'live', 'S'),
@@ -91,7 +91,7 @@ export const PLAN: readonly PlannedTool[] = [
   // ---- Add text & effects (7) ----
   t('add-watermark-to-image', '💧', 'Add a watermark', 'Put your name or a copyright line on a picture before you share it.', TEXT, 'live', 'M'),
   t('add-logo-to-image', '🏷️', 'Add a logo to pictures', 'Put your logo on a picture, or on many at once, before you share it.', TEXT, 'live', 'M'),
-  t('add-text-to-image', '🔠', 'Add text to an image', 'Write on a picture with any size, colour and position.', TEXT, 'live', 'M'),
+  t('add-text-to-image', '🔠', 'Add text to an image', 'Write on a picture with any size, color and position.', TEXT, 'live', 'M'),
   t('meme-maker', '😂', 'Meme maker', 'Top and bottom text on any picture.', TEXT, 'soon', 'M'),
   t('blur-image', '🌫️', 'Blur or hide parts of an image', 'Blur, pixelate or cover areas such as names and numbers.', TEXT, 'live', 'M'),
   t('pixel-art-maker', '👾', 'Pixel art maker', 'Turn a photo into chunky pixel art.', TEXT, 'live', 'S'),
@@ -120,8 +120,8 @@ export const PLAN: readonly PlannedTool[] = [
 
   // ---- Create & design (9) ----
   t('signature-maker', '✍️', 'Signature maker', 'Draw or type a signature and save it as a transparent PNG.', CREATE, 'next', 'M'),
-  t('color-picker-from-image', '🎯', 'Colour picker from an image', 'Click a picture to get the exact colour code.', CREATE, 'live', 'S'),
-  t('color-palette-generator', '🎨', 'Colour palette generator', 'Pull the main colours out of a picture.', CREATE, 'live', 'S'),
+  t('color-picker-from-image', '🎯', 'Color picker from an image', 'Click a picture to get the exact color code.', CREATE, 'live', 'S'),
+  t('color-palette-generator', '🎨', 'Color palette generator', 'Pull the main colors out of a picture.', CREATE, 'live', 'S'),
   t('placeholder-image-generator', '🧱', 'Placeholder image generator', 'Make a plain image of any size for a design or a test.', CREATE, 'next', 'S'),
   t('sticker-maker', '🏷️', 'Sticker maker', 'Cut out a subject and add an outline.', CREATE, 'soon', 'M', 'local-model', 'Needs the background remover first.'),
   t('id-photo-print-sheet', '🖨️', 'ID photo print sheet', 'Lay out passport photos on a 4x6 sheet to print.', CREATE, 'soon', 'M', 'browser', SPECS),

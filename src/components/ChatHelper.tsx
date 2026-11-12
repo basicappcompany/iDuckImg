@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from 'preact/hooks';
-import { GREETING, STARTERS, respond, type HelperReply } from '../lib/helper';
+import { ENGLISH_CONTEXT, STARTERS, respond, type HelperContext, type HelperReply } from '../lib/helper';
 
 interface Message {
   id: number;
@@ -21,8 +21,9 @@ function Duck() {
   );
 }
 
-export default function ChatHelper() {
-  const [messages, setMessages] = useState<Message[]>([{ id: 0, from: 'bot', text: GREETING }]);
+export default function ChatHelper({ ctx = ENGLISH_CONTEXT }: { ctx?: HelperContext }) {
+  const ui = ctx.text.ui;
+  const [messages, setMessages] = useState<Message[]>([{ id: 0, from: 'bot', text: ctx.text.greeting }]);
   const [input, setInput] = useState('');
   const [typing, setTyping] = useState(false);
   const next = useRef(1);
@@ -35,15 +36,16 @@ export default function ChatHelper() {
   }, [messages, typing]);
   useEffect(() => () => window.clearTimeout(timer.current), []);
 
-  const send = (text: string) => {
+  /** `shown` is what the visitor sees in the conversation when it differs from what is matched (a translated starter button). */
+  const send = (text: string, shown?: string) => {
     const clean = text.trim();
     if (!clean || typing) return;
-    setMessages((m) => [...m, { id: next.current++, from: 'me', text: clean }]);
+    setMessages((m) => [...m, { id: next.current++, from: 'me', text: shown ?? clean }]);
     setInput('');
     setTyping(true);
     // A short pause so the answer feels like a reply, not a flash.
     timer.current = window.setTimeout(() => {
-      const reply = respond(clean);
+      const reply = respond(clean, ctx);
       setMessages((m) => [...m, { id: next.current++, from: 'bot', text: reply.text, reply }]);
       setTyping(false);
     }, 350);
@@ -55,7 +57,7 @@ export default function ChatHelper() {
         class="card grid max-h-[28rem] min-h-72 content-start gap-4 overflow-y-auto p-4"
         role="log"
         aria-live="polite"
-        aria-label="Conversation with the helper"
+        aria-label={ui.log}
       >
         {messages.map((m) => (
           <div key={m.id} class={`flex items-end gap-2 ${m.from === 'me' ? 'justify-end' : 'justify-start'}`}>
@@ -74,7 +76,7 @@ export default function ChatHelper() {
                     {t.name}
                   </span>
                   <span class="mt-1 block text-sm text-muted">{t.summary}</span>
-                  <span class="mt-2 inline-block text-sm font-black underline decoration-2 underline-offset-2">Open it</span>
+                  <span class="mt-2 inline-block text-sm font-black underline decoration-2 underline-offset-2">{ui.openIt}</span>
                 </a>
               ))}
               {m.reply && m.reply.links.length > 0 && (
@@ -90,16 +92,16 @@ export default function ChatHelper() {
           </div>
         ))}
         {typing && (
-          <div class="flex items-end gap-2" aria-label="The helper is typing">
+          <div class="flex items-end gap-2" aria-label={ui.typing}>
             <Duck />
             <div class="rounded-2xl rounded-bl-sm border-2 border-line bg-card px-4 py-2 font-black tracking-widest text-muted">• • •</div>
           </div>
         )}
         {messages.length < 3 && (
-          <div class="flex flex-wrap gap-2 pl-10" role="group" aria-label="Things you can ask">
-            {STARTERS.map((s) => (
-              <button key={s} type="button" class="chip" onClick={() => send(s)}>
-                {s}
+          <div class="flex flex-wrap gap-2 pl-10" role="group" aria-label={ui.things}>
+            {STARTERS.map((s, i) => (
+              <button key={s} type="button" class="chip" onClick={() => send(s, ctx.text.starters[i])}>
+                {ctx.text.starters[i] ?? s}
               </button>
             ))}
           </div>
@@ -115,24 +117,25 @@ export default function ChatHelper() {
         }}
       >
         <label class="sr-only" for="helper-input">
-          Describe what you want to do
+          {ui.describe}
         </label>
         <input
           id="helper-input"
           type="text"
           class="input flex-1 !rounded-full px-5"
-          placeholder="e.g. “make my photo under 100 KB”"
+          placeholder={ui.placeholder}
           autocomplete="off"
           value={input}
           onInput={(e) => setInput((e.currentTarget as HTMLInputElement).value)}
         />
         <button type="submit" class="btn btn-primary" disabled={!input.trim() || typing}>
-          Send
+          {ui.send}
         </button>
       </form>
       <p class="text-center text-sm text-muted">
-        The helper matches your words to tools. It is not an AI and never sees your pictures.
+        {ui.footnote}
       </p>
+      {ui.understands && <p class="text-center text-sm text-muted">{ui.understands}</p>}
     </div>
   );
 }

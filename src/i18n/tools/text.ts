@@ -35,7 +35,7 @@ export const TEXT_TEXT: Readonly<Record<string, TextText>> & { en: TextText } = 
     placeholder: 'Write something...',
     position: 'Position',
     size: 'Size: {n}% of the width',
-    colour: 'Colour',
+    colour: 'Color',
     white: 'White',
     black: 'Black',
     yellow: 'Yellow',

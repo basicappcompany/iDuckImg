@@ -31,7 +31,7 @@ const d = dictFor(locale);
 const isEn = locale === 'en';
 const lp = (p: string) => localePath(locale, p);
 const langLinks = languageLinks(splitLocalePath(Astro.url.pathname).rest);
-const englishHref = alternates.find((a) => a.hreflang === 'en')?.href;
+const englishHref = alternates.find((a) => a.locale.code === 'en')?.href;
 const canonical = new URL(Astro.url.pathname, Astro.site).href;
 // The path without the language part, so active states compare with the English addresses.
 const path = splitLocalePath(Astro.url.pathname).rest;
@@ -54,7 +54,7 @@ const openGroup = toolForPath(path)?.group ?? TOOL_GROUPS[0];
 ---
 
 <!doctype html>
-<html lang={loc.code}>
+<html lang={loc.hreflang}>
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -116,7 +116,7 @@ const openGroup = toolForPath(path)?.group ?? TOOL_GROUPS[0];
             <a class="nav-item" href={lp('/')} aria-current={isHome ? 'page' : undefined}>
               <span class="nav-icon" aria-hidden="true">🏠</span><span class="nav-text">{d.navHome}</span>
             </a>
-            <a class="nav-item" href="/chat/" aria-current={path === '/chat/' ? 'page' : undefined}>
+            <a class="nav-item" href={lp('/chat/')} aria-current={path === '/chat/' ? 'page' : undefined}>
               <span class="nav-icon" aria-hidden="true">💬</span><span class="nav-text">{isEn ? 'Ask the helper' : d.helperButton}</span>
             </a>
             {isEn && (
@@ -124,7 +124,7 @@ const openGroup = toolForPath(path)?.group ?? TOOL_GROUPS[0];
                 <span class="nav-icon" aria-hidden="true">🧰</span><span class="nav-text">All image tools</span>
               </a>
             )}
-            <a class="nav-item" href="/guides/" aria-current={path === '/guides/' ? 'page' : undefined}>
+            <a class="nav-item" href={lp('/guides/')} aria-current={path === '/guides/' ? 'page' : undefined}>
               <span class="nav-icon" aria-hidden="true">📖</span><span class="nav-text">{d.navGuides}</span>
             </a>
 
@@ -270,8 +270,8 @@ const openGroup = toolForPath(path)?.group ?? TOOL_GROUPS[0];
                     <li>
                       <a
                         href={l.href}
-                        hreflang={l.locale.code}
-                        lang={l.locale.code}
+                        hreflang={l.locale.hreflang}
+                        lang={l.locale.hreflang}
                         aria-current={l.locale.code === locale ? 'true' : undefined}
                       >
                         <Fragment set:html={flagSvg(l.locale.code)} />
@@ -308,12 +308,12 @@ const openGroup = toolForPath(path)?.group ?? TOOL_GROUPS[0];
             <div class="border-t-2 border-line pt-6">
               <p>{d.footerTagline}</p>
               <p class="mt-2 flex flex-wrap gap-x-4">
-                <a class="link" href="/guides/">{d.footerGuides}</a>
+                <a class="link" href={lp('/guides/')}>{d.footerGuides}</a>
                 <a class="link" href="/privacy/">{d.footerPrivacy}</a>
                 <a class="link" href="/terms/">{d.footerTerms}</a>
                 <a class="link" href="/feedback/">{d.footerFeedback}</a>
               </p>
-              <p class="mt-3 text-xs" data-machine-note>{d.machineNote}</p>
+              {loc.status === 'machine' && <p class="mt-3 text-xs" data-machine-note>{d.machineNote}</p>}
             </div>
           </footer>
         )}
