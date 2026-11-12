@@ -10,6 +10,8 @@ interface Props {
   heading: string;
   /** Show the "files never leave your device" message. Only for tools where it is true. */
   clientSide?: boolean;
+  /** False for calculators that take no file: the "files never leave your device" line is then left out. */
+  usesFiles?: boolean;
   /**
    * For landing pages ("heic to jpg"), which are not in the tool list: the details a tool page
    * would get from src/lib/tools.ts, plus the parent tool for "More in" and the breadcrumb.
@@ -18,7 +20,7 @@ interface Props {
   steps?: string[];
   faqs?: { q: string; a: string }[];
 }
-const { title, description, heading, clientSide = true, landing, steps = [], faqs = [] } = Astro.props;
+const { title, description, heading, clientSide = true, usesFiles = true, landing, steps = [], faqs = [] } = Astro.props;
 const own = toolForPath(Astro.url.pathname);
 const tool = own ?? (landing ? toolForPath(toolPath(landing.parentSlug)) : undefined);
 const info = own ?? landing;
@@ -54,7 +56,7 @@ const jsonLd = [
     <span class="pill">No sign-up</span>
     <span class="pill">No watermark</span>
   </div>
-  {clientSide && <p class="mt-3 text-sm font-bold">Your files never leave your device.</p>}
+  {clientSide && usesFiles && <p class="mt-3 text-sm font-bold">Your files never leave your device.</p>}
 
   {
     info && (

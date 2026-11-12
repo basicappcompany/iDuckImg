@@ -11,6 +11,11 @@ describe('the helper', () => {
     expect(respond('I want to convert an iPhone photo').tools.map((t) => t.slug)).toContain('heic-to-jpg');
     expect(first('put my name on my photos')).toBe('add-watermark-to-image');
     expect(first('put my logo on my photos')).toBe('add-logo-to-image');
+    expect(first('make my photo black and white')).toBe('adjust-image-colors');
+    expect(first('make a picture brighter')).toBe('adjust-image-colors');
+    expect(first('put a white frame around it')).toBe('add-border-to-image');
+    expect(first('how many pixels is 5 cm')).toBe('pixel-to-cm-converter');
+    expect(first('what is the aspect ratio of 1920 x 1080')).toBe('aspect-ratio-calculator');
     expect(first('make a round profile picture')).toBe('circle-crop-image');
     expect(first('remove location from my photo')).toBe('remove-exif-data');
     expect(first('turn my photo sideways')).toBe('rotate-image');

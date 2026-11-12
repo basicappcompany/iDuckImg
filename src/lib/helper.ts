@@ -68,6 +68,12 @@ const SYNONYMS: Record<string, string> = {
   puzzle: 'grid split',
   mosaic: 'pixel',
   retro: 'pixel',
+  brighter: 'adjust colours',
+  darker: 'adjust colours',
+  lighter: 'adjust colours',
+  brighten: 'adjust colours',
+  darken: 'adjust colours',
+  frame: 'border',
   location: 'exif metadata gps',
   gps: 'exif metadata',
   privacy: 'exif metadata',
@@ -87,8 +93,16 @@ function words(text: string): string[] {
     .filter((w) => w && !STOP.has(w));
 }
 
+/**
+ * Each typed word, then the words it stands for. The synonyms are hand-picked and precise ("iphone"
+ * means HEIC), so they are listed twice and count double. Without that, a loose word such as
+ * "convert" would tie with them and push the right page out of the top three.
+ */
 function expand(ws: string[]): string[] {
-  return ws.flatMap((w) => [w, ...(SYNONYMS[w]?.split(' ') ?? [])]);
+  return ws.flatMap((w) => {
+    const same = SYNONYMS[w]?.split(' ') ?? [];
+    return [w, ...same, ...same];
+  });
 }
 
 function asHelperTool(t: ToolLink, isShortcut: boolean): HelperTool {

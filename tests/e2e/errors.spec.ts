@@ -17,6 +17,10 @@ const TOOL_PATHS = [
   '/pixel-art-maker/',
   '/merge-images/',
   '/blur-image/',
+  '/pixel-to-cm-converter/',
+  '/aspect-ratio-calculator/',
+  '/adjust-image-colors/',
+  '/add-border-to-image/',
 ];
 
 test.describe('unknown addresses', () => {

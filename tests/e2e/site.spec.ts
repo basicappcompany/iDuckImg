@@ -2,8 +2,8 @@ import { expect, test, type Page } from '@playwright/test';
 
 /** Same order as the sidebar and the homepage: grouped. */
 const GROUPS: Record<string, string[]> = {
-  'Shrink & resize': ['/compress-image/', '/resize-image/', '/exam-photo-resizer/'],
-  'Edit & transform': ['/crop-image/', '/rotate-image/', '/circle-crop-image/', '/split-image-into-grid/', '/merge-images/'],
+  'Shrink & resize': ['/compress-image/', '/resize-image/', '/exam-photo-resizer/', '/pixel-to-cm-converter/', '/aspect-ratio-calculator/'],
+  'Edit & transform': ['/crop-image/', '/rotate-image/', '/circle-crop-image/', '/split-image-into-grid/', '/merge-images/', '/adjust-image-colors/', '/add-border-to-image/'],
   'Add text & effects': ['/add-watermark-to-image/', '/add-logo-to-image/', '/add-text-to-image/', '/pixel-art-maker/', '/blur-image/'],
   'Convert & combine': ['/convert-image/', '/image-to-pdf/'],
   'Privacy & cleanup': ['/remove-exif-data/'],
@@ -32,7 +32,7 @@ const QUICK: Record<string, string[]> = {
   'Open other formats': ['/avif-to-jpg/', '/avif-to-png/', '/svg-to-png/', '/svg-to-jpg/', '/bmp-to-jpg/', '/gif-to-png/'],
   'Make a PDF': ['/jpg-to-pdf/', '/png-to-pdf/', '/image-to-pdf/'],
   'Photos for forms': ['/exam-photo-resizer/', '/ibps-po-photo-size/', '/ibps-po-signature-size/', '/ibps-po-thumb-impression-size/', '/ibps-po-declaration-size/', '/ssc-cgl-signature-size/', '/remove-exif-data/', '/blur-image/'],
-  'Quick edits': ['/crop-image/', '/rotate-image/', '/add-watermark-to-image/', '/add-logo-to-image/', '/circle-crop-image/', '/merge-images/'],
+  'Quick edits': ['/crop-image/', '/rotate-image/', '/add-watermark-to-image/', '/add-logo-to-image/', '/circle-crop-image/', '/merge-images/', '/adjust-image-colors/', '/add-border-to-image/'],
 };
 /** Everything the home page and the sidebar list, in order: each group's tools, then its shortcuts. */
 const LISTED = Object.entries(GROUPS).flatMap(([group, paths]) => [...paths, ...(SHORTCUTS[group] ?? [])]);

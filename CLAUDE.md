@@ -98,3 +98,9 @@ Create `src/tools/<name>/` (options.ts pure logic, worker.ts, tool.ts, <Name>Too
 ## Exam landing pages
 
 - `src/lib/exam-landing.ts` builds one landing page per document in `src/data/exam-presets.json` (engine `exam`, opens `ExamTool` with `initialExam` and `initialDoc`). All numbers and the source come from the preset; never type an exam requirement into the page copy. A unit test fails when a document has no page. To add an exam: add it to the JSON with its source and read date, add a short name to `SHORT`, and update the slug lists in `tests/e2e/site.spec.ts`.
+
+## Adjust, border and the two calculators
+
+- Adjust colours (`src/tools/adjust/`) and border (`src/tools/border/`) follow the pixel tool: pure `options.ts` (`adjustPixels`, `borderedSize`) used by both the worker and the live preview, `SimpleToolShell`, output keeps the input format. A transparent border turns a JPG into a PNG (`outputFormat`).
+- The calculators (`src/calculators/`, maths in `src/lib/units.ts` and `src/lib/ratio.ts`) use no file, so their pages pass `usesFiles={false}` to `ToolLayout` to hide the files-never-leave-your-device line (the Runs in your browser pill stays, because it is true). They are still entries in `TOOLS` and the plan.
+- The helper's `expand` lists each hand-picked synonym twice so it counts double; add a synonym there when plain words land on the wrong tool (a test per tool in `tests/unit/helper.test.ts`).

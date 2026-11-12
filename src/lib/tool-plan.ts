@@ -74,14 +74,14 @@ export const PLAN: readonly PlannedTool[] = [
   t('exam-photo-resizer', '🪪', 'Exam photo and signature resizer', 'Exact pixels and KB for exam forms, with requirements and sources.', SHRINK, 'live', 'M'),
   t('passport-photo-maker', '📷', 'Passport and visa photo maker', 'Crop to the right size for a passport or visa.', SHRINK, 'soon', 'M', 'browser', SPECS),
   t('social-media-image-resizer', '📱', 'Social media image resizer', 'Sizes for Instagram, YouTube, WhatsApp and more.', SHRINK, 'soon', 'M', 'browser', SPECS),
-  t('pixel-to-cm-converter', '📏', 'Pixel, cm and inch converter', 'Convert between pixels, centimetres and inches at any DPI.', SHRINK, 'next', 'S'),
-  t('aspect-ratio-calculator', '🧮', 'Aspect ratio calculator', 'Find the matching height or width for any ratio.', SHRINK, 'next', 'S'),
+  t('pixel-to-cm-converter', '📏', 'Pixel, cm and inch converter', 'Convert between pixels, centimetres and inches at any DPI.', SHRINK, 'live', 'S'),
+  t('aspect-ratio-calculator', '🧮', 'Aspect ratio calculator', 'Find the matching height or width for any ratio.', SHRINK, 'live', 'S'),
 
   // ---- Edit & transform (9) ----
   t('crop-image', '✂️', 'Crop images', 'Drag a box, pick a ratio like 1:1, or type exact pixels.', EDIT, 'live', 'L'),
   t('rotate-image', '🔄', 'Rotate and flip', 'Turn an image 90, 180 or 270 degrees, or mirror it.', EDIT, 'live', 'M'),
-  t('adjust-image-colors', '🎚️', 'Adjust colours and filters', 'Brightness, contrast, saturation, black and white, sepia and more.', EDIT, 'next', 'M'),
-  t('add-border-to-image', '🖼️', 'Add a border or frame', 'Put a coloured border or padding around a picture.', EDIT, 'next', 'S'),
+  t('adjust-image-colors', '🎚️', 'Adjust colours and filters', 'Brightness, contrast, saturation, black and white, sepia and more.', EDIT, 'live', 'M'),
+  t('add-border-to-image', '🖼️', 'Add a border or frame', 'Put a coloured border or padding around a picture.', EDIT, 'live', 'S'),
   t('circle-crop-image', '⭕', 'Circle crop and round corners', 'Make a round profile picture or round the corners.', EDIT, 'live', 'S'),
   t('split-image-into-grid', '🧩', 'Split an image into a grid', 'Cut a picture into equal tiles for a grid post or a puzzle.', EDIT, 'live', 'S'),
   t('merge-images', '🪢', 'Merge images side by side', 'Join several pictures into one, in a row or a column.', EDIT, 'live', 'S'),
