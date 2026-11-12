@@ -15,6 +15,7 @@ const SHORTCUTS: Record<string, string[]> = {
   'Convert & combine': [
     '/heic-to-jpg/', '/heic-to-png/', '/png-to-jpg/', '/jpg-to-png/', '/webp-to-jpg/',
     '/webp-to-png/', '/jpg-to-webp/', '/png-to-webp/', '/jpg-to-pdf/', '/png-to-pdf/',
+    '/avif-to-jpg/', '/avif-to-png/', '/svg-to-png/', '/svg-to-jpg/', '/bmp-to-jpg/', '/gif-to-png/',
   ],
 };
 /** The Quick tools sub-categories at the top of the sidebar, in order. */
@@ -27,6 +28,7 @@ const QUICK: Record<string, string[]> = {
     '/heic-to-jpg/', '/heic-to-png/', '/png-to-jpg/', '/jpg-to-png/', '/webp-to-jpg/',
     '/webp-to-png/', '/jpg-to-webp/', '/png-to-webp/',
   ],
+  'Open other formats': ['/avif-to-jpg/', '/avif-to-png/', '/svg-to-png/', '/svg-to-jpg/', '/bmp-to-jpg/', '/gif-to-png/'],
   'Make a PDF': ['/jpg-to-pdf/', '/png-to-pdf/', '/image-to-pdf/'],
   'Photos for forms': ['/exam-photo-resizer/', '/remove-exif-data/', '/blur-image/'],
   'Quick edits': ['/crop-image/', '/rotate-image/', '/add-watermark-to-image/', '/add-logo-to-image/', '/circle-crop-image/', '/merge-images/'],

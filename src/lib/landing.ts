@@ -336,6 +336,130 @@ export const LANDING_PAGES: readonly LandingPage[] = [
     ],
     related: ['image-to-pdf', 'jpg-to-pdf', 'png-to-jpg'],
   }),
+  convertPage('avif-to-jpg', 'AVIF', 'JPG', 'jpeg', {
+    emoji: '🖼️',
+    why: 'JPG opens everywhere, including forms, editors and older phones that cannot show AVIF.',
+    notes: [
+      'AVIF is a newer format that many sites and phones now save pictures in. It makes small files, but a lot of upload forms, editors and older programs still ask for JPG.',
+      'Reading AVIF needs a browser that supports it: current Chrome, Edge, Firefox and Safari 16.4 or later do. If yours does not, the tool says so instead of failing silently.',
+      'JPG has no transparency, so a see-through area becomes white.',
+    ],
+    faqs: [
+      {
+        q: 'Why will my site or form not take an AVIF?',
+        a: 'AVIF is newer than JPG and PNG, and many upload forms only list the older formats. Converting to JPG fixes that.',
+      },
+      {
+        q: 'Will the JPG look the same?',
+        a: 'Very close. JPG is saved at high quality, but any conversion between lossy formats can lose a little fine detail.',
+      },
+      {
+        q: 'Does it say AVIF is not supported?',
+        a: 'Only if your browser cannot open AVIF. Update it, or try another current browser.',
+      },
+    ],
+    related: ['avif-to-png', 'webp-to-jpg', 'convert-image'],
+  }),
+  convertPage('avif-to-png', 'AVIF', 'PNG', 'png', {
+    emoji: '🖼️',
+    why: 'PNG opens in every editor and keeps any transparent background.',
+    notes: [
+      'PNG keeps a transparent background, which is why it is the right choice for logos and stickers saved as AVIF.',
+      'The PNG will be much larger than the AVIF, since AVIF compresses far better.',
+    ],
+    faqs: [
+      {
+        q: 'Why is the PNG so much bigger?',
+        a: 'AVIF is one of the most efficient formats. A lossless PNG of the same picture can be ten times larger.',
+      },
+      {
+        q: 'Is the transparent background kept?',
+        a: 'Yes. PNG supports transparency and the converted file keeps it.',
+      },
+    ],
+    related: ['avif-to-jpg', 'webp-to-png', 'convert-image'],
+  }),
+  convertPage('svg-to-png', 'SVG', 'PNG', 'png', {
+    emoji: '✏️',
+    why: 'PNG is a normal picture that any program, form or social site accepts, and it keeps the transparent background.',
+    notes: [
+      'An SVG is a drawing described by shapes, so it has no fixed pixel size. It is drawn here at least 1024 pixels on its longer side (and at most 4096), keeping its proportions, so the PNG is sharp.',
+      'If you need an exact size, convert here first, then use Resize images to set the pixels you want.',
+      'The SVG is drawn like a picture, so scripts inside it do not run and nothing is fetched from other sites. Fonts the SVG expects but that are not inside the file may be drawn in a plain fallback font.',
+    ],
+    faqs: [
+      {
+        q: 'What size will the PNG be?',
+        a: 'The SVG is drawn at its own proportions with the longer side at least 1024 pixels. Use Resize images afterwards for an exact size.',
+      },
+      {
+        q: 'Is the background transparent?',
+        a: 'Yes, unless the SVG draws its own background.',
+      },
+      {
+        q: 'Is my SVG uploaded?',
+        a: 'No. It is drawn in your browser and never leaves your device.',
+      },
+    ],
+    related: ['svg-to-jpg', 'resize-image', 'convert-image'],
+  }),
+  convertPage('svg-to-jpg', 'SVG', 'JPG', 'jpeg', {
+    emoji: '✏️',
+    why: 'JPG is a small, universal photo format, and the SVG is drawn sharp before it is saved.',
+    notes: [
+      'JPG has no transparency, so any see-through area of the SVG becomes white. If you need to keep it, use SVG to PNG instead.',
+      'An SVG has no fixed pixel size. It is drawn at least 1024 pixels on its longer side, keeping its proportions.',
+    ],
+    faqs: [
+      {
+        q: 'Why is the background white?',
+        a: 'JPG cannot be see-through, so transparent areas are filled with white. SVG to PNG keeps them transparent.',
+      },
+      {
+        q: 'Can I choose the size?',
+        a: 'Convert first, then use Resize images to set exact pixels or a file size in KB.',
+      },
+    ],
+    related: ['svg-to-png', 'resize-image', 'png-to-jpg'],
+  }),
+  convertPage('bmp-to-jpg', 'BMP', 'JPG', 'jpeg', {
+    emoji: '🗂️',
+    why: 'A BMP is stored uncompressed, so the JPG is usually a small fraction of its size.',
+    notes: [
+      'BMP is an old Windows format that stores every pixel without compression, so the files are very large. A JPG of the same picture is often 90 percent smaller.',
+      'JPG has no transparency, so any see-through area becomes white.',
+    ],
+    faqs: [
+      {
+        q: 'How much smaller will it be?',
+        a: 'Usually a lot: BMP is uncompressed, so a JPG is often a tenth of the size or less.',
+      },
+      {
+        q: 'Do I lose quality?',
+        a: 'JPG is lossy, but it is saved at high quality, so the change is hard to see on a photo.',
+      },
+    ],
+    related: ['compress-image', 'png-to-jpg', 'convert-image'],
+  }),
+  convertPage('gif-to-png', 'GIF', 'PNG', 'png', {
+    emoji: '🎞️',
+    why: 'You get a sharp still picture of the GIF that keeps any transparent background.',
+    notes: [
+      'This makes a still picture. A GIF that moves keeps only its first frame, so the PNG does not animate.',
+      'GIF can only show 256 colours, and PNG keeps them exactly. The PNG may be larger than the GIF for a simple graphic.',
+    ],
+    faqs: [
+      {
+        q: 'Does the animation stay?',
+        a: 'No. Only the first frame is saved, as a still PNG.',
+      },
+      {
+        q: 'Is the transparent background kept?',
+        a: 'Yes. A transparent GIF becomes a transparent PNG.',
+      },
+    ],
+    related: ['png-to-jpg', 'compress-image', 'convert-image'],
+  }),
 ];
 
 export function landingForSlug(slug: string): LandingPage | undefined {

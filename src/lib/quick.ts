@@ -46,6 +46,12 @@ export const QUICK_GROUPS: readonly QuickGroupDef[] = [
     ],
   },
   {
+    id: 'other',
+    name: 'Open other formats',
+    emoji: '🖼️',
+    slugs: ['avif-to-jpg', 'avif-to-png', 'svg-to-png', 'svg-to-jpg', 'bmp-to-jpg', 'gif-to-png'],
+  },
+  {
     id: 'pdf',
     name: 'Make a PDF',
     emoji: '📄',
