@@ -5,6 +5,7 @@ const TOOL_PATHS = [
   '/resize-image/',
   '/crop-image/',
   '/add-watermark-to-image/',
+  '/add-logo-to-image/',
   '/exam-photo-resizer/',
   '/convert-image/',
   '/image-to-pdf/',

@@ -1,5 +1,5 @@
 /**
- * The master plan: every image tool we mean to build, 58 in 7 categories. The roadmap page, the
+ * The master plan: every image tool we mean to build, 59 in 7 categories. The roadmap page, the
  * status page and the tests read it. The `id` is the page address (a meaningful keyword slug),
  * so a tool's URL is decided here, once, before it is built. A "live" entry must exist in
  * src/lib/tools.ts; a unit test checks that, and that the plan never drops below 50 tools.
@@ -90,6 +90,7 @@ export const PLAN: readonly PlannedTool[] = [
 
   // ---- Add text & effects (7) ----
   t('add-watermark-to-image', '💧', 'Add a watermark', 'Put your name or a copyright line on a picture before you share it.', TEXT, 'live', 'M'),
+  t('add-logo-to-image', '🏷️', 'Add a logo to pictures', 'Put your logo on a picture, or on many at once, before you share it.', TEXT, 'live', 'M'),
   t('add-text-to-image', '🔠', 'Add text to an image', 'Write on a picture with any size, colour and position.', TEXT, 'live', 'M'),
   t('meme-maker', '😂', 'Meme maker', 'Top and bottom text on any picture.', TEXT, 'soon', 'M'),
   t('blur-image', '🌫️', 'Blur or hide parts of an image', 'Blur, pixelate or cover areas such as names and numbers.', TEXT, 'live', 'M'),

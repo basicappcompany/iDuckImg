@@ -1,9 +1,9 @@
 # Handoff (updated 2026-11-12, end of the landing-pages session)
 
-The branch `feat/community-pages` now holds the community pages, the 58-tool plan, 14 landing pages, the SEO/GEO/AEO layer, and the Privacy and Terms pages. `pnpm verify` and `pnpm test:e2e` pass locally. Once its PR is merged on green CI, check the live site (see "After deploying").
+The branch `feat/community-pages` now holds the community pages, the 59-tool plan, 14 landing pages, the SEO/GEO/AEO layer, and the Privacy and Terms pages. `pnpm verify` and `pnpm test:e2e` pass locally. Once its PR is merged on green CI, check the live site (see "After deploying").
 
 ## Done in this branch
-- Community pages (roadmap, request, feedback, support, settings, about) in the sidebar, forms that build a mailto, 58-tool master plan in `src/lib/tool-plan.ts`.
+- Community pages (roadmap, request, feedback, support, settings, about) in the sidebar, forms that build a mailto, 59-tool master plan in `src/lib/tool-plan.ts`.
 - URL renames `compress-images` to `compress-image` and `images-to-pdf` to `image-to-pdf` (301s in `public/_redirects`).
 - 14 landing pages from `src/lib/landing.ts` via `src/pages/[slug].astro`: the real tool opens with options preset (compress to 20/50/100/200 KB, HEIC/PNG/WebP/JPG conversions, JPG/PNG to PDF).
 - SEO: Open Graph + Twitter tags and `public/og.png`, JSON-LD from `src/lib/seo.ts`, sitemap filter for noindex pages, `robots.txt` naming AI crawlers, generated `/llms.txt`, hub `/image-tools/`, footer "Popular" links.
@@ -16,7 +16,7 @@ The branch `feat/community-pages` now holds the community pages, the 58-tool pla
 3. Run Lighthouse (mobile) on the home page and one landing page (status 5.12).
 
 ## Next, in this order
-1. DONE: command palette, text watermark, circle crop, split into grid, add text, pixel art, Quick tools in the sidebar, Ask the helper. Merge images and blur/hide are done too. Next: image/logo watermark, BMP/GIF/SVG/AVIF inputs, the exam landing pages, then the plan's other `next` tools.
+1. DONE: command palette, text watermark, circle crop, split into grid, add text, pixel art, Quick tools in the sidebar, Ask the helper. Merge images, blur/hide and the logo watermark are done too. Next: BMP/GIF/SVG/AVIF inputs, the exam landing pages, then the plan's other `next` tools.
 2. (see 1)
 3. A starting-choice prop on the exam preset picker, then one landing page per exam.
 4. AI foundation with the visitor's own key (shared settings + provider adapters; "Describe an image" and "Image to text"). The security headers / CSP (status 3.9) must come first. Provider browser access (preflight only, tested 2026-11-12): Anthropic needs the header `anthropic-dangerous-direct-browser-access`; OpenAI, Gemini, OpenRouter, Mistral, Groq, Stability and remove.bg allow it; Replicate does not (needs a proxy). Real responses and image input are not tested. AI pages must not carry ads and must say the image goes to the provider.
