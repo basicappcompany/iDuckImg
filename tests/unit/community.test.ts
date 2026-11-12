@@ -1,6 +1,6 @@
 import { existsSync, readdirSync } from 'node:fs';
 import { describe, expect, it } from 'vitest';
-import { COMMUNITY, NOINDEX_PATHS, communityPath } from '../../src/lib/community';
+import { COMMUNITY, NOINDEX_PATHS, OTHER_PAGES, communityPath } from '../../src/lib/community';
 import { PLAN } from '../../src/lib/tool-plan';
 import { TOOLS } from '../../src/lib/tools';
 
@@ -17,7 +17,7 @@ describe('COMMUNITY', () => {
   });
 
   it('accounts for every page that is neither a tool nor the home or 404 page', () => {
-    const known = new Set([...TOOLS.map((t) => t.slug), ...COMMUNITY.map((p) => p.slug), 'index', '404']);
+    const known = new Set([...TOOLS.map((t) => t.slug), ...COMMUNITY.map((p) => p.slug), ...OTHER_PAGES]);
     const pages = readdirSync('src/pages').filter((f) => f.endsWith('.astro')).map((f) => f.replace('.astro', ''));
     expect(pages.filter((p) => !known.has(p))).toEqual([]);
   });

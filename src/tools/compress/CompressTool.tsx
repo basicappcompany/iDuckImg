@@ -7,9 +7,9 @@ import { useToolRunner } from '../../engine/useToolRunner';
 import { compressTool } from './tool';
 import type { CompressOptions } from './options';
 
-export default function CompressTool() {
+export default function CompressTool({ initial }: { initial?: Partial<CompressOptions> } = {}) {
   const [files, setFiles] = useState<File[]>([]);
-  const [options, setOptions] = useState<CompressOptions>(compressTool.defaultOptions);
+  const [options, setOptions] = useState<CompressOptions>({ ...compressTool.defaultOptions, ...initial });
   const runner = useToolRunner(compressTool);
   const running = runner.state === 'running';
 

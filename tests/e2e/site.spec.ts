@@ -2,9 +2,10 @@ import { expect, test, type Page } from '@playwright/test';
 
 /** Same order as the sidebar and the homepage: grouped. */
 const GROUPS: Record<string, string[]> = {
-  'Shrink & resize': ['/compress-image/', '/resize-image/', '/crop-image/', '/exam-photo-resizer/'],
+  'Shrink & resize': ['/compress-image/', '/resize-image/', '/exam-photo-resizer/'],
+  'Edit & transform': ['/crop-image/', '/rotate-image/'],
   'Convert & combine': ['/convert-image/', '/image-to-pdf/'],
-  'Fix & clean': ['/rotate-image/', '/remove-exif-data/'],
+  'Privacy & cleanup': ['/remove-exif-data/'],
 };
 const TOOL_PATHS = Object.values(GROUPS).flat();
 const groupOf = (path: string) => Object.entries(GROUPS).find(([, paths]) => paths.includes(path))![0];

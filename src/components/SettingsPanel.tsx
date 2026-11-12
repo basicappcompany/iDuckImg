@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from 'preact/hooks';
+import { useEffect, useState } from 'preact/hooks';
 import Chips from './Chips';
 import { THEME_EVENT, browserTheme, type ThemeChoice } from '../lib/theme-client';
 
@@ -17,21 +17,24 @@ const SHORTCUTS: { keys: string[]; does: string }[] = [
 ];
 
 export default function SettingsPanel() {
-  const theme = useMemo(() => browserTheme(), []);
+  // Created after the page loads: it needs the browser (window, localStorage), which the build does not have.
+  const [theme, setTheme] = useState<ReturnType<typeof browserTheme> | null>(null);
   const [choice, setChoice] = useState<ThemeChoice>('system');
   const [saved, setSaved] = useState<ThemeChoice>('system');
   const [note, setNote] = useState('');
 
   useEffect(() => {
+    const t = browserTheme();
+    setTheme(t);
     const read = () => {
-      setChoice(theme.choice());
-      setSaved(theme.saved());
+      setChoice(t.choice());
+      setSaved(t.saved());
     };
     read();
     // The header button changes the theme too, so keep this page in step with it.
     window.addEventListener(THEME_EVENT, read);
     return () => window.removeEventListener(THEME_EVENT, read);
-  }, [theme]);
+  }, []);
 
   return (
     <div class="grid gap-5">
@@ -45,7 +48,7 @@ export default function SettingsPanel() {
             options={THEME_OPTIONS}
             value={choice}
             onChange={(c) => {
-              theme.set(c);
+              theme?.set(c);
               setNote('');
             }}
           />
@@ -67,7 +70,7 @@ export default function SettingsPanel() {
             type="button"
             class="btn"
             onClick={() => {
-              theme.clearSaved();
+              theme?.clearSaved();
               setNote('Cleared. The theme now follows your device.');
             }}
           >

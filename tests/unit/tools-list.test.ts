@@ -18,8 +18,8 @@ describe('TOOLS', () => {
 
   it('covers every tool page (a new page must be added to the list)', async () => {
     const { readdirSync } = await import('node:fs');
-    const { COMMUNITY } = await import('../../src/lib/community');
-    const notTools = new Set(['index', '404', ...COMMUNITY.map((c) => c.slug)]);
+    const { COMMUNITY, OTHER_PAGES } = await import('../../src/lib/community');
+    const notTools = new Set([...OTHER_PAGES, ...COMMUNITY.map((c) => c.slug)]);
     const pages = readdirSync('src/pages')
       .filter((f) => f.endsWith('.astro'))
       .map((f) => f.replace('.astro', ''))

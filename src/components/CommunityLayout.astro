@@ -10,11 +10,12 @@ interface Props {
   after?: string;
   intro: string;
   noindex?: boolean;
+  jsonLd?: unknown[];
 }
-const { title, description, before = '', mark, after = '', intro, noindex = false } = Astro.props;
+const { title, description, before = '', mark, after = '', intro, noindex = false, jsonLd = [] } = Astro.props;
 ---
 
-<AppShell title={title} description={description} noindex={noindex}>
+<AppShell title={title} description={description} noindex={noindex} jsonLd={jsonLd}>
   <h1 class="display text-4xl sm:text-5xl">
     {before}{before && ' '}<span class="mark">{mark}</span>{after}
   </h1>

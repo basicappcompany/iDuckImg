@@ -12,7 +12,7 @@ const TOOL_PATHS = [
 ];
 
 test.describe('unknown addresses', () => {
-  for (const path of ['/this-page-does-not-exist/', '/compress-image/', '/crop-image/extra/segments', '/llms.txt']) {
+  for (const path of ['/this-page-does-not-exist/', '/compress-imagess/', '/crop-image/extra/segments', '/humans.txt']) {
     test(`${path} is a real 404, not the home page`, async ({ page }) => {
       const response = await page.goto(path);
       expect(response?.status()).toBe(404);
