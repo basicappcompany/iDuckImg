@@ -6,7 +6,7 @@ import { breadcrumbLd, faqLd, howToLd, serialize, webApplicationLd } from '../..
 import { computeSize, defaultResizeOptions, type ResizeOptions } from '../../src/tools/resize/options';
 
 const known = new Set<string>([...TOOLS.map((t) => t.slug), ...LANDING_PAGES.map((p) => p.slug)]);
-const reserved = new Set<string>([...COMMUNITY.map((c) => c.slug), 'privacy', 'terms', 'image-tools', 'llms.txt', '404']);
+const reserved = new Set<string>([...COMMUNITY.map((c) => c.slug), 'privacy', 'terms', 'image-tools', 'guides', 'llms.txt', 'llms-full.txt', '404']);
 
 describe('landing pages', () => {
   it('have unique slugs that never clash with a tool or another page', () => {

@@ -1,0 +1,51 @@
+---
+import AppShell from '../../components/AppShell.astro';
+import { GUIDES, guidePath } from '../../lib/guides';
+import { TOOLS } from '../../lib/tools';
+import { breadcrumbLd, collectionLd } from '../../lib/seo';
+
+const emoji = (slug: string) => TOOLS.find((t) => t.slug === slug)?.emoji ?? '📖';
+const description =
+  'Short, practical how-to guides for the image jobs people search for most: compress, resize, crop, convert, watermark, remove hidden data and more. Each links to the free tool that does the work.';
+const jsonLd = [
+  collectionLd(
+    'Image how-to guides',
+    '/guides/',
+    description,
+    GUIDES.map((g) => ({ name: g.title, path: guidePath(g.slug) })),
+  ),
+  breadcrumbLd([
+    { name: 'Home', path: '/' },
+    { name: 'How-to guides', path: '/guides/' },
+  ]),
+];
+---
+
+<AppShell title="Image how-to guides: compress, resize, convert and more | iDuckImg" description={description} jsonLd={jsonLd}>
+  <p class="eyebrow">
+    <a href="/" class="underline decoration-2 underline-offset-2">Home</a>
+    <span aria-hidden="true"> / </span>
+    How-to guides
+  </p>
+  <h1 class="display mt-2 text-4xl sm:text-5xl">Image <span class="mark">how-to</span> guides</h1>
+  <p class="mt-3 max-w-2xl text-lg text-muted">
+    Short, practical walkthroughs for the image jobs people search for most. Each one gives the answer first, then the steps, and
+    links to the free tool that does the work in your browser.
+  </p>
+
+  <ul class="card-grid mt-6" aria-label="Guides">
+    {
+      GUIDES.map((g) => (
+        <li>
+          <a href={guidePath(g.slug)} class="card card-link h-full p-4">
+            <span class="flex items-center gap-2.5 text-[17px] font-black">
+              <span aria-hidden="true" class="text-[28px] leading-none">{emoji(g.tool)}</span>
+              {g.title}
+            </span>
+            <span class="mt-1 block text-sm leading-[19px] text-muted">{g.description}</span>
+          </a>
+        </li>
+      ))
+    }
+  </ul>
+</AppShell>

@@ -3,6 +3,7 @@ import { TOOLS, toolPath } from '../lib/tools';
 import { LANDING_PAGES, landingPath } from '../lib/landing';
 import { COMMUNITY, communityPath } from '../lib/community';
 import { SITE_URL } from '../lib/seo';
+import { GUIDES, guidePath } from '../lib/guides';
 
 /** A plain-text summary for AI assistants and answer engines (the llms.txt convention). Built from the same lists as the site, so it cannot go stale. */
 export const GET: APIRoute = () => {
@@ -18,6 +19,11 @@ export const GET: APIRoute = () => {
     '',
     '## Common jobs',
     ...LANDING_PAGES.map((p) => `- [${p.h1}](${SITE_URL}${landingPath(p.slug)}): ${p.summary}`),
+    '',
+    '## How-to guides',
+    ...GUIDES.map((g) => `- [${g.title}](${SITE_URL}${guidePath(g.slug)}): ${g.description}`),
+    '',
+    `Full text of every guide: ${SITE_URL}/llms-full.txt`,
     '',
     '## About',
     `- [All image tools](${SITE_URL}/image-tools/)`,

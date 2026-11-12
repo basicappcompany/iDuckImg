@@ -48,7 +48,7 @@ Free online image tools (iLovePDF/iLoveIMG style). Original brand, duck mascot. 
 ## Adding a tool
 Create `src/tools/<name>/` (options.ts pure logic, worker.ts, tool.ts, <Name>Tool.tsx), add `src/pages/<slug>.astro`, add it to `src/lib/tools.ts` (a unit test fails if a page is missing from the list), add unit tests for the pure logic and e2e tests that check real output (pixel size, bytes, colours), and add the path to `tests/e2e/site.spec.ts`.
 
-Checklist, because every tool touches the same places: `src/lib/tools.ts` (name and group must equal the plan row), `src/lib/tool-plan.ts` (flip the row to `live`), `src/lib/quick.ts` if it belongs in Quick tools, a line in `tests/unit/helper.test.ts` if people would find it by plain words (add a synonym in `src/lib/helper.ts` if not), `GROUPS` and `QUICK` in `tests/e2e/site.spec.ts`, `TOOL_PATHS` in `tests/e2e/errors.spec.ts`, the live count in `tests/unit/tool-plan.test.ts`, then `docs/status.html` (an item and a `TOOLS_DATA` row), this file and `docs/HANDOFF.md`. A new group also needs `TOOL_GROUPS` in `tools.ts` and a matching plan category.
+Checklist, because every tool touches the same places: `src/lib/tools.ts` (name and group must equal the plan row), `src/lib/tool-plan.ts` (flip the row to `live`), `src/lib/quick.ts` if it belongs in Quick tools, a line in `tests/unit/helper.test.ts` if people would find it by plain words (add a synonym in `src/lib/helper.ts` if not), `GROUPS` and `QUICK` in `tests/e2e/site.spec.ts`, `TOOL_PATHS` in `tests/e2e/errors.spec.ts`, the live count in `tests/unit/tool-plan.test.ts`, a guide in `src/lib/guides-*.ts` (a test fails without one), then `docs/status.html` (an item and a `TOOLS_DATA` row), this file and `docs/HANDOFF.md`. A new group also needs `TOOL_GROUPS` in `tools.ts` and a matching plan category.
 
 ## Gotchas (learned the hard way)
 - jSquash packages are excluded from Vite prebundling (`astro.config.ts`) and `wasm-feature-detect` is pinned to 1.9.0 (`pnpm-workspace.yaml` overrides): 1.10 contains `import.source()`, a syntax error in current browsers, which broke WebP/PNG in dev. Production was unaffected (tree-shaken). Retest before lifting the pin.
@@ -89,6 +89,11 @@ Checklist, because every tool touches the same places: `src/lib/tools.ts` (name 
 - Cost: static files on Cloudflare Pages plus in-browser tools means no server bill; the only fixed cost is the domain. Do not add a server or a paid API call to a free tool without saying so.
 - AI provider browser access (CORS preflight only, tested 2026-11-12): Anthropic needs `anthropic-dangerous-direct-browser-access`; OpenAI, Gemini, OpenRouter, Mistral, Groq, Stability and remove.bg allow browser calls; Replicate does not. Real responses and image input were not tested.
 - Browser components must not touch `window`/`document` while rendering (the build prerenders them): create browser-only objects inside `useEffect`.
+
+## How-to guides
+
+- `src/lib/guides-a/b/c.ts` hold one guide per tool plus `are-online-image-tools-safe`; `src/lib/guides.ts` has the type and helpers; pages are `src/pages/guides/index.astro` and `[slug].astro`. Each guide: answer-first `intro`, numbered `steps` (also sent as HowTo data), `sections`, `faq` (FAQPage data), `related` guide slugs and an `updated` date. `ToolLayout` links every tool and shortcut page to its guide. Article, HowTo, FAQPage and BreadcrumbList JSON-LD are built in `src/lib/seo.ts`; `/llms.txt` and `/llms-full.txt` are generated from the same data.
+- Adding a tool means adding its guide: a unit test fails without one. Write only what the tool really does, and re-read the tool when you change a guide (the test checks structure and limits, not facts). Keep titles at 60 characters, descriptions at 70 to 160, intros at 25 to 60 words, and every guide at 300 words or more.
 
 ## Extra input formats
 

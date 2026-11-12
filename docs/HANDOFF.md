@@ -22,6 +22,9 @@ Everything below is merged to `main` and live at https://iduckimg.com (PRs #20 t
 4. AI foundation with the visitor's own key (shared settings + provider adapters; "Describe an image" and "Image to text"). The security headers / CSP (status 3.9) must come first. Provider browser access (preflight only, tested 2026-11-12): Anthropic needs the header `anthropic-dangerous-direct-browser-access`; OpenAI, Gemini, OpenRouter, Mistral, Groq, Stability and remove.bg allow it; Replicate does not (needs a proxy). Real responses and image input are not tested. AI pages must not carry ads and must say the image goes to the provider.
 5. OCR, then background remover (check each model's licence for commercial use first).
 
+## Also done: how-to guides
+`/guides/` and 25 guides (one per tool), with Article, HowTo and FAQ data, `/llms-full.txt`, links from every tool page. See status item 5.15.
+
 ## Decisions waiting on you
 - Feedback goes to hello@iduckpdf.com because iduckimg.com has no mail routing (no MX record). Set up Email Routing, then change `CONTACT_EMAIL` in `src/lib/contact.ts` (status 3.7).
 - Governing law and legal name for the legal pages (status 4.2, 4.3); a lawyer review before real money (4.4).

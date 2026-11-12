@@ -72,6 +72,39 @@ export function faqLd(faqs: { q: string; a: string }[]): Json {
   };
 }
 
+/** A how-to article. Dates are ISO (YYYY-MM-DD). The author and publisher are the company, not a person. */
+export function articleLd(a: { headline: string; description: string; path: string; datePublished: string; dateModified: string }): Json {
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'Article',
+    headline: a.headline,
+    description: a.description,
+    url: absolute(a.path),
+    mainEntityOfPage: absolute(a.path),
+    datePublished: a.datePublished,
+    dateModified: a.dateModified,
+    inLanguage: 'en',
+    image: OG_IMAGE,
+    author: { '@type': 'Organization', name: 'Basic App Company', url: SITE_URL },
+    publisher: { '@type': 'Organization', name: 'Basic App Company', url: SITE_URL, logo: { '@type': 'ImageObject', url: absolute('/favicon.svg') } },
+  };
+}
+
+/** A list page: a collection of pages in order. */
+export function collectionLd(name: string, path: string, description: string, items: { name: string; path: string }[]): Json {
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'CollectionPage',
+    name,
+    url: absolute(path),
+    description,
+    mainEntity: {
+      '@type': 'ItemList',
+      itemListElement: items.map((it, i) => ({ '@type': 'ListItem', position: i + 1, name: it.name, url: absolute(it.path) })),
+    },
+  };
+}
+
 /** JSON for inside a <script>: "<" is escaped so the data can never close the tag early. */
 export function serialize(data: unknown): string {
   return JSON.stringify(data).replace(/</g, '\\u003c');
