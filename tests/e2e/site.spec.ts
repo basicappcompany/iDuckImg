@@ -3,8 +3,8 @@ import { expect, test, type Page } from '@playwright/test';
 /** Same order as the sidebar and the homepage: grouped. */
 const GROUPS: Record<string, string[]> = {
   'Shrink & resize': ['/compress-image/', '/resize-image/', '/exam-photo-resizer/'],
-  'Edit & transform': ['/crop-image/', '/rotate-image/'],
-  'Add text & effects': ['/add-watermark-to-image/'],
+  'Edit & transform': ['/crop-image/', '/rotate-image/', '/circle-crop-image/', '/split-image-into-grid/'],
+  'Add text & effects': ['/add-watermark-to-image/', '/add-text-to-image/', '/pixel-art-maker/'],
   'Convert & combine': ['/convert-image/', '/image-to-pdf/'],
   'Privacy & cleanup': ['/remove-exif-data/'],
 };

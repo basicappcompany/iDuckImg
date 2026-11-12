@@ -63,6 +63,7 @@ Create `src/tools/<name>/` (options.ts pure logic, worker.ts, tool.ts, <Name>Too
 
 ## Search window and watermark
 - `CommandPalette.astro` is the Ctrl K / Cmd K / "/" search window (same look as iDuckPDF: groups Tools, Shortcuts, Pages, Actions). It reads `TOOLS`, `LANDING_PAGES`, `COMMUNITY` and a small PAGES list, so new tools and pages appear automatically; add synonyms in the tool's `keywords`. The sidebar search box is now a button that opens it.
+- Simple one-picture tools share `SimpleToolShell.tsx` (drop zone, file count, run/cancel, progress, downloads) and `ToolGuide.astro` (steps, notes, questions); tools supply the option panels. Used by shape (circle crop), grid, pixel and text.
 - Watermark (`src/tools/watermark/`): `options.ts` pure layout, `draw.ts` the canvas drawing shared by the worker (real result) and the page (live preview), group `Add text & effects`. Text only so far.
 
 ## Landing pages and SEO layer

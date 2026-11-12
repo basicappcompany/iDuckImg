@@ -1,0 +1,47 @@
+---
+import ToolLayout from '../components/ToolLayout.astro';
+import ToolGuide from '../components/ToolGuide.astro';
+import PixelTool from '../tools/pixel/PixelTool';
+
+const steps = [
+  "Drop your JPG, PNG or WebP pictures, or paste them.",
+  "Use the slider to set how many big pixels go across the picture. Fewer is chunkier.",
+  "Optionally choose Retro or Very few colours for a game-console look.",
+  "Press Make pixel art and download each PNG, or all of them as a ZIP."
+];
+const notes = [
+  "Each big pixel is the average colour of a square block of the picture. The result keeps the original size, so the edges stay sharp and it prints and scales well.",
+  "Portraits work best at 32 to 64 pixels across. Landscapes look good with more."
+];
+const faqs = [
+  {
+    "q": "How do I make pixel art from a photo?",
+    "a": "Drop the photo, move the slider until the pixels look right and press Make pixel art. Try 32 to 64 across for a face."
+  },
+  {
+    "q": "Why is the result a PNG?",
+    "a": "A PNG keeps the hard edges of each big pixel. A JPG would blur them."
+  },
+  {
+    "q": "Can I limit the colours?",
+    "a": "Yes. Retro keeps 6 shades of each colour and Very few keeps 3, which gives a flat, game-like look."
+  },
+  {
+    "q": "Is my picture uploaded?",
+    "a": "No. The conversion runs in your browser."
+  }
+];
+---
+
+<ToolLayout
+  title={"Pixel art maker: turn a photo into pixel art | iDuckImg"}
+  description={"Turn any photo into chunky pixel art. Choose how big the pixels are and how many colours to keep. Free, in your browser, no upload."}
+  heading={"Pixel art maker"}
+  steps={steps}
+  faqs={faqs}
+>
+  <PixelTool client:load />
+  <div slot="content">
+    <ToolGuide title={"How to turn a photo into pixel art"} steps={steps} notes={notes} faqs={faqs} />
+  </div>
+</ToolLayout>
