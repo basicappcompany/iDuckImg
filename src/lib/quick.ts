@@ -90,3 +90,23 @@ export function quickGroups(): QuickGroup[] {
     items: slugs.flatMap((s) => item(s) ?? []),
   }));
 }
+
+/** "Popular right now" on the home page. Chosen from experience, not measured traffic. */
+export const POPULAR_SLUGS: readonly string[] = [
+  'compress-image',
+  'resize-image',
+  'compress-image-to-100kb',
+  'heic-to-jpg',
+  'png-to-jpg',
+  'jpg-to-pdf',
+];
+
+export function popularTools(): (QuickItem & { summary: string })[] {
+  return POPULAR_SLUGS.flatMap((slug) => {
+    const base = item(slug);
+    if (!base) return [];
+    const tool = TOOLS.find((t) => t.slug === slug);
+    const page = LANDING_PAGES.find((p) => p.slug === slug);
+    return [{ ...base, summary: tool?.summary ?? page?.summary ?? '' }];
+  });
+}

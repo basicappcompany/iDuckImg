@@ -377,6 +377,34 @@ body {
     text-transform: uppercase;
     color: var(--d-muted);
   }
+  /* The big search box on the home page: a button that opens the Ctrl K window. */
+  .hero-search {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    width: 100%;
+    padding: 15px 18px;
+    background: var(--d-card);
+    color: var(--d-muted);
+    font: inherit;
+    font-size: 1.0625rem;
+    border: 2px solid var(--d-line);
+    border-radius: 16px;
+    box-shadow: 4px 4px 0 0 var(--d-shadow);
+    cursor: pointer;
+    transition: transform 0.08s ease, box-shadow 0.08s ease;
+  }
+  .hero-search:hover {
+    transform: translate(-2px, -2px);
+    box-shadow: 6px 6px 0 0 var(--d-shadow);
+  }
+  .hero-search kbd {
+    border: 1.5px solid var(--d-muted);
+    border-radius: 6px;
+    padding: 0 6px;
+    font-size: 12px;
+    font-weight: 800;
+  }
   .nav-label-btn {
     display: flex;
     align-items: center;

@@ -66,6 +66,9 @@ Create `src/tools/<name>/` (options.ts pure logic, worker.ts, tool.ts, <Name>Too
 - `/chat/` is "Ask the helper", like iDuckPDF's: `src/lib/helper.ts` (pure keyword matcher with synonyms; understands "under 150 KB" and points at the nearest ready-made size page; answers safety, feedback, request, support and settings questions) and `src/components/ChatHelper.tsx`. It is not an AI and sends nothing anywhere. The page is noindex and out of the sitemap (`NOINDEX_PATHS`). Add synonyms in `SYNONYMS` when a real phrase fails to match.
 - Do not write regexes with Python non-raw strings: `` becomes a backspace character. Use raw strings or the Write tool.
 
+## Home page (matches iDuckPDF's)
+- The big search box is a button (`.hero-search`) that opens the Ctrl K window; the window is the only search UI. Below it: Popular right now (`POPULAR_SLUGS` in `quick.ts`), All N tools with group chips (Everything + the five groups, with counts), an Ask the helper card, then the why cards and questions. Chips are `role="switch"` buttons and filter `[data-card-group]` blocks.
+
 ## Search window and watermark
 - `CommandPalette.astro` is the Ctrl K / Cmd K / "/" search window (same look as iDuckPDF: groups Tools, Shortcuts, Pages, Actions). It reads `TOOLS`, `LANDING_PAGES`, `COMMUNITY` and a small PAGES list, so new tools and pages appear automatically; add synonyms in the tool's `keywords`. The sidebar search box is now a button that opens it.
 - Simple one-picture tools share `SimpleToolShell.tsx` (drop zone, file count, run/cancel, progress, downloads) and `ToolGuide.astro` (steps, notes, questions); tools supply the option panels. Used by shape (circle crop), grid, pixel and text.

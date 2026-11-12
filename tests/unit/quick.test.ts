@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { QUICK_GROUPS, quickGroups } from '../../src/lib/quick';
+import { POPULAR_SLUGS, QUICK_GROUPS, popularTools, quickGroups } from '../../src/lib/quick';
 import { LANDING_PAGES } from '../../src/lib/landing';
 import { TOOLS } from '../../src/lib/tools';
 
@@ -23,5 +23,16 @@ describe('quick tools', () => {
 
   it('contains every shortcut page, so all the popular jobs are in one place', () => {
     for (const p of LANDING_PAGES) expect(all, p.slug).toContain(p.slug);
+  });
+});
+
+describe('popular right now', () => {
+  it('lists existing pages with a summary, and every one is also in Quick tools', () => {
+    const quick = new Set(QUICK_GROUPS.flatMap((g) => g.slugs));
+    expect(popularTools().map((p) => p.slug)).toEqual([...POPULAR_SLUGS]);
+    for (const p of popularTools()) {
+      expect(p.summary.length, p.slug).toBeGreaterThan(0);
+      expect(quick.has(p.slug), p.slug).toBe(true);
+    }
   });
 });
