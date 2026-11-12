@@ -72,16 +72,16 @@ const why = [
 
   <section class="mt-10" aria-label="Popular right now">
     <h2 class="text-2xl font-black tracking-tight">Popular right now</h2>
-    <ul class="mt-3 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+    <ul class="card-grid mt-3">
       {
         popularTools().map((p) => (
           <li>
             <a href={p.href} class="card card-link h-full p-4">
-              <span class="flex items-center gap-3 text-lg font-black">
-                <span aria-hidden="true" class="text-2xl">{p.emoji}</span>
+              <span class="flex items-center gap-2.5 text-[17px] font-black">
+                <span aria-hidden="true" class="text-[28px] leading-none">{p.emoji}</span>
                 {p.name}
               </span>
-              <span class="mt-1 block text-sm text-muted">{p.summary}</span>
+              <span class="mt-1 block text-sm leading-[19px] text-muted">{p.summary}</span>
             </a>
           </li>
         ))
@@ -109,30 +109,30 @@ const why = [
       TOOL_GROUPS.map((group) => (
         <div class="mt-8 first:mt-0" data-card-group data-group={group}>
           <h3 class="text-2xl font-black tracking-tight">{group}</h3>
-          <ul class="mt-3 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+          <ul class="card-grid mt-3">
             {toolsInGroup(group).map((tool) => (
               <li data-card data-slug={tool.slug}>
                 <a href={toolPath(tool.slug)} class="card card-link h-full p-4">
-                  <span class="flex items-center gap-3 text-lg font-black">
-                    <span aria-hidden="true" class="text-2xl">
+                  <span class="flex items-center gap-2.5 text-[17px] font-black">
+                    <span aria-hidden="true" class="text-[28px] leading-none">
                       {tool.emoji}
                     </span>
                     {tool.name}
                   </span>
-                  <span class="mt-1 block text-sm text-muted">{tool.summary}</span>
+                  <span class="mt-1 block text-sm leading-[19px] text-muted">{tool.summary}</span>
                 </a>
               </li>
             ))}
             {landingsInGroup(group).map((page) => (
               <li data-card data-slug={page.slug}>
                 <a href={landingPath(page.slug)} class="card card-link h-full p-4">
-                  <span class="flex items-center gap-3 text-lg font-black">
-                    <span aria-hidden="true" class="text-2xl">
+                  <span class="flex items-center gap-2.5 text-[17px] font-black">
+                    <span aria-hidden="true" class="text-[28px] leading-none">
                       {page.emoji}
                     </span>
                     {landingName(page)}
                   </span>
-                  <span class="mt-1 block text-sm text-muted">{page.summary}</span>
+                  <span class="mt-1 block text-sm leading-[19px] text-muted">{page.summary}</span>
                 </a>
               </li>
             ))}
@@ -159,7 +159,7 @@ const why = [
       {
         why.map((item) => (
           <li class="card p-4">
-            <span aria-hidden="true" class="text-2xl">
+            <span aria-hidden="true" class="text-[28px] leading-none">
               {item.emoji}
             </span>
             <h3 class="mt-2 text-lg font-black">{item.title}</h3>
