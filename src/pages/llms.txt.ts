@@ -4,6 +4,7 @@ import { LANDING_PAGES, landingPath } from '../lib/landing';
 import { COMMUNITY, communityPath } from '../lib/community';
 import { SITE_URL } from '../lib/seo';
 import { GUIDES, guidePath } from '../lib/guides';
+import { OTHER_LOCALES, localePath } from '../i18n';
 
 /** A plain-text summary for AI assistants and answer engines (the llms.txt convention). Built from the same lists as the site, so it cannot go stale. */
 export const GET: APIRoute = () => {
@@ -24,6 +25,10 @@ export const GET: APIRoute = () => {
     ...GUIDES.map((g) => `- [${g.title}](${SITE_URL}${guidePath(g.slug)}): ${g.description}`),
     '',
     `Full text of every guide: ${SITE_URL}/llms-full.txt`,
+    '',
+    '## Languages',
+    'The tools and the home page are also available in nine more languages (machine-translated; the tool controls and the guides are in English for now):',
+    ...OTHER_LOCALES.map((l) => `- [${l.native} (${l.name})](${SITE_URL}${localePath(l.code, '/')})`),
     '',
     '## About',
     `- [All image tools](${SITE_URL}/image-tools/)`,

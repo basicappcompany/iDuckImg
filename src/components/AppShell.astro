@@ -9,6 +9,7 @@ import { LANDING_PAGES, landingPath } from '../lib/landing';
 import { THEME_STORAGE_KEY } from '../lib/theme';
 import { COMMUNITY, communityPath } from '../lib/community';
 import { OG_IMAGE, SITE_NAME, serialize } from '../lib/seo';
+import { dictFor, languageLinks, localeByCode, localePath, splitLocalePath, toolText, type Alternate } from '../i18n';
 
 interface Props {
   title: string;
@@ -17,10 +18,21 @@ interface Props {
   noindex?: boolean;
   /** Structured data objects (schema.org), written as JSON-LD in the head. */
   jsonLd?: unknown[];
+  /** The language of this page. English is the default and lives at the root. */
+  locale?: string;
+  /** Every language version of this page, for hreflang. Empty when the page has no translations. */
+  alternates?: Alternate[];
 }
-const { title, description, noindex = false, jsonLd = [] } = Astro.props;
+const { title, description, noindex = false, jsonLd = [], locale = 'en', alternates = [] } = Astro.props;
+const loc = localeByCode(locale);
+const d = dictFor(locale);
+const isEn = locale === 'en';
+const lp = (p: string) => localePath(locale, p);
+const langLinks = languageLinks(splitLocalePath(Astro.url.pathname).rest);
+const englishHref = alternates.find((a) => a.hreflang === 'en')?.href;
 const canonical = new URL(Astro.url.pathname, Astro.site).href;
-const path = Astro.url.pathname.endsWith('/') ? Astro.url.pathname : `${Astro.url.pathname}/`;
+// The path without the language part, so active states compare with the English addresses.
+const path = splitLocalePath(Astro.url.pathname).rest;
 const isHome = path === '/';
 const groupIcon = (group: string) => PLAN_CATEGORIES.find((c) => c.id === group)?.emoji ?? '🧰';
 // The group holding the current page starts open, like iDuckPDF's sidebar; otherwise the first one does.
@@ -33,7 +45,7 @@ const openGroup = toolForPath(path)?.group ?? TOOL_GROUPS[0];
 ---
 
 <!doctype html>
-<html lang="en">
+<html lang={loc.code}>
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -41,6 +53,9 @@ const openGroup = toolForPath(path)?.group ?? TOOL_GROUPS[0];
     <title>{title}</title>
     <meta name="description" content={description} />
     {noindex ? <meta name="robots" content="noindex" /> : <link rel="canonical" href={canonical} />}
+    {!noindex && alternates.map((a) => <link rel="alternate" hreflang={a.hreflang} href={a.href} />)}
+    {!noindex && englishHref && <link rel="alternate" hreflang="x-default" href={englishHref} />}
+    <meta property="og:locale" content={loc.og} />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <meta property="og:site_name" content={SITE_NAME} />
     <meta property="og:type" content="website" />
@@ -71,39 +86,44 @@ const openGroup = toolForPath(path)?.group ?? TOOL_GROUPS[0];
       href="#main"
       class="sr-only focus:not-sr-only focus:fixed focus:left-3 focus:top-3 focus:z-50 focus:rounded-lg focus:border-2 focus:border-line focus:bg-duck focus:px-4 focus:py-2 focus:font-black focus:text-duckink"
     >
-      Skip to the tool
+      {d.skipToTool}
     </a>
 
     <div class="shell">
-      <aside class="sidebar" id="sidebar" aria-label="Site menu">
+      <aside class="sidebar" id="sidebar" aria-label={d.siteMenu}>
         <div class="nav-scroll">
-          <a href="/" class="nav-brand" aria-label="iDuckImg home">
+          <a href={lp('/')} class="nav-brand" aria-label={d.homeAria}>
             <DuckMark size={34} />
             <span>iDuckImg</span>
           </a>
 
-          <button type="button" id="sidebar-search" class="nav-search" aria-label="Search tools, pages and actions">
+          <button type="button" id="sidebar-search" class="nav-search" aria-label={d.searchAria}>
             <span aria-hidden="true">🔍</span>
-            <span class="flex-1 text-left">Search…</span>
+            <span class="flex-1 text-left">{d.searchPlaceholder}</span>
             <kbd aria-hidden="true">Ctrl K</kbd>
           </button>
 
           <nav aria-label="Main">
-            <a class="nav-item" href="/" aria-current={isHome ? 'page' : undefined}>
-              <span class="nav-icon" aria-hidden="true">🏠</span><span class="nav-text">Home</span>
+            <a class="nav-item" href={lp('/')} aria-current={isHome ? 'page' : undefined}>
+              <span class="nav-icon" aria-hidden="true">🏠</span><span class="nav-text">{d.navHome}</span>
             </a>
-            <a class="nav-item" href="/chat/" aria-current={path === '/chat/' ? 'page' : undefined}>
-              <span class="nav-icon" aria-hidden="true">💬</span><span class="nav-text">Ask the helper</span>
-            </a>
-            <a class="nav-item" href="/image-tools/" aria-current={path === '/image-tools/' ? 'page' : undefined}>
-              <span class="nav-icon" aria-hidden="true">🧰</span><span class="nav-text">All image tools</span>
-            </a>
+            {isEn && (
+              <a class="nav-item" href="/chat/" aria-current={path === '/chat/' ? 'page' : undefined}>
+                <span class="nav-icon" aria-hidden="true">💬</span><span class="nav-text">Ask the helper</span>
+              </a>
+            )}
+            {isEn && (
+              <a class="nav-item" href="/image-tools/" aria-current={path === '/image-tools/' ? 'page' : undefined}>
+                <span class="nav-icon" aria-hidden="true">🧰</span><span class="nav-text">All image tools</span>
+              </a>
+            )}
             <a class="nav-item" href="/guides/" aria-current={path === '/guides/' ? 'page' : undefined}>
-              <span class="nav-icon" aria-hidden="true">📖</span><span class="nav-text">How-to guides</span>
+              <span class="nav-icon" aria-hidden="true">📖</span><span class="nav-text">{d.navGuides}</span>
             </a>
 
           </nav>
 
+          {isEn && (
           <nav aria-label="Quick tools">
             <button
               type="button"
@@ -148,9 +168,10 @@ const openGroup = toolForPath(path)?.group ?? TOOL_GROUPS[0];
               }
             </div>
           </nav>
+          )}
 
           <nav aria-label="Tools">
-            <p class="nav-label">Tools</p>
+            <p class="nav-label">{d.toolsLabel}</p>
             {
               TOOL_GROUPS.map((group, i) => {
                 const open = group === openGroup;
@@ -164,7 +185,7 @@ const openGroup = toolForPath(path)?.group ?? TOOL_GROUPS[0];
                       aria-controls={`group-${i}`}
                     >
                       <span class="nav-icon" aria-hidden="true">{groupIcon(group)}</span>
-                      <span class="nav-text">{group}</span>
+                      <span class="nav-text">{d.groups[group]}</span>
                       <span class="nav-chevron" aria-hidden="true">›</span>
                     </button>
                     <ul class="nav-children" id={`group-${i}`} hidden={!open}>
@@ -172,11 +193,11 @@ const openGroup = toolForPath(path)?.group ?? TOOL_GROUPS[0];
                         <li data-tool={tool.slug}>
                           <a
                             class="nav-item nav-small"
-                            href={toolPath(tool.slug)}
+                            href={lp(toolPath(tool.slug))}
                             aria-current={path === toolPath(tool.slug) ? 'page' : undefined}
                           >
                             <span class="nav-icon" aria-hidden="true">{tool.emoji}</span>
-                            <span class="nav-text">{tool.name}</span>
+                            <span class="nav-text">{toolText(locale, tool.slug).name}</span>
                           </a>
                         </li>
                       ))}
@@ -187,6 +208,8 @@ const openGroup = toolForPath(path)?.group ?? TOOL_GROUPS[0];
             }
           </nav>
 
+          {isEn && (
+          <>
           <p class="nav-label">Community</p>
           <ul>
             {
@@ -209,6 +232,8 @@ const openGroup = toolForPath(path)?.group ?? TOOL_GROUPS[0];
           <a class="nav-item" href="https://iduckpdf.com/" rel="noopener">
             <span class="nav-icon" aria-hidden="true">📚</span><span class="nav-text">iDuckPDF: PDF tools</span>
           </a>
+          </>
+          )}
         </div>
       </aside>
 
@@ -220,32 +245,54 @@ const openGroup = toolForPath(path)?.group ?? TOOL_GROUPS[0];
             type="button"
             class="btn btn-sm"
             data-menu-button
-            aria-label="Open the menu"
+            aria-label={d.openMenu}
             aria-controls="sidebar"
             aria-expanded="false">☰</button
           >
-          <a href="/" class="flex items-center gap-2 rounded-lg min-[900px]:hidden">
+          <a href={lp('/')} class="flex items-center gap-2 rounded-lg min-[900px]:hidden">
             <DuckMark size={28} />
             <span class="font-black">iDuckImg</span>
           </a>
           <div class="ml-auto flex items-center gap-2">
-            <button type="button" class="btn btn-sm" id="search-open" aria-label="Open search">
+            <button type="button" class="btn btn-sm" id="search-open" aria-label={d.openSearch}>
               <span aria-hidden="true">🔍</span>
-              <span class="hidden sm:inline">Search · Ctrl K</span>
+              <span class="hidden sm:inline">{d.searchButton}</span>
             </button>
+            <details class="lang" data-lang-menu>
+              <summary class="btn btn-sm" aria-label={d.language}>
+                <span aria-hidden="true">🌐</span>
+                <span class="hidden min-[520px]:inline">{loc.native}</span>
+              </summary>
+              <ul class="lang-list">
+                {
+                  langLinks.map((l) => (
+                    <li>
+                      <a
+                        href={l.href}
+                        hreflang={l.locale.code}
+                        lang={l.locale.code}
+                        aria-current={l.locale.code === locale ? 'true' : undefined}
+                      >
+                        {l.locale.native}
+                      </a>
+                    </li>
+                  ))
+                }
+              </ul>
+            </details>
             <button
               type="button"
               class="btn btn-sm"
               id="theme-toggle"
-              aria-label="Switch between light and dark mode"
+              aria-label={d.themeToggle}
               aria-pressed="false"
             >
               <span data-theme-icon="moon" aria-hidden="true">🌙</span>
               <span data-theme-icon="sun" aria-hidden="true">☀️</span>
             </button>
-            <a href="/support/" class="btn btn-sm btn-primary" aria-label="Support iDuckImg">
+            <a href="/support/" class="btn btn-sm btn-primary" aria-label={d.supportAria}>
               <span aria-hidden="true">💛</span>
-              <span class="hidden min-[520px]:inline">Support</span>
+              <span class="hidden min-[520px]:inline">{d.support}</span>
             </a>
           </div>
         </header>
@@ -254,6 +301,21 @@ const openGroup = toolForPath(path)?.group ?? TOOL_GROUPS[0];
           <slot />
         </main>
 
+        {!isEn && (
+          <footer class="mx-auto max-w-[1072px] px-4 pb-10 text-sm text-muted">
+            <div class="border-t-2 border-line pt-6">
+              <p>{d.footerTagline}</p>
+              <p class="mt-2 flex flex-wrap gap-x-4">
+                <a class="link" href="/guides/">{d.footerGuides}</a>
+                <a class="link" href="/privacy/">{d.footerPrivacy}</a>
+                <a class="link" href="/terms/">{d.footerTerms}</a>
+                <a class="link" href="/feedback/">{d.footerFeedback}</a>
+              </p>
+              <p class="mt-3 text-xs" data-machine-note>{d.machineNote}</p>
+            </div>
+          </footer>
+        )}
+        {isEn && (
         <footer class="mx-auto max-w-[1072px] px-4 pb-10 text-sm text-muted">
           <nav aria-label="Popular conversions" class="border-t-2 border-line pt-6">
             <p class="eyebrow mb-2">Popular</p>
@@ -282,11 +344,24 @@ const openGroup = toolForPath(path)?.group ?? TOOL_GROUPS[0];
             <a class="link" href="/feedback/">Feedback</a>
           </p>
         </footer>
+        )}
       </div>
     </div>
 
     <CommandPalette />
 
+    <script>
+      // The language menu closes when you click elsewhere or press Escape.
+      const langMenu = document.querySelector<HTMLDetailsElement>('[data-lang-menu]');
+      if (langMenu) {
+        document.addEventListener('click', (e) => {
+          if (!langMenu.contains(e.target as Node)) langMenu.open = false;
+        });
+        document.addEventListener('keydown', (e) => {
+          if (e.key === 'Escape') langMenu.open = false;
+        });
+      }
+    </script>
     <script>
       import { THEME_STORAGE_KEY } from '../lib/theme';
 

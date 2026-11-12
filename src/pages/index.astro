@@ -4,6 +4,7 @@ import DuckMark from '../components/DuckMark.astro';
 import { TOOLS, TOOL_GROUPS, toolPath, toolsInGroup } from '../lib/tools';
 import { popularTools } from '../lib/quick';
 import { GUIDES, guidePath } from '../lib/guides';
+import { alternatesFor } from '../i18n';
 import { LANDING_PAGES, landingName, landingPath, landingsInGroup } from '../lib/landing';
 import { faqLd, organizationLd, websiteLd } from '../lib/seo';
 
@@ -38,6 +39,7 @@ const why = [
 ---
 
 <AppShell
+  alternates={alternatesFor('/')}
   jsonLd={[websiteLd(), organizationLd(), faqLd(faqs)]}
   title="iDuckImg: free online image tools"
   description="Compress, resize, crop, convert and clean images free in your browser. No upload, no signup. Your files never leave your device."
