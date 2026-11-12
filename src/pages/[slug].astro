@@ -3,7 +3,8 @@ import ToolLayout from '../components/ToolLayout.astro';
 import CompressTool from '../tools/compress/CompressTool';
 import ResizeTool from '../tools/resize/ResizeTool';
 import ConvertTool from '../tools/convert/ConvertTool';
-import { LANDING_PAGES, landingPath, type LandingPage } from '../lib/landing';
+import ExamTool from '../tools/exam/ExamTool';
+import { LANDING_PAGES, landingParent, landingPath, type LandingPage } from '../lib/landing';
 import { TOOLS, toolPath } from '../lib/tools';
 
 export function getStaticPaths() {
@@ -11,7 +12,7 @@ export function getStaticPaths() {
 }
 
 const { page } = Astro.props as { page: LandingPage };
-const parentSlug = { compress: 'compress-image', resize: 'resize-image', convert: 'convert-image' }[page.engine];
+const parentSlug = landingParent(page).slug;
 
 const relatedLinks = page.related.flatMap((slug) => {
   const tool = TOOLS.find((t) => t.slug === slug);
@@ -33,6 +34,11 @@ const relatedLinks = page.related.flatMap((slug) => {
   {page.engine === 'compress' && <CompressTool client:load initial={page.initial} />}
   {page.engine === 'resize' && <ResizeTool client:load initial={page.initial} />}
   {page.engine === 'convert' && <ConvertTool client:load initial={page.initial} />}
+  {
+    page.engine === 'exam' && (
+      <ExamTool client:load initialExam={String(page.initial['examId'])} initialDoc={String(page.initial['docId'])} />
+    )
+  }
 
   <div slot="content" class="grid gap-8">
     <section class="prose" aria-label="How to">

@@ -6,8 +6,9 @@
  * each page has real content.
  */
 import { TOOLS, type ToolGroup, type ToolLink } from './tools';
+import { EXAM_LANDING_PAGES } from './exam-landing';
 
-export type LandingEngine = 'compress' | 'resize' | 'convert';
+export type LandingEngine = 'compress' | 'resize' | 'convert' | 'exam';
 
 export interface LandingFaq {
   q: string;
@@ -460,6 +461,7 @@ export const LANDING_PAGES: readonly LandingPage[] = [
     ],
     related: ['png-to-jpg', 'compress-image', 'convert-image'],
   }),
+  ...EXAM_LANDING_PAGES,
 ];
 
 export function landingForSlug(slug: string): LandingPage | undefined {
@@ -470,7 +472,12 @@ export function landingPath(slug: string): string {
   return `/${slug}/`;
 }
 
-const PARENT_SLUG: Record<LandingEngine, string> = { compress: 'compress-image', resize: 'resize-image', convert: 'convert-image' };
+const PARENT_SLUG: Record<LandingEngine, string> = {
+  compress: 'compress-image',
+  resize: 'resize-image',
+  convert: 'convert-image',
+  exam: 'exam-photo-resizer',
+};
 
 /** The tool this page opens (its "parent"). */
 export function landingParent(page: LandingPage): ToolLink {

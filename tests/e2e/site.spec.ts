@@ -11,7 +11,8 @@ const GROUPS: Record<string, string[]> = {
 const TOOL_PATHS = Object.values(GROUPS).flat();
 /** The shortcuts (landing pages) listed under the tool they open, after the group's own tools. */
 const SHORTCUTS: Record<string, string[]> = {
-  'Shrink & resize': ['/compress-image-to-100kb/', '/compress-image-to-50kb/', '/compress-image-to-200kb/', '/compress-image-to-20kb/'],
+  'Shrink & resize': ['/compress-image-to-100kb/', '/compress-image-to-50kb/', '/compress-image-to-200kb/', '/compress-image-to-20kb/',
+    '/ibps-po-photo-size/', '/ibps-po-signature-size/', '/ibps-po-thumb-impression-size/', '/ibps-po-declaration-size/', '/ssc-cgl-signature-size/'],
   'Convert & combine': [
     '/heic-to-jpg/', '/heic-to-png/', '/png-to-jpg/', '/jpg-to-png/', '/webp-to-jpg/',
     '/webp-to-png/', '/jpg-to-webp/', '/png-to-webp/', '/jpg-to-pdf/', '/png-to-pdf/',
@@ -30,7 +31,7 @@ const QUICK: Record<string, string[]> = {
   ],
   'Open other formats': ['/avif-to-jpg/', '/avif-to-png/', '/svg-to-png/', '/svg-to-jpg/', '/bmp-to-jpg/', '/gif-to-png/'],
   'Make a PDF': ['/jpg-to-pdf/', '/png-to-pdf/', '/image-to-pdf/'],
-  'Photos for forms': ['/exam-photo-resizer/', '/remove-exif-data/', '/blur-image/'],
+  'Photos for forms': ['/exam-photo-resizer/', '/ibps-po-photo-size/', '/ibps-po-signature-size/', '/ibps-po-thumb-impression-size/', '/ibps-po-declaration-size/', '/ssc-cgl-signature-size/', '/remove-exif-data/', '/blur-image/'],
   'Quick edits': ['/crop-image/', '/rotate-image/', '/add-watermark-to-image/', '/add-logo-to-image/', '/circle-crop-image/', '/merge-images/'],
 };
 /** Everything the home page and the sidebar list, in order: each group's tools, then its shortcuts. */
