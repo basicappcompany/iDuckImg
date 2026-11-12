@@ -1,0 +1,51 @@
+---
+import ToolLayout from '../components/ToolLayout.astro';
+import ToolGuide from '../components/ToolGuide.astro';
+import AdjustTool from '../tools/adjust/AdjustTool';
+
+const steps = [
+  'Drop your JPG, PNG or WebP pictures, or paste them.',
+  'Move the Brightness, Contrast and Colour strength sliders, or pick a filter such as Black and white. The preview updates as you go.',
+  'Press Apply.',
+  'Download each file, or all of them as a ZIP.',
+];
+const notes = [
+  'The same changes are applied to every picture you add, so you can turn a whole folder black and white in one go. The preview shows the first picture.',
+  'Brightness and contrast are applied first, then colour strength, then the filter. Transparent areas of a PNG stay transparent. Pictures are saved in their own format, and JPG and WebP are saved again at high quality.',
+];
+const faqs = [
+  {
+    q: 'How do I make a picture black and white?',
+    a: 'Drop the picture, choose the Black and white filter and press Apply. You can also drag Colour strength all the way down for a similar result.',
+  },
+  {
+    q: 'Can I make a photo brighter or darker?',
+    a: 'Yes. Move the Brightness slider right to brighten and left to darken. Contrast makes the light and dark areas further apart or closer together.',
+  },
+  {
+    q: 'What does the sepia filter do?',
+    a: 'It gives the picture a warm brown tone like an old photograph.',
+  },
+  {
+    q: 'Can I change many pictures at once?',
+    a: 'Yes. Every picture gets the same settings, and you can download them together as a ZIP.',
+  },
+  {
+    q: 'Is my picture uploaded?',
+    a: 'No. The changes are made in your browser, so your pictures stay on your device.',
+  },
+];
+---
+
+<ToolLayout
+  title="Adjust image colours and filters online free | iDuckImg"
+  description="Change brightness, contrast and colour strength, or make pictures black and white, sepia or negative. Live preview. Free, in your browser, no upload."
+  heading="Adjust colours and filters"
+  steps={steps}
+  faqs={faqs}
+>
+  <AdjustTool client:load />
+  <div slot="content">
+    <ToolGuide title="How to change the colours of a picture" steps={steps} notes={notes} faqs={faqs} />
+  </div>
+</ToolLayout>

@@ -181,6 +181,46 @@ export const TOOLS: readonly ToolLink[] = [
       'To hide part of a picture, drop it in, drag a box over the name, number or face, choose Blur, Pixelate or Cover, and press the button. The new picture is made in your browser.',
     keywords: 'censor redact hide face number name privacy pixelate cover mask obscure',
   },
+  {
+    slug: 'pixel-to-cm-converter',
+    name: 'Pixel, cm and inch converter',
+    summary: 'Convert between pixels, centimetres and inches at any DPI.',
+    group: 'Shrink & resize',
+    emoji: '📏',
+    quick:
+      'To convert pixels to centimetres or inches, type the length, choose its unit and the DPI. At 300 DPI, 1 cm is about 118 pixels, and A4 paper is 2480 x 3508 pixels.',
+    keywords: 'px cm mm inch inches dpi ppi print size a4 centimeter centimetre millimetre calculator',
+  },
+  {
+    slug: 'aspect-ratio-calculator',
+    name: 'Aspect ratio calculator',
+    summary: 'Find the matching height or width for any ratio.',
+    group: 'Shrink & resize',
+    emoji: '🧮',
+    quick:
+      'To find an aspect ratio, type the width and height: 1920 x 1080 is 16:9. To keep a ratio when resizing, pick it, type the new width and the height is worked out for you.',
+    keywords: 'ratio 16:9 4:3 1:1 proportion width height dimensions calculator scale resize keep',
+  },
+  {
+    slug: 'adjust-image-colors',
+    name: 'Adjust colours and filters',
+    summary: 'Brightness, contrast, saturation, black and white, sepia and more.',
+    group: 'Edit & transform',
+    emoji: '🎚️',
+    quick:
+      'To change the colours of a picture, drop it in, move the Brightness, Contrast and Colour strength sliders or pick a filter like Black and white, and press Apply. It happens in your browser.',
+    keywords: 'brightness contrast saturation grayscale greyscale black white sepia invert negative filter colour color tone brighter darker',
+  },
+  {
+    slug: 'add-border-to-image',
+    name: 'Add a border or frame',
+    summary: 'Put a coloured border or padding around a picture.',
+    group: 'Edit & transform',
+    emoji: '🖼️',
+    quick:
+      'To add a border, drop your picture in, set the thickness and choose a colour, then press Add border. The border goes around the picture, so nothing is cut off. It is drawn in your browser.',
+    keywords: 'frame padding margin outline white border black border edge surround',
+  },
 ];
 
 export function toolPath(slug: string): string {

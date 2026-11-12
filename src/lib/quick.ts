@@ -68,7 +68,16 @@ export const QUICK_GROUPS: readonly QuickGroupDef[] = [
     id: 'edit',
     name: 'Quick edits',
     emoji: '✂️',
-    slugs: ['crop-image', 'rotate-image', 'add-watermark-to-image', 'add-logo-to-image', 'circle-crop-image', 'merge-images'],
+    slugs: [
+      'crop-image',
+      'rotate-image',
+      'add-watermark-to-image',
+      'add-logo-to-image',
+      'circle-crop-image',
+      'merge-images',
+      'adjust-image-colors',
+      'add-border-to-image',
+    ],
   },
 ];
 

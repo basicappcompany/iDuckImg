@@ -1,0 +1,51 @@
+---
+import ToolLayout from '../components/ToolLayout.astro';
+import ToolGuide from '../components/ToolGuide.astro';
+import RatioCalculator from '../calculators/RatioCalculator';
+
+const steps = [
+  'To find a ratio, type the width and height in pixels. The simplest ratio appears below, for example 1920 x 1080 is 16:9.',
+  'To resize to a ratio, pick one (16:9, 4:3, 1:1 and more) or type your own.',
+  'Type the new width and the height follows, or type the height and the width follows.',
+];
+const notes = [
+  'The ratio is the width divided by the height, written in the smallest whole numbers. Two pictures with the same ratio have the same shape even if they have different sizes.',
+  'Heights and widths are rounded to a whole pixel. If a size is only close to a common ratio, such as 1366 x 768, the calculator says so instead of pretending it is exact.',
+];
+const faqs = [
+  {
+    q: 'What is the aspect ratio of 1920 x 1080?',
+    a: '16:9. Divide both numbers by their greatest common divisor, 120, and you get 16 and 9.',
+  },
+  {
+    q: 'How do I keep the ratio when I resize?',
+    a: 'Choose the ratio, then type the new width. The height is worked out for you: height = width x ratio height / ratio width.',
+  },
+  {
+    q: 'What is the ratio of a phone video?',
+    a: 'Vertical phone video and stories are usually 9:16. Instagram portrait posts are 4:5.',
+  },
+  {
+    q: 'Why is 1366 x 768 not exactly 16:9?',
+    a: 'It is 683:384, which is within a fraction of a percent of 16:9 but not equal to it. The calculator shows both.',
+  },
+  {
+    q: 'Does this change my picture?',
+    a: 'No. It is a calculator and does not use any file. To resize a picture, use Resize images or Crop images with a ratio.',
+  },
+];
+---
+
+<ToolLayout
+  title="Aspect ratio calculator: find or keep a ratio | iDuckImg"
+  description="Find the aspect ratio of any width and height, or work out the matching height or width for 16:9, 4:3, 1:1 and any ratio. Free, instant, no sign-up."
+  heading="Aspect ratio calculator"
+  steps={steps}
+  faqs={faqs}
+  usesFiles={false}
+>
+  <RatioCalculator client:load />
+  <div slot="content">
+    <ToolGuide title="How to calculate an aspect ratio" steps={steps} notes={notes} faqs={faqs} />
+  </div>
+</ToolLayout>
