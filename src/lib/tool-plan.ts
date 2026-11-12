@@ -84,7 +84,7 @@ export const PLAN: readonly PlannedTool[] = [
   t('add-border-to-image', '🖼️', 'Add a border or frame', 'Put a coloured border or padding around a picture.', EDIT, 'next', 'S'),
   t('circle-crop-image', '⭕', 'Circle crop and round corners', 'Make a round profile picture or round the corners.', EDIT, 'live', 'S'),
   t('split-image-into-grid', '🧩', 'Split an image into a grid', 'Cut a picture into equal tiles for a grid post or a puzzle.', EDIT, 'live', 'S'),
-  t('merge-images', '🪢', 'Merge images side by side', 'Join several pictures into one, in a row or a column.', EDIT, 'next', 'S'),
+  t('merge-images', '🪢', 'Merge images side by side', 'Join several pictures into one, in a row or a column.', EDIT, 'live', 'S'),
   t('compare-images', '↔️', 'Compare two images', 'Slide between a before and an after picture.', EDIT, 'next', 'S'),
   t('photo-editor', '🖌️', 'Online photo editor', 'Crop, turn, adjust and add text in one place.', EDIT, 'soon', 'L'),
 
@@ -92,7 +92,7 @@ export const PLAN: readonly PlannedTool[] = [
   t('add-watermark-to-image', '💧', 'Add a watermark', 'Put your name or a copyright line on a picture before you share it.', TEXT, 'live', 'M'),
   t('add-text-to-image', '🔠', 'Add text to an image', 'Write on a picture with any size, colour and position.', TEXT, 'live', 'M'),
   t('meme-maker', '😂', 'Meme maker', 'Top and bottom text on any picture.', TEXT, 'soon', 'M'),
-  t('blur-image', '🌫️', 'Blur or hide parts of an image', 'Blur, pixelate or cover areas such as names and numbers.', TEXT, 'next', 'M'),
+  t('blur-image', '🌫️', 'Blur or hide parts of an image', 'Blur, pixelate or cover areas such as names and numbers.', TEXT, 'live', 'M'),
   t('pixel-art-maker', '👾', 'Pixel art maker', 'Turn a photo into chunky pixel art.', TEXT, 'live', 'S'),
   t('photo-to-sketch', '✏️', 'Photo to pencil sketch', 'Give a photo a pencil-drawing look.', TEXT, 'soon', 'M'),
   t('image-to-ascii-art', '🔣', 'Image to ASCII art', 'Draw a picture with text characters.', TEXT, 'next', 'S'),

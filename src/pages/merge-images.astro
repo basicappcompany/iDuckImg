@@ -1,0 +1,47 @@
+---
+import ToolLayout from '../components/ToolLayout.astro';
+import ToolGuide from '../components/ToolGuide.astro';
+import MergeTool from '../tools/merge/MergeTool';
+
+const steps = [
+  "Drop two or more pictures: JPG, PNG, WebP or iPhone HEIC.",
+  "Put them in the order you want with Up and Down.",
+  "Choose side by side or one under another, the space between, and the background.",
+  "Press Join pictures and download the result."
+];
+const notes = [
+  "By default every picture is scaled to the same height (side by side) or the same width (stacked), using the smallest one, so nothing is stretched up and blurred. Choose \"Keep each at its own size\" to leave sizes alone; the pictures are then centred on the background.",
+  "The result is one PNG, JPG or WebP. A very large result (over 100 megapixels) is refused, because a phone could not hold it."
+];
+const faqs = [
+  {
+    "q": "How do I put two photos side by side?",
+    "a": "Drop both photos, leave the arrangement on \"Side by side\" and press Join pictures. You get one picture with the first on the left and the second on the right."
+  },
+  {
+    "q": "Can I stack pictures vertically?",
+    "a": "Yes. Choose \"One under another\" in the Arrange box. This is useful for joining screenshots into one long picture."
+  },
+  {
+    "q": "Can I add space between the pictures?",
+    "a": "Yes. Type a number of pixels in \"Space between\" and choose the background colour that shows in the gap."
+  },
+  {
+    "q": "Is my picture uploaded?",
+    "a": "No. The pictures are joined in your browser, so they stay on your device."
+  }
+];
+---
+
+<ToolLayout
+  title={"Merge images side by side online free | iDuckImg"}
+  description={"Join several pictures into one, in a row or a column. Choose the order, spacing and background. Free, in your browser, no upload."}
+  heading={"Merge images side by side"}
+  steps={steps}
+  faqs={faqs}
+>
+  <MergeTool client:load />
+  <div slot="content">
+    <ToolGuide title={"How to join pictures into one"} steps={steps} notes={notes} faqs={faqs} />
+  </div>
+</ToolLayout>

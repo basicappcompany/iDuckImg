@@ -1,0 +1,47 @@
+---
+import ToolLayout from '../components/ToolLayout.astro';
+import ToolGuide from '../components/ToolGuide.astro';
+import BlurTool from '../tools/blur/BlurTool';
+
+const steps = [
+  "Drop your JPG, PNG or WebP picture.",
+  "Drag on the picture to draw a box over each thing you want to hide. Draw as many as you need.",
+  "Choose Blur, Pixelate or Cover with a solid colour, and how strong it should be.",
+  "Press the button and download the new picture."
+];
+const notes = [
+  "For anything that must stay private, such as a card number, a name or a face, use Cover with a solid colour, or a high strength. A light blur or large pixels can sometimes be partly read.",
+  "The preview shows the first picture. If you drop several, the same boxes are applied to all of them, which suits screenshots with the same layout. The original files are never changed: you get new files."
+];
+const faqs = [
+  {
+    "q": "How do I blur a face or a number in a photo?",
+    "a": "Drop the photo, drag a box over the face or number, choose Blur or Cover and press the button. You can draw several boxes in one go."
+  },
+  {
+    "q": "Is blurring safe for private information?",
+    "a": "A strong blur or a solid cover hides it. A light blur may be partly readable, so for card numbers and passwords choose Cover with a solid colour."
+  },
+  {
+    "q": "Can I move or resize a box?",
+    "a": "Yes. Each box is listed under the picture with its position and size in percent. Change the numbers, or remove the box and draw it again."
+  },
+  {
+    "q": "Is my picture uploaded?",
+    "a": "No. The effect is applied in your browser, so the picture stays on your device."
+  }
+];
+---
+
+<ToolLayout
+  title={"Blur or hide parts of an image online free | iDuckImg"}
+  description={"Blur, pixelate or cover names, numbers and faces in a picture. Draw boxes on the picture. Free, in your browser, no upload."}
+  heading={"Blur or hide parts of an image"}
+  steps={steps}
+  faqs={faqs}
+>
+  <BlurTool client:load />
+  <div slot="content">
+    <ToolGuide title={"How to blur part of a picture"} steps={steps} notes={notes} faqs={faqs} />
+  </div>
+</ToolLayout>

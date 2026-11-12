@@ -14,6 +14,8 @@ const TOOL_PATHS = [
   '/split-image-into-grid/',
   '/add-text-to-image/',
   '/pixel-art-maker/',
+  '/merge-images/',
+  '/blur-image/',
 ];
 
 test.describe('unknown addresses', () => {
