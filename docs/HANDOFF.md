@@ -1,8 +1,8 @@
-# Handoff (updated 2026-11-12, end of the landing-pages session)
+# Handoff (updated 2026-11-12, after PR #34)
 
-The branch `feat/community-pages` now holds the community pages, the 59-tool plan, 25 landing pages, the SEO/GEO/AEO layer, and the Privacy and Terms pages. `pnpm verify` and `pnpm test:e2e` pass locally. Once its PR is merged on green CI, check the live site (see "After deploying").
+Everything below is merged to `main` and live at https://iduckimg.com (PRs #20 to #34, each merged on green CI). The site has 20 tools and 25 shortcut pages (45 pages), from a 59-tool plan. `pnpm verify` passes with 304 unit tests and `pnpm test:e2e` with 155 browser tests (4 HEIC tests skipped without a fixture). For what is done and what is next, open `docs/status.html`; for conventions and the add-a-tool checklist, read `CLAUDE.md`.
 
-## Done in this branch
+## What exists
 - Community pages (roadmap, request, feedback, support, settings, about) in the sidebar, forms that build a mailto, 59-tool master plan in `src/lib/tool-plan.ts`.
 - URL renames `compress-images` to `compress-image` and `images-to-pdf` to `image-to-pdf` (301s in `public/_redirects`).
 - 25 landing pages from `src/lib/landing.ts` via `src/pages/[slug].astro`: the real tool opens with options preset (compress to 20/50/100/200 KB, HEIC/PNG/WebP/JPG conversions, JPG/PNG to PDF).
