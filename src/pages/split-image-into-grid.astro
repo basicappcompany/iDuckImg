@@ -1,0 +1,47 @@
+---
+import ToolLayout from '../components/ToolLayout.astro';
+import ToolGuide from '../components/ToolGuide.astro';
+import GridTool from '../tools/grid/GridTool';
+
+const steps = [
+  "Drop a JPG, PNG or WebP picture.",
+  "Choose how many rows and columns. The preview shows the cut lines.",
+  "Press Split. You get one file per tile, numbered row by row.",
+  "Download the tiles one by one, or all of them as a ZIP."
+];
+const notes = [
+  "Tiles are named photo-r1-c1, photo-r1-c2 and so on, where r is the row and c is the column counting from the top left. If the picture does not divide evenly, tiles differ by at most one pixel.",
+  "For a 3 by 3 social media grid, post the tiles from the last one to the first so the picture builds up correctly on your profile."
+];
+const faqs = [
+  {
+    "q": "How do I split a picture into 9 equal parts?",
+    "a": "Set 3 rows and 3 columns (the default) and press Split. You get nine tiles that together cover the whole picture."
+  },
+  {
+    "q": "How many tiles can I make?",
+    "a": "Up to 10 rows and 10 columns, which is 100 tiles, from one picture."
+  },
+  {
+    "q": "Do the tiles lose quality?",
+    "a": "PNG tiles are exact. JPG and WebP tiles are saved again at high quality, so the file size can change slightly."
+  },
+  {
+    "q": "Can I split many pictures at once?",
+    "a": "Yes. The same grid is applied to every picture, and all tiles go into one ZIP."
+  }
+];
+---
+
+<ToolLayout
+  title={"Split an image into a grid online free | iDuckImg"}
+  description={"Cut a picture into equal tiles for a grid post or a puzzle. Choose rows and columns, download every tile. Free, in your browser, no upload."}
+  heading={"Split an image into a grid"}
+  steps={steps}
+  faqs={faqs}
+>
+  <GridTool client:load />
+  <div slot="content">
+    <ToolGuide title={"How to split a picture into tiles"} steps={steps} notes={notes} faqs={faqs} />
+  </div>
+</ToolLayout>

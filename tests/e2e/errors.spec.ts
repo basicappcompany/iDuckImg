@@ -10,6 +10,10 @@ const TOOL_PATHS = [
   '/image-to-pdf/',
   '/rotate-image/',
   '/remove-exif-data/',
+  '/circle-crop-image/',
+  '/split-image-into-grid/',
+  '/add-text-to-image/',
+  '/pixel-art-maker/',
 ];
 
 test.describe('unknown addresses', () => {

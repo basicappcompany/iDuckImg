@@ -111,6 +111,46 @@ export const TOOLS: readonly ToolLink[] = [
       'To remove location and camera details from a photo, drop it in and press Remove metadata. The picture is not recompressed, so quality stays the same.',
     keywords: 'metadata gps location privacy strip clean exif iptc xmp',
   },
+  {
+    slug: 'circle-crop-image',
+    name: 'Circle crop and round corners',
+    summary: 'Make a round profile picture or round the corners of any picture.',
+    group: 'Edit & transform',
+    emoji: '⭕',
+    quick:
+      'To make a picture round, drop it in, choose Circle or Rounded corners and press Make it round. You get a PNG with see-through corners, made in your browser.',
+    keywords: 'round circle profile avatar picture rounded corners rounded oval',
+  },
+  {
+    slug: 'split-image-into-grid',
+    name: 'Split an image into a grid',
+    summary: 'Cut a picture into equal tiles for a grid post or a puzzle.',
+    group: 'Edit & transform',
+    emoji: '🧩',
+    quick:
+      'To split a picture into tiles, drop it in, choose the number of rows and columns and press Split. You get one file per tile, numbered row by row, and all of them in one ZIP.',
+    keywords: 'cut tiles pieces parts puzzle instagram grid 3x3 divide slice',
+  },
+  {
+    slug: 'add-text-to-image',
+    name: 'Add text to an image',
+    summary: 'Write on a picture with any size, colour and position.',
+    group: 'Add text & effects',
+    emoji: '🔠',
+    quick:
+      'To add text to a picture, drop it in, type your words, choose where they go, how big and what colour, then press Add text. It is drawn in your browser, so nothing is uploaded.',
+    keywords: 'write caption words label type font quote meme overlay',
+  },
+  {
+    slug: 'pixel-art-maker',
+    name: 'Pixel art maker',
+    summary: 'Turn a photo into chunky pixel art.',
+    group: 'Add text & effects',
+    emoji: '👾',
+    quick:
+      'To turn a photo into pixel art, drop it in, set how many big pixels go across with the slider and press Make pixel art. You get a PNG at the same size, with sharp edges.',
+    keywords: 'pixelate pixelated 8-bit retro game mosaic blocky',
+  },
 ];
 
 export function toolPath(slug: string): string {

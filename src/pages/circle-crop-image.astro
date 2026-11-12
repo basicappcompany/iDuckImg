@@ -1,0 +1,47 @@
+---
+import ToolLayout from '../components/ToolLayout.astro';
+import ToolGuide from '../components/ToolGuide.astro';
+import ShapeTool from '../tools/shape/ShapeTool';
+
+const steps = [
+  "Drop your JPG, PNG or WebP pictures, or paste them.",
+  "Choose Circle for a profile picture, or Rounded corners and set how round they are.",
+  "Check the preview, which shows the first picture.",
+  "Press Make it round and download each PNG, or all of them as a ZIP."
+];
+const notes = [
+  "A circle needs a square, so the middle square of the picture is kept and the edges are cut. If your face is off to one side, crop the picture first with Crop images, then make it round.",
+  "The result is always a PNG, because JPG cannot have see-through corners. The corners show whatever is behind the picture when you use it."
+];
+const faqs = [
+  {
+    "q": "How do I make a round profile picture?",
+    "a": "Drop your photo, leave the shape on Circle and press Make it round. You get a square PNG with the corners cut away, ready to use as an avatar."
+  },
+  {
+    "q": "Why is the result a PNG?",
+    "a": "PNG can hold see-through pixels, which is what makes the corners transparent. A JPG would fill them with a solid colour."
+  },
+  {
+    "q": "Can I round only the corners?",
+    "a": "Yes. Choose Rounded corners and use the slider. At 50 percent a square picture becomes a circle and a wide one becomes a pill shape."
+  },
+  {
+    "q": "Is my picture uploaded?",
+    "a": "No. The shape is cut in your browser, so the picture stays on your device."
+  }
+];
+---
+
+<ToolLayout
+  title={"Circle crop image online free: round profile picture | iDuckImg"}
+  description={"Crop a picture into a circle or round its corners. Free, in your browser, no upload. Saves a PNG with see-through corners."}
+  heading={"Circle crop and round corners"}
+  steps={steps}
+  faqs={faqs}
+>
+  <ShapeTool client:load />
+  <div slot="content">
+    <ToolGuide title={"How to make a picture round"} steps={steps} notes={notes} faqs={faqs} />
+  </div>
+</ToolLayout>

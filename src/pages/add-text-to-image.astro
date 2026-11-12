@@ -1,0 +1,47 @@
+---
+import ToolLayout from '../components/ToolLayout.astro';
+import ToolGuide from '../components/ToolGuide.astro';
+import TextTool from '../tools/text/TextTool';
+
+const steps = [
+  "Drop your JPG, PNG or WebP pictures, or paste them.",
+  "Type your text. Press Enter for a new line, up to five lines.",
+  "Choose the position, size, colour and whether a panel sits behind the text.",
+  "Press Add text and download each file, or all of them as a ZIP."
+];
+const notes = [
+  "The text size is a share of the picture width, so the same setting looks right on a small photo and a large one. A dark or light panel behind the text keeps it readable on busy pictures.",
+  "The preview shows the first picture, and the same text is added to every picture you drop in."
+];
+const faqs = [
+  {
+    "q": "Can I put text on a photo without an app?",
+    "a": "Yes. Drop the photo here, type the text and download the result. Everything happens in your browser."
+  },
+  {
+    "q": "Can I choose the font?",
+    "a": "Not yet. The text uses a bold system font. More choices are planned."
+  },
+  {
+    "q": "How do I make the text easy to read?",
+    "a": "Use the dark panel with white text, or the light panel with black text. Without a panel, the text gets a soft edge in the opposite colour."
+  },
+  {
+    "q": "Is my picture uploaded?",
+    "a": "No. The text is drawn in your browser, so the picture stays on your device."
+  }
+];
+---
+
+<ToolLayout
+  title={"Add text to an image online free | iDuckImg"}
+  description={"Write on a picture: choose the words, position, size and colour, with an optional panel behind. Free, in your browser, no upload."}
+  heading={"Add text to an image"}
+  steps={steps}
+  faqs={faqs}
+>
+  <TextTool client:load />
+  <div slot="content">
+    <ToolGuide title={"How to write on a picture"} steps={steps} notes={notes} faqs={faqs} />
+  </div>
+</ToolLayout>
