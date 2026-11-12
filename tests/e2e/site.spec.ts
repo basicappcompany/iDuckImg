@@ -17,6 +17,16 @@ const SHORTCUTS: Record<string, string[]> = {
     '/webp-to-png/', '/jpg-to-webp/', '/png-to-webp/', '/jpg-to-pdf/', '/png-to-pdf/',
   ],
 };
+/** The Quick tools list at the top of the sidebar, in order. */
+const QUICK = [
+  '/compress-image/',
+  '/resize-image/',
+  '/compress-image-to-100kb/',
+  '/heic-to-jpg/',
+  '/png-to-jpg/',
+  '/jpg-to-pdf/',
+  '/exam-photo-resizer/',
+];
 /** Everything the home page and the sidebar list, in order: each group's tools, then its shortcuts. */
 const LISTED = Object.entries(GROUPS).flatMap(([group, paths]) => [...paths, ...(SHORTCUTS[group] ?? [])]);
 const groupOf = (path: string) => Object.entries(GROUPS).find(([, paths]) => paths.includes(path))![0];
@@ -45,14 +55,16 @@ test.describe('site', () => {
       expect(response?.status()).toBe(200);
       await expect(page.locator('link[rel="canonical"]')).toHaveAttribute('href', `https://iduckimg.com${path}`);
 
-      const sidebar = page.getByRole('navigation', { name: 'Tools' });
+      const sidebar = page.getByRole('navigation', { name: 'Tools', exact: true });
       // The group holding this page starts open; the others are collapsed until opened.
       await expect(sidebar.locator(`a[href="${path}"]`)).toBeVisible();
       await expect(sidebar.locator(`[data-nav-group][aria-expanded="true"]`)).toHaveCount(1);
       for (const button of await sidebar.locator('[data-nav-group]').all()) {
         if ((await button.getAttribute('aria-expanded')) === 'false') await button.click();
       }
-      expect(await hrefs(page, sidebar.getByRole('link'))).toEqual(['/', '/image-tools/', ...LISTED]);
+      expect(await hrefs(page, sidebar.getByRole('link'))).toEqual(LISTED);
+      expect(await hrefs(page, page.getByRole('navigation', { name: 'Main' }).getByRole('link'))).toEqual(['/', '/chat/', '/image-tools/']);
+      expect(await hrefs(page, page.getByRole('navigation', { name: 'Quick tools' }).getByRole('link'))).toEqual(QUICK);
       await expect(sidebar.locator('a[aria-current="page"]')).toHaveAttribute('href', path);
 
       await expect(page.getByRole('region', { name: 'Quick answer' })).toContainText('To ');

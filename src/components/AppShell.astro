@@ -4,6 +4,7 @@ import DuckMark from './DuckMark.astro';
 import CommandPalette from './CommandPalette.astro';
 import { TOOL_GROUPS, toolForPath, toolPath, toolsInGroup } from '../lib/tools';
 import { PLAN_CATEGORIES } from '../lib/tool-plan';
+import { quickTools } from '../lib/quick';
 import { THEME_STORAGE_KEY } from '../lib/theme';
 import { COMMUNITY, communityPath } from '../lib/community';
 import { LANDING_PAGES, landingGroup, landingName, landingPath, landingsInGroup } from '../lib/landing';
@@ -84,14 +85,36 @@ const openGroup = currentGroup ?? TOOL_GROUPS[0];
             <kbd aria-hidden="true">Ctrl K</kbd>
           </button>
 
-          <nav aria-label="Tools">
+          <nav aria-label="Main">
             <a class="nav-item" href="/" aria-current={isHome ? 'page' : undefined}>
               <span class="nav-icon" aria-hidden="true">🏠</span><span class="nav-text">Home</span>
+            </a>
+            <a class="nav-item" href="/chat/" aria-current={path === '/chat/' ? 'page' : undefined}>
+              <span class="nav-icon" aria-hidden="true">💬</span><span class="nav-text">Ask the helper</span>
             </a>
             <a class="nav-item" href="/image-tools/" aria-current={path === '/image-tools/' ? 'page' : undefined}>
               <span class="nav-icon" aria-hidden="true">🧰</span><span class="nav-text">All image tools</span>
             </a>
 
+          </nav>
+
+          <nav aria-label="Quick tools">
+            <p class="nav-label">Quick tools</p>
+            <ul>
+              {
+                quickTools().map((q) => (
+                  <li>
+                    <a class="nav-item nav-small" href={q.href} aria-current={path === q.href ? 'page' : undefined}>
+                      <span class="nav-icon" aria-hidden="true">{q.emoji}</span>
+                      <span class="nav-text">{q.name}</span>
+                    </a>
+                  </li>
+                ))
+              }
+            </ul>
+          </nav>
+
+          <nav aria-label="Tools">
             <p class="nav-label">Tools</p>
             {
               TOOL_GROUPS.map((group, i) => {
@@ -224,7 +247,7 @@ const openGroup = currentGroup ?? TOOL_GROUPS[0];
             </ul>
           </nav>
           <p class="mt-5">
-            iDuckImg: free image tools that run in your browser. Also try
+            iDuckImg: free image tools that run in your browser. Also try{" "}
             <a class="link" href="https://iduckpdf.com/" rel="noopener">iDuckPDF</a>.
           </p>
           <p class="mt-2 flex flex-wrap gap-x-4">

@@ -259,7 +259,7 @@ const REPO = "https://github.com/basicappcompany/iDuckImg";
 
 /* Tools. A row is "ready" only if its page exists on main and answers on https://iduckimg.com. Move a planned row to "ready" in the same PR that ships it. */
 const TOOLS_DATA = [
-  {"id": "compress", "name": "Compress images", "icon": "🗜️", "category": "Shrink & resize", "slug": "compress-image", "status": "ready"},
+  {"id": "compress", "name": "Compress images", "icon": "📦", "category": "Shrink & resize", "slug": "compress-image", "status": "ready"},
   {"id": "resize", "name": "Resize images", "icon": "📐", "category": "Shrink & resize", "slug": "resize-image", "status": "ready"},
   {"id": "exam", "name": "Exam photo and signature resizer", "icon": "🪪", "category": "Shrink & resize", "slug": "exam-photo-resizer", "status": "ready"},
   {"id": "crop", "name": "Crop images", "icon": "✂️", "category": "Edit & transform", "slug": "crop-image", "status": "ready"},
@@ -272,10 +272,10 @@ const TOOLS_DATA = [
   {"id": "grid", "name": "Split an image into a grid", "icon": "🧩", "category": "Edit & transform", "slug": "split-image-into-grid", "status": "ready"},
   {"id": "text", "name": "Add text to an image", "icon": "🔠", "category": "Add text & effects", "slug": "add-text-to-image", "status": "ready"},
   {"id": "pixel", "name": "Pixel art maker", "icon": "👾", "category": "Add text & effects", "slug": "pixel-art-maker", "status": "ready"},
-  {"id": "compress-image-to-100kb", "name": "Compress image to 100 KB (landing page)", "icon": "🗜️", "category": "Landing pages", "slug": "compress-image-to-100kb", "status": "ready"},
-  {"id": "compress-image-to-50kb", "name": "Compress image to 50 KB (landing page)", "icon": "🗜️", "category": "Landing pages", "slug": "compress-image-to-50kb", "status": "ready"},
-  {"id": "compress-image-to-200kb", "name": "Compress image to 200 KB (landing page)", "icon": "🗜️", "category": "Landing pages", "slug": "compress-image-to-200kb", "status": "ready"},
-  {"id": "compress-image-to-20kb", "name": "Compress image to 20 KB (landing page)", "icon": "🗜️", "category": "Landing pages", "slug": "compress-image-to-20kb", "status": "ready"},
+  {"id": "compress-image-to-100kb", "name": "Compress image to 100 KB (landing page)", "icon": "📦", "category": "Landing pages", "slug": "compress-image-to-100kb", "status": "ready"},
+  {"id": "compress-image-to-50kb", "name": "Compress image to 50 KB (landing page)", "icon": "📦", "category": "Landing pages", "slug": "compress-image-to-50kb", "status": "ready"},
+  {"id": "compress-image-to-200kb", "name": "Compress image to 200 KB (landing page)", "icon": "📦", "category": "Landing pages", "slug": "compress-image-to-200kb", "status": "ready"},
+  {"id": "compress-image-to-20kb", "name": "Compress image to 20 KB (landing page)", "icon": "📦", "category": "Landing pages", "slug": "compress-image-to-20kb", "status": "ready"},
   {"id": "heic-to-jpg", "name": "HEIC to JPG (landing page)", "icon": "📱", "category": "Landing pages", "slug": "heic-to-jpg", "status": "ready"},
   {"id": "heic-to-png", "name": "HEIC to PNG (landing page)", "icon": "📱", "category": "Landing pages", "slug": "heic-to-png", "status": "ready"},
   {"id": "png-to-jpg", "name": "PNG to JPG (landing page)", "icon": "🖼️", "category": "Landing pages", "slug": "png-to-jpg", "status": "ready"},
@@ -323,6 +323,7 @@ const PHASES = [
     I("2.18", "Add text to an image", "done", "none", { when: "12 Nov", note: "/add-text-to-image/. Up to five lines, nine positions, size, four colours and an optional dark or light panel, with a live preview that uses the same drawing code as the result. One system font only; font choice is not built." }),
     I("2.19", "Pixel art maker", "done", "none", { when: "12 Nov", note: "/pixel-art-maker/. Block averaging with an optional colour limit (6 or 3 shades per colour); output is a PNG at the original size. The preview runs the same function as the result." }),
     I("2.20", "Merge images side by side, and blur or hide parts of an image", "todo", "me", { prio: 3, effort: "1 day", note: "The next two cheap tools from the plan. Blur needs a draw-a-box picker like the crop tool, so it costs more than the others." }),
+    I("2.21", "Ask the helper (/chat/) and Quick tools in the sidebar", "done", "none", { when: "12 Nov", note: "Like iDuckPDF's helper: you type a job in plain words and it answers with the matching tool card. It understands sizes such as \"under 150 KB\" and answers safety, feedback, feature, support and settings questions. It is a keyword matcher, not an AI, and says so on the page. The sidebar's Quick tools list (compress, resize, 100 KB, HEIC to JPG, PNG to JPG, JPG to PDF, exam photo) is chosen from experience, not measured traffic: revisit it once Search Console has data. The page is noindex." }),
     I("2.11", "AVIF output for compress and convert", "todo", "me", { prio: 3, effort: "1 day", note: "In the original plan but not built. `@jsquash/avif` is installed. AVIF encoding is slow on low-end phones, so it needs a warning." }),
     I("2.12", "Try the tools on a real phone", "todo", "you", { prio: 1, effort: "15 min", note: "Everything is tested in desktop Chrome only. I could not open PDFs either, only check their structure.", steps: ["Open https://iduckimg.com on your phone.", "Try the Take photo button, a HEIC photo from an iPhone, dragging the crop box by touch, a large photo, and open a PDF made by Convert and by Combine images into PDF.", "Tell me anything that looks or behaves wrong."] }),
     I("2.13", "Test more browsers and edge cases", "todo", "both", { prio: 2, effort: "half a day", note: "Not yet covered: Firefox and Safari (WebKit), photos near the 25 MP and 100 MP limits, and Cancel on a long job in every tool.", steps: ["Tell me OK to download the Firefox and WebKit test browsers for Playwright."] }),

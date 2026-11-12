@@ -25,7 +25,7 @@ export function communityPath(slug: string): string {
 }
 
 /** URL paths that must stay out of search results and the sitemap. */
-export const NOINDEX_PATHS: readonly string[] = COMMUNITY.filter((p) => !p.indexable).map((p) => communityPath(p.slug));
+export const NOINDEX_PATHS: readonly string[] = [...COMMUNITY.filter((p) => !p.indexable).map((p) => communityPath(p.slug)), '/chat/'];
 
 /** Pages that are neither a tool nor a community page: home, 404, the landing-page template, the hub and the legal pages. */
-export const OTHER_PAGES: readonly string[] = ['index', '404', '[slug]', 'image-tools', 'privacy', 'terms'];
+export const OTHER_PAGES: readonly string[] = ['index', '404', '[slug]', 'image-tools', 'privacy', 'terms', 'chat'];

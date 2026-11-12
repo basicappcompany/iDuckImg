@@ -21,7 +21,7 @@ export interface PlanCategory {
 }
 
 export const PLAN_CATEGORIES: readonly PlanCategory[] = [
-  { id: 'Shrink & resize', emoji: '🗜️', blurb: 'Make files smaller or the exact size a form asks for.' },
+  { id: 'Shrink & resize', emoji: '📦', blurb: 'Make files smaller or the exact size a form asks for.' },
   { id: 'Edit & transform', emoji: '🎨', blurb: 'Crop, turn, adjust and combine pictures.' },
   { id: 'Add text & effects', emoji: '✨', blurb: 'Watermarks, captions, memes and creative effects.' },
   { id: 'Convert & combine', emoji: '🔁', blurb: 'Switch formats, make PDFs and GIFs, read text from pictures.' },
@@ -69,7 +69,7 @@ const AI_FIRST = 'Needs a content-security policy and the legal pages first; tes
 
 export const PLAN: readonly PlannedTool[] = [
   // ---- Shrink & resize (7) ----
-  t('compress-image', '🗜️', 'Compress images', 'Make JPG, PNG and WebP files smaller without visible loss.', SHRINK, 'live', 'M'),
+  t('compress-image', '📦', 'Compress images', 'Make JPG, PNG and WebP files smaller without visible loss.', SHRINK, 'live', 'M'),
   t('resize-image', '📐', 'Resize images', 'Set exact pixels or a percentage, or shrink to a target size in KB.', SHRINK, 'live', 'M'),
   t('exam-photo-resizer', '🪪', 'Exam photo and signature resizer', 'Exact pixels and KB for exam forms, with requirements and sources.', SHRINK, 'live', 'M'),
   t('passport-photo-maker', '📷', 'Passport and visa photo maker', 'Crop to the right size for a passport or visa.', SHRINK, 'soon', 'M', 'browser', SPECS),

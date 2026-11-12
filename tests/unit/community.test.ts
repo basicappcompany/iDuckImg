@@ -23,7 +23,7 @@ describe('COMMUNITY', () => {
   });
 
   it('keeps forms and settings out of search results, and the useful pages in', () => {
-    expect(NOINDEX_PATHS).toEqual(['/request/', '/feedback/', '/settings/']);
+    expect(NOINDEX_PATHS).toEqual(['/request/', '/feedback/', '/settings/', '/chat/']);
     expect(COMMUNITY.filter((p) => p.indexable).map((p) => p.slug)).toEqual(['roadmap', 'support', 'about']);
     expect(communityPath('about')).toBe('/about/');
   });
