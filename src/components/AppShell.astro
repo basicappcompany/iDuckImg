@@ -24,10 +24,11 @@ const path = Astro.url.pathname.endsWith('/') ? Astro.url.pathname : `${Astro.ur
 const isHome = path === '/';
 const groupIcon = (group: string) => PLAN_CATEGORIES.find((c) => c.id === group)?.emoji ?? '🧰';
 // The group holding the current page starts open, like iDuckPDF's sidebar; otherwise the first one does.
-// The Tools group holding the current page starts open (the first one otherwise). The same goes for
-// the Quick tools sub-category.
+// The Tools group holding the current page starts open (the first one otherwise). A Quick tools
+// sub-category opens only on a shortcut page, which the Tools list does not hold; on a real tool the
+// visitor chose it from Tools (or the home page), so Quick tools stays folded.
 const quick = quickGroups();
-const openQuick = quick.find((g) => g.items.some((i) => i.href === path))?.id ?? quick[0]?.id;
+const openQuick = toolForPath(path) ? undefined : quick.find((g) => g.items.some((i) => i.href === path))?.id;
 const openGroup = toolForPath(path)?.group ?? TOOL_GROUPS[0];
 ---
 
@@ -246,11 +247,11 @@ const openGroup = toolForPath(path)?.group ?? TOOL_GROUPS[0];
           </div>
         </header>
 
-        <main id="main" class="mx-auto w-full max-w-4xl px-4 py-8">
+        <main id="main" class="mx-auto w-full max-w-[1072px] px-4 py-8">
           <slot />
         </main>
 
-        <footer class="mx-auto max-w-4xl px-4 pb-10 text-sm text-muted">
+        <footer class="mx-auto max-w-[1072px] px-4 pb-10 text-sm text-muted">
           <nav aria-label="Popular conversions" class="border-t-2 border-line pt-6">
             <p class="eyebrow mb-2">Popular</p>
             <ul class="flex flex-wrap gap-x-4 gap-y-1">

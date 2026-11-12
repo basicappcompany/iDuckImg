@@ -1,4 +1,4 @@
-@import 'tailwindcss';
+﻿@import 'tailwindcss';
 
 /*
  * Colours are CSS variables so light and dark share one set of rules. The values are repeated in
@@ -121,8 +121,19 @@ body {
     transition: transform 0.08s ease, box-shadow 0.08s ease;
   }
   .card-link:hover {
-    transform: translate(-1px, -1px);
+    transform: translate(-2px, -2px);
     box-shadow: 4px 4px 0 0 var(--d-shadow);
+    background: var(--d-duck);
+    color: var(--d-duckInk);
+  }
+  .card-link:hover .text-muted {
+    color: var(--d-duckInk);
+  }
+  /* Equal-width columns that never stretch, so a short last row keeps the size of the rows above (iDuckPDF's CardGrid). */
+  .card-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(min(250px, 100%), 1fr));
+    gap: 12px;
   }
   .card-link:active {
     transform: translate(2px, 2px);

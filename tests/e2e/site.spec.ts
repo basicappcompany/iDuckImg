@@ -56,6 +56,22 @@ test.describe('site', () => {
     await expect(page.getByRole('region', { name: 'Common questions' }).locator('details')).toHaveCount(5);
   });
 
+  test('on a real tool the Quick tools sub-categories stay folded; on a shortcut its own opens', async ({ page }) => {
+    await page.goto('/compress-image/');
+    const quick = page.getByRole('navigation', { name: 'Quick tools' });
+    const subGroups = quick.locator('[data-nav-group]:not([aria-controls="quick-body"])');
+    await expect(subGroups).toHaveCount(Object.keys(QUICK).length);
+    for (const button of await subGroups.all()) await expect(button).toHaveAttribute('aria-expanded', 'false');
+    await expect(page.getByRole('navigation', { name: 'Tools', exact: true }).locator('a[aria-current="page"]')).toBeVisible();
+
+    await page.goto('/heic-to-jpg/');
+    await expect(quick.locator('[data-nav-group][aria-expanded="true"]:not([aria-controls="quick-body"])')).toHaveCount(1);
+    await expect(quick.locator('a[aria-current="page"]')).toHaveAttribute('href', '/heic-to-jpg/');
+
+    await page.goto('/');
+    await expect(quick.locator('[data-nav-group][aria-expanded="true"]:not([aria-controls="quick-body"])')).toHaveCount(0);
+  });
+
   for (const path of TOOL_PATHS) {
     test(`${path} has a canonical link, the sidebar, a quick answer, and links to its group`, async ({ page }) => {
       const response = await page.goto(path);

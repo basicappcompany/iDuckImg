@@ -17,15 +17,15 @@ import { breadcrumbLd } from '../lib/seo';
     TOOL_GROUPS.map((group) => (
       <section aria-label={group}>
         <h2 class="text-2xl font-black tracking-tight">{group}</h2>
-        <ul class="mt-3 grid gap-4 sm:grid-cols-2">
+        <ul class="card-grid mt-3">
           {toolsInGroup(group).map((tool) => (
             <li>
               <a href={toolPath(tool.slug)} class="card card-link h-full p-4">
-                <span class="flex items-center gap-2 text-lg font-black">
+                <span class="flex items-center gap-2.5 text-[17px] font-black">
                   <span aria-hidden="true">{tool.emoji}</span>
                   {tool.name}
                 </span>
-                <span class="mt-1 block text-sm text-muted">{tool.summary}</span>
+                <span class="mt-1 block text-sm leading-[19px] text-muted">{tool.summary}</span>
               </a>
             </li>
           ))}
@@ -37,7 +37,7 @@ import { breadcrumbLd } from '../lib/seo';
   <section aria-label="Shortcuts">
     <h2 class="text-2xl font-black tracking-tight">Shortcuts for common jobs</h2>
     <p class="mt-1 text-muted">The same tools, already set up for what people search for most.</p>
-    <ul class="mt-3 grid gap-3 sm:grid-cols-2">
+    <ul class="card-grid mt-3">
       {
         LANDING_PAGES.map((p) => (
           <li>
@@ -46,7 +46,7 @@ import { breadcrumbLd } from '../lib/seo';
                 <span aria-hidden="true">{p.emoji}</span>
                 {p.h1.replace(' converter', '')}
               </span>
-              <span class="mt-1 block text-sm text-muted">{p.summary}</span>
+              <span class="mt-1 block text-sm leading-[19px] text-muted">{p.summary}</span>
             </a>
           </li>
         ))
