@@ -40,6 +40,7 @@ HEIC_FIXTURE=/path/to/photo.heic pnpm test:e2e -g HEIC
 | `src/engine/` | The tool contract, the batch runner, the worker handle and the Preact hook |
 | `src/components/` | App shell, tool layout, drop zone, options, progress and download panels |
 | `src/lib/` | The tool list (`tools.ts`), the 59-tool plan (`tool-plan.ts`), landing pages (`landing.ts`, `exam-landing.ts`), Quick tools (`quick.ts`), the helper, SEO data, theme colours and the pure maths for the calculators |
+| `src/i18n/` | The ten languages: registry, English source text and one file per language (see Languages in `CLAUDE.md`) |
 | `src/calculators/` | Tools that take no file (pixel/cm/inch converter, aspect ratio calculator) |
 | `src/data/exam-presets.json` | Photo and signature requirements, each with its official source |
 | `docs/status.html` | The status page: every phase and item, what is done and who owns what |

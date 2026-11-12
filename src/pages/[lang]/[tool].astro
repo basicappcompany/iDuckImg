@@ -1,0 +1,72 @@
+---
+/**
+ * A tool page in another language: /es/compress-image/ and so on. The heading, summary, quick answer and
+ * page chrome are translated; the tool itself is the same island as on the English page, so its controls
+ * are English for now and the page says so. One page per tool per language, built from src/i18n.
+ */
+import ToolLayout from '../../components/ToolLayout.astro';
+import AdjustTool from '../../tools/adjust/AdjustTool';
+import Base64Tool from '../../tools/base64/Base64Tool';
+import BlurTool from '../../tools/blur/BlurTool';
+import BorderTool from '../../tools/border/BorderTool';
+import CompressTool from '../../tools/compress/CompressTool';
+import ConvertTool from '../../tools/convert/ConvertTool';
+import CropTool from '../../tools/crop/CropTool';
+import ExamTool from '../../tools/exam/ExamTool';
+import ExifTool from '../../tools/exif/ExifTool';
+import FaviconTool from '../../tools/favicon/FaviconTool';
+import GridTool from '../../tools/grid/GridTool';
+import ImagesToPdfTool from '../../tools/pdf/ImagesToPdfTool';
+import LogoTool from '../../tools/logo/LogoTool';
+import MergeTool from '../../tools/merge/MergeTool';
+import PaletteTool from '../../tools/colour/PaletteTool';
+import ColourPicker from '../../tools/colour/ColourPicker';
+import PixelTool from '../../tools/pixel/PixelTool';
+import ResizeTool from '../../tools/resize/ResizeTool';
+import RotateTool from '../../tools/rotate/RotateTool';
+import ShapeTool from '../../tools/shape/ShapeTool';
+import TextTool from '../../tools/text/TextTool';
+import WatermarkTool from '../../tools/watermark/WatermarkTool';
+import LengthConverter from '../../calculators/LengthConverter';
+import RatioCalculator from '../../calculators/RatioCalculator';
+import { TOOLS } from '../../lib/tools';
+import { OTHER_LOCALES, dictFor, localeByPath, toolText } from '../../i18n';
+
+
+export function getStaticPaths() {
+  return OTHER_LOCALES.flatMap((locale) => TOOLS.map((tool) => ({ params: { lang: locale.path, tool: tool.slug } })));
+}
+
+// Astro needs every hydrated component imported by name, so each tool is listed out below rather than looked up.
+const { lang, tool: slug } = Astro.params as { lang: string; tool: string };
+const locale = localeByPath(lang)!;
+const d = dictFor(locale.code);
+const text = toolText(locale.code, slug);
+---
+
+<ToolLayout locale={locale.code} title={`${text.name} | iDuckImg`} description={`${text.summary} ${d.toolDescSuffix}`} heading={text.name}>
+  {slug === 'compress-image' && <CompressTool client:load />}
+  {slug === 'resize-image' && <ResizeTool client:load />}
+  {slug === 'crop-image' && <CropTool client:load />}
+  {slug === 'add-watermark-to-image' && <WatermarkTool client:load />}
+  {slug === 'add-logo-to-image' && <LogoTool client:load />}
+  {slug === 'exam-photo-resizer' && <ExamTool client:load />}
+  {slug === 'convert-image' && <ConvertTool client:load />}
+  {slug === 'image-to-pdf' && <ImagesToPdfTool client:load />}
+  {slug === 'rotate-image' && <RotateTool client:load />}
+  {slug === 'remove-exif-data' && <ExifTool client:load />}
+  {slug === 'circle-crop-image' && <ShapeTool client:load />}
+  {slug === 'split-image-into-grid' && <GridTool client:load />}
+  {slug === 'add-text-to-image' && <TextTool client:load />}
+  {slug === 'pixel-art-maker' && <PixelTool client:load />}
+  {slug === 'merge-images' && <MergeTool client:load />}
+  {slug === 'blur-image' && <BlurTool client:load />}
+  {slug === 'pixel-to-cm-converter' && <LengthConverter client:load />}
+  {slug === 'aspect-ratio-calculator' && <RatioCalculator client:load />}
+  {slug === 'adjust-image-colors' && <AdjustTool client:load />}
+  {slug === 'add-border-to-image' && <BorderTool client:load />}
+  {slug === 'color-picker-from-image' && <ColourPicker client:load />}
+  {slug === 'color-palette-generator' && <PaletteTool client:load />}
+  {slug === 'image-to-base64' && <Base64Tool client:load />}
+  {slug === 'favicon-generator' && <FaviconTool client:load />}
+</ToolLayout>

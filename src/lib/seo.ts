@@ -31,13 +31,14 @@ export function websiteLd(): Json {
   };
 }
 
-export function webApplicationLd(name: string, path: string, description: string): Json {
+export function webApplicationLd(name: string, path: string, description: string, lang = 'en'): Json {
   return {
     '@context': 'https://schema.org',
     '@type': 'WebApplication',
     name,
     url: absolute(path),
     description,
+    inLanguage: lang,
     applicationCategory: 'MultimediaApplication',
     operatingSystem: 'Any (web browser)',
     browserRequirements: 'Requires a modern browser with JavaScript',
