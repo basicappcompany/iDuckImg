@@ -16,7 +16,7 @@ function Duck() {
         <path d="M44 24l11 4-11 4z" fill="#ff8a1f" />
         <path d="M18 40c4 6 14 6 18-2" fill="none" />
       </g>
-      <circle cx="43" cy="19" r="2.6" fill="#17160f" />
+      <circle cx="43" cy="19" r="2.6" fill="var(--d-ink)" />
     </svg>
   );
 }
