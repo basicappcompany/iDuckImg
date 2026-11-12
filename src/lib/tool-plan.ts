@@ -89,7 +89,7 @@ export const PLAN: readonly PlannedTool[] = [
   t('photo-editor', '🖌️', 'Online photo editor', 'Crop, turn, adjust and add text in one place.', EDIT, 'soon', 'L'),
 
   // ---- Add text & effects (7) ----
-  t('add-watermark-to-image', '💧', 'Add a watermark', 'Put your name or logo on a picture before you share it.', TEXT, 'next', 'M'),
+  t('add-watermark-to-image', '💧', 'Add a watermark', 'Put your name or a copyright line on a picture before you share it.', TEXT, 'live', 'M'),
   t('add-text-to-image', '🔠', 'Add text to an image', 'Write on a picture with any size, colour and position.', TEXT, 'next', 'M'),
   t('meme-maker', '😂', 'Meme maker', 'Top and bottom text on any picture.', TEXT, 'soon', 'M'),
   t('blur-image', '🌫️', 'Blur or hide parts of an image', 'Blur, pixelate or cover areas such as names and numbers.', TEXT, 'next', 'M'),

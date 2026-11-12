@@ -259,16 +259,29 @@ const REPO = "https://github.com/basicappcompany/iDuckImg";
 
 /* Tools. A row is "ready" only if its page exists on main and answers on https://iduckimg.com. Move a planned row to "ready" in the same PR that ships it. */
 const TOOLS_DATA = [
-  {"id":"compress","name":"Compress images","icon":"🗜️","category":"Shrink & resize","slug":"compress-images","status":"ready"},
-  {"id":"resize","name":"Resize images","icon":"📐","category":"Shrink & resize","slug":"resize-image","status":"ready"},
-  {"id":"crop","name":"Crop images","icon":"✂️","category":"Shrink & resize","slug":"crop-image","status":"ready"},
-  {"id":"exam","name":"Exam photo and signature resizer","icon":"🪪","category":"Shrink & resize","slug":"exam-photo-resizer","status":"ready"},
-  {"id":"convert","name":"Convert images (HEIC, JPG, PNG, WebP, PDF)","icon":"🔁","category":"Convert & combine","slug":"convert-image","status":"ready"},
-  {"id":"to-pdf","name":"Combine images into PDF","icon":"📄","category":"Convert & combine","slug":"images-to-pdf","status":"ready"},
-  {"id":"rotate","name":"Rotate and flip","icon":"🔄","category":"Fix & clean","slug":"rotate-image","status":"ready"},
-  {"id":"exif","name":"Remove EXIF data","icon":"🛡️","category":"Fix & clean","slug":"remove-exif-data","status":"ready"},
-  {"id":"resize-20kb","name":"Resize image to 20 KB (landing page)","icon":"🎯","category":"Landing pages","slug":"resize-image-to-20kb","status":"soon"},
-  {"id":"heic","name":"HEIC to JPG (landing page)","icon":"📱","category":"Landing pages","slug":"heic-to-jpg","status":"soon"}
+  {"id": "compress", "name": "Compress images", "icon": "🗜️", "category": "Shrink & resize", "slug": "compress-image", "status": "ready"},
+  {"id": "resize", "name": "Resize images", "icon": "📐", "category": "Shrink & resize", "slug": "resize-image", "status": "ready"},
+  {"id": "exam", "name": "Exam photo and signature resizer", "icon": "🪪", "category": "Shrink & resize", "slug": "exam-photo-resizer", "status": "ready"},
+  {"id": "crop", "name": "Crop images", "icon": "✂️", "category": "Edit & transform", "slug": "crop-image", "status": "ready"},
+  {"id": "rotate", "name": "Rotate and flip", "icon": "🔄", "category": "Edit & transform", "slug": "rotate-image", "status": "ready"},
+  {"id": "watermark", "name": "Add a watermark", "icon": "💧", "category": "Add text & effects", "slug": "add-watermark-to-image", "status": "ready"},
+  {"id": "convert", "name": "Convert images (HEIC, JPG, PNG, WebP, PDF)", "icon": "🔁", "category": "Convert & combine", "slug": "convert-image", "status": "ready"},
+  {"id": "to-pdf", "name": "Combine images into PDF", "icon": "📄", "category": "Convert & combine", "slug": "image-to-pdf", "status": "ready"},
+  {"id": "exif", "name": "Remove EXIF data", "icon": "🛡️", "category": "Privacy & cleanup", "slug": "remove-exif-data", "status": "ready"},
+  {"id": "compress-image-to-100kb", "name": "Compress image to 100 KB (landing page)", "icon": "🗜️", "category": "Landing pages", "slug": "compress-image-to-100kb", "status": "ready"},
+  {"id": "compress-image-to-50kb", "name": "Compress image to 50 KB (landing page)", "icon": "🗜️", "category": "Landing pages", "slug": "compress-image-to-50kb", "status": "ready"},
+  {"id": "compress-image-to-200kb", "name": "Compress image to 200 KB (landing page)", "icon": "🗜️", "category": "Landing pages", "slug": "compress-image-to-200kb", "status": "ready"},
+  {"id": "compress-image-to-20kb", "name": "Compress image to 20 KB (landing page)", "icon": "🗜️", "category": "Landing pages", "slug": "compress-image-to-20kb", "status": "ready"},
+  {"id": "heic-to-jpg", "name": "HEIC to JPG (landing page)", "icon": "📱", "category": "Landing pages", "slug": "heic-to-jpg", "status": "ready"},
+  {"id": "heic-to-png", "name": "HEIC to PNG (landing page)", "icon": "📱", "category": "Landing pages", "slug": "heic-to-png", "status": "ready"},
+  {"id": "png-to-jpg", "name": "PNG to JPG (landing page)", "icon": "🖼️", "category": "Landing pages", "slug": "png-to-jpg", "status": "ready"},
+  {"id": "jpg-to-png", "name": "JPG to PNG (landing page)", "icon": "🖼️", "category": "Landing pages", "slug": "jpg-to-png", "status": "ready"},
+  {"id": "webp-to-jpg", "name": "WebP to JPG (landing page)", "icon": "🌐", "category": "Landing pages", "slug": "webp-to-jpg", "status": "ready"},
+  {"id": "webp-to-png", "name": "WebP to PNG (landing page)", "icon": "🌐", "category": "Landing pages", "slug": "webp-to-png", "status": "ready"},
+  {"id": "jpg-to-webp", "name": "JPG to WebP (landing page)", "icon": "⚡", "category": "Landing pages", "slug": "jpg-to-webp", "status": "ready"},
+  {"id": "png-to-webp", "name": "PNG to WebP (landing page)", "icon": "⚡", "category": "Landing pages", "slug": "png-to-webp", "status": "ready"},
+  {"id": "jpg-to-pdf", "name": "JPG to PDF (landing page)", "icon": "📄", "category": "Landing pages", "slug": "jpg-to-pdf", "status": "ready"},
+  {"id": "png-to-pdf", "name": "PNG to PDF (landing page)", "icon": "📄", "category": "Landing pages", "slug": "png-to-pdf", "status": "ready"}
 ];
 
 const I = (id, name, state, owner, o = {}) => Object.assign({ id, name, state, owner }, o);
@@ -284,7 +297,7 @@ const PHASES = [
     I("1.7", "Duck mascot, logo, favicon and palette", "done", "none", { when: "11 Nov", note: "Shared with iDuckPDF: `DuckMark.astro` and `public/favicon.svg`. There is no share image (Open Graph) yet, see 5.4." }),
     I("1.8", "Confirm the brand look", "done", "none", { when: "12 Nov", note: "You asked for iDuckPDF's look, so the original blue-and-yellow default was replaced in PR #16." }),
     I("1.9", "Design system matching iDuckPDF (light and dark)", "done", "none", { when: "12 Nov", note: "PR #16. Cream, ink and duck yellow, thick borders, hard shadows, heavy headings. The colours live in `src/lib/theme.ts`; a unit test fails if the CSS drifts from them or if any text and background pair falls below the WCAG AA contrast of 4.5:1 in either theme. That test found that iDuckPDF's error red is 4.3:1, so error text uses a slightly darker red." }),
-    I("1.10", "App shell: sidebar, search (Ctrl K), theme toggle, phone menu, skip link", "done", "none", { when: "12 Nov", note: "PR #16. The theme choice is saved and applied before the page is drawn (no flash), follows the system setting until you choose, and survives blocked storage. 30 browser tests cover the theme, search, Ctrl K, the phone menu, the skip link and no sideways scrolling on every page." }),
+    I("1.10", "App shell: sidebar, Ctrl K search window, theme toggle, phone menu, skip link", "done", "none", { when: "12 Nov", note: "The theme choice is saved and applied before the page is drawn (no flash), follows the system setting until you choose, and survives blocked storage. Ctrl K (Cmd K on a Mac) or \"/\" or the Search button opens a search window styled like iDuckPDF's: results grouped as Tools, Shortcuts, Pages and Actions, arrow keys and Enter, Esc to close, and a switch light/dark action. Browser tests cover it, the phone menu, the skip link and no sideways scrolling." }),
     I("1.11", "Tech-stack direction", "todo", "you", { prio: 2, effort: "decision", decision: true, note: "You asked to discuss changing the stack. My view: keep Astro, because static pages suit search traffic, and add Capacitor if you want phone apps. Move to Expo only if you want one codebase shared with iDuckPDF; that means rewriting every tool screen and adding back the SEO workarounds iDuckPDF needs. The tool logic, workers and tests are framework-agnostic and would carry over either way.", steps: ["Tell me what is driving the question: native apps, one shared codebase with iDuckPDF, or something else."] }),
     I("1.12", "Remove unused dependencies `pica` and `@jsquash/avif`", "todo", "me", { prio: 3, effort: "30 min", note: "Both are installed but no code imports them (checked 12 Nov): resizing uses `@jsquash/resize`, and AVIF is not offered yet (see 2.11). Removing `pica` makes installs smaller; keep `@jsquash/avif` if AVIF is built soon." }),
   ]},
@@ -299,6 +312,8 @@ const PHASES = [
     I("2.8", "Homepage grid of tool cards", "done", "none", { when: "11 Nov", note: "PR #11 replaced the 'coming soon' placeholder with a list of tools. PR #16 redesigned it: tools by group, a search box, value cards and an FAQ with FAQPage structured data." }),
     I("2.9", "Browser tests for every tool", "done", "none", { when: "11 Nov", note: "Every tool and every landing page has Playwright tests that check real output: pixel size, bytes, colours, PDF page order." }),
     I("2.10", "Combine images into one PDF", "done", "none", { when: "11 Nov", note: "PR #10, added beyond the original plan because merged PDFs are what people search for. Reorder with Up and Down, remove pages, A4 or image-size pages. HEIC works too." }),
+    I("2.14", "Add a watermark (text, 9 positions or repeated, size, opacity, colour)", "done", "none", { when: "12 Nov", note: "/add-watermark-to-image/. Live preview uses the same drawing code as the saved result. The text size is a share of the picture width, so it looks the same on any picture. Output keeps each file's format. Tests check the mark appears only in the chosen corner and that JPG stays JPG. Text only: a logo or image watermark is not built yet. A visible watermark can be cropped out, and the page says so." }),
+    I("2.15", "Image and logo watermark, and add-text-to-image", "todo", "me", { prio: 3, effort: "half a day", note: "The next step after the text watermark. Add text to an image shares most of its code." }),
     I("2.11", "AVIF output for compress and convert", "todo", "me", { prio: 3, effort: "1 day", note: "In the original plan but not built. `@jsquash/avif` is installed. AVIF encoding is slow on low-end phones, so it needs a warning." }),
     I("2.12", "Try the tools on a real phone", "todo", "you", { prio: 1, effort: "15 min", note: "Everything is tested in desktop Chrome only. I could not open PDFs either, only check their structure.", steps: ["Open https://iduckimg.com on your phone.", "Try the Take photo button, a HEIC photo from an iPhone, dragging the crop box by touch, a large photo, and open a PDF made by Convert and by Combine images into PDF.", "Tell me anything that looks or behaves wrong."] }),
     I("2.13", "Test more browsers and edge cases", "todo", "both", { prio: 2, effort: "half a day", note: "Not yet covered: Firefox and Safari (WebKit), photos near the 25 MP and 100 MP limits, and Cancel on a long job in every tool.", steps: ["Tell me OK to download the Firefox and WebKit test browsers for Playwright."] }),
@@ -344,7 +359,7 @@ const PHASES = [
     I("6.4", "Pro plan and payment provider", "later", "both", { effort: "decision, then days", decision: true, note: "Compare fees and tax handling (Indian GST, foreign VAT) for Razorpay, Dodo Payments, Paddle, Lemon Squeezy and Stripe before choosing. I will write the comparison and recommend one." }),
   ]},
   { num: 7, name: "Later milestones", summary: "Milestones 2 to 4 from the plan. Parked until Milestone 1 is live.", items: [
-    I("7.1", "Milestone 2: watermark, meme maker, collage, GIF maker, blur faces, color picker, Base64, background removal, upscaler", "later", "me", { effort: "weeks", note: "Background removal and upscaling use local models that download once and run in the browser, so they stay client side." }),
+    I("7.1", "Milestone 2: meme maker, collage, GIF maker, blur faces, color picker, Base64, background removal, upscaler", "later", "me", { effort: "weeks", note: "Background removal and upscaling use local models that download once and run in the browser, so they stay client side." }),
     I("7.2", "Milestone 3a: AI tools with the visitor's own key", "later", "me", { effort: "weeks", note: "Calls go from the browser straight to the provider. First step is verifying which providers allow browser (CORS) calls and recording it in CLAUDE.md. Each provider gets a 'How to get your API key' guide with a last-checked date. These tools cannot show the 'files never leave your device' message." }),
     I("7.3", "Milestone 3b: paid credits through a Cloudflare Worker", "later", "both", { effort: "weeks", note: "The Worker holds our provider keys as secrets, checks credits and rate limits." }),
     I("7.4", "Milestone 4: accounts (magic link or Google sign-in)", "later", "me", { effort: "1-2 weeks", note: "Only because payments need them. Free tools never require an account." }),

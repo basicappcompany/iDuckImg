@@ -3,7 +3,7 @@
  * here when its page ships; the homepage, the sidebar, search and the "More in this group"
  * block on each tool page all read this list.
  */
-export const TOOL_GROUPS = ['Shrink & resize', 'Edit & transform', 'Convert & combine', 'Privacy & cleanup'] as const;
+export const TOOL_GROUPS = ['Shrink & resize', 'Edit & transform', 'Add text & effects', 'Convert & combine', 'Privacy & cleanup'] as const;
 export type ToolGroup = (typeof TOOL_GROUPS)[number];
 
 export interface ToolLink {
@@ -50,6 +50,16 @@ export const TOOLS: readonly ToolLink[] = [
     quick:
       'To crop an image, drag the box over the part you want to keep, or type exact pixels, then press Crop. Pick a shape such as 1:1 or 16:9 to lock the proportions.',
     keywords: 'cut trim square aspect ratio frame',
+  },
+  {
+    slug: 'add-watermark-to-image',
+    name: 'Add a watermark',
+    summary: 'Put your name or a copyright line on a picture before you share it.',
+    group: 'Add text & effects',
+    emoji: '💧',
+    quick:
+      'To add a watermark, drop your pictures in, type the text, choose where it goes and how see-through it is, then press Add watermark. The text is drawn in your browser, so nothing is uploaded.',
+    keywords: 'text copyright logo name stamp protect brand overlay mark photo',
   },
   {
     slug: 'exam-photo-resizer',
