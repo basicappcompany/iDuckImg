@@ -1,0 +1,56 @@
+import type { HelperText } from './types';
+
+/** The English words of "Ask the helper". English (UK) is made from these by `ukDeep`. */
+export const HELPER_EN: HelperText = {
+  page: {
+    title: 'Ask the helper',
+    description: 'Describe your picture job in plain words and get pointed to the right free tool.',
+    before: 'Ask the',
+    mark: 'helper',
+    after: '',
+    intro: 'Describe your picture job in plain words and get pointed to the right free tool.',
+  },
+  ui: {
+    log: 'Conversation with the helper',
+    typing: 'The helper is typing',
+    things: 'Things you can ask',
+    describe: 'Describe what you want to do',
+    placeholder: 'e.g. “make my photo under 100 KB”',
+    send: 'Send',
+    openIt: 'Open it',
+    footnote: 'The helper matches your words to tools. It is not an AI and never sees your pictures.',
+    understands: '',
+  },
+  greeting: 'Hi, I am Duck 🦆 What do you want to do with your picture today?',
+  starters: [
+    'Make a photo under 100 KB',
+    'Open an iPhone photo on Windows',
+    'Resize my photo for an exam form',
+    'Make a round profile picture',
+    'Put my name on photos',
+    'Is my picture safe?',
+  ],
+  replies: {
+    hi: 'Hi! 🦆 Tell me what you want to do with your picture, like “make it smaller for email” or “turn HEIC into JPG”.',
+    safe: 'Every tool runs inside your browser tab, so your pictures are processed on your own device and are not uploaded to us. I only match your words to tools and never see your files.',
+    bug: 'Sorry about that! Tell us what happened and which kind of picture it was, and we will look into it.',
+    feature: 'We love ideas. Tell us what you wish this site could do.',
+    donate: 'That is kind of you. The best help is telling a friend, and there are other ways too.',
+    settings: 'Theme and saved data live in Settings.',
+    kbExact: 'That is “{name}”. The target is already set, so just drop your picture in.',
+    kbNear: 'The closest ready-made page that fits is “{name}”. For exactly {kb} KB, open {resize} and type {kb} in the target size box.',
+    one: 'That sounds like “{name}”.',
+    many: 'These should do it. The first one is my best guess.',
+    none: 'Hmm, I am not sure which tool that is. Try words like compress, resize, crop, rotate, HEIC, PDF, watermark or text. Or browse everything.',
+  },
+  links: {
+    howItWorks: 'How it works',
+    privacy: 'Privacy policy',
+    feedback: 'Send feedback',
+    request: 'Request a feature',
+    roadmap: 'See the roadmap',
+    support: 'Support iDuckImg',
+    settings: 'Open Settings',
+    browse: 'Browse all image tools',
+  },
+};

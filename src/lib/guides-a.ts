@@ -23,7 +23,7 @@ export const GUIDES_A: Guide[] = [
         h: 'What changes for each file type',
         p: [
           'JPG and WebP are compressed with an adjustable quality, so a lower number means a smaller file and a little less detail. Photos from a phone are often 3 to 8 MB, and most of that can go without a visible difference.',
-          'PNG is different. It is optimised without losing anything, so the picture is exactly the same but the saving is smaller. If a PNG is a photo, converting it to JPG or WebP will save far more.',
+          'PNG is different. It is optimized without losing anything, so the picture is exactly the same but the saving is smaller. If a PNG is a photo, converting it to JPG or WebP will save far more.',
         ],
       },
       {
@@ -35,7 +35,7 @@ export const GUIDES_A: Guide[] = [
       },
     ],
     faq: [
-      { q: 'Does compressing an image reduce its quality?', a: 'JPG and WebP lose a small amount of detail as the quality goes down, and at around 75 the change is hard to see. PNG is optimised without any loss.' },
+      { q: 'Does compressing an image reduce its quality?', a: 'JPG and WebP lose a small amount of detail as the quality goes down, and at around 75 the change is hard to see. PNG is optimized without any loss.' },
       { q: 'Is my picture uploaded when I compress it?', a: 'No. The work happens in your browser on your own device, so the file is never sent anywhere.' },
       { q: 'Can I compress many images at once?', a: 'Yes. Add as many as you like, and download them together as a ZIP.' },
     ],
@@ -120,7 +120,7 @@ export const GUIDES_A: Guide[] = [
     slug: 'how-to-add-a-watermark-to-a-photo',
     title: 'How to add a text watermark to a photo',
     seoTitle: 'How to Add a Text Watermark to a Photo (Free, No Upload)',
-    description: 'Put your name or a copyright line on pictures. Choose position, size, opacity and colour, or repeat it across the image. Done in your browser.',
+    description: 'Put your name or a copyright line on pictures. Choose position, size, opacity and color, or repeat it across the image. Done in your browser.',
     tool: 'add-watermark-to-image',
     related: ['how-to-add-a-logo-to-a-photo', 'how-to-add-text-to-a-picture', 'how-to-remove-location-and-exif-data-from-a-photo'],
     updated: '2026-11-12',
@@ -129,14 +129,14 @@ export const GUIDES_A: Guide[] = [
     steps: [
       'Open the Add a watermark tool and drop in your JPG, PNG or WebP pictures.',
       'Type your text, for example your name or a copyright line.',
-      'Choose the position, size, opacity and colour. The preview updates as you change them.',
+      'Choose the position, size, opacity and color. The preview updates as you change them.',
       'Press Add watermark and download each file, or all of them as a ZIP.',
     ],
     sections: [
       {
         h: 'Making it readable but not ugly',
         p: [
-          'The size is a share of the picture width, so the mark looks the same on a small photo and a large one. A soft edge in the opposite colour keeps white text readable on light areas and black text readable on dark ones.',
+          'The size is a share of the picture width, so the mark looks the same on a small photo and a large one. A soft edge in the opposite color keeps white text readable on light areas and black text readable on dark ones.',
           'Around 60 percent opacity is a good start. Lower it if the mark competes with the picture, raise it if it must be seen.',
         ],
       },
@@ -296,7 +296,7 @@ export const GUIDES_A: Guide[] = [
         h: 'A4 pages or image-sized pages',
         p: [
           'A4 with margins is best when you will print the PDF or send it as a document, because every page is the same size. Pages that match each image are better when the pictures are different shapes and you want no white space.',
-          'Pictures are not stretched. They are scaled to fit the page and centred.',
+          'Pictures are not stretched. They are scaled to fit the page and centered.',
         ],
       },
       {

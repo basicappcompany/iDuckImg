@@ -50,6 +50,10 @@ const TRANSLATED_TOOLS: Record<string, Readonly<Record<string, { run: string }>>
 
 /** The ten languages LeafLock PDF publishes. */
 const EXPECTED = ['en', 'hi', 'bn', 'pt-BR', 'id', 'ru', 'de', 'es', 'fr', 'tr'];
+/** Every language in the menu: English (US), English (UK), then the nine translations. */
+const EXPECTED_ALL = ['en', 'en-GB', ...EXPECTED.slice(1)];
+/** The languages that are real translations (English (UK) is a spelling variant, checked on its own). */
+const TRANSLATED = OTHER_LOCALES.filter((l) => !l.variantOf).map((l) => l.code);
 
 /** Every string of a dictionary with the path to it, so a missing or empty one can be named. */
 function flatten(value: unknown, path = ''): [string, string][] {
@@ -63,7 +67,7 @@ const placeholders = (s: string) => (s.match(/\{\w+\}/g) ?? []).sort();
 
 describe('the language registry', () => {
   it('has the ten languages LeafLock publishes, English first', () => {
-    expect(LOCALES.map((l) => l.code)).toEqual(EXPECTED);
+    expect(LOCALES.map((l) => l.code)).toEqual(EXPECTED_ALL);
     expect(new Set(LOCALES.map((l) => l.path)).size).toBe(LOCALES.length);
     expect(LOCALES[0]!.path).toBe('');
     for (const l of LOCALES) {
@@ -99,7 +103,7 @@ describe('the language registry', () => {
   });
 });
 
-describe.each(OTHER_LOCALES.map((l) => l.code))('translation: %s', (code) => {
+describe.each(TRANSLATED)('translation: %s', (code) => {
   const data = LOCALE_DATA[code]!;
   const english = flatten(en);
   const translated = new Map(flatten(data.dict));
@@ -193,7 +197,7 @@ describe('translated shortcut pages', () => {
 
   it('has a template, a reason for every conversion, and every placeholder, in every language', () => {
     expect(Object.keys(english.why).sort()).toEqual([...convertSlugs].sort());
-    for (const code of OTHER_LOCALES.map((l) => l.code)) {
+    for (const code of TRANSLATED) {
       const t = SHORTCUT_TEXT[code]!;
       expect(Object.keys(t.why).sort(), code).toEqual([...convertSlugs].sort());
       for (const kind of ['kb', 'convert', 'exam'] as const) {
@@ -216,7 +220,7 @@ describe('translated shortcut pages', () => {
   });
 
   it('builds every page in every language with real, filled-in text', () => {
-    for (const code of OTHER_LOCALES.map((l) => l.code)) {
+    for (const code of TRANSLATED) {
       const names = new Set<string>();
       for (const page of LANDING_PAGES) {
         const p = localizedLanding(page, code);
@@ -249,7 +253,7 @@ describe('translated shortcut pages', () => {
   });
 
   it('lists every Quick tools group and shortcut in the sidebar, in the language', () => {
-    for (const code of OTHER_LOCALES.map((l) => l.code)) {
+    for (const code of TRANSLATED) {
       const groups = localizedQuickGroups(code);
       expect(groups.map((g) => g.id)).toEqual(QUICK_GROUPS.map((g) => g.id));
       expect(groups.flatMap((g) => g.items)).toHaveLength(QUICK_GROUPS.flatMap((g) => g.slugs).length);
@@ -267,7 +271,7 @@ describe('translated tool controls', () => {
     for (const [name, table] of Object.entries(tables)) {
       const english = Object.entries(table.en!);
       expect(Object.keys(table).sort(), name).toEqual([...EXPECTED].sort());
-      for (const code of OTHER_LOCALES.map((l) => l.code)) {
+      for (const code of TRANSLATED) {
         const t = table[code]!;
         expect(Object.keys(t).sort(), `${name} ${code}`).toEqual(english.map(([k]) => k).sort());
         for (const [key, value] of english) {
@@ -284,7 +288,7 @@ describe('the shared tool controls', () => {
   const english = Object.entries(UI_TEXT.en!);
   it('are translated for every language, with every key and placeholder', () => {
     expect(Object.keys(UI_TEXT).sort()).toEqual([...EXPECTED].sort());
-    for (const code of OTHER_LOCALES.map((l) => l.code)) {
+    for (const code of TRANSLATED) {
       const ui = UI_TEXT[code]!;
       expect(Object.keys(ui).sort(), code).toEqual(english.map(([k]) => k).sort());
       for (const [key, value] of english) {
@@ -320,23 +324,29 @@ describe('lookups', () => {
     expect(hasTranslations('/')).toBe(true);
     for (const t of TOOLS) expect(hasTranslations(toolPath(t.slug))).toBe(true);
     for (const t of LANDING_PAGES) expect(hasTranslations(`/${t.slug}/`), t.slug).toBe(true);
-    for (const p of ['/guides/', '/privacy/', '/chat/', '/about/']) expect(hasTranslations(p)).toBe(false);
+    for (const p of ['/guides/', '/chat/', '/guides/how-to-compress-an-image/']) expect(hasTranslations(p), p).toBe(true);
+    for (const p of ['/privacy/', '/about/']) expect(hasTranslations(p), p).toBe(false);
   });
 
   it('lists every language version of a translated page for hreflang', () => {
     const alts = alternatesFor('/compress-image/');
-    expect(alts.map((a) => a.hreflang)).toEqual(EXPECTED);
+    expect(alts.map((a) => a.locale.code)).toEqual(EXPECTED_ALL);
     expect(alts[0]!.href).toBe('https://iduckimg.com/compress-image/');
     expect(alts.find((a) => a.hreflang === 'pt-BR')!.href).toBe('https://iduckimg.com/pt-br/compress-image/');
-    expect(alternatesFor('/')[1]!.href).toBe('https://iduckimg.com/hi/');
-    expect(alternatesFor('/guides/')).toEqual([]);
+    expect(alternatesFor('/')[1]!.href).toBe('https://iduckimg.com/en-gb/');
+    expect(alternatesFor('/')[2]!.href).toBe('https://iduckimg.com/hi/');
+    expect(alts.map((a) => a.hreflang)).toEqual(['en-US', 'en-GB', 'hi', 'bn', 'pt-BR', 'id', 'ru', 'de', 'es', 'fr', 'tr']);
+    expect(alternatesFor('/guides/how-to-resize-an-image/').find((a) => a.locale.code === 'de')!.href).toBe('https://iduckimg.com/de/guides/how-to-resize-an-image/');
+    expect(alternatesFor('/privacy/')).toEqual([]);
   });
 
   it('sends the language menu to the same page, or to the language home when there is no translation', () => {
     expect(languageLinks('/compress-image/').find((l) => l.locale.code === 'es')!.href).toBe('/es/compress-image/');
-    expect(languageLinks('/guides/').find((l) => l.locale.code === 'es')!.href).toBe('/es/');
-    expect(languageLinks('/guides/').find((l) => l.locale.code === 'en')!.href).toBe('/');
-    expect(languageLinks('/').map((l) => l.locale.code)).toEqual(EXPECTED);
+    expect(languageLinks('/guides/').find((l) => l.locale.code === 'es')!.href).toBe('/es/guides/');
+    expect(languageLinks('/guides/').find((l) => l.locale.code === 'en-GB')!.href).toBe('/en-gb/guides/');
+    expect(languageLinks('/privacy/').find((l) => l.locale.code === 'es')!.href).toBe('/es/');
+    expect(languageLinks('/privacy/').find((l) => l.locale.code === 'en')!.href).toBe('/');
+    expect(languageLinks('/').map((l) => l.locale.code)).toEqual(EXPECTED_ALL);
   });
 
   it('keeps the English dictionary type complete', () => {

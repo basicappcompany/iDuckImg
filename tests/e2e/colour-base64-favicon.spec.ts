@@ -146,9 +146,9 @@ test.describe('colour palette', () => {
     await addFiles(page, [{ name: 'rainbow.png', mimeType: 'image/png', buffer: Buffer.from(gradient, 'base64') }]);
     const items = page.getByTestId('swatches').locator('li');
     await expect(items).toHaveCount(6);
-    await page.getByLabel('Number of colours').fill('3');
+    await page.getByLabel('Number of colors').fill('3');
     await expect(items).toHaveCount(3);
-    await page.getByLabel('Number of colours').fill('12');
+    await page.getByLabel('Number of colors').fill('12');
     await expect(items).toHaveCount(12);
   });
 });

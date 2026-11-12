@@ -1,0 +1,24 @@
+---
+/** "Ask the helper" in another language: /es/chat/ and so on. Like the English page it is not indexed. */
+import AppShell from '../../components/AppShell.astro';
+import ChatHelper from '../../components/ChatHelper';
+import { OTHER_LOCALES, localeByPath } from '../../i18n';
+import { helperContext } from '../../i18n/helper';
+
+export function getStaticPaths() {
+  return OTHER_LOCALES.map((locale) => ({ params: { lang: locale.path } }));
+}
+
+const { lang } = Astro.params as { lang: string };
+const locale = localeByPath(lang)!;
+const ctx = helperContext(locale.code);
+const p = ctx.text.page;
+---
+
+<AppShell locale={locale.code} title={`${p.title} | iDuckImg`} description={p.description} noindex>
+  <h1 class="display text-4xl sm:text-5xl">{p.before}<span class="mark">{p.mark}</span>{p.after}</h1>
+  <p class="mt-3 max-w-2xl text-lg text-muted">{p.intro}</p>
+  <div class="mt-6 grid gap-5">
+    <ChatHelper client:load ctx={ctx} />
+  </div>
+</AppShell>

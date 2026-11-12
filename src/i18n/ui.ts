@@ -289,7 +289,7 @@ export function useLang(): string {
   const [code, setCode] = useState('en');
   useEffect(() => {
     const lang = document.documentElement.lang;
-    if (lang && lang !== 'en') setCode(lang);
+    if (lang && !lang.startsWith('en')) setCode(lang);
   }, []);
   return code;
 }

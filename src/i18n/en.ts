@@ -30,7 +30,7 @@ export const en: Dict = {
   noWatermark: 'No watermark',
   filesNeverLeave: 'Your files never leave your device.',
   quickAnswer: 'Quick answer',
-  readGuide: 'Read the guide (in English)',
+  readGuide: 'Read the guide',
   moreIn: 'More in "{group}"',
   controlsEnglish: 'The file picker and download buttons below are translated. The options and buttons of the tool itself are in English for now.',
   toolDescSuffix: 'Free, in your browser, no upload.',

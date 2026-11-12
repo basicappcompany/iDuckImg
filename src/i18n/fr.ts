@@ -31,7 +31,7 @@ export const fr: LocaleData = {
     noWatermark: `Sans filigrane`,
     filesNeverLeave: `Vos fichiers ne quittent jamais votre appareil.`,
     quickAnswer: `Réponse rapide`,
-    readGuide: `Lire le guide (en anglais)`,
+    readGuide: `Lire le guide`,
     moreIn: `Plus dans « {group} »`,
     controlsEnglish: `Le sélecteur de fichiers et les boutons de téléchargement ci-dessous sont traduits. Les options et boutons propres à l'outil sont en anglais pour le moment.`,
     toolDescSuffix: `Gratuit, dans votre navigateur, sans envoi de fichiers.`,

@@ -112,7 +112,7 @@ export const GUIDES_B: Guide[] = [
       {
         h: 'Why the result is a PNG',
         p: [
-          'A round picture needs see-through corners, and JPG cannot be see-through. PNG can, so the result is always a PNG. Put it on a coloured background and it keeps its round shape.',
+          'A round picture needs see-through corners, and JPG cannot be see-through. PNG can, so the result is always a PNG. Put it on a colored background and it keeps its round shape.',
           'Most profile picture boxes crop to a circle for you. This tool is useful when you need the round image as a file itself.',
         ],
       },
@@ -186,16 +186,16 @@ export const GUIDES_B: Guide[] = [
     slug: 'how-to-add-text-to-a-picture',
     title: 'How to add text to a picture',
     seoTitle: 'How to Add Text to a Picture or Photo Online (Free)',
-    description: 'Write a caption or title on a picture. Choose the position, size and colour, with an optional panel behind the text. Done in your browser.',
+    description: 'Write a caption or title on a picture. Choose the position, size and color, with an optional panel behind the text. Done in your browser.',
     tool: 'add-text-to-image',
     related: ['how-to-add-a-watermark-to-a-photo', 'how-to-add-a-logo-to-a-photo', 'how-to-add-a-border-to-a-picture'],
     updated: '2026-11-12',
     intro:
-      'To add text to a picture, drop it into the Add text tool, type up to five lines, pick where they go, set the size and colour and press Add text. A dark or light panel behind the text keeps it readable on a busy photo.',
+      'To add text to a picture, drop it into the Add text tool, type up to five lines, pick where they go, set the size and color and press Add text. A dark or light panel behind the text keeps it readable on a busy photo.',
     steps: [
       'Open the Add text tool and drop in your picture.',
       'Type your text, up to five lines.',
-      'Choose one of nine positions, the size and the colour. Add a dark or light panel if the background is busy.',
+      'Choose one of nine positions, the size and the color. Add a dark or light panel if the background is busy.',
       'Press Add text and download the result.',
     ],
     sections: [
@@ -217,7 +217,7 @@ export const GUIDES_B: Guide[] = [
         h: 'Tips',
         p: [
           'Keep it short. Big, short text is readable on a phone, and the size scales with the picture, so a short title usually looks better than a long caption.',
-          'Pick the colour that contrasts most with the area behind the text, or turn on the panel. Check the preview at a small size, because that is how most people will see it.',
+          'Pick the color that contrasts most with the area behind the text, or turn on the panel. Check the preview at a small size, because that is how most people will see it.',
         ],
       },
     ],
@@ -231,7 +231,7 @@ export const GUIDES_B: Guide[] = [
     slug: 'how-to-turn-a-photo-into-pixel-art',
     title: 'How to turn a photo into pixel art',
     seoTitle: 'How to Turn a Photo Into Pixel Art (Free, In Your Browser)',
-    description: 'Make chunky pixel art from any photo. Choose how big the pixels are and how many colours to keep. Saved as a PNG, no upload.',
+    description: 'Make chunky pixel art from any photo. Choose how big the pixels are and how many colors to keep. Saved as a PNG, no upload.',
     tool: 'pixel-art-maker',
     related: ['how-to-adjust-the-colours-of-a-photo', 'how-to-get-a-color-palette-from-an-image', 'how-to-blur-or-hide-part-of-an-image'],
     updated: '2026-11-12',
@@ -240,21 +240,21 @@ export const GUIDES_B: Guide[] = [
     steps: [
       'Open the Pixel art maker and drop in your pictures.',
       'Move the slider to set how many big pixels go across. Fewer is chunkier.',
-      'Optionally choose Retro or Very few colours for a game-console look.',
+      'Optionally choose Retro or Very few colors for a game-console look.',
       'Press Make pixel art and download the PNG.',
     ],
     sections: [
       {
         h: 'Finding the right chunkiness',
         p: [
-          'Faces work best at about 32 to 64 pixels across. Landscapes look good with more. Each big pixel is the average colour of a square block of the photo.',
+          'Faces work best at about 32 to 64 pixels across. Landscapes look good with more. Each big pixel is the average color of a square block of the photo.',
           'The preview uses the same code as the saved file, so what you see is what you get.',
         ],
       },
       {
-        h: 'Limiting the colours',
+        h: 'Limiting the colors',
         p: [
-          'Retro keeps six shades of each colour and Very few keeps three, which gives a flat, game-like look. Keep the original colours if you want the pixels to still look like the photo.',
+          'Retro keeps six shades of each color and Very few keeps three, which gives a flat, game-like look. Keep the original colors if you want the pixels to still look like the photo.',
           'The result is a PNG at the same size as your picture, because JPG would blur the hard edges of each big pixel.',
         ],
       },
@@ -262,7 +262,7 @@ export const GUIDES_B: Guide[] = [
         h: 'Tips',
         p: [
           'Start with a simple, high-contrast photo. A face against a plain background survives chunky pixels much better than a busy street scene.',
-          'Try a few settings and compare. Going from 48 to 32 pixels across changes the look a lot, and Retro colours can turn a normal photo into something that looks like a game screen.',
+          'Try a few settings and compare. Going from 48 to 32 pixels across changes the look a lot, and Retro colors can turn a normal photo into something that looks like a game screen.',
         ],
       },
     ],
@@ -292,8 +292,8 @@ export const GUIDES_B: Guide[] = [
       {
         h: 'Matching sizes',
         p: [
-          'By default every picture is scaled to the smallest common height (for a row) or width (for a column), so no picture is blown up and made blurry. If you would rather keep every picture at its own size, choose that option and they are centred.',
-          'A gap and a background colour of white, black or transparent finish the look. Choose transparent with PNG or WebP.',
+          'By default every picture is scaled to the smallest common height (for a row) or width (for a column), so no picture is blown up and made blurry. If you would rather keep every picture at its own size, choose that option and they are centered.',
+          'A gap and a background color of white, black or transparent finish the look. Choose transparent with PNG or WebP.',
         ],
       },
       {
@@ -330,7 +330,7 @@ export const GUIDES_B: Guide[] = [
     steps: [
       'Open the Blur or hide tool and drop in your picture.',
       'Drag a box over each area to hide. You can add as many as you need.',
-      'Choose Blur, Pixelate or Cover with a solid colour.',
+      'Choose Blur, Pixelate or Cover with a solid color.',
       'Press the button and download the new picture.',
     ],
     sections: [
@@ -352,7 +352,7 @@ export const GUIDES_B: Guide[] = [
         h: 'Tips',
         p: [
           'Make the box a little bigger than the thing you are hiding. Edges of letters and faces stick out, and a tight box can leave a sliver visible.',
-          'After you save, open the new picture and zoom in. If you can still read or recognise anything, run it again with Cover. And remember that hidden location data is separate from what is visible, so clean that too.',
+          'After you save, open the new picture and zoom in. If you can still read or recognize anything, run it again with Cover. And remember that hidden location data is separate from what is visible, so clean that too.',
         ],
       },
     ],
@@ -364,17 +364,17 @@ export const GUIDES_B: Guide[] = [
   },
   {
     slug: 'how-to-convert-pixels-to-cm-and-inches',
-    title: 'How to convert pixels to centimetres and inches',
+    title: 'How to convert pixels to centimeters and inches',
     seoTitle: 'How to Convert Pixels to cm, mm and Inches (With DPI)',
     description: 'Work out how big a picture is on paper from its pixels and DPI, or how many pixels A4 needs. A free calculator with common paper sizes.',
     tool: 'pixel-to-cm-converter',
     related: ['how-to-resize-an-image', 'how-to-calculate-an-aspect-ratio', 'how-to-resize-a-photo-and-signature-for-an-exam-form'],
     updated: '2026-11-12',
     intro:
-      'To convert pixels to centimetres, divide the pixels by the DPI to get inches, then multiply by 2.54. At 300 DPI, 1 cm is about 118 pixels, and the Pixel, cm and inch converter does the sum for any length and resolution.',
+      'To convert pixels to centimeters, divide the pixels by the DPI to get inches, then multiply by 2.54. At 300 DPI, 1 cm is about 118 pixels, and the Pixel, cm and inch converter does the sum for any length and resolution.',
     steps: [
       'Open the Pixel, cm and inch converter and type the length you have.',
-      'Choose its unit: pixels, centimetres, millimetres or inches.',
+      'Choose its unit: pixels, centimeters, millimeters or inches.',
       'Choose the resolution in DPI. Use 300 for print photos and 72 or 96 for screens.',
       'Read the same length in every unit, and the pixel sizes of common paper.',
     ],

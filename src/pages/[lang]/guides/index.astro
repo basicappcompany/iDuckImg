@@ -1,0 +1,52 @@
+---
+/** The how-to guides hub in another language: /es/guides/ and so on. */
+import AppShell from '../../../components/AppShell.astro';
+import { GUIDES, guidePath } from '../../../lib/guides';
+import { TOOLS } from '../../../lib/tools';
+import { breadcrumbLd, collectionLd } from '../../../lib/seo';
+import { OTHER_LOCALES, alternatesFor, localeByPath, localePath } from '../../../i18n';
+import { guideChromeFor, guideTextFor } from '../../../i18n/guides';
+
+export function getStaticPaths() {
+  return OTHER_LOCALES.map((locale) => ({ params: { lang: locale.path } }));
+}
+
+const { lang } = Astro.params as { lang: string };
+const locale = localeByPath(lang)!;
+const c = guideChromeFor(locale.code);
+const lp = (p: string) => localePath(locale.code, p);
+const emoji = (slug: string) => TOOLS.find((t) => t.slug === slug)?.emoji ?? '📖';
+const jsonLd = [
+  collectionLd(c.hubListName, lp('/guides/'), c.hubDescription, GUIDES.map((g) => ({ name: guideTextFor(locale.code, g).title, path: lp(guidePath(g.slug)) }))),
+  breadcrumbLd([
+    { name: c.home, path: lp('/') },
+    { name: c.guides, path: lp('/guides/') },
+  ]),
+];
+---
+
+<AppShell locale={locale.code} alternates={alternatesFor('/guides/')} title={`${c.hubTitle} | iDuckImg`} description={c.hubDescription} jsonLd={jsonLd}>
+  <p class="eyebrow">
+    <a href={lp('/')} class="underline decoration-2 underline-offset-2">{c.home}</a>
+    <span aria-hidden="true"> / </span>
+    {c.guides}
+  </p>
+  <h1 class="display mt-2 text-4xl sm:text-5xl">{c.hubBefore}<span class="mark">{c.hubMark}</span>{c.hubAfter}</h1>
+  <p class="mt-3 max-w-2xl text-lg text-muted">{c.hubIntro}</p>
+
+  <ul class="card-grid mt-6" aria-label={c.hubListLabel}>
+    {
+      GUIDES.map((g) => (
+        <li>
+          <a href={lp(guidePath(g.slug))} class="card card-link h-full p-4">
+            <span class="flex items-center gap-2.5 text-[17px] font-black">
+              <span aria-hidden="true" class="text-[28px] leading-none">{emoji(g.tool)}</span>
+              {guideTextFor(locale.code, g).title}
+            </span>
+            <span class="mt-1 block text-sm leading-[19px] text-muted">{guideTextFor(locale.code, g).description}</span>
+          </a>
+        </li>
+      ))
+    }
+  </ul>
+</AppShell>

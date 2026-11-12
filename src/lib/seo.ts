@@ -74,7 +74,7 @@ export function faqLd(faqs: { q: string; a: string }[]): Json {
 }
 
 /** A how-to article. Dates are ISO (YYYY-MM-DD). The author and publisher are the company, not a person. */
-export function articleLd(a: { headline: string; description: string; path: string; datePublished: string; dateModified: string }): Json {
+export function articleLd(a: { headline: string; description: string; path: string; datePublished: string; dateModified: string; lang?: string }): Json {
   return {
     '@context': 'https://schema.org',
     '@type': 'Article',
@@ -84,7 +84,7 @@ export function articleLd(a: { headline: string; description: string; path: stri
     mainEntityOfPage: absolute(a.path),
     datePublished: a.datePublished,
     dateModified: a.dateModified,
-    inLanguage: 'en',
+    inLanguage: a.lang ?? 'en',
     image: OG_IMAGE,
     author: { '@type': 'Organization', name: 'Basic App Company', url: SITE_URL },
     publisher: { '@type': 'Organization', name: 'Basic App Company', url: SITE_URL, logo: { '@type': 'ImageObject', url: absolute('/favicon.svg') } },

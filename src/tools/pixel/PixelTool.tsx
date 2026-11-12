@@ -85,7 +85,7 @@ function Panels({
             onInput={(e) => set({ blocks: clampBlocks(Number((e.currentTarget as HTMLInputElement).value)) })}
           />
         </Field>
-        <Field id="px-colours" label="Colours">
+        <Field id="px-colours" label="Colors">
           <select
             id="px-colours"
             class="input w-full"
@@ -93,9 +93,9 @@ function Panels({
             disabled={running}
             onChange={(e) => set({ colours: (e.currentTarget as HTMLSelectElement).value as ColourSteps })}
           >
-            <option value="original">Keep the original colours</option>
-            <option value="retro">Retro (6 shades of each colour)</option>
-            <option value="few">Very few colours (3 shades of each)</option>
+            <option value="original">Keep the original colors</option>
+            <option value="retro">Retro (6 shades of each color)</option>
+            <option value="few">Very few colors (3 shades of each)</option>
           </select>
         </Field>
         <p class="text-xs text-muted">

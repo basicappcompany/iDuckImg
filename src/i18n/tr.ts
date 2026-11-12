@@ -31,7 +31,7 @@ export const tr: LocaleData = {
     noWatermark: `Filigran yok`,
     filesNeverLeave: `Dosyalarınız cihazınızdan asla çıkmaz.`,
     quickAnswer: `Kısa yanıt`,
-    readGuide: `Rehberi okuyun (İngilizce)`,
+    readGuide: `Rehberi okuyun`,
     moreIn: `"{group}" içinde daha fazlası`,
     controlsEnglish: `Aşağıdaki dosya seçici ve indirme düğmeleri çevrilmiştir. Aracın kendi seçenekleri ve düğmeleri şimdilik İngilizcedir.`,
     toolDescSuffix: `Ücretsiz, tarayıcınızda, yükleme yok.`,

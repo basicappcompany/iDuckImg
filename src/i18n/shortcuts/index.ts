@@ -5,6 +5,7 @@ import { localePath } from '../locales';
 import { toolText } from '../index';
 import { CONVERT_TEXT } from '../tools/convert';
 import { RESIZE_TEXT } from '../tools/resize';
+import { ukDeep } from '../uk';
 import { bn } from './bn';
 import { de } from './de';
 import { en } from './en';
@@ -19,7 +20,7 @@ import type { Faq, ShortcutText } from './types';
 
 export type { ShortcutText } from './types';
 
-export const SHORTCUT_TEXT: Readonly<Record<string, ShortcutText>> = { en, hi, bn, 'pt-BR': ptBR, id, ru, de, es, fr, tr };
+export const SHORTCUT_TEXT: Readonly<Record<string, ShortcutText>> = { en, 'en-GB': ukDeep(en), hi, bn, 'pt-BR': ptBR, id, ru, de, es, fr, tr };
 
 export function shortcutText(code: string): ShortcutText {
   return SHORTCUT_TEXT[code] ?? en;

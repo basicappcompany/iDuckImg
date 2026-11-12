@@ -31,7 +31,7 @@ export const ptBR: LocaleData = {
     noWatermark: `Sem marca d'água`,
     filesNeverLeave: `Seus arquivos nunca saem do seu dispositivo.`,
     quickAnswer: `Resposta rápida`,
-    readGuide: `Leia o guia (em inglês)`,
+    readGuide: `Leia o guia`,
     moreIn: `Mais em "{group}"`,
     controlsEnglish: `O seletor de arquivos e os botões de download abaixo estão traduzidos. As opções e os botões da própria ferramenta estão em inglês por enquanto.`,
     toolDescSuffix: `Grátis, no seu navegador, sem enviar arquivos.`,

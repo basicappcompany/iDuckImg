@@ -179,7 +179,7 @@ export default function ColourPicker() {
               style={{ touchAction: "none" }}
               role="img"
               tabIndex={0}
-              aria-label="Picture. Click or tap to pick a colour. With the keyboard, use the arrow keys to move and Enter to pick."
+              aria-label="Picture. Click or tap to pick a color. With the keyboard, use the arrow keys to move and Enter to pick."
               data-testid="pick-surface"
               data-ready={ready ? "true" : "false"}
               onPointerMove={(e) =>
@@ -196,7 +196,7 @@ export default function ColourPicker() {
             />
           </div>
 
-          <section aria-label="Colour" class="card p-5 self-start">
+          <section aria-label="Color" class="card p-5 self-start">
             {shown ? (
               <>
                 <div
@@ -217,7 +217,7 @@ export default function ColourPicker() {
                   <p class="mt-2 text-sm font-bold">
                     This pixel is {shown.a === 0 ? "fully" : "partly"}{" "}
                     see-through ({Math.round((shown.a / 255) * 100)}% solid).
-                    The colour shown is the colour under the see-through part.
+                    The color shown is the color under the see-through part.
                   </p>
                 )}
                 <div class="mt-2">
@@ -227,13 +227,13 @@ export default function ColourPicker() {
                 </div>
                 {hover && (
                   <p class="mt-2 text-xs text-muted">
-                    Click to pick this colour and keep it.
+                    Click to pick this color and keep it.
                   </p>
                 )}
               </>
             ) : (
               <p class="text-sm text-muted">
-                Move over the picture to preview a colour, then click to pick
+                Move over the picture to preview a color, then click to pick
                 it.
               </p>
             )}
@@ -241,7 +241,7 @@ export default function ColourPicker() {
             {history.length > 0 && (
               <div class="mt-4">
                 <p class="text-xs font-bold uppercase tracking-wide text-muted">
-                  Picked colours
+                  Picked colors
                 </p>
                 <ul class="mt-2 flex flex-wrap gap-2">
                   {history.map((c) => (

@@ -90,18 +90,18 @@ test.describe('add a border', () => {
   test('a typed colour code is used, and a bad one is explained', async ({ page }) => {
     await ready(page, '/add-border-to-image/');
     await addFiles(page, [await flatImage(page, 'card.png', 200, 100)]);
-    await page.getByLabel('Colour code').fill('#1e90ff');
+    await page.getByLabel('Color code').fill('#1e90ff');
     await page.getByRole('button', { name: 'Add border', exact: true }).click();
     await readResults(page, 1);
     expect(await pixelAt(page, await resultBytes(page, 0), 2, 2)).toEqual([30, 144, 255, 255]);
-    await page.getByLabel('Colour code').fill('blue');
+    await page.getByLabel('Color code').fill('blue');
     await expect(page.getByRole('alert')).toContainText('#1e90ff');
   });
 
   test('a see-through border turns a JPG into a PNG with a clear corner', async ({ page }) => {
     await ready(page, '/add-border-to-image/');
     await addFiles(page, [await makeImage(page, 'image/jpeg', 'card.jpg', 200, 100)]);
-    await page.getByLabel('Colour', { exact: true }).selectOption('transparent');
+    await page.getByLabel('Color', { exact: true }).selectOption('transparent');
     await page.getByRole('button', { name: 'Add border', exact: true }).click();
     const [r] = await readResults(page, 1);
     expect(r!.name).toBe('card-framed.png');

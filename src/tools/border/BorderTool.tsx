@@ -92,7 +92,7 @@ function Panels({
             onInput={(e) => set({ thicknessPct: clampPct(Number((e.currentTarget as HTMLInputElement).value)) })}
           />
         </Field>
-        <Field id="bd-colour" label="Colour">
+        <Field id="bd-colour" label="Color">
           <select
             id="bd-colour"
             class="input w-full"
@@ -109,10 +109,10 @@ function Panels({
             {SWATCHES.map((s) => (
               <option value={s.value}>{s.label}</option>
             ))}
-            <option value="custom">Other colour (type a code)</option>
+            <option value="custom">Other color (type a code)</option>
           </select>
         </Field>
-        <Field id="bd-hex" label="Colour code" hint="For example #1e90ff. Leave empty to use the colour above.">
+        <Field id="bd-hex" label="Color code" hint="For example #1e90ff. Leave empty to use the color above.">
           <input
             id="bd-hex"
             type="text"
@@ -131,13 +131,13 @@ function Panels({
         </Field>
         {hexBad && (
           <p role="alert" class="text-sm font-bold text-danger">
-            Use a colour code like #1e90ff or #fa0.
+            Use a color code like #1e90ff or #fa0.
           </p>
         )}
         <p class="text-xs text-muted">
           The border is added around the picture, so the result is a little bigger than the original. A transparent
           border is saved as PNG (a JPG becomes a PNG). The preview shows the first image.
-          {options.colour === TRANSPARENT && ' The grey squares in the preview show where it is see-through.'}
+          {options.colour === TRANSPARENT && ' The gray squares in the preview show where it is see-through.'}
         </p>
       </OptionsPanel>
     </>

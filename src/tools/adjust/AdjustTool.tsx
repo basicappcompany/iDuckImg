@@ -108,10 +108,10 @@ function Panels({
         <canvas ref={canvas} class="block max-h-96 max-w-full" role="img" aria-label="Preview with the changes" />
       </div>
 
-      <OptionsPanel title="Colours and filters">
+      <OptionsPanel title="Colors and filters">
         <Slider id="adj-brightness" label="Brightness" value={options.brightness} disabled={running} onChange={(n) => set({ brightness: n })} />
         <Slider id="adj-contrast" label="Contrast" value={options.contrast} disabled={running} onChange={(n) => set({ contrast: n })} />
-        <Slider id="adj-saturation" label="Colour strength" value={options.saturation} disabled={running} onChange={(n) => set({ saturation: n })} />
+        <Slider id="adj-saturation" label="Color strength" value={options.saturation} disabled={running} onChange={(n) => set({ saturation: n })} />
         <Field id="adj-filter" label="Filter">
           <select
             id="adj-filter"

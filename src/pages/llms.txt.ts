@@ -27,7 +27,7 @@ export const GET: APIRoute = () => {
     `Full text of every guide: ${SITE_URL}/llms-full.txt`,
     '',
     '## Languages',
-    'The tools and the home page are also available in nine more languages (machine-translated; the tool controls and the guides are in English for now):',
+    'The tools, the how-to guides and the home page are also available in British English (the same text with UK spelling; the main site uses US spelling) and in nine more languages (machine-translated; some tool controls are still in English):',
     ...OTHER_LOCALES.map((l) => `- [${l.native} (${l.name})](${SITE_URL}${localePath(l.code, '/')})`),
     '',
     '## About',
