@@ -7,13 +7,15 @@ import { useToolRunner } from '../../engine/useToolRunner';
 import { formatBytes } from '../../lib/files';
 import { moveItem, removeAt } from '../../lib/list';
 import { imagesToPdfTool, type ImagesToPdfOptions } from './tool';
-import { useUi } from '../../i18n/ui';
+import { bare, fill, useText, useUi } from '../../i18n/ui';
+import { PDF_TEXT } from '../../i18n/tools/pdf';
 
 const smallButton =
   'btn btn-sm';
 
 export default function ImagesToPdfTool() {
   const ui = useUi();
+  const t = useText(PDF_TEXT);
   const [files, setFiles] = useState<File[]>([]);
   const [options, setOptions] = useState<ImagesToPdfOptions>(imagesToPdfTool.defaultOptions);
   const runner = useToolRunner(imagesToPdfTool);
@@ -34,10 +36,10 @@ export default function ImagesToPdfTool() {
 
       {files.length > 0 && (
         <>
-          <section aria-label="Pages" class="card p-5">
+          <section aria-label={t.pagesLabel} class="card p-5">
             <div class="mb-2 flex items-center justify-between">
               <p class="font-semibold">
-                {files.length} {files.length === 1 ? 'page' : 'pages'} ({formatBytes(totalBytes)})
+                {fill(files.length === 1 ? t.pageOne : t.pageMany, { n: files.length })} ({formatBytes(totalBytes)})
               </p>
               <button
                 type="button"
@@ -60,36 +62,36 @@ export default function ImagesToPdfTool() {
                     type="button"
                     class={smallButton}
                     disabled={running || i === 0}
-                    aria-label={`Move ${file.name} up`}
+                    aria-label={fill(t.moveUp, { name: file.name })}
                     onClick={() => update(moveItem(files, i, i - 1))}
                   >
-                    Up
+                    {t.up}
                   </button>
                   <button
                     type="button"
                     class={smallButton}
                     disabled={running || i === files.length - 1}
-                    aria-label={`Move ${file.name} down`}
+                    aria-label={fill(t.moveDown, { name: file.name })}
                     onClick={() => update(moveItem(files, i, i + 1))}
                   >
-                    Down
+                    {t.down}
                   </button>
                   <button
                     type="button"
                     class={smallButton}
                     disabled={running}
-                    aria-label={`Remove ${file.name}`}
+                    aria-label={fill(t.removeFile, { name: file.name })}
                     onClick={() => update(removeAt(files, i))}
                   >
-                    Remove
+                    {t.remove}
                   </button>
                 </li>
               ))}
             </ol>
           </section>
 
-          <OptionsPanel title="PDF">
-            <Field id="pdfPage" label="Page size">
+          <OptionsPanel title={t.title}>
+            <Field id="pdfPage" label={t.pageSize}>
               <select
                 id="pdfPage"
                 class="input w-full"
@@ -100,8 +102,8 @@ export default function ImagesToPdfTool() {
                   setOptions({ pdfPage: e.currentTarget.value as ImagesToPdfOptions['pdfPage'] });
                 }}
               >
-                <option value="a4">A4 with margins</option>
-                <option value="fit">Each page the size of its image</option>
+                <option value="a4">{t.a4}</option>
+                <option value="fit">{t.fit}</option>
               </select>
             </Field>
           </OptionsPanel>
@@ -113,7 +115,7 @@ export default function ImagesToPdfTool() {
               onClick={() => runner.run(files, options)}
               class="btn btn-primary btn-lg"
             >
-              {running ? 'Creating PDF...' : 'Create PDF'}
+              {running ? t.running : t.run}
             </button>
             {running && (
               <button
@@ -128,7 +130,7 @@ export default function ImagesToPdfTool() {
         </>
       )}
 
-      {running && <ProgressBar value={runner.progress[0] ?? 0} label="Creating PDF" />}
+      {running && <ProgressBar value={runner.progress[0] ?? 0} label={bare(t.running)} />}
       {runner.state !== 'idle' && <DownloadPanel inputs={files} results={runner.results} beforeBytes={totalBytes} />}
     </div>
   );

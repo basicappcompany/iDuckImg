@@ -284,16 +284,31 @@ export function fill(text: string, values: Record<string, string | number>): str
   return text.replace(/\{(\w+)\}/g, (whole, key: string) => (key in values ? String(values[key]) : whole));
 }
 
-/**
- * The shared control text for the page's language. The server and the first browser render are English
- * (the same HTML either way, so hydration matches); once mounted the component switches to the language
- * named on <html lang>.
- */
-export function useUi(): UiText {
+/** The language named on <html lang>, once mounted. The server and the first render are English. */
+export function useLang(): string {
   const [code, setCode] = useState('en');
   useEffect(() => {
     const lang = document.documentElement.lang;
-    if (lang && lang !== 'en' && UI_TEXT[lang]) setCode(lang);
+    if (lang && lang !== 'en') setCode(lang);
   }, []);
-  return UI_TEXT[code] ?? en;
+  return code;
+}
+
+/**
+ * Pick a table by the page's language: `useText(COMPRESS_TEXT)`. The table needs an `en` entry; a language
+ * without its own entry falls back to English. The server and the first render are English so hydration matches.
+ */
+export function useText<T>(table: Readonly<Record<string, T>> & { en: T }): T {
+  const code = useLang();
+  return table[code] ?? table.en;
+}
+
+/** "Compressing..." as a label without the trailing dots, for the progress bar. */
+export function bare(text: string): string {
+  return text.replace(/\.+$/, '');
+}
+
+/** The shared control text for the page's language. */
+export function useUi(): UiText {
+  return useText(UI_TEXT as Readonly<Record<string, UiText>> & { en: UiText });
 }

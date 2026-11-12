@@ -51,6 +51,9 @@ export const fr: LocaleData = {
       { title: `Pensé aussi pour les téléphones`, text: `Choisissez une photo de votre galerie ou prenez-en une, et chaque outil fonctionne sur un écran de téléphone.` },
     ],
     guidesHeading: `Guides pratiques`,
+    helperTitle: `Vous ne savez pas quel outil choisir ?`,
+    helperText: `Décrivez la tâche avec des mots simples et l’assistant vous indiquera le bon outil. (L’assistant est en anglais.)`,
+    helperButton: `Demander à l’assistant`,
     guidesIntro: `De courtes explications pour les tâches les plus recherchées. Chacune donne d'abord la réponse.`,
     allGuides: `Les {n} guides pratiques`,
     faqHeading: `Questions fréquentes`,
@@ -74,17 +77,17 @@ export const fr: LocaleData = {
     'compress-image': {
       name: `Compresser des images`,
       summary: `Réduisez le poids de vos fichiers JPG, PNG et WebP sans perte visible.`,
-      quick: `Pour compresser une image, déposez-la, choisissez une qualité (environ 75 donne le même rendu pour la plupart des photos) et appuyez sur "Compress". Vous obtenez un fichier plus léger dans le même format, créé dans l'onglet de votre navigateur.`,
+      quick: `Pour compresser une image, déposez-la, choisissez une qualité (environ 75 donne le même rendu pour la plupart des photos) et appuyez sur "Compresser". Vous obtenez un fichier plus léger dans le même format, créé dans l'onglet de votre navigateur.`,
     },
     'resize-image': {
       name: `Redimensionner des images`,
       summary: `Indiquez des pixels exacts ou un pourcentage, ou réduisez jusqu'à une taille cible en Ko.`,
-      quick: `Pour redimensionner une image, indiquez une largeur ou une hauteur en pixels, ou un pourcentage, puis appuyez sur "Resize". Besoin d'un poids précis ? Saisissez une cible en Ko et l'outil trouve la meilleure qualité qui convient.`,
+      quick: `Pour redimensionner une image, indiquez une largeur ou une hauteur en pixels, ou un pourcentage, puis appuyez sur "Redimensionner". Besoin d'un poids précis ? Saisissez une cible en Ko et l'outil trouve la meilleure qualité qui convient.`,
     },
     'crop-image': {
       name: `Recadrer des images`,
       summary: `Faites glisser un cadre, choisissez un format comme 1:1 ou saisissez des pixels exacts.`,
-      quick: `Pour recadrer une image, faites glisser le cadre sur la partie à conserver, ou saisissez des pixels exacts, puis appuyez sur "Crop". Choisissez une forme comme 1:1 ou 16:9 pour verrouiller les proportions.`,
+      quick: `Pour recadrer une image, faites glisser le cadre sur la partie à conserver, ou saisissez des pixels exacts, puis appuyez sur "Recadrer". Choisissez une forme comme 1:1 ou 16:9 pour verrouiller les proportions.`,
     },
     'add-watermark-to-image': {
       name: `Ajouter un filigrane`,
@@ -104,12 +107,12 @@ export const fr: LocaleData = {
     'convert-image': {
       name: `Convertir des images`,
       summary: `Ouvrez des photos HEIC d'iPhone, passez de JPG à PNG ou WebP, ou créez un PDF.`,
-      quick: `Pour convertir une image, déposez-la, choisissez JPG, PNG, WebP ou PDF et appuyez sur "Convert". Les photos HEIC d'iPhone fonctionnent aussi : vous pouvez les transformer en fichiers JPG lisibles partout.`,
+      quick: `Pour convertir une image, déposez-la, choisissez JPG, PNG, WebP ou PDF et appuyez sur "Convertir". Les photos HEIC d'iPhone fonctionnent aussi : vous pouvez les transformer en fichiers JPG lisibles partout.`,
     },
     'image-to-pdf': {
       name: `Réunir des images en un PDF`,
       summary: `Mettez plusieurs images dans un seul PDF et choisissez l'ordre des pages.`,
-      quick: `Pour faire un seul PDF à partir de plusieurs images, ajoutez-les, classez-les avec "Up" et "Down", choisissez des pages A4 ou à la taille des images et appuyez sur "Create PDF".`,
+      quick: `Pour faire un seul PDF à partir de plusieurs images, ajoutez-les, classez-les avec "Monter" et "Descendre", choisissez des pages A4 ou à la taille des images et appuyez sur "Créer le PDF".`,
     },
     'rotate-image': {
       name: `Pivoter et retourner`,

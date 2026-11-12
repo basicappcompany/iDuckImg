@@ -58,6 +58,10 @@ export interface Dict {
   pickGroup: string;
   why: { title: string; text: string }[];
   guidesHeading: string;
+  /** The "not sure which tool" card on the home page; it links to the helper, which is English. */
+  helperTitle: string;
+  helperText: string;
+  helperButton: string;
   guidesIntro: string;
   /** Contains {n}. */
   allGuides: string;

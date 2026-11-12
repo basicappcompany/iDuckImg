@@ -91,6 +91,7 @@ test.describe('languages', () => {
     await expect(page).toHaveURL(/\/de\/$/);
 
     // Escape closes it.
+    await page.waitForLoadState('load'); // the menu's script has run
     await page.locator('[data-lang-menu] summary').click();
     await expect(page.locator('[data-lang-menu]')).toHaveAttribute('open', '');
     await page.keyboard.press('Escape');
@@ -102,7 +103,8 @@ test.describe('languages', () => {
     await expect(page.getByText('Déposez vos images ici')).toBeVisible();
     await addFiles(page, [await makeImage(page, 'image/jpeg', 'photo.jpg', 1200, 800)], /1 image sélectionnée/);
     await expect(page.getByRole('button', { name: 'Effacer' })).toBeVisible();
-    await page.getByRole('button', { name: 'Compress', exact: true }).click();
+    await expect(page.getByLabel('Format de sortie')).toBeVisible();
+    await page.getByRole('button', { name: 'Compresser', exact: true }).click();
     const [r] = await readResults(page, 1);
     expect(r!.type).toBe('image/jpeg');
     expect(r!.size).toBeGreaterThan(0);
@@ -134,6 +136,36 @@ test.describe('languages', () => {
     const tool = (await page.locator('script[type="application/ld+json"]').allTextContents()).join(' ');
     expect(tool).toContain('"@type":"WebApplication"');
     expect(tool).toContain('"inLanguage":"de"');
+  });
+
+  test('a translated tool shows its own options and run button in that language', async ({ page }) => {
+    await page.goto('/es/resize-image/');
+    await addFiles(page, [await makeImage(page, 'image/jpeg', 'foto.jpg', 800, 600)], /1 imagen seleccionada/);
+    await expect(page.getByLabel('Ancho (px)')).toBeVisible();
+    await expect(page.getByRole('button', { name: 'Cambiar tamaño', exact: true })).toBeVisible();
+    await expect(page.getByRole('heading', { name: 'Tamaño' }).or(page.getByText('Tamaño', { exact: true })).first()).toBeVisible();
+    // The quick answer names the button the visitor sees.
+    await expect(page.getByText('"Cambiar tamaño"').first()).toBeVisible();
+    // English stays English.
+    await page.goto('/resize-image/');
+    await addFiles(page, [await makeImage(page, 'image/jpeg', 'photo.jpg', 800, 600)]);
+    await expect(page.getByRole('button', { name: 'Resize', exact: true })).toBeVisible();
+  });
+
+  test('the home page of each language has the Ask the helper card, English only on the English page', async ({ page }) => {
+    await page.goto('/de/');
+    const card = page.getByRole('region', { name: 'Den Helfer fragen' });
+    await expect(card).toContainText('Unsicher, welches Werkzeug Sie brauchen?');
+    await expect(card.getByRole('link', { name: 'Den Helfer fragen' })).toHaveAttribute('href', '/chat/');
+    await page.goto('/');
+    await expect(page.getByRole('region', { name: 'Ask the helper' }).getByRole('link')).toHaveAttribute('href', '/chat/');
+  });
+
+  test('the duck eye is black in dark mode too', async ({ page }) => {
+    await page.emulateMedia({ colorScheme: 'dark' });
+    await page.goto('/');
+    const fill = await page.locator('svg[aria-label="iDuck mascot"] circle').first().getAttribute('fill');
+    expect(fill).toBe('#000');
   });
 
   test('the English pages are unchanged', async ({ page }) => {

@@ -19,6 +19,20 @@ import {
 import type { Dict } from '../../src/i18n/types';
 import { UI_TEXT, fill } from '../../src/i18n/ui';
 import { flagSvg } from '../../src/i18n/flags';
+import { COMPRESS_TEXT } from '../../src/i18n/tools/compress';
+import { CONVERT_TEXT } from '../../src/i18n/tools/convert';
+import { CROP_TEXT } from '../../src/i18n/tools/crop';
+import { PDF_TEXT } from '../../src/i18n/tools/pdf';
+import { RESIZE_TEXT } from '../../src/i18n/tools/resize';
+
+/** Tools whose own options and run button are translated: slug -> table. The quick answer names the translated button. */
+const TRANSLATED_TOOLS: Record<string, Readonly<Record<string, { run: string }>>> = {
+  'compress-image': COMPRESS_TEXT,
+  'resize-image': RESIZE_TEXT,
+  'convert-image': CONVERT_TEXT,
+  'crop-image': CROP_TEXT,
+  'image-to-pdf': PDF_TEXT,
+};
 
 /** The ten languages LeafLock PDF publishes. */
 const EXPECTED = ['en', 'hi', 'bn', 'pt-BR', 'id', 'ru', 'de', 'es', 'fr', 'tr'];
@@ -131,7 +145,11 @@ describe.each(OTHER_LOCALES.map((l) => l.code))('translation: %s', (code) => {
       'add-border-to-image': 'Add border',
       'favicon-generator': 'Make favicons',
     };
-    for (const [slug, label] of Object.entries(buttons)) expect(data.tools[slug]!.quick, `${code} ${slug}`).toContain(`"${label}"`);
+    for (const [slug, label] of Object.entries(buttons)) {
+      // A tool with translated controls names its translated button; the others still name the English one.
+      const shown = TRANSLATED_TOOLS[slug]?.[code]?.run ?? label;
+      expect(data.tools[slug]!.quick, `${code} ${slug}`).toContain(`"${shown}"`);
+    }
   });
 
   it('is in its own script', () => {
@@ -152,6 +170,25 @@ describe.each(OTHER_LOCALES.map((l) => l.code))('translation: %s', (code) => {
 
   it('contains no leftover template syntax', () => {
     for (const [key, value] of translated) expect(value, `${code} ${key}`).not.toMatch(/\$\{|undefined|\[object/);
+  });
+});
+
+describe('translated tool controls', () => {
+  it('has every key, every placeholder and no English left in place, for every language', () => {
+    const tables = { compress: COMPRESS_TEXT, resize: RESIZE_TEXT, convert: CONVERT_TEXT, crop: CROP_TEXT, pdf: PDF_TEXT } as unknown as Record<string, Record<string, Record<string, string>>>;
+    for (const [name, table] of Object.entries(tables)) {
+      const english = Object.entries(table.en!);
+      expect(Object.keys(table).sort(), name).toEqual([...EXPECTED].sort());
+      for (const code of OTHER_LOCALES.map((l) => l.code)) {
+        const t = table[code]!;
+        expect(Object.keys(t).sort(), `${name} ${code}`).toEqual(english.map(([k]) => k).sort());
+        for (const [key, value] of english) {
+          expect(t[key]!.trim().length, `${name} ${code} ${key}`).toBeGreaterThan(0);
+          expect(placeholders(t[key]!), `${name} ${code} ${key}`).toEqual(placeholders(value));
+          if (value.length > 14) expect(t[key], `${name} ${code} ${key} left in English`).not.toBe(value);
+        }
+      }
+    }
   });
 });
 
