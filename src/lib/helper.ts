@@ -59,7 +59,7 @@ const SYNONYMS: Record<string, string> = {
   profile: 'circle round',
   round: 'circle',
   copyright: 'watermark',
-  logo: 'watermark',
+  logo: 'logo',
   caption: 'text',
   write: 'text',
   words: 'text',

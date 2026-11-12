@@ -59,7 +59,17 @@ export const TOOLS: readonly ToolLink[] = [
     emoji: '💧',
     quick:
       'To add a watermark, drop your pictures in, type the text, choose where it goes and how see-through it is, then press Add watermark. The text is drawn in your browser, so nothing is uploaded.',
-    keywords: 'text copyright logo name stamp protect brand overlay mark photo',
+    keywords: 'text copyright name stamp protect brand overlay mark photo',
+  },
+  {
+    slug: 'add-logo-to-image',
+    name: 'Add a logo to pictures',
+    summary: 'Put your logo on a picture, or on many at once, before you share it.',
+    group: 'Add text & effects',
+    emoji: '🏷️',
+    quick:
+      'To add a logo, drop your pictures in, choose your logo file, pick the position, size and see-through level, then press Add logo. Both files stay on your device.',
+    keywords: 'logo brand image watermark stamp overlay company business photo transparent png',
   },
   {
     slug: 'exam-photo-resizer',

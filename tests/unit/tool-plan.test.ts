@@ -74,7 +74,7 @@ describe('the master tool plan', () => {
 
   it('the AI tools wait; the cheap ones are ready to build', () => {
     for (const p of PLAN.filter((x) => x.engine === 'your-ai-key')) expect(p.status, p.id).toBe('later');
-    expect(planCounts().live).toBe(15);
+    expect(planCounts().live).toBe(16);
     expect(planCounts().next).toBeGreaterThanOrEqual(10);
   });
 });

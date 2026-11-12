@@ -10,6 +10,7 @@ describe('the helper', () => {
   it('points plain words at the right tool', () => {
     expect(respond('I want to convert an iPhone photo').tools.map((t) => t.slug)).toContain('heic-to-jpg');
     expect(first('put my name on my photos')).toBe('add-watermark-to-image');
+    expect(first('put my logo on my photos')).toBe('add-logo-to-image');
     expect(first('make a round profile picture')).toBe('circle-crop-image');
     expect(first('remove location from my photo')).toBe('remove-exif-data');
     expect(first('turn my photo sideways')).toBe('rotate-image');
