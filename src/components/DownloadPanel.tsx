@@ -1,3 +1,4 @@
+import { originalSizeOf } from '../tools/shared/normalize';
 import { useEffect, useMemo, useState } from 'preact/hooks';
 import { dedupeNames, formatBytes, percentChange } from '../lib/files';
 import type { FileResult } from '../engine/types';
@@ -54,7 +55,7 @@ export default function DownloadPanel({ inputs, results, beforeBytes }: Props) {
     <section aria-label="Results" class="card p-5">
       <ul class="divide-y-2 divide-line/20">
         {rows.map(({ result, output }, i) => {
-          const before = beforeBytes ?? inputs[result.index]?.size ?? 0;
+          const before = beforeBytes ?? (inputs[result.index] ? originalSizeOf(inputs[result.index]!) : 0);
           const after = output.blob.size;
           const change = percentChange(before, after);
           return (

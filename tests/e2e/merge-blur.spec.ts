@@ -96,6 +96,8 @@ test.describe('blur or hide', () => {
     await page.goto('/blur-image/');
     await addFiles(page, [await solid(page, 'p.png', 400, 300, '#336699')]);
     const surface = page.getByTestId('draw-surface');
+    // The mouse works in window coordinates, so make sure the picture is on screen before measuring it.
+    await surface.scrollIntoViewIfNeeded();
     const box = (await surface.boundingBox())!;
     await page.mouse.move(box.x + box.width * 0.2, box.y + box.height * 0.2);
     await page.mouse.down();

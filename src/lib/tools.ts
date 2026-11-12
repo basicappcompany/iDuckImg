@@ -89,7 +89,7 @@ export const TOOLS: readonly ToolLink[] = [
     emoji: '🔁',
     quick:
       'To convert an image, drop it in, choose JPG, PNG, WebP or PDF and press Convert. iPhone HEIC photos work too, so you can turn them into JPG files that open anywhere.',
-    keywords: 'heic heif iphone jpg jpeg png webp pdf format change',
+    keywords: 'heic heif iphone avif svg gif bmp jpg jpeg png webp pdf format change',
   },
   {
     slug: 'image-to-pdf',
