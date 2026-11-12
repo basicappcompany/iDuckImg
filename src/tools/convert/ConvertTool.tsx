@@ -6,12 +6,14 @@ import DownloadPanel from '../../components/DownloadPanel';
 import { useToolRunner } from '../../engine/useToolRunner';
 import { convertTool } from './tool';
 import { losesTransparency, type ConvertOptions } from './options';
-import { fill, useUi } from '../../i18n/ui';
+import { bare, fill, useText, useUi } from '../../i18n/ui';
+import { CONVERT_TEXT } from '../../i18n/tools/convert';
 
 const inputClass = 'input w-full';
 
 export default function ConvertTool({ initial }: { initial?: Partial<ConvertOptions> } = {}) {
   const ui = useUi();
+  const t = useText(CONVERT_TEXT);
   const [files, setFiles] = useState<File[]>([]);
   const [options, setOptions] = useState<ConvertOptions>({ ...convertTool.defaultOptions, ...initial });
   const runner = useToolRunner(convertTool);
@@ -53,12 +55,12 @@ export default function ConvertTool({ initial }: { initial?: Partial<ConvertOpti
             </button>
           </p>
 
-          <OptionsPanel title="Convert to">
+          <OptionsPanel title={t.title}>
             <Field
               id="target"
-              label="Format"
+              label={t.format}
               {...(losesTransparency(options.target)
-                ? { hint: 'JPG has no transparency, so transparent areas become white.' }
+                ? { hint: t.noAlpha }
                 : {})}
             >
               <select
@@ -71,12 +73,12 @@ export default function ConvertTool({ initial }: { initial?: Partial<ConvertOpti
                 <option value="jpeg">JPG</option>
                 <option value="png">PNG</option>
                 <option value="webp">WebP</option>
-                <option value="pdf">PDF (one page per image)</option>
+                <option value="pdf">{t.pdfOption}</option>
               </select>
             </Field>
 
             {lossy && (
-              <Field id="quality" label={`Quality: ${options.quality}`} hint="Higher keeps more detail and makes a bigger file.">
+              <Field id="quality" label={fill(t.quality, { n: options.quality })} hint={t.qualityHint}>
                 <input
                   id="quality"
                   type="range"
@@ -90,7 +92,7 @@ export default function ConvertTool({ initial }: { initial?: Partial<ConvertOpti
             )}
 
             {options.target === 'pdf' && (
-              <Field id="pdfPage" label="Page size">
+              <Field id="pdfPage" label={t.pageSize}>
                 <select
                   id="pdfPage"
                   class={inputClass}
@@ -98,8 +100,8 @@ export default function ConvertTool({ initial }: { initial?: Partial<ConvertOpti
                   disabled={running}
                   onChange={(e) => set({ pdfPage: e.currentTarget.value as ConvertOptions['pdfPage'] })}
                 >
-                  <option value="fit">Same size as the image</option>
-                  <option value="a4">A4 with margins</option>
+                  <option value="fit">{t.fit}</option>
+                  <option value="a4">{t.a4}</option>
                 </select>
               </Field>
             )}
@@ -112,7 +114,7 @@ export default function ConvertTool({ initial }: { initial?: Partial<ConvertOpti
               onClick={() => runner.run(files, options)}
               class="btn btn-primary btn-lg"
             >
-              {running ? 'Converting...' : 'Convert'}
+              {running ? t.running : t.run}
             </button>
             {running && (
               <button
@@ -127,7 +129,7 @@ export default function ConvertTool({ initial }: { initial?: Partial<ConvertOpti
         </>
       )}
 
-      {running && <ProgressBar value={overall} label="Converting" />}
+      {running && <ProgressBar value={overall} label={bare(t.running)} />}
       {runner.state !== 'idle' && <DownloadPanel inputs={files} results={runner.results} />}
     </div>
   );

@@ -51,6 +51,9 @@ export const de: LocaleData = {
       { title: `Auch fürs Smartphone gemacht`, text: `Wählen Sie ein Foto aus Ihrer Galerie oder nehmen Sie eins auf, und jedes Werkzeug funktioniert in Smartphone-Größe.` },
     ],
     guidesHeading: `Anleitungen`,
+    helperTitle: `Unsicher, welches Werkzeug Sie brauchen?`,
+    helperText: `Beschreiben Sie die Aufgabe in einfachen Worten, und der Helfer nennt das passende Werkzeug. (Der Helfer ist auf Englisch.)`,
+    helperButton: `Den Helfer fragen`,
     guidesIntro: `Kurze Erklärungen zu den am häufigsten gesuchten Aufgaben. Jede nennt zuerst die Antwort.`,
     allGuides: `Alle {n} Anleitungen`,
     faqHeading: `Häufige Fragen`,
@@ -74,17 +77,17 @@ export const de: LocaleData = {
     'compress-image': {
       name: `Bilder komprimieren`,
       summary: `JPG-, PNG- und WebP-Dateien ohne sichtbaren Verlust verkleinern.`,
-      quick: `Um ein Bild zu komprimieren, ziehen Sie es hinein, wählen eine Qualität (etwa 75 sieht bei den meisten Fotos gleich aus) und klicken auf "Compress". Sie erhalten eine kleinere Datei im selben Format, erstellt im Tab Ihres Browsers.`,
+      quick: `Um ein Bild zu komprimieren, ziehen Sie es hinein, wählen eine Qualität (etwa 75 sieht bei den meisten Fotos gleich aus) und klicken auf "Komprimieren". Sie erhalten eine kleinere Datei im selben Format, erstellt im Tab Ihres Browsers.`,
     },
     'resize-image': {
       name: `Bildgröße ändern`,
       summary: `Exakte Pixel oder einen Prozentwert festlegen oder auf eine Zielgröße in KB verkleinern.`,
-      quick: `Um die Größe eines Bildes zu ändern, geben Sie Breite oder Höhe in Pixeln oder einen Prozentwert an und klicken auf "Resize". Brauchen Sie eine bestimmte Dateigröße? Geben Sie ein Ziel in KB ein, und das Werkzeug findet die beste passende Qualität.`,
+      quick: `Um die Größe eines Bildes zu ändern, geben Sie Breite oder Höhe in Pixeln oder einen Prozentwert an und klicken auf "Größe ändern". Brauchen Sie eine bestimmte Dateigröße? Geben Sie ein Ziel in KB ein, und das Werkzeug findet die beste passende Qualität.`,
     },
     'crop-image': {
       name: `Bilder zuschneiden`,
       summary: `Einen Rahmen ziehen, ein Verhältnis wie 1:1 wählen oder exakte Pixel eingeben.`,
-      quick: `Um ein Bild zuzuschneiden, ziehen Sie den Rahmen über den Teil, den Sie behalten möchten, oder geben exakte Pixel ein, und klicken auf "Crop". Wählen Sie eine Form wie 1:1 oder 16:9, um die Proportionen festzuhalten.`,
+      quick: `Um ein Bild zuzuschneiden, ziehen Sie den Rahmen über den Teil, den Sie behalten möchten, oder geben exakte Pixel ein, und klicken auf "Zuschneiden". Wählen Sie eine Form wie 1:1 oder 16:9, um die Proportionen festzuhalten.`,
     },
     'add-watermark-to-image': {
       name: `Wasserzeichen hinzufügen`,
@@ -104,12 +107,12 @@ export const de: LocaleData = {
     'convert-image': {
       name: `Bilder konvertieren`,
       summary: `iPhone-HEIC-Fotos öffnen, zwischen JPG, PNG und WebP wechseln oder ein PDF erstellen.`,
-      quick: `Um ein Bild zu konvertieren, ziehen Sie es hinein, wählen JPG, PNG, WebP oder PDF und klicken auf "Convert". iPhone-HEIC-Fotos funktionieren ebenfalls, Sie können sie also in JPG-Dateien umwandeln, die überall geöffnet werden.`,
+      quick: `Um ein Bild zu konvertieren, ziehen Sie es hinein, wählen JPG, PNG, WebP oder PDF und klicken auf "Umwandeln". iPhone-HEIC-Fotos funktionieren ebenfalls, Sie können sie also in JPG-Dateien umwandeln, die überall geöffnet werden.`,
     },
     'image-to-pdf': {
       name: `Bilder zu einer PDF zusammenfassen`,
       summary: `Mehrere Bilder in einer PDF vereinen und die Seitenreihenfolge festlegen.`,
-      quick: `Um aus mehreren Bildern eine PDF zu machen, fügen Sie sie hinzu, sortieren sie mit "Up" und "Down", wählen A4- oder bildgroße Seiten und klicken auf "Create PDF".`,
+      quick: `Um aus mehreren Bildern eine PDF zu machen, fügen Sie sie hinzu, sortieren sie mit "Hoch" und "Runter", wählen A4- oder bildgroße Seiten und klicken auf "PDF erstellen".`,
     },
     'rotate-image': {
       name: `Drehen und spiegeln`,

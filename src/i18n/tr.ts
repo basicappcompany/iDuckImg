@@ -51,6 +51,9 @@ export const tr: LocaleData = {
       { title: `Telefonlar için de tasarlandı`, text: `Galerinizden bir fotoğraf seçin veya bir tane çekin; her araç telefon ekranında çalışır.` },
     ],
     guidesHeading: `Nasıl yapılır rehberleri`,
+    helperTitle: `Hangi araca ihtiyacınız olduğundan emin değil misiniz?`,
+    helperText: `İşi basit sözcüklerle anlatın, yardımcı doğru aracı göstersin. (Yardımcı İngilizcedir.)`,
+    helperButton: `Yardımcıya sor`,
     guidesIntro: `En çok aranan işler için kısa anlatımlar. Her biri önce yanıtı verir.`,
     allGuides: `Tüm {n} nasıl yapılır rehberi`,
     faqHeading: `Sık sorulan sorular`,
@@ -74,17 +77,17 @@ export const tr: LocaleData = {
     'compress-image': {
       name: `Görselleri sıkıştır`,
       summary: `JPG, PNG ve WebP dosyalarını gözle görülür kayıp olmadan küçültün.`,
-      quick: `Bir görseli sıkıştırmak için bırakın, bir kalite seçin (çoğu fotoğrafta yaklaşık 75 aynı görünür) ve "Compress" düğmesine basın. Aynı biçimde daha küçük bir dosya alırsınız; tarayıcı sekmenizde oluşturulur.`,
+      quick: `Bir görseli sıkıştırmak için bırakın, bir kalite seçin (çoğu fotoğrafta yaklaşık 75 aynı görünür) ve "Sıkıştır" düğmesine basın. Aynı biçimde daha küçük bir dosya alırsınız; tarayıcı sekmenizde oluşturulur.`,
     },
     'resize-image': {
       name: `Görselleri yeniden boyutlandır`,
       summary: `Tam piksel veya yüzde belirleyin ya da KB cinsinden hedef boyuta küçültün.`,
-      quick: `Bir görseli yeniden boyutlandırmak için piksel cinsinden genişlik veya yükseklik ya da yüzde belirleyin ve "Resize" düğmesine basın. Belirli bir dosya boyutu mu gerekiyor? KB cinsinden bir hedef yazın; araç sığan en iyi kaliteyi bulur.`,
+      quick: `Bir görseli yeniden boyutlandırmak için piksel cinsinden genişlik veya yükseklik ya da yüzde belirleyin ve "Yeniden boyutlandır" düğmesine basın. Belirli bir dosya boyutu mu gerekiyor? KB cinsinden bir hedef yazın; araç sığan en iyi kaliteyi bulur.`,
     },
     'crop-image': {
       name: `Görselleri kırp`,
       summary: `Bir kutu sürükleyin, 1:1 gibi bir oran seçin veya tam piksel yazın.`,
-      quick: `Bir görseli kırpmak için kutuyu tutmak istediğiniz bölümün üzerine sürükleyin ya da tam piksel yazın ve "Crop" düğmesine basın. Oranları sabitlemek için 1:1 veya 16:9 gibi bir şekil seçin.`,
+      quick: `Bir görseli kırpmak için kutuyu tutmak istediğiniz bölümün üzerine sürükleyin ya da tam piksel yazın ve "Kırp" düğmesine basın. Oranları sabitlemek için 1:1 veya 16:9 gibi bir şekil seçin.`,
     },
     'add-watermark-to-image': {
       name: `Filigran ekle`,
@@ -104,12 +107,12 @@ export const tr: LocaleData = {
     'convert-image': {
       name: `Görselleri dönüştür`,
       summary: `iPhone HEIC fotoğraflarını açın, JPG, PNG ve WebP arasında geçiş yapın veya PDF oluşturun.`,
-      quick: `Bir görseli dönüştürmek için bırakın, JPG, PNG, WebP veya PDF seçin ve "Convert" düğmesine basın. iPhone HEIC fotoğrafları da çalışır; böylece onları her yerde açılan JPG dosyalarına çevirebilirsiniz.`,
+      quick: `Bir görseli dönüştürmek için bırakın, JPG, PNG, WebP veya PDF seçin ve "Dönüştür" düğmesine basın. iPhone HEIC fotoğrafları da çalışır; böylece onları her yerde açılan JPG dosyalarına çevirebilirsiniz.`,
     },
     'image-to-pdf': {
       name: `Görselleri PDF'te birleştir`,
       summary: `Birkaç görseli tek bir PDF'e koyun ve sayfa sırasını seçin.`,
-      quick: `Birkaç görselden tek bir PDF yapmak için bunları ekleyin, "Up" ve "Down" ile sıralayın, A4 veya görsel boyutunda sayfaları seçin ve "Create PDF" düğmesine basın.`,
+      quick: `Birkaç görselden tek bir PDF yapmak için bunları ekleyin, "Yukarı" ve "Aşağı" ile sıralayın, A4 veya görsel boyutunda sayfaları seçin ve "PDF oluştur" düğmesine basın.`,
     },
     'rotate-image': {
       name: `Döndür ve çevir`,

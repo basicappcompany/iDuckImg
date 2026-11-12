@@ -51,6 +51,9 @@ export const es: LocaleData = {
       { title: `Pensado también para móviles`, text: `Elige una foto de tu galería o haz una, y todas las herramientas funcionan en pantalla de móvil.` },
     ],
     guidesHeading: `Guías prácticas`,
+    helperTitle: `¿No sabes qué herramienta necesitas?`,
+    helperText: `Describe la tarea con palabras sencillas y el asistente te indicará la adecuada. (El asistente está en inglés.)`,
+    helperButton: `Preguntar al asistente`,
     guidesIntro: `Explicaciones breves para las tareas que más se buscan. Cada una da primero la respuesta.`,
     allGuides: `Las {n} guías prácticas`,
     faqHeading: `Preguntas frecuentes`,
@@ -74,17 +77,17 @@ export const es: LocaleData = {
     'compress-image': {
       name: `Comprimir imágenes`,
       summary: `Reduce el tamaño de archivos JPG, PNG y WebP sin pérdida visible.`,
-      quick: `Para comprimir una imagen, suéltala aquí, elige una calidad (alrededor de 75 se ve igual en la mayoría de las fotos) y pulsa "Compress". Obtienes un archivo más pequeño en el mismo formato, hecho en la pestaña de tu navegador.`,
+      quick: `Para comprimir una imagen, suéltala aquí, elige una calidad (alrededor de 75 se ve igual en la mayoría de las fotos) y pulsa "Comprimir". Obtienes un archivo más pequeño en el mismo formato, hecho en la pestaña de tu navegador.`,
     },
     'resize-image': {
       name: `Cambiar el tamaño de imágenes`,
       summary: `Indica píxeles exactos o un porcentaje, o reduce hasta un tamaño objetivo en KB.`,
-      quick: `Para cambiar el tamaño de una imagen, indica un ancho o un alto en píxeles, o un porcentaje, y pulsa "Resize". ¿Necesitas un tamaño de archivo concreto? Escribe un objetivo en KB y la herramienta busca la mejor calidad que quepa.`,
+      quick: `Para cambiar el tamaño de una imagen, indica un ancho o un alto en píxeles, o un porcentaje, y pulsa "Cambiar tamaño". ¿Necesitas un tamaño de archivo concreto? Escribe un objetivo en KB y la herramienta busca la mejor calidad que quepa.`,
     },
     'crop-image': {
       name: `Recortar imágenes`,
       summary: `Arrastra un recuadro, elige una proporción como 1:1 o escribe píxeles exactos.`,
-      quick: `Para recortar una imagen, arrastra el recuadro sobre la parte que quieres conservar, o escribe píxeles exactos, y pulsa "Crop". Elige una forma como 1:1 o 16:9 para fijar las proporciones.`,
+      quick: `Para recortar una imagen, arrastra el recuadro sobre la parte que quieres conservar, o escribe píxeles exactos, y pulsa "Recortar". Elige una forma como 1:1 o 16:9 para fijar las proporciones.`,
     },
     'add-watermark-to-image': {
       name: `Añadir una marca de agua`,
@@ -104,12 +107,12 @@ export const es: LocaleData = {
     'convert-image': {
       name: `Convertir imágenes`,
       summary: `Abre fotos HEIC de iPhone, cambia entre JPG, PNG y WebP, o crea un PDF.`,
-      quick: `Para convertir una imagen, suéltala, elige JPG, PNG, WebP o PDF y pulsa "Convert". Las fotos HEIC de iPhone también funcionan, así que puedes convertirlas en archivos JPG que se abren en cualquier parte.`,
+      quick: `Para convertir una imagen, suéltala, elige JPG, PNG, WebP o PDF y pulsa "Convertir". Las fotos HEIC de iPhone también funcionan, así que puedes convertirlas en archivos JPG que se abren en cualquier parte.`,
     },
     'image-to-pdf': {
       name: `Combinar imágenes en un PDF`,
       summary: `Reúne varias imágenes en un PDF y elige el orden de las páginas.`,
-      quick: `Para hacer un solo PDF con varias imágenes, añádelas, ordénalas con "Up" y "Down", elige páginas A4 o del tamaño de cada imagen y pulsa "Create PDF".`,
+      quick: `Para hacer un solo PDF con varias imágenes, añádelas, ordénalas con "Subir" y "Bajar", elige páginas A4 o del tamaño de cada imagen y pulsa "Crear PDF".`,
     },
     'rotate-image': {
       name: `Girar y voltear`,

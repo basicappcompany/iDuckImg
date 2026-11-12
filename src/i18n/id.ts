@@ -51,6 +51,9 @@ export const id: LocaleData = {
       { title: `Dibuat untuk ponsel juga`, text: `Pilih foto dari galeri atau ambil satu, dan setiap alat berfungsi di layar ponsel.` },
     ],
     guidesHeading: `Panduan cara`,
+    helperTitle: `Tidak yakin alat mana yang Anda butuhkan?`,
+    helperText: `Jelaskan pekerjaannya dengan kata-kata sederhana dan asisten akan menunjuk alat yang tepat. (Asistennya berbahasa Inggris.)`,
+    helperButton: `Tanya asisten`,
     guidesIntro: `Penjelasan singkat untuk tugas yang paling sering dicari. Masing-masing memberi jawaban lebih dulu.`,
     allGuides: `Semua {n} panduan cara`,
     faqHeading: `Pertanyaan umum`,
@@ -74,17 +77,17 @@ export const id: LocaleData = {
     'compress-image': {
       name: `Kompres gambar`,
       summary: `Perkecil file JPG, PNG, dan WebP tanpa penurunan kualitas yang terlihat.`,
-      quick: `Untuk mengompres gambar, letakkan gambar di sini, pilih kualitas (sekitar 75 tampak sama pada sebagian besar foto) dan tekan "Compress". Anda mendapat file yang lebih kecil dalam format yang sama, dibuat di tab browser Anda.`,
+      quick: `Untuk mengompres gambar, letakkan gambar di sini, pilih kualitas (sekitar 75 tampak sama pada sebagian besar foto) dan tekan "Kompres". Anda mendapat file yang lebih kecil dalam format yang sama, dibuat di tab browser Anda.`,
     },
     'resize-image': {
       name: `Ubah ukuran gambar`,
       summary: `Tentukan piksel tepat atau persentase, atau perkecil hingga ukuran target dalam KB.`,
-      quick: `Untuk mengubah ukuran gambar, tentukan lebar atau tinggi dalam piksel, atau persentase, lalu tekan "Resize". Perlu ukuran file tertentu? Ketik target dalam KB dan alat ini mencari kualitas terbaik yang muat.`,
+      quick: `Untuk mengubah ukuran gambar, tentukan lebar atau tinggi dalam piksel, atau persentase, lalu tekan "Ubah ukuran". Perlu ukuran file tertentu? Ketik target dalam KB dan alat ini mencari kualitas terbaik yang muat.`,
     },
     'crop-image': {
       name: `Potong gambar`,
       summary: `Seret kotak, pilih rasio seperti 1:1, atau ketik piksel tepat.`,
-      quick: `Untuk memotong gambar, seret kotak ke bagian yang ingin dipertahankan, atau ketik piksel tepat, lalu tekan "Crop". Pilih bentuk seperti 1:1 atau 16:9 untuk mengunci proporsi.`,
+      quick: `Untuk memotong gambar, seret kotak ke bagian yang ingin dipertahankan, atau ketik piksel tepat, lalu tekan "Potong". Pilih bentuk seperti 1:1 atau 16:9 untuk mengunci proporsi.`,
     },
     'add-watermark-to-image': {
       name: `Tambah watermark`,
@@ -104,12 +107,12 @@ export const id: LocaleData = {
     'convert-image': {
       name: `Konversi gambar`,
       summary: `Buka foto HEIC iPhone, beralih antara JPG, PNG, dan WebP, atau buat PDF.`,
-      quick: `Untuk mengonversi gambar, letakkan gambar, pilih JPG, PNG, WebP, atau PDF dan tekan "Convert". Foto HEIC iPhone juga bisa, sehingga Anda dapat mengubahnya menjadi file JPG yang terbuka di mana saja.`,
+      quick: `Untuk mengonversi gambar, letakkan gambar, pilih JPG, PNG, WebP, atau PDF dan tekan "Konversi". Foto HEIC iPhone juga bisa, sehingga Anda dapat mengubahnya menjadi file JPG yang terbuka di mana saja.`,
     },
     'image-to-pdf': {
       name: `Gabungkan gambar menjadi PDF`,
       summary: `Masukkan beberapa gambar ke satu PDF dan pilih urutan halaman.`,
-      quick: `Untuk membuat satu PDF dari beberapa gambar, tambahkan gambar, atur urutannya dengan "Up" dan "Down", pilih halaman A4 atau seukuran gambar, lalu tekan "Create PDF".`,
+      quick: `Untuk membuat satu PDF dari beberapa gambar, tambahkan gambar, atur urutannya dengan "Naik" dan "Turun", pilih halaman A4 atau seukuran gambar, lalu tekan "Buat PDF".`,
     },
     'rotate-image': {
       name: `Putar dan balik`,

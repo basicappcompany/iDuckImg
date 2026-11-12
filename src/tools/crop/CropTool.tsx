@@ -20,7 +20,8 @@ import {
   type Rect,
   type RectField,
 } from './geometry';
-import { useUi } from '../../i18n/ui';
+import { bare, useText, useUi } from '../../i18n/ui';
+import { CROP_TEXT } from '../../i18n/tools/crop';
 
 const inputClass = 'input w-full';
 const smallButton =
@@ -47,6 +48,9 @@ interface Drag {
 
 export default function CropTool() {
   const ui = useUi();
+  const t = useText(CROP_TEXT);
+  const aspectLabel = (id: string, fallback: string) =>
+    id === 'free' ? t.aspectFree : id === 'original' ? t.aspectOriginal : id === '1:1' ? t.aspectSquare : id === '4:5' ? t.aspectPost : fallback;
   const [file, setFile] = useState<File | null>(null);
   const [url, setUrl] = useState<string | null>(null);
   const [bounds, setBounds] = useState<Bounds | null>(null);
@@ -172,13 +176,13 @@ export default function CropTool() {
                 setRect(null);
               }}
             >
-              Remove
+              {t.remove}
             </button>
           </p>
 
           {loadError && (
             <p role="alert" class="text-sm text-danger font-bold">
-              This picture could not be shown. It may be damaged.
+              {t.loadError}
             </p>
           )}
 
@@ -190,7 +194,7 @@ export default function CropTool() {
             >
               <img
                 src={url}
-                alt="The picture to crop"
+                alt={t.alt}
                 draggable={false}
                 class="block h-auto max-w-full"
                 onLoad={onImageLoad}
@@ -201,7 +205,7 @@ export default function CropTool() {
                   data-testid="crop-box"
                   tabIndex={0}
                   role="group"
-                  aria-label="Crop area. Use the arrow keys to move it."
+                  aria-label={t.areaLabel}
                   class="absolute cursor-move border-2 border-white outline outline-1 outline-duckink"
                   style={{
                     left: pct(rect.x, bounds.width),
@@ -234,8 +238,8 @@ export default function CropTool() {
             </div>
           </div>
 
-          <OptionsPanel title="Crop box">
-            <Field id="crop-aspect" label="Shape">
+          <OptionsPanel title={t.boxTitle}>
+            <Field id="crop-aspect" label={t.shape}>
               <select
                 id="crop-aspect"
                 class={inputClass}
@@ -245,16 +249,16 @@ export default function CropTool() {
               >
                 {ASPECTS.map((a) => (
                   <option key={a.id} value={a.id}>
-                    {a.label}
+                    {aspectLabel(a.id, a.label)}
                   </option>
                 ))}
               </select>
             </Field>
             <div class="grid grid-cols-2 gap-4 sm:grid-cols-4">
-              {numeric('x', 'Left (px)')}
-              {numeric('y', 'Top (px)')}
-              {numeric('width', 'Width (px)')}
-              {numeric('height', 'Height (px)')}
+              {numeric('x', t.left)}
+              {numeric('y', t.top)}
+              {numeric('width', t.width)}
+              {numeric('height', t.height)}
             </div>
             <div class="flex flex-wrap gap-3">
               <button
@@ -263,7 +267,7 @@ export default function CropTool() {
                 disabled={running || !bounds}
                 onClick={() => bounds && edit(initialRect(bounds))}
               >
-                Reset box
+                {t.resetBox}
               </button>
               <button
                 type="button"
@@ -271,13 +275,11 @@ export default function CropTool() {
                 disabled={running || !bounds}
                 onClick={() => bounds && edit(aspect ? fitRectToAspect(fullRect(bounds), aspect, bounds) : fullRect(bounds))}
               >
-                Whole picture
+                {t.whole}
               </button>
             </div>
             <p class="text-xs text-muted">
-              Drag the box or its handles, or type exact numbers. With the keyboard, focus the box and use the
-              arrow keys (hold Shift for bigger steps). JPG and WebP are saved again at high quality; PNG stays
-              lossless.
+              {t.help}
             </p>
           </OptionsPanel>
 
@@ -288,7 +290,7 @@ export default function CropTool() {
               onClick={() => rect && runner.run([file], { rect, quality: cropTool.defaultOptions.quality })}
               class="btn btn-primary btn-lg"
             >
-              {running ? 'Cropping...' : 'Crop'}
+              {running ? t.running : t.run}
             </button>
             {running && (
               <button
@@ -303,7 +305,7 @@ export default function CropTool() {
         </>
       )}
 
-      {running && <ProgressBar value={runner.progress[0] ?? 0} label="Cropping" />}
+      {running && <ProgressBar value={runner.progress[0] ?? 0} label={bare(t.running)} />}
       {runner.state !== 'idle' && file && <DownloadPanel inputs={[file]} results={runner.results} />}
     </div>
   );

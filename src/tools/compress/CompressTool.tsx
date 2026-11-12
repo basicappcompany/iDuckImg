@@ -6,10 +6,12 @@ import DownloadPanel from '../../components/DownloadPanel';
 import { useToolRunner } from '../../engine/useToolRunner';
 import { compressTool } from './tool';
 import type { CompressOptions } from './options';
-import { fill, useUi } from '../../i18n/ui';
+import { bare, fill, useText, useUi } from '../../i18n/ui';
+import { COMPRESS_TEXT } from '../../i18n/tools/compress';
 
 export default function CompressTool({ initial }: { initial?: Partial<CompressOptions> } = {}) {
   const ui = useUi();
+  const t = useText(COMPRESS_TEXT);
   const [files, setFiles] = useState<File[]>([]);
   const [options, setOptions] = useState<CompressOptions>({ ...compressTool.defaultOptions, ...initial });
   const runner = useToolRunner(compressTool);
@@ -48,11 +50,11 @@ export default function CompressTool({ initial }: { initial?: Partial<CompressOp
             </button>
           </p>
 
-          <OptionsPanel title="Compression">
+          <OptionsPanel title={t.title}>
             <Field
               id="quality"
-              label={`Quality: ${options.quality}`}
-              hint="Lower means a smaller file. 70 to 80 usually looks the same. Applies to JPG and WebP; PNG is always lossless."
+              label={fill(t.quality, { n: options.quality })}
+              hint={t.qualityHint}
             >
               <input
                 id="quality"
@@ -65,7 +67,7 @@ export default function CompressTool({ initial }: { initial?: Partial<CompressOp
                 onInput={(e) => setOptions({ ...options, quality: Number(e.currentTarget.value) })}
               />
             </Field>
-            <Field id="format" label="Output format">
+            <Field id="format" label={t.format}>
               <select
                 id="format"
                 class="input"
@@ -75,8 +77,8 @@ export default function CompressTool({ initial }: { initial?: Partial<CompressOp
                   setOptions({ ...options, format: e.currentTarget.value as CompressOptions['format'] })
                 }
               >
-                <option value="same">Keep original format</option>
-                <option value="webp">Convert to WebP (smaller)</option>
+                <option value="same">{t.keep}</option>
+                <option value="webp">{t.webp}</option>
               </select>
             </Field>
           </OptionsPanel>
@@ -88,7 +90,7 @@ export default function CompressTool({ initial }: { initial?: Partial<CompressOp
               onClick={() => runner.run(files, options)}
               class="btn btn-primary btn-lg"
             >
-              {running ? 'Compressing...' : 'Compress'}
+              {running ? t.running : t.run}
             </button>
             {running && (
               <button
@@ -103,7 +105,7 @@ export default function CompressTool({ initial }: { initial?: Partial<CompressOp
         </>
       )}
 
-      {running && <ProgressBar value={overall} label="Compressing" />}
+      {running && <ProgressBar value={overall} label={bare(t.running)} />}
       {runner.state !== 'idle' && <DownloadPanel inputs={files} results={runner.results} />}
     </div>
   );

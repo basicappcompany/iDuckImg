@@ -1,0 +1,148 @@
+/** The words on the Convert tool: its options and run button, in the ten languages (machine translations). */
+export interface ConvertText {
+  title: string;
+  format: string;
+  noAlpha: string;
+  pdfOption: string;
+  /** {n} is the quality number. */
+  quality: string;
+  qualityHint: string;
+  pageSize: string;
+  fit: string;
+  a4: string;
+  run: string;
+  running: string;
+}
+
+export const CONVERT_TEXT: Readonly<Record<string, ConvertText>> & { en: ConvertText } = {
+  en: {
+    title: 'Convert to',
+    format: 'Format',
+    noAlpha: 'JPG has no transparency, so transparent areas become white.',
+    pdfOption: 'PDF (one page per image)',
+    quality: 'Quality: {n}',
+    qualityHint: 'Higher keeps more detail and makes a bigger file.',
+    pageSize: 'Page size',
+    fit: 'Same size as the image',
+    a4: 'A4 with margins',
+    run: 'Convert',
+    running: 'Converting...',
+  },
+  hi: {
+    title: 'इसमें बदलें',
+    format: 'फ़ॉर्मैट',
+    noAlpha: 'JPG में पारदर्शिता नहीं होती, इसलिए पारदर्शी हिस्से सफ़ेद हो जाते हैं।',
+    pdfOption: 'PDF (हर इमेज का एक पेज)',
+    quality: 'क्वालिटी: {n}',
+    qualityHint: 'ज़्यादा मान में ज़्यादा डिटेल रहती है और फ़ाइल बड़ी बनती है।',
+    pageSize: 'पेज का साइज़',
+    fit: 'इमेज के बराबर',
+    a4: 'मार्जिन के साथ A4',
+    run: 'कन्वर्ट करें',
+    running: 'कन्वर्ट हो रही है...',
+  },
+  bn: {
+    title: 'এতে বদলান',
+    format: 'ফরম্যাট',
+    noAlpha: 'JPG-তে স্বচ্ছতা নেই, তাই স্বচ্ছ অংশ সাদা হয়ে যায়।',
+    pdfOption: 'PDF (প্রতি ছবিতে একটি পাতা)',
+    quality: 'কোয়ালিটি: {n}',
+    qualityHint: 'বেশি মানে বেশি ডিটেল এবং বড় ফাইল।',
+    pageSize: 'পাতার আকার',
+    fit: 'ছবির সমান আকার',
+    a4: 'মার্জিনসহ A4',
+    run: 'কনভার্ট করুন',
+    running: 'কনভার্ট হচ্ছে...',
+  },
+  'pt-BR': {
+    title: 'Converter para',
+    format: 'Formato',
+    noAlpha: 'JPG não tem transparência, então as áreas transparentes ficam brancas.',
+    pdfOption: 'PDF (uma página por imagem)',
+    quality: 'Qualidade: {n}',
+    qualityHint: 'Mais alto mantém mais detalhes e gera um arquivo maior.',
+    pageSize: 'Tamanho da página',
+    fit: 'Do mesmo tamanho da imagem',
+    a4: 'A4 com margens',
+    run: 'Converter',
+    running: 'Convertendo...',
+  },
+  id: {
+    title: 'Konversi ke',
+    format: 'Format',
+    noAlpha: 'JPG tidak mendukung transparansi, jadi area transparan menjadi putih.',
+    pdfOption: 'PDF (satu halaman per gambar)',
+    quality: 'Kualitas: {n}',
+    qualityHint: 'Lebih tinggi menjaga lebih banyak detail dan membuat file lebih besar.',
+    pageSize: 'Ukuran halaman',
+    fit: 'Sama dengan ukuran gambar',
+    a4: 'A4 dengan margin',
+    run: 'Konversi',
+    running: 'Mengonversi...',
+  },
+  ru: {
+    title: 'Преобразовать в',
+    format: 'Формат',
+    noAlpha: 'В JPG нет прозрачности, поэтому прозрачные области станут белыми.',
+    pdfOption: 'PDF (одна страница на изображение)',
+    quality: 'Качество: {n}',
+    qualityHint: 'Чем выше, тем больше деталей и тем крупнее файл.',
+    pageSize: 'Размер страницы',
+    fit: 'Как у изображения',
+    a4: 'A4 с полями',
+    run: 'Преобразовать',
+    running: 'Преобразуем...',
+  },
+  de: {
+    title: 'Umwandeln in',
+    format: 'Format',
+    noAlpha: 'JPG kennt keine Transparenz, daher werden transparente Bereiche weiß.',
+    pdfOption: 'PDF (eine Seite pro Bild)',
+    quality: 'Qualität: {n}',
+    qualityHint: 'Höher bewahrt mehr Details und ergibt eine größere Datei.',
+    pageSize: 'Seitengröße',
+    fit: 'So groß wie das Bild',
+    a4: 'A4 mit Rändern',
+    run: 'Umwandeln',
+    running: 'Wird umgewandelt...',
+  },
+  es: {
+    title: 'Convertir a',
+    format: 'Formato',
+    noAlpha: 'JPG no tiene transparencia, así que las zonas transparentes se vuelven blancas.',
+    pdfOption: 'PDF (una página por imagen)',
+    quality: 'Calidad: {n}',
+    qualityHint: 'Más alto conserva más detalle y genera un archivo más grande.',
+    pageSize: 'Tamaño de página',
+    fit: 'Del mismo tamaño que la imagen',
+    a4: 'A4 con márgenes',
+    run: 'Convertir',
+    running: 'Convirtiendo...',
+  },
+  fr: {
+    title: 'Convertir en',
+    format: 'Format',
+    noAlpha: 'Le JPG n’a pas de transparence : les zones transparentes deviennent blanches.',
+    pdfOption: 'PDF (une page par image)',
+    quality: 'Qualité : {n}',
+    qualityHint: 'Plus haut garde plus de détails et donne un fichier plus gros.',
+    pageSize: 'Taille de page',
+    fit: 'Même taille que l’image',
+    a4: 'A4 avec marges',
+    run: 'Convertir',
+    running: 'Conversion...',
+  },
+  tr: {
+    title: 'Şuna dönüştür',
+    format: 'Biçim',
+    noAlpha: 'JPG saydamlığı desteklemez, bu yüzden saydam alanlar beyaz olur.',
+    pdfOption: 'PDF (görsel başına bir sayfa)',
+    quality: 'Kalite: {n}',
+    qualityHint: 'Yüksek değer daha fazla ayrıntıyı korur ve dosyayı büyütür.',
+    pageSize: 'Sayfa boyutu',
+    fit: 'Görselle aynı boyutta',
+    a4: 'Kenar boşluklu A4',
+    run: 'Dönüştür',
+    running: 'Dönüştürülüyor...',
+  },
+};

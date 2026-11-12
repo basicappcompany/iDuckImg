@@ -6,7 +6,8 @@ import DownloadPanel from '../../components/DownloadPanel';
 import { useToolRunner } from '../../engine/useToolRunner';
 import { resizeTool } from './tool';
 import type { ResizeOptions } from './options';
-import { fill, useUi } from '../../i18n/ui';
+import { bare, fill, useText, useUi } from '../../i18n/ui';
+import { RESIZE_TEXT } from '../../i18n/tools/resize';
 
 const inputClass = 'input w-full';
 
@@ -18,6 +19,7 @@ function toNumber(value: string): number | null {
 
 export default function ResizeTool({ initial }: { initial?: Partial<ResizeOptions> } = {}) {
   const ui = useUi();
+  const t = useText(RESIZE_TEXT);
   const [files, setFiles] = useState<File[]>([]);
   const [options, setOptions] = useState<ResizeOptions>({ ...resizeTool.defaultOptions, ...initial });
   const runner = useToolRunner(resizeTool);
@@ -59,8 +61,8 @@ export default function ResizeTool({ initial }: { initial?: Partial<ResizeOption
             </button>
           </p>
 
-          <OptionsPanel title="Size">
-            <Field id="mode" label="Resize">
+          <OptionsPanel title={t.sizeTitle}>
+            <Field id="mode" label={t.mode}>
               <select
                 id="mode"
                 class={inputClass}
@@ -68,15 +70,15 @@ export default function ResizeTool({ initial }: { initial?: Partial<ResizeOption
                 disabled={running}
                 onChange={(e) => set({ mode: e.currentTarget.value as ResizeOptions['mode'] })}
               >
-                <option value="pixels">By width and height (pixels)</option>
-                <option value="percent">By percentage</option>
+                <option value="pixels">{t.byPixels}</option>
+                <option value="percent">{t.byPercent}</option>
               </select>
             </Field>
 
             {options.mode === 'pixels' ? (
               <>
                 <div class="grid grid-cols-2 gap-4">
-                  <Field id="width" label="Width (px)">
+                  <Field id="width" label={t.width}>
                     <input
                       id="width"
                       type="number"
@@ -88,7 +90,7 @@ export default function ResizeTool({ initial }: { initial?: Partial<ResizeOption
                       onInput={(e) => set({ width: toNumber(e.currentTarget.value) })}
                     />
                   </Field>
-                  <Field id="height" label="Height (px)">
+                  <Field id="height" label={t.height}>
                     <input
                       id="height"
                       type="number"
@@ -108,11 +110,11 @@ export default function ResizeTool({ initial }: { initial?: Partial<ResizeOption
                     disabled={running}
                     onChange={(e) => set({ keepAspect: e.currentTarget.checked })}
                   />
-                  Keep proportions (leave one box empty to set it automatically)
+                  {t.keepAspect}
                 </label>
               </>
             ) : (
-              <Field id="percent" label={`Scale: ${options.percent}%`}>
+              <Field id="percent" label={fill(t.scale, { n: options.percent })}>
                 <input
                   id="percent"
                   type="number"
@@ -128,25 +130,25 @@ export default function ResizeTool({ initial }: { initial?: Partial<ResizeOption
             )}
           </OptionsPanel>
 
-          <OptionsPanel title="File size and format">
+          <OptionsPanel title={t.fileTitle}>
             <Field
               id="target"
-              label="Target file size (KB, optional)"
-              hint="We find the best quality that fits under this size. Works for JPG and WebP. A PNG input becomes WebP."
+              label={t.target}
+              hint={t.targetHint}
             >
               <input
                 id="target"
                 type="number"
                 min={1}
                 inputMode="numeric"
-                placeholder="e.g. 100"
+                placeholder={t.placeholder}
                 class={inputClass}
                 value={options.targetKb ?? ''}
                 disabled={running}
                 onInput={(e) => set({ targetKb: toNumber(e.currentTarget.value) })}
               />
             </Field>
-            <Field id="format" label="Output format">
+            <Field id="format" label={t.format}>
               <select
                 id="format"
                 class={inputClass}
@@ -154,7 +156,7 @@ export default function ResizeTool({ initial }: { initial?: Partial<ResizeOption
                 disabled={running}
                 onChange={(e) => set({ format: e.currentTarget.value as ResizeOptions['format'] })}
               >
-                <option value="same">Keep original format</option>
+                <option value="same">{t.keep}</option>
                 <option value="jpeg">JPG</option>
                 <option value="webp">WebP</option>
                 <option value="png">PNG</option>
@@ -162,14 +164,14 @@ export default function ResizeTool({ initial }: { initial?: Partial<ResizeOption
             </Field>
             {pngWithTarget && (
               <p role="alert" class="text-sm text-danger font-bold">
-                PNG is lossless, so a target size cannot be met. Choose JPG or WebP, or clear the target.
+                {t.pngTarget}
               </p>
             )}
             {!options.targetKb && (
               <Field
                 id="quality"
-                label={`Quality: ${options.quality}`}
-                hint="Applies to JPG and WebP. PNG is always lossless."
+                label={fill(t.quality, { n: options.quality })}
+                hint={t.qualityHint}
               >
                 <input
                   id="quality"
@@ -191,7 +193,7 @@ export default function ResizeTool({ initial }: { initial?: Partial<ResizeOption
               onClick={() => runner.run(files, options)}
               class="btn btn-primary btn-lg"
             >
-              {running ? 'Resizing...' : 'Resize'}
+              {running ? t.running : t.run}
             </button>
             {running && (
               <button
@@ -206,7 +208,7 @@ export default function ResizeTool({ initial }: { initial?: Partial<ResizeOption
         </>
       )}
 
-      {running && <ProgressBar value={overall} label="Resizing" />}
+      {running && <ProgressBar value={overall} label={bare(t.running)} />}
       {runner.state !== 'idle' && <DownloadPanel inputs={files} results={runner.results} />}
     </div>
   );
