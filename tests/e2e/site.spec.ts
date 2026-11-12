@@ -36,7 +36,13 @@ test.describe('site', () => {
       await expect(page.locator('link[rel="canonical"]')).toHaveAttribute('href', `https://iduckimg.com${path}`);
 
       const sidebar = page.getByRole('navigation', { name: 'Tools' });
-      expect(await hrefs(page, sidebar.getByRole('link').filter({ hasNotText: 'iDuckPDF' }))).toEqual(['/', ...TOOL_PATHS]);
+      // The group holding this page starts open; the others are collapsed until opened.
+      await expect(sidebar.locator(`a[href="${path}"]`)).toBeVisible();
+      await expect(sidebar.locator(`[data-nav-group][aria-expanded="true"]`)).toHaveCount(1);
+      for (const button of await sidebar.locator('[data-nav-group]').all()) {
+        if ((await button.getAttribute('aria-expanded')) === 'false') await button.click();
+      }
+      expect(await hrefs(page, sidebar.getByRole('link'))).toEqual(['/', '/image-tools/', ...TOOL_PATHS]);
       await expect(sidebar.locator('a[aria-current="page"]')).toHaveAttribute('href', path);
 
       await expect(page.getByRole('region', { name: 'Quick answer' })).toContainText('To ');
@@ -232,6 +238,7 @@ test.describe('site', () => {
       await expect(page.locator('#sidebar')).not.toBeInViewport();
 
       await menu.click();
+      await page.locator('#sidebar').getByRole('button', { name: 'Edit & transform' }).click();
       await page.locator('#sidebar').getByRole('link', { name: 'Rotate and flip' }).click();
       await expect(page).toHaveURL(/\/rotate-image\/$/);
     });

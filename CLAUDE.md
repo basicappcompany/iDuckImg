@@ -58,6 +58,9 @@ Create `src/tools/<name>/` (options.ts pure logic, worker.ts, tool.ts, <Name>Too
 - Cloudflare Pages returns the home page with status 200 for any unknown URL (a soft 404) unless the site has a 404 page. `src/pages/404.astro` (noindex, not in the sitemap) and `public/robots.txt` fix that; do not remove them, and keep `404.astro` out of the tool list. `public/_headers` sends `X-Robots-Tag: noindex` for the pages.dev hosts only (checked live 2026-11-12: pages.dev sends it, iduckimg.com does not). Never replace those rules with a bare `/*` rule, which would remove the real site from search; a unit test guards it.
 - `docs/status.html` and this file are kept current by the `docs-sync` skill (`.claude/skills/docs-sync`): re-measure test counts, pages and live checks, never copy old numbers. Docs-only changes are batched to one PR at the end of the day.
 
+## Sidebar (matches iDuckPDF's)
+- White card sidebar, 280px: brand, a shadowed Search button (opens the Ctrl K window), Home, All image tools, a TOOLS label with collapsible groups (icon, name, chevron; tools indented under a left rule; the group holding the current page starts open), a COMMUNITY list, then Also from iDuck. Top bar: Search, theme toggle, yellow Support button. Styles are the `.nav-*` classes in `global.css`; keep new items on those classes. Tests expand the groups before counting links.
+
 ## Search window and watermark
 - `CommandPalette.astro` is the Ctrl K / Cmd K / "/" search window (same look as iDuckPDF: groups Tools, Shortcuts, Pages, Actions). It reads `TOOLS`, `LANDING_PAGES`, `COMMUNITY` and a small PAGES list, so new tools and pages appear automatically; add synonyms in the tool's `keywords`. The sidebar search box is now a button that opens it.
 - Watermark (`src/tools/watermark/`): `options.ts` pure layout, `draw.ts` the canvas drawing shared by the worker (real result) and the page (live preview), group `Add text & effects`. Text only so far.
