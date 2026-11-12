@@ -9,10 +9,12 @@ import { logoTool } from './tool';
 import { drawLogo } from './draw';
 import { LOGO_ACCEPTS, LOGO_POSITIONS, type LogoOptions } from './options';
 import type { WatermarkPosition } from '../watermark/options';
+import { fill, useUi } from '../../i18n/ui';
 
 const PREVIEW_WIDTH = 560;
 
 export default function LogoTool() {
+  const ui = useUi();
   const [files, setFiles] = useState<File[]>([]);
   const [options, setOptions] = useState<LogoOptions>(logoTool.defaultOptions);
   const [logoError, setLogoError] = useState('');
@@ -119,7 +121,7 @@ export default function LogoTool() {
       {files.length > 0 && (
         <>
           <p class="text-sm">
-            {files.length} {files.length === 1 ? 'image' : 'images'} selected.{' '}
+            {fill(files.length === 1 ? ui.selectedOne : ui.selectedMany, { n: files.length })}{' '}
             <button
               type="button"
               class="link"
@@ -129,7 +131,7 @@ export default function LogoTool() {
                 setFiles([]);
               }}
             >
-              Clear
+              {ui.clear}
             </button>
           </p>
 
@@ -217,11 +219,11 @@ export default function LogoTool() {
               onClick={() => runner.run(files, options)}
               class="btn btn-primary btn-lg"
             >
-              {running ? 'Working...' : 'Add logo'}
+              {running ? ui.working : 'Add logo'}
             </button>
             {running && (
               <button type="button" onClick={runner.cancel} class="btn btn-lg">
-                Cancel
+                {ui.cancel}
               </button>
             )}
           </div>

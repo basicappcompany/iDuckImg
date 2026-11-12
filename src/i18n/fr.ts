@@ -23,7 +23,7 @@ export const fr: LocaleData = {
     footerTerms: `Conditions`,
     footerFeedback: `Avis`,
     footerGuides: `Guides pratiques`,
-    machineNote: `Cette page est traduite automatiquement. Les commandes des outils et les guides pratiques sont en anglais pour le moment.`,
+    machineNote: `Cette page est traduite automatiquement. Les options des outils et les guides pratiques sont en anglais pour le moment.`,
 
     breadcrumbHome: `Accueil`,
     runsInBrowser: `Fonctionne dans votre navigateur`,
@@ -33,7 +33,7 @@ export const fr: LocaleData = {
     quickAnswer: `Réponse rapide`,
     readGuide: `Lire le guide (en anglais)`,
     moreIn: `Plus dans « {group} »`,
-    controlsEnglish: `Les commandes de l'outil sont en anglais pour le moment.`,
+    controlsEnglish: `Le sélecteur de fichiers et les boutons de téléchargement ci-dessous sont traduits. Les options et boutons propres à l'outil sont en anglais pour le moment.`,
     toolDescSuffix: `Gratuit, dans votre navigateur, sans envoi de fichiers.`,
 
     homeTitle: `iDuckImg : outils d'image gratuits en ligne`,

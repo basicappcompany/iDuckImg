@@ -17,6 +17,8 @@ import {
   toolText,
 } from '../../src/i18n';
 import type { Dict } from '../../src/i18n/types';
+import { UI_TEXT, fill } from '../../src/i18n/ui';
+import { flagSvg } from '../../src/i18n/flags';
 
 /** The ten languages LeafLock PDF publishes. */
 const EXPECTED = ['en', 'hi', 'bn', 'pt-BR', 'id', 'ru', 'de', 'es', 'fr', 'tr'];
@@ -150,6 +152,33 @@ describe.each(OTHER_LOCALES.map((l) => l.code))('translation: %s', (code) => {
 
   it('contains no leftover template syntax', () => {
     for (const [key, value] of translated) expect(value, `${code} ${key}`).not.toMatch(/\$\{|undefined|\[object/);
+  });
+});
+
+describe('the shared tool controls', () => {
+  const english = Object.entries(UI_TEXT.en!);
+  it('are translated for every language, with every key and placeholder', () => {
+    expect(Object.keys(UI_TEXT).sort()).toEqual([...EXPECTED].sort());
+    for (const code of OTHER_LOCALES.map((l) => l.code)) {
+      const ui = UI_TEXT[code]!;
+      expect(Object.keys(ui).sort(), code).toEqual(english.map(([k]) => k).sort());
+      for (const [key, value] of english) {
+        const t = (ui as unknown as Record<string, string>)[key]!;
+        expect(t.trim().length, `${code} ${key}`).toBeGreaterThan(0);
+        expect(placeholders(t), `${code} ${key}`).toEqual(placeholders(value));
+        if (value.length > 12) expect(t, `${code} ${key} left in English`).not.toBe(value);
+      }
+    }
+  });
+  it('fills placeholders', () => {
+    expect(fill(UI_TEXT.es!.downloadAll, { n: 3 })).toBe('Descargar todo (3) en ZIP');
+  });
+});
+
+describe('flags', () => {
+  it('has a flag for every language', () => {
+    for (const l of LOCALES) expect(flagSvg(l.code), l.code).toContain('<svg');
+    expect(flagSvg('xx')).toBe('');
   });
 });
 

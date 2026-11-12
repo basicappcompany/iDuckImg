@@ -23,7 +23,7 @@ export const id: LocaleData = {
     footerTerms: `Ketentuan`,
     footerFeedback: `Masukan`,
     footerGuides: `Panduan cara`,
-    machineNote: `Halaman ini diterjemahkan secara otomatis. Kontrol alat dan panduan cara masih dalam bahasa Inggris untuk saat ini.`,
+    machineNote: `Halaman ini diterjemahkan secara otomatis. Opsi alat dan panduan cara masih dalam bahasa Inggris untuk saat ini.`,
 
     breadcrumbHome: `Beranda`,
     runsInBrowser: `Berjalan di browser Anda`,
@@ -33,7 +33,7 @@ export const id: LocaleData = {
     quickAnswer: `Jawaban singkat`,
     readGuide: `Baca panduannya (dalam bahasa Inggris)`,
     moreIn: `Lainnya di "{group}"`,
-    controlsEnglish: `Kontrol alat di bawah ini masih dalam bahasa Inggris untuk saat ini.`,
+    controlsEnglish: `Pemilih file dan tombol unduh di bawah sudah diterjemahkan. Opsi dan tombol milik alat itu sendiri masih dalam bahasa Inggris untuk saat ini.`,
     toolDescSuffix: `Gratis, di browser Anda, tanpa unggah.`,
 
     homeTitle: `iDuckImg: alat gambar online gratis`,

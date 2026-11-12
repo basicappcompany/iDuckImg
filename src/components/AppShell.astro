@@ -9,6 +9,7 @@ import { LANDING_PAGES, landingPath } from '../lib/landing';
 import { THEME_STORAGE_KEY } from '../lib/theme';
 import { COMMUNITY, communityPath } from '../lib/community';
 import { OG_IMAGE, SITE_NAME, serialize } from '../lib/seo';
+import { flagSvg } from '../i18n/flags';
 import { dictFor, languageLinks, localeByCode, localePath, splitLocalePath, toolText, type Alternate } from '../i18n';
 
 interface Props {
@@ -40,7 +41,8 @@ const groupIcon = (group: string) => PLAN_CATEGORIES.find((c) => c.id === group)
 // sub-category opens only on a shortcut page, which the Tools list does not hold; on a real tool the
 // visitor chose it from Tools (or the home page), so Quick tools stays folded.
 const quick = quickGroups();
-const openQuick = toolForPath(path) ? undefined : quick.find((g) => g.items.some((i) => i.href === path))?.id;
+// Only "Compress & resize" is open to start with. A shortcut page opens its own group instead.
+const openQuick = quick.find((g) => g.items.some((i) => i.href === path))?.id ?? 'compress';
 const openGroup = toolForPath(path)?.group ?? TOOL_GROUPS[0];
 ---
 
@@ -260,7 +262,7 @@ const openGroup = toolForPath(path)?.group ?? TOOL_GROUPS[0];
             </button>
             <details class="lang" data-lang-menu>
               <summary class="btn btn-sm" aria-label={d.language}>
-                <span aria-hidden="true">🌐</span>
+                <Fragment set:html={flagSvg(loc.code)} />
                 <span class="hidden min-[520px]:inline">{loc.native}</span>
               </summary>
               <ul class="lang-list">
@@ -273,7 +275,8 @@ const openGroup = toolForPath(path)?.group ?? TOOL_GROUPS[0];
                         lang={l.locale.code}
                         aria-current={l.locale.code === locale ? 'true' : undefined}
                       >
-                        {l.locale.native}
+                        <Fragment set:html={flagSvg(l.locale.code)} />
+                        <span>{l.locale.native}</span>
                       </a>
                     </li>
                   ))

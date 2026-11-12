@@ -23,7 +23,7 @@ export const hi: LocaleData = {
     footerTerms: `शर्तें`,
     footerFeedback: `सुझाव`,
     footerGuides: `कैसे करें गाइड`,
-    machineNote: `यह पेज मशीन द्वारा अनुवादित है। टूल के नियंत्रण और कैसे करें गाइड फ़िलहाल अंग्रेज़ी में हैं।`,
+    machineNote: `यह पेज मशीन द्वारा अनुवादित है। टूल के विकल्प और कैसे करें गाइड फ़िलहाल अंग्रेज़ी में हैं।`,
 
     breadcrumbHome: `होम`,
     runsInBrowser: `आपके ब्राउज़र में चलता है`,
@@ -33,7 +33,7 @@ export const hi: LocaleData = {
     quickAnswer: `संक्षिप्त उत्तर`,
     readGuide: `गाइड पढ़ें (अंग्रेज़ी में)`,
     moreIn: `"{group}" में और`,
-    controlsEnglish: `नीचे टूल के नियंत्रण फ़िलहाल अंग्रेज़ी में हैं।`,
+    controlsEnglish: `नीचे फ़ाइल चुनने और डाउनलोड के बटन अनुवादित हैं। टूल के अपने विकल्प और बटन फ़िलहाल अंग्रेज़ी में हैं।`,
     toolDescSuffix: `मुफ़्त, आपके ब्राउज़र में, बिना अपलोड के।`,
 
     homeTitle: `iDuckImg: मुफ़्त ऑनलाइन इमेज टूल`,

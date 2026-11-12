@@ -15,11 +15,13 @@ import {
   rotateRight,
   type RotateOptions,
 } from './options';
+import { fill, useUi } from '../../i18n/ui';
 
 const buttonClass =
   'btn btn-sm';
 
 export default function RotateTool() {
+  const ui = useUi();
   const [files, setFiles] = useState<File[]>([]);
   const [options, setOptions] = useState<RotateOptions>(rotateTool.defaultOptions);
   const runner = useToolRunner(rotateTool);
@@ -51,7 +53,7 @@ export default function RotateTool() {
       {files.length > 0 && (
         <>
           <p class="text-sm">
-            {files.length} {files.length === 1 ? 'image' : 'images'} selected.{' '}
+            {fill(files.length === 1 ? ui.selectedOne : ui.selectedMany, { n: files.length })}{' '}
             <button
               type="button"
               class="link"
@@ -62,7 +64,7 @@ export default function RotateTool() {
                 setOptions(defaultRotateOptions);
               }}
             >
-              Clear
+              {ui.clear}
             </button>
           </p>
 
@@ -116,7 +118,7 @@ export default function RotateTool() {
               onClick={() => runner.run(files, options)}
               class="btn btn-primary btn-lg"
             >
-              {running ? 'Working...' : 'Apply'}
+              {running ? ui.working : 'Apply'}
             </button>
             {running && (
               <button
@@ -124,7 +126,7 @@ export default function RotateTool() {
                 onClick={runner.cancel}
                 class="btn btn-lg"
               >
-                Cancel
+                {ui.cancel}
               </button>
             )}
           </div>

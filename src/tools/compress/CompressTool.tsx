@@ -6,8 +6,10 @@ import DownloadPanel from '../../components/DownloadPanel';
 import { useToolRunner } from '../../engine/useToolRunner';
 import { compressTool } from './tool';
 import type { CompressOptions } from './options';
+import { fill, useUi } from '../../i18n/ui';
 
 export default function CompressTool({ initial }: { initial?: Partial<CompressOptions> } = {}) {
+  const ui = useUi();
   const [files, setFiles] = useState<File[]>([]);
   const [options, setOptions] = useState<CompressOptions>({ ...compressTool.defaultOptions, ...initial });
   const runner = useToolRunner(compressTool);
@@ -32,7 +34,7 @@ export default function CompressTool({ initial }: { initial?: Partial<CompressOp
       {files.length > 0 && (
         <>
           <p class="text-sm">
-            {files.length} {files.length === 1 ? 'image' : 'images'} selected.{' '}
+            {fill(files.length === 1 ? ui.selectedOne : ui.selectedMany, { n: files.length })}{' '}
             <button
               type="button"
               class="link"
@@ -42,7 +44,7 @@ export default function CompressTool({ initial }: { initial?: Partial<CompressOp
                 setFiles([]);
               }}
             >
-              Clear
+              {ui.clear}
             </button>
           </p>
 
@@ -94,7 +96,7 @@ export default function CompressTool({ initial }: { initial?: Partial<CompressOp
                 onClick={runner.cancel}
                 class="btn btn-lg"
               >
-                Cancel
+                {ui.cancel}
               </button>
             )}
           </div>

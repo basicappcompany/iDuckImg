@@ -57,20 +57,24 @@ test.describe('site', () => {
     await expect(page.getByRole('region', { name: 'Common questions' }).locator('details')).toHaveCount(5);
   });
 
-  test('on a real tool the Quick tools sub-categories stay folded; on a shortcut its own opens', async ({ page }) => {
+  test('only Compress & resize is open in Quick tools to start with; on a shortcut its own group opens instead', async ({ page }) => {
     await page.goto('/compress-image/');
     const quick = page.getByRole('navigation', { name: 'Quick tools' });
     const subGroups = quick.locator('[data-nav-group]:not([aria-controls="quick-body"])');
     await expect(subGroups).toHaveCount(Object.keys(QUICK).length);
-    for (const button of await subGroups.all()) await expect(button).toHaveAttribute('aria-expanded', 'false');
+    const openGroups = quick.locator('[data-nav-group][aria-expanded="true"]:not([aria-controls="quick-body"])');
+    await expect(openGroups).toHaveCount(1);
+    await expect(openGroups).toHaveAttribute('aria-controls', 'quick-compress');
     await expect(page.getByRole('navigation', { name: 'Tools', exact: true }).locator('a[aria-current="page"]')).toBeVisible();
 
     await page.goto('/heic-to-jpg/');
     await expect(quick.locator('[data-nav-group][aria-expanded="true"]:not([aria-controls="quick-body"])')).toHaveCount(1);
     await expect(quick.locator('a[aria-current="page"]')).toHaveAttribute('href', '/heic-to-jpg/');
 
+    await expect(quick.locator('[data-nav-group][aria-expanded="true"]:not([aria-controls="quick-body"])')).toHaveAttribute('aria-controls', 'quick-convert');
+
     await page.goto('/');
-    await expect(quick.locator('[data-nav-group][aria-expanded="true"]:not([aria-controls="quick-body"])')).toHaveCount(0);
+    await expect(quick.locator('[data-nav-group][aria-expanded="true"]:not([aria-controls="quick-body"])')).toHaveAttribute('aria-controls', 'quick-compress');
   });
 
   for (const path of TOOL_PATHS) {

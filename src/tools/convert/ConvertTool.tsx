@@ -6,10 +6,12 @@ import DownloadPanel from '../../components/DownloadPanel';
 import { useToolRunner } from '../../engine/useToolRunner';
 import { convertTool } from './tool';
 import { losesTransparency, type ConvertOptions } from './options';
+import { fill, useUi } from '../../i18n/ui';
 
 const inputClass = 'input w-full';
 
 export default function ConvertTool({ initial }: { initial?: Partial<ConvertOptions> } = {}) {
+  const ui = useUi();
   const [files, setFiles] = useState<File[]>([]);
   const [options, setOptions] = useState<ConvertOptions>({ ...convertTool.defaultOptions, ...initial });
   const runner = useToolRunner(convertTool);
@@ -37,7 +39,7 @@ export default function ConvertTool({ initial }: { initial?: Partial<ConvertOpti
       {files.length > 0 && (
         <>
           <p class="text-sm">
-            {files.length} {files.length === 1 ? 'image' : 'images'} selected.{' '}
+            {fill(files.length === 1 ? ui.selectedOne : ui.selectedMany, { n: files.length })}{' '}
             <button
               type="button"
               class="link"
@@ -47,7 +49,7 @@ export default function ConvertTool({ initial }: { initial?: Partial<ConvertOpti
                 setFiles([]);
               }}
             >
-              Clear
+              {ui.clear}
             </button>
           </p>
 
@@ -118,7 +120,7 @@ export default function ConvertTool({ initial }: { initial?: Partial<ConvertOpti
                 onClick={runner.cancel}
                 class="btn btn-lg"
               >
-                Cancel
+                {ui.cancel}
               </button>
             )}
           </div>

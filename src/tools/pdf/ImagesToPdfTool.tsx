@@ -7,11 +7,13 @@ import { useToolRunner } from '../../engine/useToolRunner';
 import { formatBytes } from '../../lib/files';
 import { moveItem, removeAt } from '../../lib/list';
 import { imagesToPdfTool, type ImagesToPdfOptions } from './tool';
+import { useUi } from '../../i18n/ui';
 
 const smallButton =
   'btn btn-sm';
 
 export default function ImagesToPdfTool() {
+  const ui = useUi();
   const [files, setFiles] = useState<File[]>([]);
   const [options, setOptions] = useState<ImagesToPdfOptions>(imagesToPdfTool.defaultOptions);
   const runner = useToolRunner(imagesToPdfTool);
@@ -43,7 +45,7 @@ export default function ImagesToPdfTool() {
                 disabled={running}
                 onClick={() => update([])}
               >
-                Clear
+                {ui.clear}
               </button>
             </div>
             <ol class="divide-y divide-line/20">
@@ -119,7 +121,7 @@ export default function ImagesToPdfTool() {
                 onClick={runner.cancel}
                 class="btn btn-lg"
               >
-                Cancel
+                {ui.cancel}
               </button>
             )}
           </div>

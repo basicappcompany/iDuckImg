@@ -5,6 +5,7 @@ import ProgressBar from './ProgressBar';
 import DownloadPanel from './DownloadPanel';
 import { useToolRunner } from '../engine/useToolRunner';
 import type { ToolDefinition } from '../engine/types';
+import { fill, useUi } from '../i18n/ui';
 
 interface Props<O> {
   tool: ToolDefinition<O>;
@@ -25,6 +26,7 @@ interface Props<O> {
  * option panels, the run and cancel buttons, progress and downloads. Tools supply the middle.
  */
 export default function SimpleToolShell<O>({ tool, options, canRun, runLabel, missing, single = false, children }: Props<O>) {
+  const ui = useUi();
   const [files, setFiles] = useState<File[]>([]);
   const runner = useToolRunner(tool);
   const running = runner.state === 'running';
@@ -48,7 +50,7 @@ export default function SimpleToolShell<O>({ tool, options, canRun, runLabel, mi
       {files.length > 0 && (
         <>
           <p class="text-sm">
-            {files.length} {files.length === 1 ? 'image' : 'images'} selected.{' '}
+            {fill(files.length === 1 ? ui.selectedOne : ui.selectedMany, { n: files.length })}{' '}
             <button
               type="button"
               class="link"
@@ -58,7 +60,7 @@ export default function SimpleToolShell<O>({ tool, options, canRun, runLabel, mi
                 setFiles([]);
               }}
             >
-              Clear
+              {ui.clear}
             </button>
           </p>
 
@@ -71,11 +73,11 @@ export default function SimpleToolShell<O>({ tool, options, canRun, runLabel, mi
               onClick={() => runner.run(files, options)}
               class="btn btn-primary btn-lg"
             >
-              {running ? 'Working...' : runLabel}
+              {running ? ui.working : runLabel}
             </button>
             {running && (
               <button type="button" onClick={runner.cancel} class="btn btn-lg">
-                Cancel
+                {ui.cancel}
               </button>
             )}
           </div>
@@ -83,7 +85,7 @@ export default function SimpleToolShell<O>({ tool, options, canRun, runLabel, mi
         </>
       )}
 
-      {running && <ProgressBar value={overall} label="Working" />}
+      {running && <ProgressBar value={overall} label={ui.working.replace(/\.+$/, '')} />}
       {runner.state !== 'idle' && <DownloadPanel inputs={files} results={runner.results} />}
     </div>
   );

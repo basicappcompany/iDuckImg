@@ -20,6 +20,7 @@ import {
   type Rect,
   type RectField,
 } from './geometry';
+import { useUi } from '../../i18n/ui';
 
 const inputClass = 'input w-full';
 const smallButton =
@@ -45,6 +46,7 @@ interface Drag {
 }
 
 export default function CropTool() {
+  const ui = useUi();
   const [file, setFile] = useState<File | null>(null);
   const [url, setUrl] = useState<string | null>(null);
   const [bounds, setBounds] = useState<Bounds | null>(null);
@@ -294,7 +296,7 @@ export default function CropTool() {
                 onClick={runner.cancel}
                 class="btn btn-lg"
               >
-                Cancel
+                {ui.cancel}
               </button>
             )}
           </div>

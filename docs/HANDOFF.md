@@ -26,7 +26,7 @@ Everything below is merged to `main` and live at https://iduckimg.com (PRs #20 t
 `/guides/` and 25 guides (one per tool), with Article, HowTo and FAQ data, `/llms-full.txt`, links from every tool page. See status item 5.15.
 
 ## Also done: ten languages
-English plus nine languages (the same ones LeafLock PDF publishes) at `/hi/`, `/bn/`, `/pt-br/`, `/id/`, `/ru/`, `/de/`, `/es/`, `/fr/`, `/tr/`: chrome, home page and every tool page's heading, summary and quick answer, with hreflang, the sitemap and `/llms.txt`. All machine-translated; the tool controls, guides and shortcut pages are still English. See status items 5.16 and 5.17 and the Languages section of CLAUDE.md.
+English plus nine languages (the same ones LeafLock PDF publishes) at `/hi/`, `/bn/`, `/pt-br/`, `/id/`, `/ru/`, `/de/`, `/es/`, `/fr/`, `/tr/`: chrome, home page and every tool page's heading, summary and quick answer, with hreflang, the sitemap and `/llms.txt`. All machine-translated; the shared tool controls (drop zone, downloads) are translated too, but each tool's own options, the guides and the shortcut pages are still English. See status items 5.16 and 5.17 and the Languages section of CLAUDE.md.
 
 ## Decisions waiting on you
 - Feedback goes to hello@iduckpdf.com because iduckimg.com has no mail routing (no MX record). Set up Email Routing, then change `CONTACT_EMAIL` in `src/lib/contact.ts` (status 3.7).
