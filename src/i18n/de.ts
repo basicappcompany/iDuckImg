@@ -92,12 +92,12 @@ export const de: LocaleData = {
     'add-watermark-to-image': {
       name: `Wasserzeichen hinzufügen`,
       summary: `Setzen Sie Ihren Namen oder einen Copyright-Vermerk auf ein Bild, bevor Sie es teilen.`,
-      quick: `Um ein Wasserzeichen hinzuzufügen, ziehen Sie Ihre Bilder hinein, geben den Text ein, wählen Position und Transparenz und klicken auf "Add watermark". Der Text wird in Ihrem Browser gezeichnet, es wird also nichts hochgeladen.`,
+      quick: `Um ein Wasserzeichen hinzuzufügen, ziehen Sie Ihre Bilder hinein, geben den Text ein, wählen Position und Transparenz und klicken auf "Wasserzeichen hinzufügen". Der Text wird in Ihrem Browser gezeichnet, es wird also nichts hochgeladen.`,
     },
     'add-logo-to-image': {
       name: `Logo zu Bildern hinzufügen`,
       summary: `Setzen Sie Ihr Logo auf ein Bild oder auf viele gleichzeitig, bevor Sie sie teilen.`,
-      quick: `Um ein Logo hinzuzufügen, ziehen Sie Ihre Bilder hinein, wählen die Logo-Datei, bestimmen Position, Größe und Transparenz und klicken auf "Add logo". Beide Dateien bleiben auf Ihrem Gerät.`,
+      quick: `Um ein Logo hinzuzufügen, ziehen Sie Ihre Bilder hinein, wählen die Logo-Datei, bestimmen Position, Größe und Transparenz und klicken auf "Logo hinzufügen". Beide Dateien bleiben auf Ihrem Gerät.`,
     },
     'exam-photo-resizer': {
       name: `Foto und Unterschrift für Prüfungen anpassen`,
@@ -117,12 +117,12 @@ export const de: LocaleData = {
     'rotate-image': {
       name: `Drehen und spiegeln`,
       summary: `Ein Bild um 90, 180 oder 270 Grad drehen oder spiegeln.`,
-      quick: `Um ein Bild zu drehen oder zu spiegeln, ziehen Sie es hinein, nutzen die Schaltflächen, bis die Vorschau stimmt, und klicken auf "Apply". Dieselbe Änderung wird auf jedes hinzugefügte Bild angewendet.`,
+      quick: `Um ein Bild zu drehen oder zu spiegeln, ziehen Sie es hinein, nutzen die Schaltflächen, bis die Vorschau stimmt, und klicken auf "Anwenden". Dieselbe Änderung wird auf jedes hinzugefügte Bild angewendet.`,
     },
     'remove-exif-data': {
       name: `EXIF-Daten entfernen`,
       summary: `Standort-, Kamera- und Datumsangaben entfernen, bevor Sie ein Foto teilen.`,
-      quick: `Um Standort und Kameradaten aus einem Foto zu entfernen, ziehen Sie es hinein und klicken auf "Remove metadata". Das Bild wird nicht neu komprimiert, die Qualität bleibt also gleich.`,
+      quick: `Um Standort und Kameradaten aus einem Foto zu entfernen, ziehen Sie es hinein und klicken auf "Metadaten entfernen". Das Bild wird nicht neu komprimiert, die Qualität bleibt also gleich.`,
     },
     'circle-crop-image': {
       name: `Kreisförmig zuschneiden und Ecken abrunden`,
@@ -137,7 +137,7 @@ export const de: LocaleData = {
     'add-text-to-image': {
       name: `Text zu einem Bild hinzufügen`,
       summary: `Auf ein Bild schreiben, mit beliebiger Größe, Farbe und Position.`,
-      quick: `Um Text zu einem Bild hinzuzufügen, ziehen Sie es hinein, geben Ihre Worte ein, wählen Position, Größe und Farbe und klicken auf "Add text". Er wird in Ihrem Browser gezeichnet, es wird also nichts hochgeladen.`,
+      quick: `Um Text zu einem Bild hinzuzufügen, ziehen Sie es hinein, geben Ihre Worte ein, wählen Position, Größe und Farbe und klicken auf "Text hinzufügen". Er wird in Ihrem Browser gezeichnet, es wird also nichts hochgeladen.`,
     },
     'pixel-art-maker': {
       name: `Pixel-Art-Generator`,

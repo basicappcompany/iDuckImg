@@ -92,12 +92,12 @@ export const tr: LocaleData = {
     'add-watermark-to-image': {
       name: `Filigran ekle`,
       summary: `Paylaşmadan önce görsele adınızı veya bir telif hakkı satırını ekleyin.`,
-      quick: `Filigran eklemek için görsellerinizi bırakın, metni yazın, nereye geleceğini ve ne kadar saydam olacağını seçin ve "Add watermark" düğmesine basın. Metin tarayıcınızda çizilir, yani hiçbir şey yüklenmez.`,
+      quick: `Filigran eklemek için görsellerinizi bırakın, metni yazın, nereye geleceğini ve ne kadar saydam olacağını seçin ve "Filigran ekle" düğmesine basın. Metin tarayıcınızda çizilir, yani hiçbir şey yüklenmez.`,
     },
     'add-logo-to-image': {
       name: `Görsellere logo ekle`,
       summary: `Paylaşmadan önce logonuzu bir görsele veya aynı anda birçoğuna ekleyin.`,
-      quick: `Logo eklemek için görsellerinizi bırakın, logo dosyanızı seçin, konumu, boyutu ve saydamlığı belirleyin ve "Add logo" düğmesine basın. Her iki dosya da cihazınızda kalır.`,
+      quick: `Logo eklemek için görsellerinizi bırakın, logo dosyanızı seçin, konumu, boyutu ve saydamlığı belirleyin ve "Logo ekle" düğmesine basın. Her iki dosya da cihazınızda kalır.`,
     },
     'exam-photo-resizer': {
       name: `Sınav için fotoğraf ve imza boyutlandırma`,
@@ -117,12 +117,12 @@ export const tr: LocaleData = {
     'rotate-image': {
       name: `Döndür ve çevir`,
       summary: `Bir görseli 90, 180 veya 270 derece döndürün ya da aynalayın.`,
-      quick: `Bir görseli döndürmek veya çevirmek için bırakın, önizleme doğru görünene kadar düğmeleri kullanın ve "Apply" düğmesine basın. Aynı değişiklik eklediğiniz her görsele uygulanır.`,
+      quick: `Bir görseli döndürmek veya çevirmek için bırakın, önizleme doğru görünene kadar düğmeleri kullanın ve "Uygula" düğmesine basın. Aynı değişiklik eklediğiniz her görsele uygulanır.`,
     },
     'remove-exif-data': {
       name: `EXIF verilerini kaldır`,
       summary: `Fotoğrafı paylaşmadan önce konum, kamera ve tarih bilgilerini silin.`,
-      quick: `Bir fotoğraftan konum ve kamera bilgilerini kaldırmak için bırakın ve "Remove metadata" düğmesine basın. Görsel yeniden sıkıştırılmaz, yani kalite aynı kalır.`,
+      quick: `Bir fotoğraftan konum ve kamera bilgilerini kaldırmak için bırakın ve "Meta verileri kaldır" düğmesine basın. Görsel yeniden sıkıştırılmaz, yani kalite aynı kalır.`,
     },
     'circle-crop-image': {
       name: `Daire kırpma ve yuvarlak köşeler`,
@@ -137,7 +137,7 @@ export const tr: LocaleData = {
     'add-text-to-image': {
       name: `Görsele metin ekle`,
       summary: `Bir görselin üzerine istediğiniz boyut, renk ve konumda yazın.`,
-      quick: `Bir görsele metin eklemek için bırakın, sözlerinizi yazın, nereye geleceğini, boyutunu ve rengini seçin ve "Add text" düğmesine basın. Tarayıcınızda çizilir, yani hiçbir şey yüklenmez.`,
+      quick: `Bir görsele metin eklemek için bırakın, sözlerinizi yazın, nereye geleceğini, boyutunu ve rengini seçin ve "Metin ekle" düğmesine basın. Tarayıcınızda çizilir, yani hiçbir şey yüklenmez.`,
     },
     'pixel-art-maker': {
       name: `Piksel sanatı oluşturucu`,

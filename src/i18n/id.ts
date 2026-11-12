@@ -92,12 +92,12 @@ export const id: LocaleData = {
     'add-watermark-to-image': {
       name: `Tambah watermark`,
       summary: `Beri nama Anda atau baris hak cipta pada gambar sebelum dibagikan.`,
-      quick: `Untuk menambah watermark, letakkan gambar Anda, ketik teksnya, pilih posisi dan tingkat transparansinya, lalu tekan "Add watermark". Teks digambar di browser Anda, jadi tidak ada yang diunggah.`,
+      quick: `Untuk menambah watermark, letakkan gambar Anda, ketik teksnya, pilih posisi dan tingkat transparansinya, lalu tekan "Tambah tanda air". Teks digambar di browser Anda, jadi tidak ada yang diunggah.`,
     },
     'add-logo-to-image': {
       name: `Tambah logo ke gambar`,
       summary: `Pasang logo Anda pada satu gambar, atau banyak sekaligus, sebelum dibagikan.`,
-      quick: `Untuk menambah logo, letakkan gambar Anda, pilih file logo, tentukan posisi, ukuran, dan transparansi, lalu tekan "Add logo". Kedua file tetap berada di perangkat Anda.`,
+      quick: `Untuk menambah logo, letakkan gambar Anda, pilih file logo, tentukan posisi, ukuran, dan transparansi, lalu tekan "Tambah logo". Kedua file tetap berada di perangkat Anda.`,
     },
     'exam-photo-resizer': {
       name: `Ubah ukuran foto dan tanda tangan untuk ujian`,
@@ -117,12 +117,12 @@ export const id: LocaleData = {
     'rotate-image': {
       name: `Putar dan balik`,
       summary: `Putar gambar 90, 180, atau 270 derajat, atau cerminkan.`,
-      quick: `Untuk memutar atau membalik gambar, letakkan gambar, gunakan tombol sampai pratinjau sesuai, lalu tekan "Apply". Perubahan yang sama diterapkan ke setiap gambar yang Anda tambahkan.`,
+      quick: `Untuk memutar atau membalik gambar, letakkan gambar, gunakan tombol sampai pratinjau sesuai, lalu tekan "Terapkan". Perubahan yang sama diterapkan ke setiap gambar yang Anda tambahkan.`,
     },
     'remove-exif-data': {
       name: `Hapus data EXIF`,
       summary: `Hapus lokasi, kamera, dan tanggal sebelum membagikan foto.`,
-      quick: `Untuk menghapus lokasi dan detail kamera dari foto, letakkan foto dan tekan "Remove metadata". Gambar tidak dikompres ulang, jadi kualitasnya tetap sama.`,
+      quick: `Untuk menghapus lokasi dan detail kamera dari foto, letakkan foto dan tekan "Hapus metadata". Gambar tidak dikompres ulang, jadi kualitasnya tetap sama.`,
     },
     'circle-crop-image': {
       name: `Potong lingkaran dan sudut membulat`,
@@ -137,7 +137,7 @@ export const id: LocaleData = {
     'add-text-to-image': {
       name: `Tambah teks ke gambar`,
       summary: `Tulis di atas gambar dengan ukuran, warna, dan posisi apa pun.`,
-      quick: `Untuk menambah teks ke gambar, letakkan gambar, ketik kata-kata Anda, pilih posisi, ukuran, dan warnanya, lalu tekan "Add text". Teks digambar di browser Anda, jadi tidak ada yang diunggah.`,
+      quick: `Untuk menambah teks ke gambar, letakkan gambar, ketik kata-kata Anda, pilih posisi, ukuran, dan warnanya, lalu tekan "Tambah teks". Teks digambar di browser Anda, jadi tidak ada yang diunggah.`,
     },
     'pixel-art-maker': {
       name: `Pembuat pixel art`,

@@ -92,12 +92,12 @@ export const fr: LocaleData = {
     'add-watermark-to-image': {
       name: `Ajouter un filigrane`,
       summary: `Mettez votre nom ou une mention de copyright sur une image avant de la partager.`,
-      quick: `Pour ajouter un filigrane, déposez vos images, saisissez le texte, choisissez son emplacement et son niveau de transparence, puis appuyez sur "Add watermark". Le texte est dessiné dans votre navigateur : rien n'est envoyé.`,
+      quick: `Pour ajouter un filigrane, déposez vos images, saisissez le texte, choisissez son emplacement et son niveau de transparence, puis appuyez sur "Ajouter le filigrane". Le texte est dessiné dans votre navigateur : rien n'est envoyé.`,
     },
     'add-logo-to-image': {
       name: `Ajouter un logo à des images`,
       summary: `Placez votre logo sur une image, ou sur plusieurs à la fois, avant de les partager.`,
-      quick: `Pour ajouter un logo, déposez vos images, choisissez le fichier du logo, indiquez la position, la taille et la transparence, puis appuyez sur "Add logo". Les deux fichiers restent sur votre appareil.`,
+      quick: `Pour ajouter un logo, déposez vos images, choisissez le fichier du logo, indiquez la position, la taille et la transparence, puis appuyez sur "Ajouter le logo". Les deux fichiers restent sur votre appareil.`,
     },
     'exam-photo-resizer': {
       name: `Redimensionner photo et signature pour un examen`,
@@ -117,12 +117,12 @@ export const fr: LocaleData = {
     'rotate-image': {
       name: `Pivoter et retourner`,
       summary: `Faites pivoter une image de 90, 180 ou 270 degrés, ou retournez-la en miroir.`,
-      quick: `Pour faire pivoter ou retourner une image, déposez-la, utilisez les boutons jusqu'à ce que l'aperçu soit correct, puis appuyez sur "Apply". Le même changement s'applique à toutes les images ajoutées.`,
+      quick: `Pour faire pivoter ou retourner une image, déposez-la, utilisez les boutons jusqu'à ce que l'aperçu soit correct, puis appuyez sur "Appliquer". Le même changement s'applique à toutes les images ajoutées.`,
     },
     'remove-exif-data': {
       name: `Supprimer les données EXIF`,
       summary: `Retirez la position, l'appareil et la date avant de partager une photo.`,
-      quick: `Pour retirer la position et les informations de l'appareil d'une photo, déposez-la et appuyez sur "Remove metadata". L'image n'est pas recompressée : la qualité reste la même.`,
+      quick: `Pour retirer la position et les informations de l'appareil d'une photo, déposez-la et appuyez sur "Supprimer les métadonnées". L'image n'est pas recompressée : la qualité reste la même.`,
     },
     'circle-crop-image': {
       name: `Recadrage circulaire et coins arrondis`,
@@ -137,7 +137,7 @@ export const fr: LocaleData = {
     'add-text-to-image': {
       name: `Ajouter du texte à une image`,
       summary: `Écrivez sur une image avec la taille, la couleur et la position de votre choix.`,
-      quick: `Pour ajouter du texte à une image, déposez-la, saisissez vos mots, choisissez leur emplacement, leur taille et leur couleur, puis appuyez sur "Add text". Il est dessiné dans votre navigateur : rien n'est envoyé.`,
+      quick: `Pour ajouter du texte à une image, déposez-la, saisissez vos mots, choisissez leur emplacement, leur taille et leur couleur, puis appuyez sur "Ajouter le texte". Il est dessiné dans votre navigateur : rien n'est envoyé.`,
     },
     'pixel-art-maker': {
       name: `Créateur de pixel art`,

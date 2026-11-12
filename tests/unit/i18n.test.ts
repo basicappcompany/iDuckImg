@@ -24,6 +24,12 @@ import { CONVERT_TEXT } from '../../src/i18n/tools/convert';
 import { CROP_TEXT } from '../../src/i18n/tools/crop';
 import { PDF_TEXT } from '../../src/i18n/tools/pdf';
 import { RESIZE_TEXT } from '../../src/i18n/tools/resize';
+import { EXIF_TEXT } from '../../src/i18n/tools/exif';
+import { LOGO_TEXT } from '../../src/i18n/tools/logo';
+import { POSITION_TEXT } from '../../src/i18n/tools/positions';
+import { ROTATE_TEXT } from '../../src/i18n/tools/rotate';
+import { TEXT_TEXT } from '../../src/i18n/tools/text';
+import { WATERMARK_TEXT } from '../../src/i18n/tools/watermark';
 
 /** Tools whose own options and run button are translated: slug -> table. The quick answer names the translated button. */
 const TRANSLATED_TOOLS: Record<string, Readonly<Record<string, { run: string }>>> = {
@@ -32,6 +38,11 @@ const TRANSLATED_TOOLS: Record<string, Readonly<Record<string, { run: string }>>
   'convert-image': CONVERT_TEXT,
   'crop-image': CROP_TEXT,
   'image-to-pdf': PDF_TEXT,
+  'add-text-to-image': TEXT_TEXT,
+  'add-watermark-to-image': WATERMARK_TEXT,
+  'add-logo-to-image': LOGO_TEXT,
+  'rotate-image': ROTATE_TEXT,
+  'remove-exif-data': EXIF_TEXT,
 };
 
 /** The ten languages LeafLock PDF publishes. */
@@ -175,7 +186,7 @@ describe.each(OTHER_LOCALES.map((l) => l.code))('translation: %s', (code) => {
 
 describe('translated tool controls', () => {
   it('has every key, every placeholder and no English left in place, for every language', () => {
-    const tables = { compress: COMPRESS_TEXT, resize: RESIZE_TEXT, convert: CONVERT_TEXT, crop: CROP_TEXT, pdf: PDF_TEXT } as unknown as Record<string, Record<string, Record<string, string>>>;
+    const tables = { compress: COMPRESS_TEXT, resize: RESIZE_TEXT, convert: CONVERT_TEXT, crop: CROP_TEXT, pdf: PDF_TEXT, text: TEXT_TEXT, watermark: WATERMARK_TEXT, logo: LOGO_TEXT, rotate: ROTATE_TEXT, exif: EXIF_TEXT, positions: POSITION_TEXT } as unknown as Record<string, Record<string, Record<string, string>>>;
     for (const [name, table] of Object.entries(tables)) {
       const english = Object.entries(table.en!);
       expect(Object.keys(table).sort(), name).toEqual([...EXPECTED].sort());

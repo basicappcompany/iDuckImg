@@ -1,0 +1,136 @@
+/** The words on the Rotate tool: its options and run button, in the ten languages (machine translations). */
+export interface RotateText {
+  previewAria: string;
+  alt: string;
+  title: string;
+  left: string;
+  right: string;
+  flipH: string;
+  flipV: string;
+  reset: string;
+  note: string;
+  run: string;
+}
+
+export const ROTATE_TEXT: Readonly<Record<string, RotateText>> & { en: RotateText } = {
+  en: {
+    previewAria: 'Preview of the first image',
+    alt: 'Preview',
+    title: 'Rotate and flip',
+    left: 'Rotate left',
+    right: 'Rotate right',
+    flipH: 'Flip horizontal',
+    flipV: 'Flip vertical',
+    reset: 'Reset',
+    note: 'The preview shows the first image. The same change is applied to every image. JPG and WebP are saved again at high quality, so the file size can change slightly.',
+    run: 'Apply',
+  },
+  hi: {
+    previewAria: 'पहली इमेज का प्रीव्यू',
+    alt: 'प्रीव्यू',
+    title: 'घुमाएँ और पलटें',
+    left: 'बाएँ घुमाएँ',
+    right: 'दाएँ घुमाएँ',
+    flipH: 'आड़ा पलटें',
+    flipV: 'खड़ा पलटें',
+    reset: 'रीसेट',
+    note: 'प्रीव्यू पहली इमेज दिखाता है। वही बदलाव हर इमेज पर लागू होता है। JPG और WebP ऊँची क्वालिटी में दोबारा सेव होते हैं, इसलिए फ़ाइल साइज़ थोड़ा बदल सकता है।',
+    run: 'लागू करें',
+  },
+  bn: {
+    previewAria: 'প্রথম ইমেজের প্রিভিউ',
+    alt: 'প্রিভিউ',
+    title: 'ঘোরান ও উল্টান',
+    left: 'বাঁয়ে ঘোরান',
+    right: 'ডানে ঘোরান',
+    flipH: 'আড়াআড়ি উল্টান',
+    flipV: 'লম্বালম্বি উল্টান',
+    reset: 'রিসেট',
+    note: 'প্রিভিউ প্রথম ইমেজ দেখায়। একই পরিবর্তন প্রতিটি ইমেজে প্রযোজ্য হয়। JPG ও WebP উচ্চ কোয়ালিটিতে আবার সেভ হয়, তাই ফাইলের আকার সামান্য বদলাতে পারে।',
+    run: 'প্রয়োগ করুন',
+  },
+  'pt-BR': {
+    previewAria: 'Prévia da primeira imagem',
+    alt: 'Prévia',
+    title: 'Girar e espelhar',
+    left: 'Girar à esquerda',
+    right: 'Girar à direita',
+    flipH: 'Espelhar na horizontal',
+    flipV: 'Espelhar na vertical',
+    reset: 'Redefinir',
+    note: 'A prévia mostra a primeira imagem. A mesma alteração é aplicada a todas as imagens. JPG e WebP são salvos de novo em alta qualidade, então o tamanho do arquivo pode mudar um pouco.',
+    run: 'Aplicar',
+  },
+  id: {
+    previewAria: 'Pratinjau gambar pertama',
+    alt: 'Pratinjau',
+    title: 'Putar dan balik',
+    left: 'Putar ke kiri',
+    right: 'Putar ke kanan',
+    flipH: 'Balik horizontal',
+    flipV: 'Balik vertikal',
+    reset: 'Atur ulang',
+    note: 'Pratinjau menampilkan gambar pertama. Perubahan yang sama diterapkan ke setiap gambar. JPG dan WebP disimpan lagi dengan kualitas tinggi, jadi ukuran file bisa sedikit berubah.',
+    run: 'Terapkan',
+  },
+  ru: {
+    previewAria: 'Предпросмотр первого изображения',
+    alt: 'Предпросмотр',
+    title: 'Поворот и отражение',
+    left: 'Повернуть влево',
+    right: 'Повернуть вправо',
+    flipH: 'Отразить по горизонтали',
+    flipV: 'Отразить по вертикали',
+    reset: 'Сбросить',
+    note: 'В предпросмотре — первое изображение. То же изменение применяется к каждому изображению. JPG и WebP сохраняются заново в высоком качестве, поэтому размер файла может немного измениться.',
+    run: 'Применить',
+  },
+  de: {
+    previewAria: 'Vorschau des ersten Bildes',
+    alt: 'Vorschau',
+    title: 'Drehen und spiegeln',
+    left: 'Nach links drehen',
+    right: 'Nach rechts drehen',
+    flipH: 'Horizontal spiegeln',
+    flipV: 'Vertikal spiegeln',
+    reset: 'Zurücksetzen',
+    note: 'Die Vorschau zeigt das erste Bild. Dieselbe Änderung wird auf jedes Bild angewendet. JPG und WebP werden in hoher Qualität neu gespeichert, daher kann sich die Dateigröße leicht ändern.',
+    run: 'Anwenden',
+  },
+  es: {
+    previewAria: 'Vista previa de la primera imagen',
+    alt: 'Vista previa',
+    title: 'Girar y voltear',
+    left: 'Girar a la izquierda',
+    right: 'Girar a la derecha',
+    flipH: 'Voltear horizontalmente',
+    flipV: 'Voltear verticalmente',
+    reset: 'Restablecer',
+    note: 'La vista previa muestra la primera imagen. El mismo cambio se aplica a todas las imágenes. JPG y WebP se guardan de nuevo en alta calidad, así que el tamaño del archivo puede cambiar un poco.',
+    run: 'Aplicar',
+  },
+  fr: {
+    previewAria: 'Aperçu de la première image',
+    alt: 'Aperçu',
+    title: 'Pivoter et retourner',
+    left: 'Pivoter à gauche',
+    right: 'Pivoter à droite',
+    flipH: 'Retourner horizontalement',
+    flipV: 'Retourner verticalement',
+    reset: 'Réinitialiser',
+    note: 'L’aperçu montre la première image. La même modification s’applique à chaque image. Le JPG et le WebP sont réenregistrés en haute qualité, la taille du fichier peut donc changer légèrement.',
+    run: 'Appliquer',
+  },
+  tr: {
+    previewAria: 'İlk görselin önizlemesi',
+    alt: 'Önizleme',
+    title: 'Döndür ve çevir',
+    left: 'Sola döndür',
+    right: 'Sağa döndür',
+    flipH: 'Yatay çevir',
+    flipV: 'Dikey çevir',
+    reset: 'Sıfırla',
+    note: 'Önizleme ilk görseli gösterir. Aynı değişiklik her görsele uygulanır. JPG ve WebP yüksek kalitede yeniden kaydedilir, bu yüzden dosya boyutu biraz değişebilir.',
+    run: 'Uygula',
+  },
+};

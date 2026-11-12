@@ -92,12 +92,12 @@ export const es: LocaleData = {
     'add-watermark-to-image': {
       name: `Añadir una marca de agua`,
       summary: `Pon tu nombre o una línea de copyright en una imagen antes de compartirla.`,
-      quick: `Para añadir una marca de agua, suelta tus imágenes, escribe el texto, elige dónde va y cuánta transparencia tiene, y pulsa "Add watermark". El texto se dibuja en tu navegador, así que no se sube nada.`,
+      quick: `Para añadir una marca de agua, suelta tus imágenes, escribe el texto, elige dónde va y cuánta transparencia tiene, y pulsa "Añadir marca de agua". El texto se dibuja en tu navegador, así que no se sube nada.`,
     },
     'add-logo-to-image': {
       name: `Añadir un logotipo a imágenes`,
       summary: `Pon tu logotipo en una imagen, o en muchas a la vez, antes de compartirlas.`,
-      quick: `Para añadir un logotipo, suelta tus imágenes, elige el archivo del logotipo, indica la posición, el tamaño y la transparencia, y pulsa "Add logo". Ambos archivos se quedan en tu dispositivo.`,
+      quick: `Para añadir un logotipo, suelta tus imágenes, elige el archivo del logotipo, indica la posición, el tamaño y la transparencia, y pulsa "Añadir logotipo". Ambos archivos se quedan en tu dispositivo.`,
     },
     'exam-photo-resizer': {
       name: `Redimensionar foto y firma para exámenes`,
@@ -117,12 +117,12 @@ export const es: LocaleData = {
     'rotate-image': {
       name: `Girar y voltear`,
       summary: `Gira una imagen 90, 180 o 270 grados, o hazla en espejo.`,
-      quick: `Para girar o voltear una imagen, suéltala, usa los botones hasta que la vista previa sea correcta y pulsa "Apply". El mismo cambio se aplica a todas las imágenes que añadas.`,
+      quick: `Para girar o voltear una imagen, suéltala, usa los botones hasta que la vista previa sea correcta y pulsa "Aplicar". El mismo cambio se aplica a todas las imágenes que añadas.`,
     },
     'remove-exif-data': {
       name: `Eliminar datos EXIF`,
       summary: `Borra los datos de ubicación, cámara y fecha antes de compartir una foto.`,
-      quick: `Para quitar la ubicación y los datos de la cámara de una foto, suéltala y pulsa "Remove metadata". La imagen no se vuelve a comprimir, así que la calidad no cambia.`,
+      quick: `Para quitar la ubicación y los datos de la cámara de una foto, suéltala y pulsa "Quitar metadatos". La imagen no se vuelve a comprimir, así que la calidad no cambia.`,
     },
     'circle-crop-image': {
       name: `Recorte circular y esquinas redondeadas`,
@@ -137,7 +137,7 @@ export const es: LocaleData = {
     'add-text-to-image': {
       name: `Añadir texto a una imagen`,
       summary: `Escribe sobre una imagen con cualquier tamaño, color y posición.`,
-      quick: `Para añadir texto a una imagen, suéltala, escribe tus palabras, elige dónde van, de qué tamaño y de qué color, y pulsa "Add text". Se dibuja en tu navegador, así que no se sube nada.`,
+      quick: `Para añadir texto a una imagen, suéltala, escribe tus palabras, elige dónde van, de qué tamaño y de qué color, y pulsa "Añadir texto". Se dibuja en tu navegador, así que no se sube nada.`,
     },
     'pixel-art-maker': {
       name: `Creador de pixel art`,

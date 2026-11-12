@@ -7,12 +7,16 @@ import { useToolRunner } from '../../engine/useToolRunner';
 import { watermarkTool } from './tool';
 import { drawWatermark } from './draw';
 import { MAX_TEXT_LENGTH, WATERMARK_POSITIONS, cleanText, type WatermarkOptions, type WatermarkPosition } from './options';
-import { fill, useUi } from '../../i18n/ui';
+import { fill, useText, useUi } from '../../i18n/ui';
+import { WATERMARK_TEXT } from '../../i18n/tools/watermark';
+import { POSITION_TEXT } from '../../i18n/tools/positions';
 
 const PREVIEW_WIDTH = 560;
 
 export default function WatermarkTool() {
   const ui = useUi();
+  const t = useText(WATERMARK_TEXT);
+  const pos = useText(POSITION_TEXT);
   const [files, setFiles] = useState<File[]>([]);
   const [options, setOptions] = useState<WatermarkOptions>(watermarkTool.defaultOptions);
   const runner = useToolRunner(watermarkTool);
@@ -97,12 +101,12 @@ export default function WatermarkTool() {
             </button>
           </p>
 
-          <div class="card mx-auto overflow-hidden" aria-label="Preview of the first image">
-            <canvas ref={canvas} class="block max-h-[28rem] max-w-full" role="img" aria-label="Preview with the watermark" />
+          <div class="card mx-auto overflow-hidden" aria-label={t.previewAria}>
+            <canvas ref={canvas} class="block max-h-[28rem] max-w-full" role="img" aria-label={t.canvasAria} />
           </div>
 
-          <OptionsPanel title="Watermark">
-            <Field id="wm-text" label="Text" hint={`Up to ${MAX_TEXT_LENGTH} characters, for example your name or © 2026 Your Name.`}>
+          <OptionsPanel title={t.title}>
+            <Field id="wm-text" label={t.text} hint={fill(t.hint, { max: MAX_TEXT_LENGTH })}>
               <input
                 id="wm-text"
                 type="text"
@@ -110,12 +114,12 @@ export default function WatermarkTool() {
                 maxLength={MAX_TEXT_LENGTH}
                 value={options.text}
                 disabled={running}
-                placeholder="© Your name"
+                placeholder={t.placeholder}
                 onInput={(e) => set({ text: (e.currentTarget as HTMLInputElement).value })}
               />
             </Field>
 
-            <Field id="wm-position" label="Position">
+            <Field id="wm-position" label={t.position}>
               <select
                 id="wm-position"
                 class="input w-full"
@@ -124,13 +128,13 @@ export default function WatermarkTool() {
                 onChange={(e) => set({ position: (e.currentTarget as HTMLSelectElement).value as WatermarkPosition })}
               >
                 {WATERMARK_POSITIONS.map((p) => (
-                  <option value={p.id}>{p.label}</option>
+                  <option value={p.id}>{pos[p.id]}</option>
                 ))}
               </select>
             </Field>
 
             <div class="grid gap-4 sm:grid-cols-2">
-              <Field id="wm-size" label={`Size: ${options.sizePct}% of the width`}>
+              <Field id="wm-size" label={fill(t.size, { n: options.sizePct })}>
                 <input
                   id="wm-size"
                   type="range"
@@ -142,7 +146,7 @@ export default function WatermarkTool() {
                   onInput={(e) => set({ sizePct: Number((e.currentTarget as HTMLInputElement).value) })}
                 />
               </Field>
-              <Field id="wm-opacity" label={`Opacity: ${options.opacity}%`}>
+              <Field id="wm-opacity" label={fill(t.opacity, { n: options.opacity })}>
                 <input
                   id="wm-opacity"
                   type="range"
@@ -156,7 +160,7 @@ export default function WatermarkTool() {
               </Field>
             </div>
 
-            <Field id="wm-color" label="Colour">
+            <Field id="wm-color" label={t.colour}>
               <select
                 id="wm-color"
                 class="input w-full"
@@ -164,15 +168,13 @@ export default function WatermarkTool() {
                 disabled={running}
                 onChange={(e) => set({ color: (e.currentTarget as HTMLSelectElement).value as 'white' | 'black' })}
               >
-                <option value="white">White</option>
-                <option value="black">Black</option>
+                <option value="white">{t.white}</option>
+                <option value="black">{t.black}</option>
               </select>
             </Field>
             {lossy && (
               <p class="text-xs text-muted">
-                The preview shows the first image; the same watermark goes on every image. JPG and WebP are saved
-                again at high quality, so the file size can change slightly. A watermark discourages copying but can
-                be cropped out, so it does not protect a picture.
+                {t.note}
               </p>
             )}
           </OptionsPanel>
@@ -184,7 +186,7 @@ export default function WatermarkTool() {
               onClick={() => runner.run(files, options)}
               class="btn btn-primary btn-lg"
             >
-              {running ? ui.working : 'Add watermark'}
+              {running ? ui.working : t.run}
             </button>
             {running && (
               <button type="button" onClick={runner.cancel} class="btn btn-lg">
@@ -192,7 +194,7 @@ export default function WatermarkTool() {
               </button>
             )}
           </div>
-          {!hasText && <p class="text-sm text-muted">Type the watermark text to continue.</p>}
+          {!hasText && <p class="text-sm text-muted">{t.missing}</p>}
         </>
       )}
 
