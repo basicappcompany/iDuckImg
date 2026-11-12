@@ -1,0 +1,76 @@
+---
+import ToolLayout from '../components/ToolLayout.astro';
+import CompressTool from '../tools/compress/CompressTool';
+import ResizeTool from '../tools/resize/ResizeTool';
+import ConvertTool from '../tools/convert/ConvertTool';
+import { LANDING_PAGES, landingPath, type LandingPage } from '../lib/landing';
+import { TOOLS, toolPath } from '../lib/tools';
+
+export function getStaticPaths() {
+  return LANDING_PAGES.map((page) => ({ params: { slug: page.slug }, props: { page } }));
+}
+
+const { page } = Astro.props as { page: LandingPage };
+const parentSlug = { compress: 'compress-image', resize: 'resize-image', convert: 'convert-image' }[page.engine];
+
+const relatedLinks = page.related.flatMap((slug) => {
+  const tool = TOOLS.find((t) => t.slug === slug);
+  if (tool) return [{ href: toolPath(tool.slug), label: tool.name, emoji: tool.emoji }];
+  const other = LANDING_PAGES.find((p) => p.slug === slug);
+  if (other) return [{ href: landingPath(other.slug), label: other.h1.replace(' converter', ''), emoji: other.emoji }];
+  return [];
+});
+---
+
+<ToolLayout
+  title={`${page.title} | iDuckImg`}
+  description={page.description}
+  heading={page.h1}
+  landing={{ emoji: page.emoji, summary: page.summary, quick: page.quick, parentSlug }}
+  steps={page.steps}
+  faqs={page.faqs}
+>
+  {page.engine === 'compress' && <CompressTool client:load initial={page.initial} />}
+  {page.engine === 'resize' && <ResizeTool client:load initial={page.initial} />}
+  {page.engine === 'convert' && <ConvertTool client:load initial={page.initial} />}
+
+  <div slot="content" class="grid gap-8">
+    <section class="prose" aria-label="How to">
+      <h2>How to use it</h2>
+      <ol>
+        {page.steps.map((step) => <li>{step}</li>)}
+      </ol>
+      {page.notes.map((note) => <p class="mt-3">{note}</p>)}
+    </section>
+
+    <section aria-label="Common questions">
+      <h2 class="text-3xl font-black tracking-tight">Common questions</h2>
+      <div class="mt-4 grid gap-3">
+        {
+          page.faqs.map((f) => (
+            <details class="card px-4 py-3">
+              <summary class="cursor-pointer text-lg font-black">{f.q}</summary>
+              <p class="mt-2 leading-relaxed">{f.a}</p>
+            </details>
+          ))
+        }
+      </div>
+    </section>
+
+    <nav aria-label="Related tools">
+      <h2 class="text-2xl font-black tracking-tight">Related</h2>
+      <ul class="mt-3 flex flex-wrap gap-2">
+        {
+          relatedLinks.map((l) => (
+            <li>
+              <a href={l.href} class="btn btn-sm">
+                <span aria-hidden="true">{l.emoji}</span>
+                {l.label}
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+    </nav>
+  </div>
+</ToolLayout>

@@ -2,9 +2,10 @@ import { expect, test, type Page } from '@playwright/test';
 
 /** Same order as the sidebar and the homepage: grouped. */
 const GROUPS: Record<string, string[]> = {
-  'Shrink & resize': ['/compress-images/', '/resize-image/', '/crop-image/', '/exam-photo-resizer/'],
-  'Convert & combine': ['/convert-image/', '/images-to-pdf/'],
-  'Fix & clean': ['/rotate-image/', '/remove-exif-data/'],
+  'Shrink & resize': ['/compress-image/', '/resize-image/', '/exam-photo-resizer/'],
+  'Edit & transform': ['/crop-image/', '/rotate-image/'],
+  'Convert & combine': ['/convert-image/', '/image-to-pdf/'],
+  'Privacy & cleanup': ['/remove-exif-data/'],
 };
 const TOOL_PATHS = Object.values(GROUPS).flat();
 const groupOf = (path: string) => Object.entries(GROUPS).find(([, paths]) => paths.includes(path))![0];
@@ -55,7 +56,7 @@ test.describe('site', () => {
   });
 
   test('keyboard users can skip straight to the tool', async ({ page }) => {
-    await page.goto('/compress-images/');
+    await page.goto('/compress-image/');
     await page.keyboard.press('Tab');
     const skip = page.getByRole('link', { name: 'Skip to the tool' });
     await expect(skip).toBeFocused();
@@ -131,7 +132,7 @@ test.describe('site', () => {
       await expect(page.locator('#sidebar [data-group]:not([hidden])')).toHaveCount(1);
 
       await search.fill('pdf');
-      expect(await hrefs(page, visibleTools.getByRole('link'))).toEqual(['/convert-image/', '/images-to-pdf/']);
+      expect(await hrefs(page, visibleTools.getByRole('link'))).toEqual(['/convert-image/', '/image-to-pdf/']);
 
       await search.fill('qqqqq');
       await expect(page.getByText('No tool matches that. Try "pdf"').first()).toBeVisible();

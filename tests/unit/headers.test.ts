@@ -29,7 +29,7 @@ describe('public/_headers', () => {
   it('never applies noindex to the real domain or to every host', () => {
     expect(noindexRules.length).toBeGreaterThan(0);
     for (const { pattern } of noindexRules) {
-      // A bare path like /* or /compress-images/ matches on every host, including iduckimg.com.
+      // A bare path like /* or /compress-image/ matches on every host, including iduckimg.com.
       expect(pattern, `${pattern} would also hit iduckimg.com`).toMatch(/^https:\/\//);
       // The host must be a pages.dev host, spelled out in the pattern.
       const host = pattern.replace(/^https:\/\//, '').split('/')[0]!;

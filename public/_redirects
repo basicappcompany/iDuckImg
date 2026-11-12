@@ -1,0 +1,5 @@
+# Old addresses keep working: a permanent (301) redirect to the new keyword URL.
+/compress-images /compress-image/ 301
+/compress-images/ /compress-image/ 301
+/images-to-pdf /image-to-pdf/ 301
+/images-to-pdf/ /image-to-pdf/ 301

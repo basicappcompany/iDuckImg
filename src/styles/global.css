@@ -161,6 +161,12 @@ body {
     cursor: not-allowed;
     box-shadow: none;
   }
+  /* A link that looks like a button but cannot be used yet (for example a form that is not filled in). */
+  .btn[aria-disabled='true'] {
+    opacity: 0.55;
+    cursor: not-allowed;
+    box-shadow: none;
+  }
   .btn-primary {
     background: var(--d-duck);
     color: var(--d-duckInk);
@@ -246,6 +252,27 @@ body {
   }
   .pill-ok {
     background: var(--d-ok);
+    color: var(--d-duckInk);
+  }
+  /* A pick-one button, used like a radio group. */
+  .chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    border: 2px solid var(--d-line);
+    border-radius: 999px;
+    padding: 0.3rem 0.85rem;
+    background: var(--d-card);
+    color: var(--d-ink);
+    font-size: 0.85rem;
+    font-weight: 800;
+    cursor: pointer;
+  }
+  .chip:hover {
+    background: var(--d-soft);
+  }
+  .chip[aria-checked='true'] {
+    background: var(--d-duck);
     color: var(--d-duckInk);
   }
   .eyebrow {

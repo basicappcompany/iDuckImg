@@ -2,6 +2,8 @@
 import AppShell from '../components/AppShell.astro';
 import DuckMark from '../components/DuckMark.astro';
 import { TOOLS, TOOL_GROUPS, toolPath, toolsInGroup } from '../lib/tools';
+import { LANDING_PAGES, landingPath } from '../lib/landing';
+import { faqLd, organizationLd, websiteLd } from '../lib/seo';
 
 const faqs = [
   {
@@ -26,12 +28,6 @@ const faqs = [
   },
 ];
 
-const faqJsonLd = JSON.stringify({
-  '@context': 'https://schema.org',
-  '@type': 'FAQPage',
-  mainEntity: faqs.map((f) => ({ '@type': 'Question', name: f.q, acceptedAnswer: { '@type': 'Answer', text: f.a } })),
-});
-
 const why = [
   { emoji: '🔒', title: 'Your files stay with you', text: 'Every tool runs in your browser. Your pictures are not uploaded to our servers.' },
   { emoji: '🎁', title: 'No account, no watermark', text: 'Open a tool and use it. Nothing to install, and nothing stamped on your results.' },
@@ -40,6 +36,7 @@ const why = [
 ---
 
 <AppShell
+  jsonLd={[websiteLd(), organizationLd(), faqLd(faqs)]}
   title="iDuckImg: free online image tools"
   description="Compress, resize, crop, convert and clean images free in your browser. No upload, no signup. Your files never leave your device."
 >
@@ -97,6 +94,22 @@ const why = [
     </p>
   </section>
 
+  <section class="mt-14" aria-label="Popular conversions">
+    <h2 class="text-2xl font-black tracking-tight">Popular jobs</h2>
+    <ul class="mt-3 flex flex-wrap gap-2">
+      {
+        LANDING_PAGES.map((p) => (
+          <li>
+            <a href={landingPath(p.slug)} class="btn btn-sm">
+              <span aria-hidden="true">{p.emoji}</span>
+              {p.h1.replace(' converter', '')}
+            </a>
+          </li>
+        ))
+      }
+    </ul>
+  </section>
+
   <section class="mt-14" aria-label="Why iDuckImg">
     <ul class="grid gap-4 sm:grid-cols-3">
       {
@@ -126,8 +139,6 @@ const why = [
       }
     </div>
   </section>
-
-  <script type="application/ld+json" set:html={faqJsonLd} />
 
   <script>
     import { searchTools } from '../lib/tools';

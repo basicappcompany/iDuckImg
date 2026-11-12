@@ -1,0 +1,29 @@
+# Handoff (updated 2026-11-12, end of the landing-pages session)
+
+The branch `feat/community-pages` now holds the community pages, the 58-tool plan, 14 landing pages, the SEO/GEO/AEO layer, and the Privacy and Terms pages. `pnpm verify` and `pnpm test:e2e` pass locally. Once its PR is merged on green CI, check the live site (see "After deploying").
+
+## Done in this branch
+- Community pages (roadmap, request, feedback, support, settings, about) in the sidebar, forms that build a mailto, 58-tool master plan in `src/lib/tool-plan.ts`.
+- URL renames `compress-images` to `compress-image` and `images-to-pdf` to `image-to-pdf` (301s in `public/_redirects`).
+- 14 landing pages from `src/lib/landing.ts` via `src/pages/[slug].astro`: the real tool opens with options preset (compress to 20/50/100/200 KB, HEIC/PNG/WebP/JPG conversions, JPG/PNG to PDF).
+- SEO: Open Graph + Twitter tags and `public/og.png`, JSON-LD from `src/lib/seo.ts`, sitemap filter for noindex pages, `robots.txt` naming AI crawlers, generated `/llms.txt`, hub `/image-tools/`, footer "Popular" links.
+- `/privacy/` and `/terms/` (plain words, Basic App Company, no governing law yet).
+- Fixed: the Settings page crashed the build (it touched `window` while prerendering).
+
+## After deploying (needs the live URL)
+1. `curl -I https://iduckimg.com/heic-to-jpg/` should be 200; `/llms.txt` and `/og.png` should load; `https://iduckimg.pages.dev/` should still send `X-Robots-Tag: noindex`.
+2. Search Console: verify the domain, submit `sitemap-index.xml`, request indexing for the landing pages (status 5.7, yours).
+3. Run Lighthouse (mobile) on the home page and one landing page (status 5.12).
+
+## Next, in this order
+1. Command-palette search (Ctrl K modal with TOOLS and PAGES sections, like iDuckPDF).
+2. Watermark tool, then BMP/GIF/SVG/AVIF inputs (cheap).
+3. A starting-choice prop on the exam preset picker, then one landing page per exam.
+4. AI foundation with the visitor's own key (shared settings + provider adapters; "Describe an image" and "Image to text"). The security headers / CSP (status 3.9) must come first. Provider browser access (preflight only, tested 2026-11-12): Anthropic needs the header `anthropic-dangerous-direct-browser-access`; OpenAI, Gemini, OpenRouter, Mistral, Groq, Stability and remove.bg allow it; Replicate does not (needs a proxy). Real responses and image input are not tested. AI pages must not carry ads and must say the image goes to the provider.
+5. OCR, then background remover (check each model's licence for commercial use first).
+
+## Decisions waiting on you
+- Feedback goes to hello@iduckpdf.com because iduckimg.com has no mail routing (no MX record). Set up Email Routing, then change `CONTACT_EMAIL` in `src/lib/contact.ts` (status 3.7).
+- Governing law and legal name for the legal pages (status 4.2, 4.3); a lawyer review before real money (4.4).
+- Which AI providers you actually use, so they come first.
+- Tech-stack direction (status 1.11).

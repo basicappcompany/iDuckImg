@@ -46,7 +46,7 @@ test.describe('HEIC input', () => {
   });
 
   test('combines a HEIC photo and a JPG into one PDF', async ({ page }) => {
-    await page.goto('/images-to-pdf/');
+    await page.goto('/image-to-pdf/');
     await page.waitForFunction(() => document.querySelector('astro-island[ssr]') === null);
     const jpg = await makeImage(page, 'image/jpeg', 'b.jpg', 400, 300);
     await page

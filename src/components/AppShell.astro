@@ -3,14 +3,19 @@ import '../styles/global.css';
 import DuckMark from './DuckMark.astro';
 import { TOOL_GROUPS, toolPath, toolsInGroup } from '../lib/tools';
 import { THEME_STORAGE_KEY } from '../lib/theme';
+import { COMMUNITY, communityPath } from '../lib/community';
+import { LANDING_PAGES, landingPath } from '../lib/landing';
+import { OG_IMAGE, SITE_NAME, serialize } from '../lib/seo';
 
 interface Props {
   title: string;
   description: string;
   /** For pages that must stay out of search results, such as the 404 page. */
   noindex?: boolean;
+  /** Structured data objects (schema.org), written as JSON-LD in the head. */
+  jsonLd?: unknown[];
 }
-const { title, description, noindex = false } = Astro.props;
+const { title, description, noindex = false, jsonLd = [] } = Astro.props;
 const canonical = new URL(Astro.url.pathname, Astro.site).href;
 const path = Astro.url.pathname.endsWith('/') ? Astro.url.pathname : `${Astro.url.pathname}/`;
 const isHome = path === '/';
@@ -26,6 +31,20 @@ const isHome = path === '/';
     <meta name="description" content={description} />
     {noindex ? <meta name="robots" content="noindex" /> : <link rel="canonical" href={canonical} />}
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta property="og:site_name" content={SITE_NAME} />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:image" content={OG_IMAGE} />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="iDuckImg: free online image tools with a duck mascot" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={OG_IMAGE} />
+    {jsonLd.map((item) => <script type="application/ld+json" set:html={serialize(item)} />)}
     <!-- Runs before first paint, so a visitor who chose dark mode never sees a flash of light. -->
     <script is:inline define:vars={{ key: THEME_STORAGE_KEY }}>
       try {
@@ -92,6 +111,26 @@ const isHome = path === '/';
           </nav>
 
           <div class="mt-6 border-t-2 border-line pt-4">
+            <p class="eyebrow mb-1 px-2">Community</p>
+            <ul class="grid gap-0.5">
+              {
+                COMMUNITY.map((page) => (
+                  <li>
+                    <a
+                      class="nav-item"
+                      href={communityPath(page.slug)}
+                      aria-current={path === communityPath(page.slug) ? 'page' : undefined}
+                    >
+                      <span aria-hidden="true">{page.emoji}</span>
+                      {page.name}
+                    </a>
+                  </li>
+                ))
+              }
+            </ul>
+          </div>
+
+          <div class="mt-6 border-t-2 border-line pt-4">
             <p class="eyebrow mb-1 px-2">Also from iDuck</p>
             <a class="nav-item" href="https://iduckpdf.com/" rel="noopener">
               <span aria-hidden="true">📚</span> iDuckPDF: PDF tools
@@ -139,9 +178,30 @@ const isHome = path === '/';
         </main>
 
         <footer class="mx-auto max-w-4xl px-4 pb-10 text-sm text-muted">
-          <p>
+          <nav aria-label="Popular conversions" class="border-t-2 border-line pt-6">
+            <p class="eyebrow mb-2">Popular</p>
+            <ul class="flex flex-wrap gap-x-4 gap-y-1">
+              {
+                LANDING_PAGES.map((p) => (
+                  <li>
+                    <a class="link" href={landingPath(p.slug)}>
+                      {p.h1.replace(' converter', '')}
+                    </a>
+                  </li>
+                ))
+              }
+            </ul>
+          </nav>
+          <p class="mt-5">
             iDuckImg: free image tools that run in your browser. Also try
             <a class="link" href="https://iduckpdf.com/" rel="noopener">iDuckPDF</a>.
+          </p>
+          <p class="mt-2 flex flex-wrap gap-x-4">
+            <a class="link" href="/image-tools/">All image tools</a>
+            <a class="link" href="/about/">About</a>
+            <a class="link" href="/privacy/">Privacy</a>
+            <a class="link" href="/terms/">Terms</a>
+            <a class="link" href="/feedback/">Feedback</a>
           </p>
         </footer>
       </div>
@@ -161,6 +221,7 @@ const isHome = path === '/';
         (root.getAttribute('data-theme') !== 'light' && matchMedia('(prefers-color-scheme: dark)').matches);
       const syncToggle = () => toggle?.setAttribute('aria-pressed', String(isDark()));
       syncToggle();
+      window.addEventListener('duck-theme', syncToggle);
       toggle?.addEventListener('click', () => {
         const next = isDark() ? 'light' : 'dark';
         root.setAttribute('data-theme', next);

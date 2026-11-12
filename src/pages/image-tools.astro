@@ -1,0 +1,56 @@
+---
+import CommunityLayout from '../components/CommunityLayout.astro';
+import { TOOLS, TOOL_GROUPS, toolPath, toolsInGroup } from '../lib/tools';
+import { LANDING_PAGES, landingPath } from '../lib/landing';
+import { breadcrumbLd } from '../lib/seo';
+---
+
+<CommunityLayout
+  title="Free image tools online: compress, resize, convert | iDuckImg"
+  description="Every iDuckImg tool in one list: compress, resize, crop, convert HEIC, rotate, remove EXIF and make PDFs. Free, in your browser."
+  before="All"
+  mark="image tools"
+  intro={`${TOOLS.length} free tools and ${LANDING_PAGES.length} ready-made shortcuts. Everything runs in your browser, so your pictures are not uploaded.`}
+  jsonLd={[breadcrumbLd([{ name: 'Home', path: '/' }, { name: 'Image tools', path: '/image-tools/' }])]}
+>
+  {
+    TOOL_GROUPS.map((group) => (
+      <section aria-label={group}>
+        <h2 class="text-2xl font-black tracking-tight">{group}</h2>
+        <ul class="mt-3 grid gap-4 sm:grid-cols-2">
+          {toolsInGroup(group).map((tool) => (
+            <li>
+              <a href={toolPath(tool.slug)} class="card card-link h-full p-4">
+                <span class="flex items-center gap-2 text-lg font-black">
+                  <span aria-hidden="true">{tool.emoji}</span>
+                  {tool.name}
+                </span>
+                <span class="mt-1 block text-sm text-muted">{tool.summary}</span>
+              </a>
+            </li>
+          ))}
+        </ul>
+      </section>
+    ))
+  }
+
+  <section aria-label="Shortcuts">
+    <h2 class="text-2xl font-black tracking-tight">Shortcuts for common jobs</h2>
+    <p class="mt-1 text-muted">The same tools, already set up for what people search for most.</p>
+    <ul class="mt-3 grid gap-3 sm:grid-cols-2">
+      {
+        LANDING_PAGES.map((p) => (
+          <li>
+            <a href={landingPath(p.slug)} class="card card-link h-full p-3">
+              <span class="flex items-center gap-2 font-black">
+                <span aria-hidden="true">{p.emoji}</span>
+                {p.h1.replace(' converter', '')}
+              </span>
+              <span class="mt-1 block text-sm text-muted">{p.summary}</span>
+            </a>
+          </li>
+        ))
+      }
+    </ul>
+  </section>
+</CommunityLayout>

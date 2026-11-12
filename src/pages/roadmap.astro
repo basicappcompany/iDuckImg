@@ -1,0 +1,82 @@
+---
+import CommunityLayout from '../components/CommunityLayout.astro';
+import { PLAN, planByCategory, planCounts } from '../lib/tool-plan';
+import { TOOLS, toolPath } from '../lib/tools';
+
+const counts = planCounts();
+const STATUS_LABEL = { live: 'Live', next: 'Up next', soon: 'Planned', later: 'Later' } as const;
+const ENGINE_NOTE = {
+  browser: '',
+  'local-model': 'Runs in your browser after a one-time model download',
+  'your-ai-key': 'Uses your own AI key',
+} as const;
+---
+
+<CommunityLayout
+  title="Roadmap: 58 image tools, what is live and what is next | iDuckImg"
+  description={`iDuckImg plans ${counts.total} free image tools. ${counts.live} are live today. See every tool we are building, in the order we plan to build them.`}
+  before="What's"
+  mark="next"
+  intro={`We plan ${counts.total} free image tools. ${counts.live} are live today. Tell us what matters to you and that is what moves up.`}
+>
+  <section class="card p-5" style="background: var(--d-duck); color: var(--d-duckink)" aria-labelledby="live">
+    <h2 id="live" class="text-2xl font-black">Already live: {counts.live} tools</h2>
+    <ul class="mt-3 flex flex-wrap gap-2">
+      {
+        TOOLS.map((t) => (
+          <li>
+            <a href={toolPath(t.slug)} class="pill no-underline hover:underline" style="background: var(--d-card); color: var(--d-ink)">
+              <span aria-hidden="true">{t.emoji}</span>
+              {t.name}
+            </a>
+          </li>
+        ))
+      }
+    </ul>
+    <p class="mt-3 text-sm">All of these run in your browser, so your files are not uploaded.</p>
+  </section>
+
+  <section class="card p-5" aria-labelledby="plan">
+    <h2 id="plan" class="text-2xl font-black tracking-tight">The plan: {counts.total} tools</h2>
+    <p class="mt-1 text-sm text-muted">
+      {counts.live} live · {counts.next} up next · {PLAN.filter((p) => p.status === 'soon').length} planned · {counts.later} later.
+      None of it is promised: what you ask for decides what moves up. The AI tools use a key you paste in, so they wait for a
+      security policy and our legal pages first.
+    </p>
+  </section>
+
+  {
+    planByCategory().map(({ category, tools }) => (
+      <section aria-labelledby={`cat-${category.id.replace(/\W+/g, '-').toLowerCase()}`}>
+        <h2 id={`cat-${category.id.replace(/\W+/g, '-').toLowerCase()}`} class="text-3xl font-black tracking-tight">
+          <span aria-hidden="true">{category.emoji}</span> {category.id}
+          <span class="text-lg font-bold text-muted"> ({tools.length})</span>
+        </h2>
+        <p class="mt-1 text-sm text-muted">{category.blurb}</p>
+        <ul class="mt-3 grid gap-3 sm:grid-cols-2">
+          {tools.map((p) => (
+            <li class="card p-4">
+              <h3 class="flex items-start justify-between gap-2 text-lg font-black">
+                <span>
+                  <span aria-hidden="true">{p.emoji}</span> {p.status === 'live' ? <a class="link" href={toolPath(p.id)}>{p.title}</a> : p.title}
+                </span>
+                <span class={`pill shrink-0 ${p.status === 'live' ? 'pill-ok' : ''}`}>{STATUS_LABEL[p.status]}</span>
+              </h3>
+              <p class="mt-1 text-sm text-muted">{p.summary}</p>
+              {ENGINE_NOTE[p.engine] && <p class="mt-1 text-xs font-bold text-muted">{ENGINE_NOTE[p.engine]}</p>}
+            </li>
+          ))}
+        </ul>
+      </section>
+    ))
+  }
+
+  <section class="card p-5">
+    <h2 class="text-2xl font-black">Missing something?</h2>
+    <p class="mt-1 text-muted">A tool you need, or a way an existing one could work better.</p>
+    <p class="mt-3 flex flex-wrap gap-3">
+      <a href="/request/" class="btn btn-primary btn-lg">Request a feature</a>
+      <a href="/feedback/" class="btn btn-lg">Send feedback</a>
+    </p>
+  </section>
+</CommunityLayout>

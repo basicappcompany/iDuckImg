@@ -9,9 +9,9 @@ import { losesTransparency, type ConvertOptions } from './options';
 
 const inputClass = 'input w-full';
 
-export default function ConvertTool() {
+export default function ConvertTool({ initial }: { initial?: Partial<ConvertOptions> } = {}) {
   const [files, setFiles] = useState<File[]>([]);
-  const [options, setOptions] = useState<ConvertOptions>(convertTool.defaultOptions);
+  const [options, setOptions] = useState<ConvertOptions>({ ...convertTool.defaultOptions, ...initial });
   const runner = useToolRunner(convertTool);
   const running = runner.state === 'running';
   const set = (patch: Partial<ConvertOptions>) => setOptions((prev) => ({ ...prev, ...patch }));

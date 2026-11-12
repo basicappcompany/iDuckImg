@@ -1,0 +1,14 @@
+---
+import CommunityLayout from '../components/CommunityLayout.astro';
+import SettingsPanel from '../components/SettingsPanel';
+---
+
+<CommunityLayout
+  title="Settings | iDuckImg"
+  description="Choose a light or dark theme, clear what iDuckImg saved in your browser, and see the keyboard shortcuts."
+  mark="Settings"
+  intro="Pick how the site looks, see what it remembers, and learn the shortcuts."
+  noindex
+>
+  <SettingsPanel client:load />
+</CommunityLayout>

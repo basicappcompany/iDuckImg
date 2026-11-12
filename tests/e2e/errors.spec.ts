@@ -1,18 +1,18 @@
 import { expect, test } from '@playwright/test';
 
 const TOOL_PATHS = [
-  '/compress-images/',
+  '/compress-image/',
   '/resize-image/',
   '/crop-image/',
   '/exam-photo-resizer/',
   '/convert-image/',
-  '/images-to-pdf/',
+  '/image-to-pdf/',
   '/rotate-image/',
   '/remove-exif-data/',
 ];
 
 test.describe('unknown addresses', () => {
-  for (const path of ['/this-page-does-not-exist/', '/compress-image/', '/crop-image/extra/segments', '/llms.txt']) {
+  for (const path of ['/this-page-does-not-exist/', '/compress-imagess/', '/crop-image/extra/segments', '/humans.txt']) {
     test(`${path} is a real 404, not the home page`, async ({ page }) => {
       const response = await page.goto(path);
       expect(response?.status()).toBe(404);

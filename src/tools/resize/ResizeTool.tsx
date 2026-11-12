@@ -15,9 +15,9 @@ function toNumber(value: string): number | null {
   return Number.isFinite(n) ? n : null;
 }
 
-export default function ResizeTool() {
+export default function ResizeTool({ initial }: { initial?: Partial<ResizeOptions> } = {}) {
   const [files, setFiles] = useState<File[]>([]);
-  const [options, setOptions] = useState<ResizeOptions>(resizeTool.defaultOptions);
+  const [options, setOptions] = useState<ResizeOptions>({ ...resizeTool.defaultOptions, ...initial });
   const runner = useToolRunner(resizeTool);
   const running = runner.state === 'running';
   const set = (patch: Partial<ResizeOptions>) => setOptions((prev) => ({ ...prev, ...patch }));
