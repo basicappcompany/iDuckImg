@@ -76,3 +76,27 @@ test.describe('landing pages', () => {
     for (const path of ['/feedback/', '/request/', '/settings/']) expect(sitemap).not.toContain(path);
   });
 });
+
+test.describe('quick tools in the sidebar', () => {
+  test.use({ viewport: { width: 1280, height: 900 } });
+
+  test('the section and each sub-category open and close, and the current page opens its own', async ({ page }) => {
+    await page.goto('/heic-to-jpg/');
+    const quick = page.getByRole('navigation', { name: 'Quick tools' });
+    // The sub-category holding this page is open and marks the page; the others are closed.
+    await expect(quick.getByRole('link', { name: 'HEIC to JPG' })).toBeVisible();
+    await expect(quick.getByRole('link', { name: 'HEIC to JPG' })).toHaveAttribute('aria-current', 'page');
+    await expect(quick.getByRole('link', { name: 'Compress image to 100 KB' })).toBeHidden();
+
+    await quick.getByRole('button', { name: 'Compress & resize' }).click();
+    await expect(quick.getByRole('link', { name: 'Compress image to 100 KB' })).toBeVisible();
+    await quick.getByRole('button', { name: 'Compress & resize' }).click();
+    await expect(quick.getByRole('link', { name: 'Compress image to 100 KB' })).toBeHidden();
+
+    // The whole section folds away and comes back.
+    await quick.getByRole('button', { name: /Quick tools/ }).click();
+    await expect(quick.getByRole('button', { name: 'Convert a format' })).toBeHidden();
+    await quick.getByRole('button', { name: /Quick tools/ }).click();
+    await expect(quick.getByRole('button', { name: 'Convert a format' })).toBeVisible();
+  });
+});
