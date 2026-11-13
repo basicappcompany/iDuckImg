@@ -1,9 +1,10 @@
-# Handoff (updated 2026-11-12, after PR #34)
+# Handoff (updated 2026-11-14, after PR #51)
 
-Everything below is merged to `main` and live at https://iduckimg.com (PRs #20 to #34, each merged on green CI). The site has 20 tools and 25 shortcut pages (45 pages), from a 59-tool plan. `pnpm verify` passes with 304 unit tests and `pnpm test:e2e` with 155 browser tests (4 HEIC tests skipped without a fixture). For what is done and what is next, open `docs/status.html`; for conventions and the add-a-tool checklist, read `CLAUDE.md`.
+Everything below is merged to `main` and live at https://iduckimg.com (PRs #20 to #51, each merged on green CI). The site has 24 tools and 25 shortcut pages in eleven language versions (857 built pages), from a 59-tool plan. `pnpm verify` passes with 544 unit tests and `pnpm test:e2e` with 225 browser tests (4 HEIC tests skipped without a fixture). For what is done and what is next, open `docs/status.html`; for conventions and the lessons learned, read `CLAUDE.md`.
+
 
 ## What exists
-- Community pages (roadmap, request, feedback, support, settings, about) in the sidebar, forms that build a mailto, 59-tool master plan in `src/lib/tool-plan.ts`.
+- Community pages (roadmap, request, feedback, support, settings, about) in the sidebar, forms that send through the feedback Worker (or build a mailto when the Turnstile key is empty), 59-tool master plan in `src/lib/tool-plan.ts`.
 - URL renames `compress-images` to `compress-image` and `images-to-pdf` to `image-to-pdf` (301s in `public/_redirects`).
 - 25 landing pages from `src/lib/landing.ts` via `src/pages/[slug].astro`: the real tool opens with options preset (compress to 20/50/100/200 KB, HEIC/PNG/WebP/JPG conversions, JPG/PNG to PDF).
 - SEO: Open Graph + Twitter tags and `public/og.png`, JSON-LD from `src/lib/seo.ts`, sitemap filter for noindex pages, `robots.txt` naming AI crawlers, generated `/llms.txt`, hub `/image-tools/`, footer "Popular" links.
@@ -27,6 +28,9 @@ Everything below is merged to `main` and live at https://iduckimg.com (PRs #20 t
 
 ## Also done: languages (English US and UK plus nine)
 English (US) at the root, English (UK) at `/en-gb/` (made from the US text at build time) and nine languages (the ones LeafLock PDF publishes) at `/hi/`, `/bn/`, `/pt-br/`, `/id/`, `/ru/`, `/de/`, `/es/`, `/fr/`, `/tr/`. Each has the home page, every tool and shortcut page, the 25 how-to guides with a hub, and the helper at `/<lang>/chat/`, with hreflang, the sitemap and `/llms.txt`. All machine-translated; the shared controls and the options of ten tools are translated too, the other 14 tools' own options, the community and legal pages and the Ctrl K window are still English. See status items 5.16 to 5.18 and the Languages section of CLAUDE.md.
+
+## Also done: automatic feedback sending
+`worker/index.ts` (Cloudflare Worker `iduckimg-feedback`, route `iduckimg.com/api/feedback`) with its logic in `src/lib/feedback-api.ts`. Deployed by hand with wrangler on 2026-11-13 and answering; `TURNSTILE_SECRET` and `FORWARD_TO` are set. Not yet checked: a real message from the live form reaching the inbox (status 3.11, yours). Deploy order and the rest: "Feedback worker" in `CLAUDE.md`.
 
 ## Decisions waiting on you
 - Governing law and legal name for the legal pages (status 4.2, 4.3); a lawyer review before real money (4.4).
