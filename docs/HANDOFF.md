@@ -25,12 +25,12 @@ Everything below is merged to `main` and live at https://iduckimg.com (PRs #20 t
 ## Also done: how-to guides
 `/guides/` and 25 guides (one per tool), with Article, HowTo and FAQ data, `/llms-full.txt`, links from every tool page. See status item 5.15.
 
-## Also done: ten languages
-English plus nine languages (the same ones LeafLock PDF publishes) at `/hi/`, `/bn/`, `/pt-br/`, `/id/`, `/ru/`, `/de/`, `/es/`, `/fr/`, `/tr/`: chrome, home page and every tool page's heading, summary and quick answer, with hreflang, the sitemap and `/llms.txt`. All machine-translated; the shared tool controls (drop zone, downloads) are translated too, but each tool's own options, the guides and the shortcut pages are still English. See status items 5.16 and 5.17 and the Languages section of CLAUDE.md.
+## Also done: languages (English US and UK plus nine)
+English (US) at the root, English (UK) at `/en-gb/` (made from the US text at build time) and nine languages (the ones LeafLock PDF publishes) at `/hi/`, `/bn/`, `/pt-br/`, `/id/`, `/ru/`, `/de/`, `/es/`, `/fr/`, `/tr/`. Each has the home page, every tool and shortcut page, the 25 how-to guides with a hub, and the helper at `/<lang>/chat/`, with hreflang, the sitemap and `/llms.txt`. All machine-translated; the shared controls and the options of ten tools are translated too, the other 14 tools' own options, the community and legal pages and the Ctrl K window are still English. See status items 5.16 to 5.18 and the Languages section of CLAUDE.md.
 
 ## Decisions waiting on you
 - Feedback goes to hello@iduckpdf.com because iduckimg.com has no mail routing (no MX record). Set up Email Routing, then change `CONTACT_EMAIL` in `src/lib/contact.ts` (status 3.7).
 - Governing law and legal name for the legal pages (status 4.2, 4.3); a lawyer review before real money (4.4).
 - Which AI providers you actually use, so they come first.
-- Who can read Hindi, Bengali, Portuguese, Indonesian, Russian, German, Spanish, French or Turkish, to review the machine translations (status 5.17).
+- Who can read Hindi, Bengali, Portuguese, Indonesian, Russian, German, Spanish, French or Turkish, to review the machine translations: the home page, the top five tool pages, one guide and the helper in each (status 5.17 and 5.18).
 - Tech-stack direction (status 1.11).
