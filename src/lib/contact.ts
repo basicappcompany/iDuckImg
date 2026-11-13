@@ -20,7 +20,7 @@ export const FEEDBACK_API = '/api/feedback';
  * The public Cloudflare Turnstile site key (it is meant to be public). While it is empty the forms
  * only offer the mail-app and copy buttons; set it once the Worker is deployed to turn on Send.
  */
-export const TURNSTILE_SITE_KEY = '0x4AAAAAAF_UO1M5bqWVnB0R';
+export const TURNSTILE_SITE_KEY: string = '0x4AAAAAAF_UO1M5bqWVnB0R';
 
 /** Mail apps and browsers cut off very long mailto links, so stay well under the common 2000. */
 export const MAILTO_MAX_LENGTH = 1800;
