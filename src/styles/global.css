@@ -688,3 +688,35 @@ body {
 :root[data-theme='dark'] [data-theme-icon='sun'] {
   display: inline;
 }
+
+/* ---- phones: keep the top bar inside the screen, and keep the language menu readable ---- */
+.lang-list a {
+  white-space: nowrap;
+}
+@media (max-width: 640px) {
+  /* The menu hangs from the top bar itself (which is sticky, so it is positioned), so it can never run off the left edge. */
+  .lang {
+    position: static;
+  }
+  .lang-list {
+    right: 10px;
+    min-width: min(15rem, calc(100vw - 20px));
+  }
+}
+/* Keyboard shortcuts mean nothing on a touch screen: hide the hints that only describe them. */
+@media (hover: none) {
+  .hero-search kbd,
+  .palette-kbd,
+  .palette-hints,
+  [data-kbd-hint] {
+    display: none;
+  }
+}
+/* Tool areas: a long file name in the results must never make the page wider than the screen, so grid children may shrink. */
+.tool-area,
+.tool-area .grid > * {
+  min-width: 0;
+}
+.tool-area > * {
+  min-width: 0;
+}

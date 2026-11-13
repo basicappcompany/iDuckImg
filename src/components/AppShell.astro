@@ -241,7 +241,7 @@ const openGroup = toolForPath(path)?.group ?? TOOL_GROUPS[0];
       <div class="scrim" data-menu-scrim></div>
 
       <div class="min-w-0">
-        <header class="topbar sticky top-0 z-20 flex items-center gap-2 px-3 py-2">
+        <header class="topbar sticky top-0 z-20 flex items-center gap-1.5 px-2.5 py-2 min-[400px]:gap-2 min-[400px]:px-3">
           <button
             type="button"
             class="btn btn-sm"
@@ -252,9 +252,9 @@ const openGroup = toolForPath(path)?.group ?? TOOL_GROUPS[0];
           >
           <a href={lp('/')} class="flex items-center gap-2 rounded-lg min-[900px]:hidden">
             <DuckMark size={28} />
-            <span class="font-black">iDuckImg</span>
+            <span class="hidden font-black min-[370px]:inline">iDuckImg</span>
           </a>
-          <div class="ml-auto flex items-center gap-2">
+          <div class="ml-auto flex items-center gap-1.5 min-[400px]:gap-2">
             <button type="button" class="btn btn-sm" id="search-open" aria-label={d.openSearch}>
               <span aria-hidden="true">🔍</span>
               <span class="hidden sm:inline">{d.searchButton}</span>
@@ -353,15 +353,31 @@ const openGroup = toolForPath(path)?.group ?? TOOL_GROUPS[0];
     <CommandPalette />
 
     <script>
-      // The language menu closes when you click elsewhere or press Escape.
+      // The language menu closes when you tap or click anywhere else, choose a language, move focus away or press Escape.
       const langMenu = document.querySelector<HTMLDetailsElement>('[data-lang-menu]');
       if (langMenu) {
-        document.addEventListener('click', (e) => {
-          if (!langMenu.contains(e.target as Node)) langMenu.open = false;
+        const close = () => {
+          langMenu.open = false;
+        };
+        // "pointerdown" covers touch, pen and mouse. A "click" is not sent when you tap a plain part of the page in iOS Safari,
+        // so the menu would stay open there.
+        document.addEventListener('pointerdown', (e) => {
+          if (!langMenu.contains(e.target as Node)) close();
+        });
+        // Choosing a language closes the menu straight away (also when it is the language you are already in).
+        langMenu.addEventListener('click', (e) => {
+          if ((e.target as Element).closest('.lang-list a')) close();
+        });
+        // Tabbing out of the menu closes it too.
+        langMenu.addEventListener('focusout', (e) => {
+          const next = e.relatedTarget as Node | null;
+          if (next && !langMenu.contains(next)) close();
         });
         document.addEventListener('keydown', (e) => {
-          if (e.key === 'Escape') langMenu.open = false;
+          if (e.key === 'Escape') close();
         });
+        // Coming back with the browser's Back button must not show the menu open.
+        window.addEventListener('pageshow', close);
       }
     </script>
     <script>

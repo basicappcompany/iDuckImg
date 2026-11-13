@@ -40,8 +40,11 @@ test.describe('languages', () => {
       await expect(page.locator('html')).toHaveAttribute('lang', l.code);
       await expect(page.getByRole('heading', { level: 1 })).toContainText(l.toolName);
       await expect(page).toHaveTitle(new RegExp(`${l.toolName}.*iDuckImg`));
-      await expect(page.locator('[data-controls-note]')).toBeVisible();
+      // Compress has its own options translated, so it carries no "still English" note; a tool that is not translated yet does.
+      await expect(page.locator('[data-controls-note]')).toHaveCount(0);
       await expect(page.locator('meta[property="og:locale"]')).toHaveCount(1);
+      await page.goto(`/${l.path}/blur-image/`);
+      await expect(page.locator('[data-controls-note]')).toBeVisible();
     });
   }
 
