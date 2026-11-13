@@ -273,6 +273,10 @@ test.describe('site', () => {
       await expect(dialog(page)).toBeVisible();
       await page.keyboard.press('Escape');
       await expect(page.getByRole('region', { name: 'Ask the helper' }).getByRole('link', { name: 'Ask the helper' })).toHaveAttribute('href', '/chat/');
+      // The helper card sits right under the search box, above the tool lists.
+      const helperTop = (await page.getByRole('region', { name: 'Ask the helper' }).boundingBox())!.y;
+      expect(helperTop).toBeGreaterThan((await hero.boundingBox())!.y);
+      expect(helperTop).toBeLessThan((await page.getByRole('region', { name: 'Popular right now' }).boundingBox())!.y);
       await expect(page.locator('[data-card]:not([hidden])')).toHaveCount(LISTED.length);
     });
 

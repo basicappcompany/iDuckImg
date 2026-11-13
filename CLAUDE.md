@@ -75,7 +75,7 @@ Checklist, because every tool touches the same places: `src/lib/tools.ts` (name 
 - Do not write regexes with Python non-raw strings: `` becomes a backspace character. Use raw strings or the Write tool.
 
 ## Home page (matches iDuckPDF's)
-- The big search box is a button (`.hero-search`) that opens the Ctrl K window; the window is the only search UI. Below it: Popular right now (`POPULAR_SLUGS` in `quick.ts`), All N tools with group chips (Everything + the five groups, with counts), an Ask the helper card, then the why cards and questions. Chips are `role="switch"` buttons and filter `[data-card-group]` blocks.
+- The big search box is a button (`.hero-search`) that opens the Ctrl K window; the window is the only search UI. Right below it is the Ask the helper card, then Popular right now (`POPULAR_SLUGS` in `quick.ts`), All N tools with group chips (Everything + the five groups, with counts), then the why cards and questions. Chips are `role="switch"` buttons and filter `[data-card-group]` blocks.
 
 ## Merge and blur
 - Merge (`src/tools/merge/`) is a combined tool (whole batch in, one picture out) like images-to-PDF: `layoutMerge` is pure; the worker decodes every picture, lays out, draws, encodes. Blur (`src/tools/blur/`): boxes are fractions of the picture (`Region`), so one set fits any size; `applyEffect` is pure (cover, pixelate, three-pass box blur) and the preview runs it too. The draw surface is a pointer-events overlay; every box also has number inputs so it works without a mouse.
