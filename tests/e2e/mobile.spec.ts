@@ -37,6 +37,24 @@ test.describe('on a phone', () => {
     });
   }
 
+  test('the home search bar stays inside the screen and its text is one short line, in every language', async ({ page }) => {
+    for (const width of [320, 360, 390]) {
+      await page.setViewportSize({ width, height: 800 });
+      for (const path of ['/', '/hi/', '/bn/', '/de/', '/es/', '/fr/', '/id/', '/pt-br/', '/ru/', '/tr/', '/en-gb/']) {
+        await page.goto(path);
+        // The Ctrl K hint is hidden on touch screens (hover: none); this test browser has a mouse, so hide it the same way.
+        await page.addStyleTag({ content: '.hero-search kbd { display: none; }' });
+        const box = (await page.locator('#hero-search').boundingBox())!;
+        expect(box.x, `${path} at ${width}px`).toBeGreaterThanOrEqual(0);
+        expect(box.x + box.width, `${path} at ${width}px`).toBeLessThanOrEqual(width);
+        // One line of text: the bar is about 54 px tall, not two lines' worth.
+        expect(box.height, `${path} at ${width}px`).toBeLessThan(64);
+        const label = page.locator('#hero-search span').nth(1);
+        expect(await label.evaluate((e) => e.scrollWidth <= e.clientWidth), `${path} at ${width}px text fits without cutting`).toBe(true);
+      }
+    }
+  });
+
   test('320px: the language menu stays on the screen, one language per line', async ({ page }) => {
     await page.setViewportSize({ width: 320, height: 700 });
     await page.goto('/');

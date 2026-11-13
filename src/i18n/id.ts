@@ -42,7 +42,7 @@ export const id: LocaleData = {
     heroMark: `tertata`,
     heroAfter: `.`,
     heroSub: `{n} alat gratis untuk memperkecil, mengubah ukuran, memotong, mengonversi, dan membersihkan gambar Anda. Tanpa pendaftaran, tanpa watermark, dan semuanya berjalan di tab browser Anda.`,
-    heroSearch: `Apa yang ingin Anda lakukan dengan gambar Anda?`,
+    heroSearch: `Cari alat gambar…`,
     allTools: `Semua {n} alat`,
     pickGroup: `Pilih grup untuk mempersempit daftar, atau tekan Ctrl K untuk mencari.`,
     why: [

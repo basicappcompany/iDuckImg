@@ -41,7 +41,7 @@ export const en: Dict = {
   heroMark: 'sorted',
   heroAfter: '.',
   heroSub: '{n} free tools to shrink, resize, crop, convert and clean your images. No sign-up, no watermark, and everything runs in your browser tab.',
-  heroSearch: 'What do you want to do with your picture?',
+  heroSearch: 'Search image tools…',
   allTools: 'All {n} tools',
   pickGroup: 'Pick a group to narrow the list, or press Ctrl K to search.',
   why: [

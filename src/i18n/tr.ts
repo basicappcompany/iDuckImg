@@ -42,7 +42,7 @@ export const tr: LocaleData = {
     heroMark: `düzenli`,
     heroAfter: `.`,
     heroSub: `Görsellerinizi küçültmek, yeniden boyutlandırmak, kırpmak, dönüştürmek ve temizlemek için {n} ücretsiz araç. Kayıt yok, filigran yok ve her şey tarayıcı sekmenizde çalışır.`,
-    heroSearch: `Görselinizle ne yapmak istiyorsunuz?`,
+    heroSearch: `Görsel aracı ara…`,
     allTools: `Tüm {n} araç`,
     pickGroup: `Listeyi daraltmak için bir grup seçin veya aramak için Ctrl K tuşlarına basın.`,
     why: [
