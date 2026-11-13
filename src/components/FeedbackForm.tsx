@@ -3,7 +3,7 @@ import Chips from './Chips';
 import { Field } from './OptionsPanel';
 import { copyText } from '../lib/clipboard';
 import {
-  CONTACT_EMAIL,
+  FEEDBACK_EMAIL,
   FEEDBACK_KINDS,
   REQUEST_KINDS,
   buildMailto,
@@ -55,8 +55,8 @@ export default function FeedbackForm(props: Props) {
     setStatus({
       kind: 'info',
       text: mail.truncated
-        ? `Your email app should open, but this message is long so it was shortened there. Use "Copy instead" to send the full text to ${CONTACT_EMAIL}.`
-        : `Your email app should open with the message ready. If nothing opened, use "Copy instead" and paste it into an email to ${CONTACT_EMAIL}.`,
+        ? `Your email app should open, but this message is long so it was shortened there. Use "Copy instead" to send the full text to ${FEEDBACK_EMAIL}.`
+        : `Your email app should open with the message ready. If nothing opened, use "Copy instead" and paste it into an email to ${FEEDBACK_EMAIL}.`,
     });
   };
 
@@ -69,7 +69,7 @@ export default function FeedbackForm(props: Props) {
     const ok = await copyText(plainText(draft));
     setStatus(
       ok
-        ? { kind: 'info', text: `Copied. Paste it into an email to ${CONTACT_EMAIL}.` }
+        ? { kind: 'info', text: `Copied. Paste it into an email to ${FEEDBACK_EMAIL}.` }
         : { kind: 'error', text: 'Could not copy automatically. Open "See the message" below, select the text and copy it yourself.' },
     );
   };

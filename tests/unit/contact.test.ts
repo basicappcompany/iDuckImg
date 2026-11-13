@@ -1,6 +1,7 @@
 import { describe, expect, it } from 'vitest';
 import {
   CONTACT_EMAIL,
+  FEEDBACK_EMAIL,
   MAILTO_MAX_LENGTH,
   buildMailto,
   checkEmail,
@@ -38,10 +39,17 @@ describe('validation', () => {
   });
 });
 
+describe('addresses', () => {
+  it('are the two real iduckimg.com inboxes', () => {
+    expect(CONTACT_EMAIL).toBe('hello@iduckimg.com');
+    expect(FEEDBACK_EMAIL).toBe('feedback@iduckimg.com');
+  });
+});
+
 describe('composeFeedback', () => {
   it('names the kind in the subject and adds the page', () => {
     const d = composeFeedback({ kind: 'great', message: ' Loved it ', email: '', page: 'https://iduckimg.com/crop-image/' });
-    expect(d.to).toBe(CONTACT_EMAIL);
+    expect(d.to).toBe(FEEDBACK_EMAIL);
     expect(d.subject).toBe('iDuckImg feedback: It worked great');
     expect(d.body).toBe('Loved it\n\n---\nPage: https://iduckimg.com/crop-image/');
   });
@@ -67,25 +75,25 @@ describe('composeRequest', () => {
 
 describe('buildMailto', () => {
   it('round-trips text with symbols, line breaks and emoji', () => {
-    const draft = { to: CONTACT_EMAIL, subject: 'A & B? #1 100% "ok"', body: 'Line 1\nLine 2 & more = <tags> ✓ 🦆 é 日本語\n\n---\nPage: https://x.y/z?a=1&b=2#h' };
+    const draft = { to: FEEDBACK_EMAIL, subject: 'A & B? #1 100% "ok"', body: 'Line 1\nLine 2 & more = <tags> ✓ 🦆 é 日本語\n\n---\nPage: https://x.y/z?a=1&b=2#h' };
     const { href, truncated } = buildMailto(draft);
     expect(truncated).toBe(false);
-    expect(href.startsWith(`mailto:${CONTACT_EMAIL}?`)).toBe(true);
+    expect(href.startsWith(`mailto:${FEEDBACK_EMAIL}?`)).toBe(true);
     const back = parse(href);
-    expect(back.to).toBe(CONTACT_EMAIL);
+    expect(back.to).toBe(FEEDBACK_EMAIL);
     expect(back.subject).toBe(draft.subject);
     expect(back.body).toBe(draft.body.replace(/\n/g, '\r\n'));
   });
 
   it('encodes nothing that would end the link early', () => {
-    const { href } = buildMailto({ to: CONTACT_EMAIL, subject: 's', body: 'a b&c=d?e#f\ng' });
+    const { href } = buildMailto({ to: FEEDBACK_EMAIL, subject: 's', body: 'a b&c=d?e#f\ng' });
     expect(href.slice(href.indexOf('?') + 1)).not.toMatch(/[ #]/);
     expect(href.split('&')).toHaveLength(2); // exactly subject and body
   });
 
   it('cuts a message that is too long and says so, never leaving a broken character', () => {
     const body = 'word '.repeat(2000) + '🦆'.repeat(500);
-    const { href, truncated } = buildMailto({ to: CONTACT_EMAIL, subject: 'long', body });
+    const { href, truncated } = buildMailto({ to: FEEDBACK_EMAIL, subject: 'long', body });
     expect(truncated).toBe(true);
     expect(href.length).toBeLessThanOrEqual(MAILTO_MAX_LENGTH);
     const back = parse(href);
@@ -96,11 +104,11 @@ describe('buildMailto', () => {
 
   it('keeps a message that just fits', () => {
     const body = 'a'.repeat(1500);
-    expect(buildMailto({ to: CONTACT_EMAIL, subject: 's', body }).truncated).toBe(false);
+    expect(buildMailto({ to: FEEDBACK_EMAIL, subject: 's', body }).truncated).toBe(false);
   });
 
   it('handles a message made only of characters that expand when encoded', () => {
-    const { href, truncated } = buildMailto({ to: CONTACT_EMAIL, subject: 's', body: '日'.repeat(2000) });
+    const { href, truncated } = buildMailto({ to: FEEDBACK_EMAIL, subject: 's', body: '日'.repeat(2000) });
     expect(truncated).toBe(true);
     expect(href.length).toBeLessThanOrEqual(MAILTO_MAX_LENGTH);
   });
