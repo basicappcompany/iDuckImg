@@ -1,0 +1,13 @@
+{
+  // Deploy by hand (wrangler is not a repo dependency, so CI never installs it):
+  //   pnpm dlx wrangler@4.158.0 deploy --config worker/wrangler.jsonc
+  // One-time secrets: pnpm dlx wrangler@4.158.0 secret put TURNSTILE_SECRET --config worker/wrangler.jsonc (and FORWARD_TO)
+  "name": "iduckimg-feedback",
+  "main": "index.ts",
+  "compatibility_date": "2026-11-11",
+  "workers_dev": false,
+  "routes": [{ "pattern": "iduckimg.com/api/feedback", "zone_name": "iduckimg.com" }],
+  // Email Routing's send binding. It delivers only to addresses verified in this Cloudflare account.
+  "send_email": [{ "name": "EMAIL" }],
+  "observability": { "enabled": false }
+}
