@@ -37,7 +37,6 @@ const canonical = new URL(Astro.url.pathname, Astro.site).href;
 const path = splitLocalePath(Astro.url.pathname).rest;
 const isHome = path === '/';
 const groupIcon = (group: string) => PLAN_CATEGORIES.find((c) => c.id === group)?.emoji ?? '🧰';
-// The group holding the current page starts open, like iDuckPDF's sidebar; otherwise the first one does.
 // The Tools group holding the current page starts open (the first one otherwise). A Quick tools
 // sub-category opens only on a shortcut page, which the Tools list does not hold; on a real tool the
 // visitor chose it from Tools (or the home page), so Quick tools stays folded.

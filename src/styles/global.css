@@ -129,7 +129,7 @@ body {
   .card-link:hover .text-muted {
     color: var(--d-duckInk);
   }
-  /* Equal-width columns that never stretch, so a short last row keeps the size of the rows above (iDuckPDF's CardGrid). */
+  /* Equal-width columns that never stretch, so a short last row keeps the size of the rows above */
   .card-grid {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(min(250px, 100%), 1fr));

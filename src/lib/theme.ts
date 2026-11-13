@@ -1,6 +1,5 @@
 /**
- * Theme colours, the single source of truth. They match iDuckPDF so the two sites feel like one
- * family. src/styles/global.css repeats these values as CSS variables; a unit test fails if the
+ * Theme colours, the single source of truth. src/styles/global.css repeats these values as CSS variables; a unit test fails if the
  * two ever disagree, and another checks that every text/background pair is readable.
  */
 export const light = {
