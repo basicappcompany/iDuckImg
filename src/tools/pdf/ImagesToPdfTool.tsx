@@ -52,12 +52,13 @@ export default function ImagesToPdfTool() {
             </div>
             <ol class="divide-y divide-line/20">
               {files.map((file, i) => (
-                <li key={`${file.name}-${file.size}-${i}`} class="flex items-center gap-3 py-2">
+                <li key={`${file.name}-${file.size}-${i}`} class="flex flex-wrap items-center gap-x-3 gap-y-2 py-2">
                   <span class="w-6 text-sm text-muted">{i + 1}</span>
                   <img src={thumbs[i] ?? ''} alt="" class="h-12 w-12 rounded object-cover" />
-                  <span class="min-w-0 flex-1 truncate text-sm" title={file.name}>
+                  <span class="min-w-0 flex-1 basis-28 truncate text-sm" title={file.name}>
                     {file.name}
                   </span>
+                  <div class="flex gap-2">
                   <button
                     type="button"
                     class={smallButton}
@@ -85,6 +86,7 @@ export default function ImagesToPdfTool() {
                   >
                     {t.remove}
                   </button>
+                  </div>
                 </li>
               ))}
             </ol>

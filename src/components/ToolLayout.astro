@@ -5,6 +5,7 @@ import { groupMates, toolForPath, toolPath } from '../lib/tools';
 import { breadcrumbLd, faqLd, howToLd, webApplicationLd } from '../lib/seo';
 import { guideForTool, guidePath } from '../lib/guides';
 import { guideTextFor } from '../i18n/guides';
+import { TRANSLATED_TOOL_SLUGS } from '../i18n/tools/translated';
 import { alternatesFor, dictFor, format, localePath, splitLocalePath, toolText } from '../i18n';
 
 interface Props {
@@ -33,6 +34,8 @@ const basePath = splitLocalePath(Astro.url.pathname).rest;
 const alternates = alternatesFor(basePath);
 const own = toolForPath(basePath);
 const tool = own ?? (landing ? toolForPath(toolPath(landing.parentSlug)) : undefined);
+// The note about English controls belongs only on tools whose own options are not translated yet.
+const controlsNote = locale !== 'en' && locale !== 'en-GB' && !(tool && TRANSLATED_TOOL_SLUGS.includes(tool.slug));
 const info = own ? { ...own, ...toolText(locale, own.slug) } : landing;
 const guide = tool ? guideForTool(tool.slug) : undefined;
 const mates = tool ? (own ? groupMates(tool) : [tool, ...groupMates(tool)]) : [];
@@ -60,9 +63,9 @@ const jsonLd = [
       </p>
     )
   }
-  <h1 class="display mt-2 flex items-center gap-3 text-4xl sm:text-5xl">
-    {info && <span aria-hidden="true" class="text-4xl sm:text-5xl">{info.emoji}</span>}
-    <span>{heading}</span>
+  <h1 class="display mt-2 flex items-center gap-3 text-[2rem] min-[400px]:text-4xl sm:text-5xl">
+    {info && <span aria-hidden="true" class="shrink-0 text-[2rem] min-[400px]:text-4xl sm:text-5xl">{info.emoji}</span>}
+    <span class="min-w-0 hyphens-auto [overflow-wrap:anywhere]">{heading}</span>
   </h1>
   {info && <p class="mt-3 text-lg text-muted">{info.summary}</p>}
 
@@ -87,9 +90,9 @@ const jsonLd = [
     )
   }
 
-  {locale !== 'en' && locale !== 'en-GB' && <p class="mt-5 text-sm font-bold" data-controls-note>{d.controlsEnglish}</p>}
+  {controlsNote && <p class="mt-5 text-sm font-bold" data-controls-note>{d.controlsEnglish}</p>}
 
-  <section class="mt-5 grid gap-5" aria-label="Tool">
+  <section class="tool-area mt-5 grid gap-5" aria-label="Tool">
     <slot />
   </section>
 

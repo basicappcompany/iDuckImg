@@ -54,7 +54,7 @@ export default function ChatHelper({ ctx = ENGLISH_CONTEXT }: { ctx?: HelperCont
   return (
     <div class="grid gap-4">
       <div
-        class="card grid max-h-[28rem] min-h-72 content-start gap-4 overflow-y-auto p-4"
+        class="card grid max-h-[min(36rem,70vh)] min-h-72 content-start gap-4 overflow-y-auto p-4"
         role="log"
         aria-live="polite"
         aria-label={ui.log}
@@ -100,7 +100,7 @@ export default function ChatHelper({ ctx = ENGLISH_CONTEXT }: { ctx?: HelperCont
         {messages.length < 3 && (
           <div class="flex flex-wrap gap-2 pl-10" role="group" aria-label={ui.things}>
             {STARTERS.map((s, i) => (
-              <button key={s} type="button" class="chip" onClick={() => send(s, ctx.text.starters[i])}>
+              <button key={s} type="button" class="chip !rounded-2xl text-left" onClick={() => send(s, ctx.text.starters[i])}>
                 {ctx.text.starters[i] ?? s}
               </button>
             ))}
@@ -110,7 +110,7 @@ export default function ChatHelper({ ctx = ENGLISH_CONTEXT }: { ctx?: HelperCont
       </div>
 
       <form
-        class="flex items-center gap-3"
+        class="flex flex-wrap items-center gap-3"
         onSubmit={(e) => {
           e.preventDefault();
           send(input);
@@ -122,13 +122,13 @@ export default function ChatHelper({ ctx = ENGLISH_CONTEXT }: { ctx?: HelperCont
         <input
           id="helper-input"
           type="text"
-          class="input flex-1 !rounded-full px-5"
+          class="input min-w-0 flex-1 basis-full !rounded-full px-5 min-[430px]:basis-0"
           placeholder={ui.placeholder}
           autocomplete="off"
           value={input}
           onInput={(e) => setInput((e.currentTarget as HTMLInputElement).value)}
         />
-        <button type="submit" class="btn btn-primary" disabled={!input.trim() || typing}>
+        <button type="submit" class="btn btn-primary w-full min-[430px]:w-auto" disabled={!input.trim() || typing}>
           {ui.send}
         </button>
       </form>

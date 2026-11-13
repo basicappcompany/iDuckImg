@@ -22,6 +22,7 @@ import { LANDING_PAGES } from '../../src/lib/landing';
 import { SHORTCUT_TEXT, localizedLanding, localizedQuickGroups } from '../../src/i18n/shortcuts';
 import { QUICK_GROUPS } from '../../src/lib/quick';
 import { flagSvg } from '../../src/i18n/flags';
+import { TRANSLATED_TOOL_SLUGS } from '../../src/i18n/tools/translated';
 import { COMPRESS_TEXT } from '../../src/i18n/tools/compress';
 import { CONVERT_TEXT } from '../../src/i18n/tools/convert';
 import { CROP_TEXT } from '../../src/i18n/tools/crop';
@@ -352,5 +353,12 @@ describe('lookups', () => {
   it('keeps the English dictionary type complete', () => {
     const d: Dict = en;
     expect(d.groups['Create & design']).toBe('Create & design');
+  });
+});
+
+describe('which tools carry the "controls are still English" note', () => {
+  it('lists exactly the tools whose own options are translated', () => {
+    expect([...TRANSLATED_TOOL_SLUGS].sort()).toEqual(Object.keys(TRANSLATED_TOOLS).sort());
+    for (const slug of TRANSLATED_TOOL_SLUGS) expect(TOOLS.some((t) => t.slug === slug), slug).toBe(true);
   });
 });
