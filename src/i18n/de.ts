@@ -42,7 +42,7 @@ export const de: LocaleData = {
     heroMark: `sortiert`,
     heroAfter: `.`,
     heroSub: `{n} kostenlose Werkzeuge zum Verkleinern, Skalieren, Zuschneiden, Konvertieren und Bereinigen Ihrer Bilder. Keine Anmeldung, kein Wasserzeichen, und alles läuft in Ihrem Browser-Tab.`,
-    heroSearch: `Was möchten Sie mit Ihrem Bild machen?`,
+    heroSearch: `Bildtools suchen…`,
     allTools: `Alle {n} Werkzeuge`,
     pickGroup: `Wählen Sie eine Gruppe, um die Liste einzugrenzen, oder drücken Sie Ctrl K zum Suchen.`,
     why: [

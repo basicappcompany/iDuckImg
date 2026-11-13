@@ -44,7 +44,7 @@ const site = { ...(websiteLd() as Record<string, unknown>), inLanguage: locale.c
     <div class="mx-auto mt-6 max-w-xl">
       <button type="button" id="hero-search" class="hero-search" aria-label={d.searchAria} data-open-palette>
         <span aria-hidden="true" class="text-lg">🔍</span>
-        <span class="flex-1 text-left">{d.heroSearch}</span>
+        <span class="min-w-0 flex-1 truncate text-left">{d.heroSearch}</span>
         <kbd aria-hidden="true">Ctrl K</kbd>
       </button>
     </div>

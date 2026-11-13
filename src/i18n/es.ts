@@ -42,7 +42,7 @@ export const es: LocaleData = {
     heroMark: `en orden`,
     heroAfter: `.`,
     heroSub: `{n} herramientas gratuitas para reducir, redimensionar, recortar, convertir y limpiar tus imágenes. Sin registro, sin marca de agua y todo funciona en la pestaña de tu navegador.`,
-    heroSearch: `¿Qué quieres hacer con tu imagen?`,
+    heroSearch: `Buscar herramientas…`,
     allTools: `Las {n} herramientas`,
     pickGroup: `Elige un grupo para acotar la lista, o pulsa Ctrl K para buscar.`,
     why: [

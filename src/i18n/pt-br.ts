@@ -42,7 +42,7 @@ export const ptBR: LocaleData = {
     heroMark: `em ordem`,
     heroAfter: `.`,
     heroSub: `{n} ferramentas gratuitas para reduzir, redimensionar, recortar, converter e limpar suas imagens. Sem cadastro, sem marca d'água, e tudo funciona na aba do seu navegador.`,
-    heroSearch: `O que você quer fazer com a sua imagem?`,
+    heroSearch: `Buscar ferramentas…`,
     allTools: `Todas as {n} ferramentas`,
     pickGroup: `Escolha um grupo para filtrar a lista ou pressione Ctrl K para pesquisar.`,
     why: [

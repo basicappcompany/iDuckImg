@@ -42,7 +42,7 @@ export const fr: LocaleData = {
     heroMark: `en ordre`,
     heroAfter: `.`,
     heroSub: `{n} outils gratuits pour réduire, redimensionner, recadrer, convertir et nettoyer vos images. Sans inscription, sans filigrane, et tout fonctionne dans l'onglet de votre navigateur.`,
-    heroSearch: `Que voulez-vous faire de votre image ?`,
+    heroSearch: `Rechercher un outil…`,
     allTools: `Les {n} outils`,
     pickGroup: `Choisissez un groupe pour réduire la liste, ou appuyez sur Ctrl K pour rechercher.`,
     why: [
