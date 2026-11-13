@@ -1,7 +1,11 @@
 {
-  // Deploy by hand (wrangler is not a repo dependency, so CI never installs it):
-  //   pnpm dlx wrangler@4.158.0 deploy --config worker/wrangler.jsonc
-  // One-time secrets: pnpm dlx wrangler@4.158.0 secret put TURNSTILE_SECRET --config worker/wrangler.jsonc (and FORWARD_TO)
+  // Deploy by hand (wrangler is not a repo dependency, so CI never installs it). Run from the repo root, in this order:
+  //   1. pnpm dlx wrangler@4.158.0 login                (once)
+  //   2. pnpm dlx wrangler@4.158.0 deploy --config worker/wrangler.jsonc
+  //   3. pnpm dlx wrangler@4.158.0 secret put TURNSTILE_SECRET --config worker/wrangler.jsonc
+  //   4. pnpm dlx wrangler@4.158.0 secret put FORWARD_TO --config worker/wrangler.jsonc
+  // Deploy before the secrets: the worker must exist first. TURNSTILE_SECRET must belong to the same Turnstile
+  // widget as TURNSTILE_SITE_KEY in src/lib/contact.ts. FORWARD_TO must be verified in Email Routing.
   "name": "iduckimg-feedback",
   "main": "index.ts",
   "compatibility_date": "2026-11-11",
