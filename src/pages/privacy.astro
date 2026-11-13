@@ -32,8 +32,11 @@ import { CONTACT_EMAIL, FEEDBACK_EMAIL } from '../lib/contact';
         page.
       </li>
       <li>
-        <strong>Messages you choose to send.</strong> The feedback and request forms open an email in your own mail app. We only
-        receive what you send, at the address you see on those pages ({FEEDBACK_EMAIL}). For anything else, write to {CONTACT_EMAIL}.
+        <strong>Messages you choose to send.</strong> When you press Send on the feedback or request form, your message (and your
+        email address, if you typed one) goes through Cloudflare, who host this site, to our inbox ({FEEDBACK_EMAIL}). We use
+        Cloudflare Turnstile to tell people from robots; it may look at your browser and IP address for that. We do not keep
+        your message on the website or in any database, and the only copy is the email we receive. If you would rather not
+        send it that way, you can open it in your own email app or copy it instead. For anything else, write to {CONTACT_EMAIL}.
       </li>
     </ul>
     <p class="mt-3 leading-relaxed">We do not have accounts, so we hold no sign-up data. We do not sell personal data.</p>

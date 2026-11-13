@@ -1,6 +1,6 @@
 /**
- * Feedback and feature requests go out as an email the visitor sends from their own mail app
- * (a mailto: link), with a "copy instead" fallback. There is no server and no stored data.
+ * Feedback and feature requests are emailed by worker/index.ts when the visitor presses Send, or
+ * sent from the visitor's own mail app (a mailto: link) or copied. Nothing is stored.
  */
 
 /**
@@ -12,6 +12,15 @@ export const CONTACT_EMAIL = 'hello@iduckimg.com';
 export const FEEDBACK_EMAIL = 'feedback@iduckimg.com';
 
 export const SITE_URL = 'https://iduckimg.com';
+
+/** The form posts here (worker/index.ts). */
+export const FEEDBACK_API = '/api/feedback';
+
+/**
+ * The public Cloudflare Turnstile site key (it is meant to be public). While it is empty the forms
+ * only offer the mail-app and copy buttons; set it once the Worker is deployed to turn on Send.
+ */
+export const TURNSTILE_SITE_KEY = '';
 
 /** Mail apps and browsers cut off very long mailto links, so stay well under the common 2000. */
 export const MAILTO_MAX_LENGTH = 1800;

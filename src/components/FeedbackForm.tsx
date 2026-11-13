@@ -1,9 +1,11 @@
-import { useMemo, useState } from 'preact/hooks';
+import { useEffect, useMemo, useRef, useState } from 'preact/hooks';
 import Chips from './Chips';
 import { Field } from './OptionsPanel';
 import { copyText } from '../lib/clipboard';
 import {
+  FEEDBACK_API,
   FEEDBACK_EMAIL,
+  TURNSTILE_SITE_KEY,
   FEEDBACK_KINDS,
   REQUEST_KINDS,
   buildMailto,
@@ -18,10 +20,21 @@ import {
 
 type Props = { mode: 'feedback' } | { mode: 'request' };
 
+interface TurnstileApi {
+  render(el: HTMLElement, options: Record<string, unknown>): string;
+  reset(id?: string): void;
+  remove(id: string): void;
+}
+declare global {
+  interface Window {
+    turnstile?: TurnstileApi;
+  }
+}
+
 /**
- * Feedback and feature requests. "Send" opens the visitor's own mail app with the message
- * ready; nothing is sent until they press send there. "Copy instead" always works, for people
- * with no mail app set up.
+ * Feedback and feature requests. With a Turnstile key set, "Send" posts the message to
+ * /api/feedback, which emails it; if that fails the visitor can still open their own mail app
+ * with the message ready or copy it. Without a key, only those two ways are offered.
  */
 export default function FeedbackForm(props: Props) {
   const isRequest = props.mode === 'request';
@@ -32,6 +45,39 @@ export default function FeedbackForm(props: Props) {
   const [email, setEmail] = useState('');
   const [status, setStatus] = useState<{ kind: 'info' | 'error'; text: string } | null>(null);
   const [touched, setTouched] = useState(false);
+  const auto = TURNSTILE_SITE_KEY !== '';
+  const [token, setToken] = useState('');
+  const [busy, setBusy] = useState(false);
+  const [done, setDone] = useState(false);
+  const [website, setWebsite] = useState('');
+  const widget = useRef<HTMLDivElement>(null);
+  const widgetId = useRef<string | null>(null);
+
+  useEffect(() => {
+    if (!auto || !widget.current) return;
+    const el = widget.current;
+    const render = () => {
+      if (!window.turnstile || widgetId.current !== null) return;
+      widgetId.current = window.turnstile.render(el, {
+        sitekey: TURNSTILE_SITE_KEY,
+        callback: (t: string) => setToken(t),
+        'expired-callback': () => setToken(''),
+        'error-callback': () => setToken(''),
+      });
+    };
+    if (window.turnstile) render();
+    else {
+      const s = document.createElement('script');
+      s.src = 'https://challenges.cloudflare.com/turnstile/v0/api.js?render=explicit';
+      s.async = true;
+      s.onload = render;
+      document.head.append(s);
+    }
+    return () => {
+      if (widgetId.current !== null) window.turnstile?.remove(widgetId.current);
+      widgetId.current = null;
+    };
+  }, [auto]);
 
   const problem = isRequest ? checkRequest(title, message, email) : checkFeedback(message, email);
 
@@ -58,6 +104,54 @@ export default function FeedbackForm(props: Props) {
         ? `Your email app should open, but this message is long so it was shortened there. Use "Copy instead" to send the full text to ${FEEDBACK_EMAIL}.`
         : `Your email app should open with the message ready. If nothing opened, use "Copy instead" and paste it into an email to ${FEEDBACK_EMAIL}.`,
     });
+  };
+
+  const submit = async () => {
+    setTouched(true);
+    setDone(false);
+    if (problem) {
+      setStatus({ kind: 'error', text: problem });
+      return;
+    }
+    if (token === '') {
+      setStatus({ kind: 'error', text: 'Please wait a moment for the check that you are not a robot, then press send again.' });
+      return;
+    }
+    setBusy(true);
+    setStatus({ kind: 'info', text: 'Sending…' });
+    const page = typeof location === 'undefined' ? '' : `${location.origin}${location.pathname}`;
+    try {
+      const res = await fetch(FEEDBACK_API, {
+        method: 'POST',
+        headers: { 'content-type': 'application/json' },
+        body: JSON.stringify({
+          mode: props.mode,
+          kind: isRequest ? requestKind : feedbackKind,
+          title,
+          message,
+          email,
+          page,
+          userAgent: feedbackKind === 'broke' && !isRequest ? navigator.userAgent : '',
+          token,
+          website,
+        }),
+      });
+      const out = (await res.json().catch(() => ({}))) as { ok?: boolean; error?: string };
+      if (res.ok && out.ok) {
+        setDone(true);
+        setTitle('');
+        setMessage('');
+        setStatus({ kind: 'info', text: 'Sent. Thank you! We read every message.' });
+      } else {
+        setStatus({ kind: 'error', text: `${out.error ?? 'It could not be sent.'} You can still use "Open in my email app" or "Copy instead" below.` });
+      }
+    } catch {
+      setStatus({ kind: 'error', text: 'It could not be sent (are you offline?). You can still use "Open in my email app" or "Copy instead" below.' });
+    } finally {
+      setBusy(false);
+      setToken('');
+      if (widgetId.current !== null) window.turnstile?.reset(widgetId.current);
+    }
   };
 
   const copy = async () => {
@@ -127,16 +221,35 @@ export default function FeedbackForm(props: Props) {
         />
       </Field>
 
+      {auto && (
+        <>
+          {/* A field only a bot fills in. People never see it or tab to it. */}
+          <div aria-hidden="true" style="position:absolute;left:-10000px;width:1px;height:1px;overflow:hidden">
+            <label>
+              Website
+              <input type="text" name="website" tabIndex={-1} autoComplete="off" value={website} onInput={(e) => setWebsite(e.currentTarget.value)} />
+            </label>
+          </div>
+          <div ref={widget} data-testid="turnstile" />
+        </>
+      )}
+
       <div class="flex flex-wrap gap-3">
+        {auto && (
+          <button type="button" class="btn btn-primary btn-lg" disabled={busy || done} data-testid="send-now" onClick={submit}>
+            <span aria-hidden="true">{isRequest ? '💡' : '📮'}</span>
+            {busy ? 'Sending…' : isRequest ? 'Send request' : 'Send feedback'}
+          </button>
+        )}
         <a
-          class="btn btn-primary btn-lg"
+          class={auto ? 'btn btn-lg' : 'btn btn-primary btn-lg'}
           href={problem ? '#' : mail.href}
           aria-disabled={problem ? 'true' : 'false'}
-          data-testid="send"
+          data-testid={auto ? 'send-mail' : 'send'}
           onClick={send}
         >
-          <span aria-hidden="true">{isRequest ? '💡' : '📮'}</span>
-          {isRequest ? 'Send request' : 'Send feedback'}
+          <span aria-hidden="true">{auto ? '✉️' : isRequest ? '💡' : '📮'}</span>
+          {auto ? 'Open in my email app' : isRequest ? 'Send request' : 'Send feedback'}
         </a>
         <button type="button" class="btn btn-lg" onClick={copy}>
           {isRequest ? 'Copy instead' : 'Copy message instead'}
@@ -149,7 +262,11 @@ export default function FeedbackForm(props: Props) {
 
       <details class="text-sm">
         <summary class="cursor-pointer font-bold">See the message</summary>
-        <p class="mt-2 text-muted">This is exactly what your email app will open with. Nothing is sent until you press send there.</p>
+        <p class="mt-2 text-muted">
+          {auto
+            ? 'This is what Send will email to us, and what "Open in my email app" fills in. Nothing is sent until you press a button.'
+            : 'This is exactly what your email app will open with. Nothing is sent until you press send there.'}
+        </p>
         <textarea class="input mt-2 min-h-40 font-mono text-xs" readOnly aria-label="The message that will be sent" value={plainText(draft)} />
       </details>
     </form>
