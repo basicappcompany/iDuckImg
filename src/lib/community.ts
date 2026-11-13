@@ -1,5 +1,5 @@
 /**
- * The "Community" pages in the sidebar, like iDuckPDF's. Each slug is a page under src/pages;
+ * The "Community" pages in the sidebar. Each slug is a page under src/pages;
  * a unit test fails if the two lists disagree. Pages with little to find in a search engine
  * (forms, settings) are marked not indexable: they get a noindex tag and stay out of the sitemap.
  */

@@ -4,12 +4,12 @@
  */
 
 /**
- * Where the messages go. iduckimg.com has no mail routing yet (checked 2026-11-12: no MX
- * record), so a message to hello@iduckimg.com would bounce. iDuckPDF's inbox works and the subject
- * says "iDuckImg". Switch this to hello@iduckimg.com once Cloudflare Email Routing is set up for
- * this domain (docs/status.html item 3.7).
+ * The only two addresses the site mentions or writes to. Both are Cloudflare Email Routing
+ * addresses on iduckimg.com that forward to the business inbox (receive only, no catch-all).
+ * General questions go to CONTACT_EMAIL; the feedback and request forms go to FEEDBACK_EMAIL.
  */
-export const CONTACT_EMAIL = 'hello@iduckpdf.com';
+export const CONTACT_EMAIL = 'hello@iduckimg.com';
+export const FEEDBACK_EMAIL = 'feedback@iduckimg.com';
 
 export const SITE_URL = 'https://iduckimg.com';
 
@@ -79,7 +79,7 @@ export function composeFeedback(input: {
 }): Draft {
   const email = input.email.trim();
   return {
-    to: CONTACT_EMAIL,
+    to: FEEDBACK_EMAIL,
     subject: `iDuckImg feedback: ${label(FEEDBACK_KINDS, input.kind)}`,
     body:
       input.message.trim() +
@@ -95,7 +95,7 @@ export function composeRequest(input: { kind: RequestKind; title: string; detail
   const email = input.email.trim();
   const title = input.title.trim().replace(/\s+/g, ' ').slice(0, 80);
   return {
-    to: CONTACT_EMAIL,
+    to: FEEDBACK_EMAIL,
     subject: `iDuckImg request: ${title}`,
     body: input.details.trim() + footer([`Kind: ${label(REQUEST_KINDS, input.kind)}`, email ? `Reply to: ${email}` : null]),
   };
