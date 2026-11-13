@@ -50,6 +50,17 @@ const site = { ...(websiteLd() as Record<string, unknown>), inLanguage: locale.c
     </div>
   </section>
 
+  <section class="mt-8" aria-label={d.helperButton}>
+    <div class="card flex flex-wrap items-center gap-4 bg-duck p-5 text-duckink">
+      <span aria-hidden="true" class="text-4xl">💬</span>
+      <div class="min-w-48 flex-1">
+        <h2 class="text-xl font-black tracking-tight">{d.helperTitle}</h2>
+        <p class="opacity-80">{d.helperText}</p>
+      </div>
+      <a href={lp('/chat/')} class="btn btn-ink">{d.helperButton}</a>
+    </div>
+  </section>
+
   <section class="mt-12" aria-label="Tools">
     <h2 class="text-2xl font-black tracking-tight">{format(d.allTools, { n: TOOLS.length })}</h2>
     <p class="mt-1 text-muted">{d.pickGroup}</p>
@@ -77,17 +88,6 @@ const site = { ...(websiteLd() as Record<string, unknown>), inLanguage: locale.c
           </div>
         ))
       }
-    </div>
-  </section>
-
-  <section class="mt-14" aria-label={d.helperButton}>
-    <div class="card flex flex-wrap items-center gap-4 bg-duck p-5 text-duckink">
-      <span aria-hidden="true" class="text-4xl">💬</span>
-      <div class="min-w-48 flex-1">
-        <h2 class="text-xl font-black tracking-tight">{d.helperTitle}</h2>
-        <p class="opacity-80">{d.helperText}</p>
-      </div>
-      <a href={lp('/chat/')} class="btn btn-ink">{d.helperButton}</a>
     </div>
   </section>
 
