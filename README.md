@@ -43,6 +43,7 @@ HEIC_FIXTURE=/path/to/photo.heic pnpm test:e2e -g HEIC
 | `src/i18n/` | The languages (English US and UK plus nine): registry, English source text, guides, helper and one file per language (see Languages in `CLAUDE.md`) |
 | `src/calculators/` | Tools that take no file (pixel/cm/inch converter, aspect ratio calculator) |
 | `src/data/exam-presets.json` | Photo and signature requirements, each with its official source |
+| `worker/` | The feedback Worker (`/api/feedback`), deployed by hand with wrangler; see "Feedback worker" in `CLAUDE.md` |
 | `docs/status.html` | The status page: every phase and item, what is done and who owns what |
 
 To add a tool, see "Adding a tool" in `CLAUDE.md`.
