@@ -58,7 +58,7 @@ Preview and live. Real headers confirmed on both. Browser tests run against the 
 | B9 | Family links and footer | fixed | "Also from iDuck" now lists iDuckPDF, iDuckCalculator and iDuckConvert in the sidebar and footer; footer line "© 2026 Basic App Company · iDuckIMG · iduckimg.com · Free image tools that run in your browser. Last updated 2026-11-14." |
 | B10 | Trust | fixed | New page `/how-it-works/` (engines, what runs in the browser, how to check it). "Last updated" appears on every page in the footer. About names Basic App Company and now gives hello@iduckimg.com. |
 | B11 | /llms.txt | fixed | Generated from the real lists; now includes the requirements page, the comparison pages and how-it-works, and no longer lists the unindexed languages. |
-| B12 | Speed | see "PageSpeed" below | |
+| B12 | Speed | done | 98 to 99 on mobile for the five pages you named; see "PageSpeed" below. |
 
 ### Format pages rewritten
 heic-to-jpg, heic-to-png, png-to-jpg, jpg-to-png, webp-to-jpg, webp-to-png, jpg-to-webp, png-to-webp, jpg-to-pdf, png-to-pdf, avif-to-jpg, avif-to-png, svg-to-png, svg-to-jpg, bmp-to-jpg, gif-to-png. Each now has its own title, description, summary, quick answer and steps, three sections (what the formats are and where they come from, what changes in this conversion, when to choose it and when not to) and 4 to 6 questions. Size examples are **measured with our own converter on one real 1920 x 1200 photograph** (a 213 KB JPG; a 1,465 KB PNG; a 74 KB WebP; a 6,750 KB BMP; a 700 KB GIF): for example JPG to PNG 8.9 times larger, PNG to JPG 5.6 times smaller, PNG to WebP 92 percent smaller, BMP to JPG 96 percent smaller. No figures were invented for HEIC, AVIF or SVG: those pages say no figure was measured. Not merged and not redirected: no URL changed.
@@ -67,7 +67,17 @@ heic-to-jpg, heic-to-png, png-to-jpg, jpg-to-png, webp-to-jpg, webp-to-png, jpg-
 All nine non-English languages (Hindi, Bengali, Portuguese (Brazil), Indonesian, Russian, German, Spanish, French, Turkish) are machine translations that nobody has read, and every one has English text in its options, community pages and Ctrl K window. As you asked, every page in these languages is now `noindex,follow`, has a self-pointing canonical, is out of the sitemap and is no longer listed in hreflang. English (US) and English (UK) keep complete hreflang with x-default, and I fixed an old gap: the English guide pages did not declare their alternates. About 770 pages are affected, listed by the rule "every page under /hi/, /bn/, /pt-br/, /id/, /ru/, /de/, /es/, /fr/, /tr/". Hindi, Bengali, Indonesian and Portuguese were checked first: same result. To publish a language, a person must read it, then set its status to `reviewed`.
 
 ### PageSpeed
-Google's PageSpeed API was over its keyless quota, so the numbers come from Lighthouse run locally against the live site (mobile settings). See the table in the final report; scores for the pages that were run are recorded in `AUDIT.md` below if they finished.
+Google's PageSpeed API was over its keyless quota, so the numbers come from Lighthouse 12.3 run locally against the live site with its default mobile settings (4x CPU slowdown, slow 4G), on 2026-11-14 after Part C deployed, with nothing else running.
+
+| Page | Performance | Accessibility | Best practices | SEO | LCP | Blocking time |
+|---|---|---|---|---|---|---|
+| Home | 98 | 96 | 93 | 100 | 1.9 s | 0 ms |
+| /compress-image/ | 98 | 96 | 93 | 100 | 1.8 s | 0 ms |
+| /resize-image/ | 99 | 96 | 93 | 100 | 1.7 s | 0 ms |
+| /ibps-po-photo-size/ (an exam page) | 98 | 96 | 93 | 100 | 1.9 s | 0 ms |
+| /heic-to-jpg/ | 98 | 96 | 93 | 100 | 1.9 s | 0 ms |
+
+A first run while I was also running builds and tests scored the home page 72 (1.25 s of blocking time from an "unattributable" browser task); it did not repeat, so I treat it as noise. Heavy decoders already load only after a file is chosen. The Best practices score is 93 on every page (not investigated).
 
 ## Part C: growth pages
 
@@ -122,3 +132,8 @@ Passport photo maker with print sheet, bulk resize, background remover, OCR, ups
 
 ## Files
 - `AUDIT.md` (this file) and `OUTREACH.md` in the repository root.
+
+## Final state (2026-11-14)
+- PRs merged: #54 (security headers and CSP), #55 (Part B), #56 (Part C). All deployed to iduckimg.com.
+- Live checks after the last deploy: compress, resize, remove EXIF, the exam photo resizer and the landing and size pages pass in a real browser against https://iduckimg.com. **HEIC to JPG was not tested** (no HEIC file on the build machine); the HEIC code path is unchanged, but the new CSP has not been seen decoding a real HEIC file, so please convert one iPhone photo.
+- Security grades: securityheaders.com A+ (was D), Mozilla Observatory A+ 130 (was D 35).
