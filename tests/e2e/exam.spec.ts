@@ -153,3 +153,31 @@ test.describe('exam landing pages', () => {
     expect(ld.join(' ')).toContain('FAQPage');
   });
 });
+
+test.describe('exam pages added from official documents', () => {
+  const cases: { path: string; examId: string; docId: string; text: string; size: [number, number] | null; minKb: number; maxKb: number }[] = [
+    { path: '/ibps-clerk-photo-size/', examId: 'ibps-clerk-csa-xvi', docId: 'photo', text: '200 x 230 px, 20 to 50 KB, JPG', size: [200, 230], minKb: 20, maxKb: 50 },
+    { path: '/sbi-po-signature-size/', examId: 'sbi-po-2026-27', docId: 'signature', text: '140 x 60 px, 10 to 20 KB, JPG', size: [140, 60], minKb: 10, maxKb: 20 },
+    { path: '/gate-2026-photo-size/', examId: 'gate-2026', docId: 'photo', text: '350 x 450 px, 5 to 600 KB, JPG', size: [350, 450], minKb: 5, maxKb: 600 },
+    { path: '/uk-passport-photo-size/', examId: 'uk-passport-digital', docId: 'photo', text: '600 x 750 px, 50 KB to 10 MB, JPG', size: [600, 750], minKb: 50, maxKb: 10240 },
+    { path: '/canada-passport-photo-size/', examId: 'canada-passport-digital', docId: 'photo', text: '1200 x 1800 px, 200 KB to 5 MB, JPG', size: [1200, 1800], minKb: 200, maxKb: 5120 },
+    { path: '/cuet-ug-photo-size/', examId: 'cuet-ug-2026', docId: 'photo', text: '10 to 200 KB, JPG', size: null, minKb: 10, maxKb: 200 },
+  ];
+  for (const c of cases) {
+    test(`${c.path} opens preset and makes a file inside the official window`, async ({ page }) => {
+      await page.goto(c.path);
+      await page.waitForFunction(() => document.querySelector('astro-island[ssr]') === null);
+      await expect(page.getByLabel('Exam', { exact: true })).toHaveValue(c.examId);
+      await expect(page.getByLabel('Document')).toHaveValue(c.docId);
+      await expect(page.getByRole('region', { name: 'Requirements' })).toContainText(c.text);
+      await addFiles(page, [await makeImage(page, 'image/jpeg', 'me.jpg', 1600, 2000)]);
+      await make(page);
+      const [r] = await readResults(page, 1);
+      if (c.size) expect([r!.width, r!.height]).toEqual(c.size);
+      expect(kb(r!.size)).toBeGreaterThanOrEqual(c.minKb);
+      expect(kb(r!.size)).toBeLessThanOrEqual(c.maxKb);
+      // Every page names its official source with a link and the date it was read.
+      await expect(page.getByText('read on 14 Nov 2026').first()).toBeVisible();
+    });
+  }
+});

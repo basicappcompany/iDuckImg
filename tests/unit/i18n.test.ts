@@ -18,7 +18,7 @@ import {
 } from '../../src/i18n';
 import type { Dict } from '../../src/i18n/types';
 import { UI_TEXT, fill } from '../../src/i18n/ui';
-import { LANDING_PAGES } from '../../src/lib/landing';
+import { LANDING_PAGES, isTranslatable } from '../../src/lib/landing';
 import { SHORTCUT_TEXT, localizedLanding, localizedQuickGroups } from '../../src/i18n/shortcuts';
 import { QUICK_GROUPS } from '../../src/lib/quick';
 import { flagSvg } from '../../src/i18n/flags';
@@ -223,7 +223,7 @@ describe('translated shortcut pages', () => {
   it('builds every page in every language with real, filled-in text', () => {
     for (const code of TRANSLATED) {
       const names = new Set<string>();
-      for (const page of LANDING_PAGES) {
+      for (const page of LANDING_PAGES.filter(isTranslatable)) {
         const p = localizedLanding(page, code);
         const where = `${code} ${page.slug}`;
         for (const [key, value] of Object.entries({ name: p.name, h1: p.h1, title: p.title, description: p.description, summary: p.summary, quick: p.quick })) {
@@ -241,7 +241,7 @@ describe('translated shortcut pages', () => {
         expect(p.quick, where).not.toBe(page.quick);
         names.add(p.name);
       }
-      expect(names.size, `${code} duplicate names`).toBe(LANDING_PAGES.length);
+      expect(names.size, `${code} duplicate names`).toBe(LANDING_PAGES.filter(isTranslatable).length);
     }
   });
 
@@ -257,7 +257,9 @@ describe('translated shortcut pages', () => {
     for (const code of TRANSLATED) {
       const groups = localizedQuickGroups(code);
       expect(groups.map((g) => g.id)).toEqual(QUICK_GROUPS.map((g) => g.id));
-      expect(groups.flatMap((g) => g.items)).toHaveLength(QUICK_GROUPS.flatMap((g) => g.slugs).length);
+      // English-only pages (custom sizes) are not listed in a translated sidebar.
+      const englishOnly = new Set(LANDING_PAGES.filter((p) => !isTranslatable(p)).map((p) => p.slug));
+      expect(groups.flatMap((g) => g.items)).toHaveLength(QUICK_GROUPS.flatMap((g) => g.slugs).filter((s) => !englishOnly.has(s)).length);
       for (const g of groups) {
         expect(g.name.length).toBeGreaterThan(3);
         for (const i of g.items) expect(i.href.startsWith(`/${OTHER_LOCALES.find((l) => l.code === code)!.path}/`), i.href).toBe(true);
@@ -324,7 +326,7 @@ describe('lookups', () => {
   it('knows which pages have translations', () => {
     expect(hasTranslations('/')).toBe(true);
     for (const t of TOOLS) expect(hasTranslations(toolPath(t.slug))).toBe(true);
-    for (const t of LANDING_PAGES) expect(hasTranslations(`/${t.slug}/`), t.slug).toBe(true);
+    for (const t of LANDING_PAGES) expect(hasTranslations(`/${t.slug}/`), t.slug).toBe(isTranslatable(t));
     for (const p of ['/guides/', '/chat/', '/guides/how-to-compress-an-image/']) expect(hasTranslations(p), p).toBe(true);
     for (const p of ['/privacy/', '/about/']) expect(hasTranslations(p), p).toBe(false);
   });

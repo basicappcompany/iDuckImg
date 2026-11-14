@@ -4,7 +4,7 @@ import { HELPER_EN } from '../../src/i18n/helper/en';
 import { OTHER_LOCALES } from '../../src/i18n';
 import { ENGLISH_CONTEXT, STARTERS, respond } from '../../src/lib/helper';
 import { TOOLS } from '../../src/lib/tools';
-import { LANDING_PAGES } from '../../src/lib/landing';
+import { LANDING_PAGES, isTranslatable } from '../../src/lib/landing';
 
 const TRANSLATED = OTHER_LOCALES.filter((l) => !l.variantOf).map((l) => l.code);
 const SCRIPT: Record<string, RegExp> = { hi: /\p{Script=Devanagari}/u, bn: /\p{Script=Bengali}/u, ru: /\p{Script=Cyrillic}/u };
@@ -75,7 +75,10 @@ describe('translated helper', () => {
       const ctx = helperContext(code);
       for (const slug of [...TOOLS.map((x) => x.slug), ...LANDING_PAGES.map((p) => p.slug)]) {
         expect(ctx.items[slug]?.name, `${code} ${slug}`).toBeTruthy();
-        expect(ctx.items[slug]!.href.startsWith(`/${OTHER_LOCALES.find((l) => l.code === code)!.path}/`), `${code} ${slug}`).toBe(true);
+        // English-only pages (custom sizes) keep their English address; the rest live under the language.
+        const englishOnly = LANDING_PAGES.some((p) => p.slug === slug && !isTranslatable(p));
+        if (englishOnly) expect(ctx.items[slug]!.href, `${code} ${slug}`).toBe(`/${slug}/`);
+        else expect(ctx.items[slug]!.href.startsWith(`/${OTHER_LOCALES.find((l) => l.code === code)!.path}/`), `${code} ${slug}`).toBe(true);
       }
     }
   });

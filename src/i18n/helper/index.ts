@@ -1,4 +1,4 @@
-import { LANDING_PAGES } from '../../lib/landing';
+import { LANDING_PAGES, isTranslatable } from '../../lib/landing';
 import { ENGLISH_CONTEXT, type HelperContext } from '../../lib/helper';
 import { TOOLS, toolPath } from '../../lib/tools';
 import { localePath, toolText } from '../index';
@@ -38,6 +38,11 @@ export function helperContext(code: string): HelperContext {
     items[t.slug] = { name: x.name, summary: x.summary, href: localePath(code, toolPath(t.slug)) };
   }
   for (const p of LANDING_PAGES) {
+    // An English-only page (a custom size, a size in MB) is offered under its English name and address.
+    if (!isTranslatable(p)) {
+      items[p.slug] = { name: p.h1, summary: p.summary, href: `/${p.slug}/` };
+      continue;
+    }
     const x = localizedLanding(p, code);
     items[p.slug] = { name: x.name, summary: x.summary, href: localePath(code, `/${p.slug}/`) };
   }

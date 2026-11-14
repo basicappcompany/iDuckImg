@@ -29,14 +29,14 @@ import TextTool from '../../tools/text/TextTool';
 import WatermarkTool from '../../tools/watermark/WatermarkTool';
 import LengthConverter from '../../calculators/LengthConverter';
 import RatioCalculator from '../../calculators/RatioCalculator';
-import { LANDING_PAGES, landingParent, landingPath } from '../../lib/landing';
+import { LANDING_PAGES, isTranslatable, landingParent, landingPath } from '../../lib/landing';
 import { TOOLS, toolPath } from '../../lib/tools';
 import { localizedLanding, shortcutText } from '../../i18n/shortcuts';
 import { OTHER_LOCALES, dictFor, localeByPath, localePath, toolText } from '../../i18n';
 
 
 export function getStaticPaths() {
-  return OTHER_LOCALES.flatMap((locale) => [...TOOLS, ...LANDING_PAGES].map((item) => ({ params: { lang: locale.path, tool: item.slug } })));
+  return OTHER_LOCALES.flatMap((locale) => [...TOOLS, ...LANDING_PAGES.filter(isTranslatable)].map((item) => ({ params: { lang: locale.path, tool: item.slug } })));
 }
 
 // Astro needs every hydrated component imported by name, so each tool is listed out below rather than looked up.
@@ -51,7 +51,7 @@ const relatedLinks = (page?.related ?? []).flatMap((rel) => {
   const tool = TOOLS.find((t) => t.slug === rel);
   if (tool) return [{ href: localePath(locale.code, toolPath(tool.slug)), label: toolText(locale.code, tool.slug).name, emoji: tool.emoji }];
   const other = LANDING_PAGES.find((p) => p.slug === rel);
-  if (other) return [{ href: localePath(locale.code, landingPath(other.slug)), label: localizedLanding(other, locale.code).name, emoji: other.emoji }];
+  if (other && isTranslatable(other)) return [{ href: localePath(locale.code, landingPath(other.slug)), label: localizedLanding(other, locale.code).name, emoji: other.emoji }];
   return [];
 });
 ---

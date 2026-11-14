@@ -1,4 +1,4 @@
-import { LANDING_PAGES, type LandingPage } from '../../lib/landing';
+import { LANDING_PAGES, isTranslatable, type LandingPage } from '../../lib/landing';
 import { QUICK_GROUPS } from '../../lib/quick';
 import { TOOLS, toolPath } from '../../lib/tools';
 import { localePath } from '../locales';
@@ -71,6 +71,7 @@ export function localizedLanding(page: LandingPage, code: string): LocalLanding 
     const why = t.why[page.slug] ?? '';
     return apply(t.convert, { from: k.from, to: k.to, why, run }, t.convert.h1);
   }
+  if (k.kind === 'custom') throw new Error(`${page.slug} is English only and has no translated version`);
   const what = t.docs[k.docId as keyof ShortcutText['docs']] ?? k.docId;
   return apply(t.exam, {
     short: k.short,
@@ -105,7 +106,7 @@ export function localizedQuickGroups(code: string): LocalQuickGroup[] {
       const tool = TOOLS.find((x) => x.slug === slug);
       if (tool) return [{ slug, href: localePath(code, toolPath(slug)), name: toolText(code, slug).name, emoji: tool.emoji }];
       const page = LANDING_PAGES.find((p) => p.slug === slug);
-      if (page) return [{ slug, href: localePath(code, `/${slug}/`), name: localizedLanding(page, code).name, emoji: page.emoji }];
+      if (page && isTranslatable(page)) return [{ slug, href: localePath(code, `/${slug}/`), name: localizedLanding(page, code).name, emoji: page.emoji }];
       return [];
     }),
   }));

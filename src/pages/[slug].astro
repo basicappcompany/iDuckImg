@@ -36,7 +36,12 @@ const relatedLinks = page.related.flatMap((slug) => {
   {page.engine === 'convert' && <ConvertTool client:load initial={page.initial} />}
   {
     page.engine === 'exam' && (
-      <ExamTool client:load initialExam={String(page.initial['examId'])} initialDoc={String(page.initial['docId'])} />
+      <ExamTool
+        client:load
+        initialExam={String(page.initial['examId'])}
+        initialDoc={String(page.initial['docId'] ?? '')}
+        initialCustom={page.initial['custom'] as never}
+      />
     )
   }
 
