@@ -43,7 +43,12 @@ test.describe('on a phone', () => {
       for (const path of ['/', '/hi/', '/bn/', '/de/', '/es/', '/fr/', '/id/', '/pt-br/', '/ru/', '/tr/', '/en-gb/']) {
         await page.goto(path);
         // The Ctrl K hint is hidden on touch screens (hover: none); this test browser has a mouse, so hide it the same way.
-        await page.addStyleTag({ content: '.hero-search kbd { display: none; }' });
+        // A constructable stylesheet, because the page's Content-Security-Policy blocks injected <style> tags.
+        await page.evaluate(() => {
+          const sheet = new CSSStyleSheet();
+          sheet.replaceSync('.hero-search kbd { display: none; }');
+          document.adoptedStyleSheets = [...document.adoptedStyleSheets, sheet];
+        });
         const box = (await page.locator('#hero-search').boundingBox())!;
         expect(box.x, `${path} at ${width}px`).toBeGreaterThanOrEqual(0);
         expect(box.x + box.width, `${path} at ${width}px`).toBeLessThanOrEqual(width);
