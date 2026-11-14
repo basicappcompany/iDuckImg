@@ -65,6 +65,7 @@ const GROWTH_PATHS = [
   '/resize-image-to-2x2-inch/',
   '/resize-image-to-200x230-px/',
   '/passport-size-photo/',
+  '/add-name-and-date-to-photo/',
 ];
 
 /** Same order as the sidebar and the homepage: grouped. */
@@ -80,7 +81,8 @@ const TOOL_PATHS = Object.values(GROUPS).flat();
 /** The shortcuts (landing pages) listed under the tool they open, after the group's own tools. */
 const SHORTCUTS: Record<string, string[]> = {
   'Shrink & resize': ['/compress-image-to-100kb/', '/compress-image-to-50kb/', '/compress-image-to-200kb/', '/compress-image-to-20kb/',
-    ...EXAM_PATHS, ...GROWTH_PATHS],
+    ...EXAM_PATHS, ...GROWTH_PATHS.filter((p) => p !== '/add-name-and-date-to-photo/')],
+  'Add text & effects': ['/add-name-and-date-to-photo/'],
   'Convert & combine': [
     '/heic-to-jpg/', '/heic-to-png/', '/png-to-jpg/', '/jpg-to-png/', '/webp-to-jpg/',
     '/webp-to-png/', '/jpg-to-webp/', '/png-to-webp/', '/jpg-to-pdf/', '/png-to-pdf/',
@@ -101,7 +103,7 @@ const QUICK: Record<string, string[]> = {
   ],
   'Open other formats': ['/avif-to-jpg/', '/avif-to-png/', '/svg-to-png/', '/svg-to-jpg/', '/bmp-to-jpg/', '/gif-to-png/'],
   'Make a PDF': ['/jpg-to-pdf/', '/png-to-pdf/', '/image-to-pdf/'],
-  'Photos for forms': ['/exam-photo-resizer/', ...EXAM_PATHS, '/increase-image-size-in-kb/', '/resize-signature-10-20kb/', '/resize-image-to-35x45-mm/', '/resize-image-to-2x2-inch/', '/resize-image-to-200x230-px/', '/passport-size-photo/', '/remove-exif-data/', '/blur-image/'],
+  'Photos for forms': ['/exam-photo-resizer/', ...EXAM_PATHS, '/increase-image-size-in-kb/', '/resize-signature-10-20kb/', '/resize-image-to-35x45-mm/', '/resize-image-to-2x2-inch/', '/resize-image-to-200x230-px/', '/passport-size-photo/', '/add-name-and-date-to-photo/', '/remove-exif-data/', '/blur-image/'],
   'Quick edits': ['/crop-image/', '/rotate-image/', '/add-watermark-to-image/', '/add-logo-to-image/', '/circle-crop-image/', '/merge-images/', '/adjust-image-colors/', '/add-border-to-image/'],
 };
 /** Everything the home page and the sidebar list, in order: each group's tools, then its shortcuts. */
@@ -362,7 +364,7 @@ test.describe('site', () => {
       const cards = page.locator('[data-card-group]:not([hidden]) [data-card]');
       await expect(cards).toHaveCount(LISTED.length);
       await page.getByRole('switch', { name: /^Add text & effects/ }).click();
-      await expect(cards).toHaveCount(GROUPS['Add text & effects']!.length);
+      await expect(cards).toHaveCount(GROUPS['Add text & effects']!.length + (SHORTCUTS['Add text & effects']?.length ?? 0));
       await expect(page.getByRole('switch', { name: /^Add text & effects/ })).toHaveAttribute('aria-checked', 'true');
       await expect(page.getByRole('switch', { name: /^Everything/ })).toHaveAttribute('aria-checked', 'false');
       await page.getByRole('switch', { name: /^Everything/ }).click();
@@ -444,6 +446,16 @@ test.describe('size-target and picture-size pages', () => {
       expect([r!.width, r!.height], path).toEqual([w, h]);
       expect(r!.size / 1024, path).toBeLessThanOrEqual(500);
     }
+  });
+
+  test('add name and date opens with two lines and draws them without changing the picture size', async ({ page }) => {
+    await page.goto('/add-name-and-date-to-photo/');
+    await page.waitForFunction(() => document.querySelector('astro-island[ssr]') === null);
+    await addFiles(page, [await makeImage(page, 'image/jpeg', 'me.jpg', 800, 600)]);
+    await page.getByRole('button', { name: 'Add text', exact: true }).click();
+    const [r] = await readResults(page, 1);
+    expect([r!.width, r!.height]).toEqual([800, 600]);
+    expect(r!.type).toBe('image/jpeg');
   });
 
   test('the signature page keeps the picture size and lands in 10 to 20 KB', async ({ page }) => {

@@ -4,6 +4,7 @@ import CompressTool from '../tools/compress/CompressTool';
 import ResizeTool from '../tools/resize/ResizeTool';
 import ConvertTool from '../tools/convert/ConvertTool';
 import ExamTool from '../tools/exam/ExamTool';
+import TextTool from '../tools/text/TextTool';
 import { LANDING_PAGES, landingParent, landingPath, type LandingPage } from '../lib/landing';
 import { TOOLS, toolPath } from '../lib/tools';
 
@@ -34,6 +35,7 @@ const relatedLinks = page.related.flatMap((slug) => {
   {page.engine === 'compress' && <CompressTool client:load initial={page.initial} />}
   {page.engine === 'resize' && <ResizeTool client:load initial={page.initial} />}
   {page.engine === 'convert' && <ConvertTool client:load initial={page.initial} />}
+  {page.engine === 'text' && <TextTool client:load initial={page.initial} />}
   {
     page.engine === 'exam' && (
       <ExamTool

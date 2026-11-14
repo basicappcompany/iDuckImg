@@ -407,4 +407,39 @@ export const GROWTH_PAGES: readonly LandingPage[] = [
       ),
     ],
   },
+  {
+    slug: 'add-name-and-date-to-photo',
+    kind: { kind: 'custom' },
+    engine: 'text',
+    initial: { text: 'YOUR NAME\nDD/MM/YYYY', position: 'bottom-center', sizePct: 6, colour: 'white', box: 'dark' },
+    emoji: '🏷️',
+    h1: 'Add name and date to a photo',
+    title: 'Add name and date to a photo online free',
+    description: 'Print your name and a date on a photo, in a readable strip at the bottom, for forms that ask for it. Free, in your browser, no upload.',
+    summary: 'Print a name and a date on a photo, readable on any picture.',
+    quick:
+      'To add a name and date to a photo, drop it in, type your name on the first line and the date on the second, and press Add text: the lines go in a dark strip at the bottom so they stay readable. It runs in your browser, so the photo is never uploaded.',
+    steps: [
+      'Drop your photo, or tap to choose it.',
+      'Replace the first line with your name and the second line with the date, written the way your form asks.',
+      'Check the preview. Move the text, change its size or colour, or switch the strip on or off.',
+      'Press Add text, then download the picture.',
+    ],
+    notes: [
+      'Some forms ask for the candidate’s name and the date the photo was taken to be printed on the photo. This page only puts the text you type onto your picture. It does not add the date by itself, so type the date yourself, and it does not know any form’s rules: read your own notice for the date format, the position and the size.',
+      'The text goes in a dark strip so it stays readable on busy or light pictures. You can have up to five lines of up to 60 characters.',
+      'A date printed on a photo does not prove when it was taken. Use the real date, and the same photo you upload elsewhere on the form. If your form also has a size in pixels and KB, resize the photo first, then add the text, then check the file size again.',
+    ],
+    faqs: [
+      { q: 'Does it add the date automatically?', a: 'No. Type the date yourself in the format your form asks, such as DD/MM/YYYY.' },
+      { q: 'Where is the text placed?', a: 'At the bottom centre by default, in a dark strip. You can move it to any of nine positions or turn the strip off.' },
+      { q: 'Will it change the size of my photo?', a: 'No. The picture keeps its pixel size and format. The text is drawn onto it.' },
+      { q: 'Can I do this for many photos?', a: 'The same text is applied to the photo you choose. For several people, run it once for each photo with the right name and date.' },
+      { q: 'Is my photo uploaded?', a: 'No. The text is drawn in your browser and the photo stays on your device.' },
+    ],
+    related: ['add-text-to-image', 'exam-photo-resizer', 'resize-image-to-35x45-mm', 'compress-image'],
+    sections: [
+      section('When to use this, and when not to', 'Use it when a form asks for a name and date on the photo and you have the photo already. Do not use it to change a date: a printed date should match when the photo was really taken.'),
+    ],
+  },
 ];

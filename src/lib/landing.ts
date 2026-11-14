@@ -11,7 +11,7 @@ import { RICH, type RichSection } from './landing-rich';
 import { GROWTH_PAGES } from './landing-growth';
 import { kbPage } from './landing-kb';
 
-export type LandingEngine = 'compress' | 'resize' | 'convert' | 'exam';
+export type LandingEngine = 'compress' | 'resize' | 'convert' | 'exam' | 'text';
 
 export interface LandingFaq {
   q: string;
@@ -481,6 +481,7 @@ const PARENT_SLUG: Record<LandingEngine, string> = {
   resize: 'resize-image',
   convert: 'convert-image',
   exam: 'exam-photo-resizer',
+  text: 'add-text-to-image',
 };
 
 /** The tool this page opens (its "parent"). */

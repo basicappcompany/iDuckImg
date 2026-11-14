@@ -19,9 +19,9 @@ import {
 
 const PREVIEW_WIDTH = 560;
 
-export default function TextTool() {
+export default function TextTool({ initial }: { initial?: Partial<TextOptions> } = {}) {
   const t = useText(TEXT_TEXT);
-  const [options, setOptions] = useState<TextOptions>(textTool.defaultOptions);
+  const [options, setOptions] = useState<TextOptions>({ ...textTool.defaultOptions, ...initial });
 
   return (
     <SimpleToolShell

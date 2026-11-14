@@ -80,6 +80,7 @@ export const QUICK_GROUPS: readonly QuickGroupDef[] = [
       'resize-image-to-2x2-inch',
       'resize-image-to-200x230-px',
       'passport-size-photo',
+      'add-name-and-date-to-photo',
       'remove-exif-data',
       'blur-image',
     ],

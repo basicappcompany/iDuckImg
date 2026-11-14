@@ -3,6 +3,7 @@ import { TOOLS, toolPath } from '../lib/tools';
 import { LANDING_PAGES, landingPath } from '../lib/landing';
 import { COMMUNITY, communityPath } from '../lib/community';
 import { SITE_URL } from '../lib/seo';
+import { COMPARE_PAGES } from '../lib/compare';
 import { GUIDES, guidePath } from '../lib/guides';
 import { OTHER_LOCALES, localePath } from '../i18n';
 
@@ -34,6 +35,8 @@ export const GET: APIRoute = () => {
     '## About',
     `- [All image tools](${SITE_URL}/image-tools/)`,
     ...COMMUNITY.filter((c) => c.indexable).map((c) => `- [${c.name}](${SITE_URL}${communityPath(c.slug)}): ${c.summary}`),
+    `- [Photo and signature requirements](${SITE_URL}/photo-and-signature-requirements/): pixels and KB for every exam document we have read from official notices, with source links and read dates.`,
+    ...COMPARE_PAGES.map((c) => `- [${c.title}](${SITE_URL}/compare/${c.slug}/): ${c.description}`),
     `- [How iDuckIMG works](${SITE_URL}/how-it-works/): what runs in the browser, which engines do the work and how to check it.`,
     `- [Privacy policy](${SITE_URL}/privacy/)`,
     `- [Terms of use](${SITE_URL}/terms/)`,
