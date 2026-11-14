@@ -88,6 +88,634 @@
           "note": "Blurred or miniature signatures are rejected."
         }
       ]
+    },
+    {
+      "id": "ibps-clerk-csa-xvi",
+      "name": "IBPS Clerk (CRP CSA-XVI)",
+      "cycle": "CRP CSA-XVI, Customer Service Associates (online registration 01.8.2026 to 21.08.2026)",
+      "source": {
+        "title": "Notification CRP CSA-XVI, Annexure IV: Guidelines for scanning and Upload of Documents",
+        "url": "https://www.ibps.in/wp-content/uploads/Notification_CRP_CSA_XVI-Final.pdf",
+        "location": "PDF pages 55 to 57 (printed pages 52 to 54)",
+        "retrieved": "2026-11-14"
+      },
+      "notes": [
+        "The document marks the pixel sizes as preferred, and the file sizes as the limits to meet.",
+        "The document says the image file should be JPG or JPEG, and this tool always makes JPG.",
+        "A live photograph is also captured in the application itself, separate from this upload.",
+        "Later corrigenda to this notification were not checked for changes to the upload rules."
+      ],
+      "documents": [
+        {
+          "id": "photo",
+          "name": "Photograph",
+          "width": 200,
+          "height": 230,
+          "minKb": 20,
+          "maxKb": 50,
+          "fit": "crop",
+          "physical": "4.5 cm x 3.5 cm"
+        },
+        {
+          "id": "signature",
+          "name": "Signature",
+          "width": 140,
+          "height": 60,
+          "minKb": 10,
+          "maxKb": 20,
+          "fit": "pad",
+          "note": "Sign on white paper with a black pen. A signature in capital letters is not accepted."
+        },
+        {
+          "id": "left-thumb",
+          "name": "Left thumb impression",
+          "width": 240,
+          "height": 240,
+          "minKb": 20,
+          "maxKb": 50,
+          "fit": "crop",
+          "physical": "3 cm x 3 cm at 200 DPI",
+          "note": "Use black or blue ink on white paper."
+        },
+        {
+          "id": "declaration",
+          "name": "Handwritten declaration",
+          "width": 800,
+          "height": 400,
+          "minKb": 50,
+          "maxKb": 100,
+          "fit": "pad",
+          "physical": "10 cm x 5 cm at 200 DPI",
+          "note": "It must be in your own handwriting, in English, and not in capital letters."
+        }
+      ]
+    },
+    {
+      "id": "ibps-rrb-xv",
+      "name": "IBPS RRB (CRP RRBs-XV)",
+      "cycle": "CRP RRBs-XV, Officers (Scale I, II and III) and Office Assistants (online registration 01.09.2026 to 21.09.2026)",
+      "source": {
+        "title": "Notification CRP RRBs-XV, Annexure III: Guidelines for Scanning and Upload of Documents",
+        "url": "https://www.ibps.in/wp-content/uploads/CRP-RRBs-XV-notification_Revised.pdf",
+        "location": "PDF pages 58 to 60 (printed pages 56 to 58)",
+        "retrieved": "2026-11-14"
+      },
+      "notes": [
+        "The document marks the pixel sizes as preferred, and the file sizes as the limits to meet.",
+        "The document says the image file should be JPG or JPEG, and this tool always makes JPG.",
+        "A live photograph is also captured in the application itself, separate from this upload.",
+        "Later corrigenda to this notification were not checked for changes to the upload rules."
+      ],
+      "documents": [
+        {
+          "id": "photo",
+          "name": "Photograph",
+          "width": 200,
+          "height": 230,
+          "minKb": 20,
+          "maxKb": 50,
+          "fit": "crop",
+          "physical": "4.5 cm x 3.5 cm"
+        },
+        {
+          "id": "signature",
+          "name": "Signature",
+          "width": 140,
+          "height": 60,
+          "minKb": 10,
+          "maxKb": 20,
+          "fit": "pad",
+          "note": "Sign on white paper with a black pen. A signature in capital letters is not accepted."
+        },
+        {
+          "id": "left-thumb",
+          "name": "Left thumb impression",
+          "width": 240,
+          "height": 240,
+          "minKb": 20,
+          "maxKb": 50,
+          "fit": "crop",
+          "physical": "3 cm x 3 cm at 200 DPI",
+          "note": "Use black or blue ink on white paper."
+        },
+        {
+          "id": "declaration",
+          "name": "Handwritten declaration",
+          "width": 800,
+          "height": 400,
+          "minKb": 50,
+          "maxKb": 100,
+          "fit": "pad",
+          "physical": "10 cm x 5 cm at 200 DPI",
+          "note": "It must be in your own handwriting, in English, and not in capital letters."
+        }
+      ]
+    },
+    {
+      "id": "ibps-so-spl-xvi",
+      "name": "IBPS SO (CRP SPL-XVI)",
+      "cycle": "CRP SPL-XVI, Specialist Officers (online registration 01.07.2026 to 21.07.2026)",
+      "source": {
+        "title": "Notification CRP SPL-XVI, Annexure III: Guidelines for Scanning and Upload Of Documents",
+        "url": "https://www.ibps.in/wp-content/uploads/Detailed-Notification-CRP-SPL-XVI_Final_V1_30.06.2026.pdf",
+        "location": "PDF pages 44 to 46 (printed pages 41 to 43)",
+        "retrieved": "2026-11-14"
+      },
+      "notes": [
+        "The document marks the pixel sizes as preferred, and the file sizes as the limits to meet.",
+        "The document says the image file should be JPG or JPEG, and this tool always makes JPG.",
+        "A live photograph is also captured in the application itself, separate from this upload.",
+        "Later corrigenda to this notification were not checked for changes to the upload rules."
+      ],
+      "documents": [
+        {
+          "id": "photo",
+          "name": "Photograph",
+          "width": 200,
+          "height": 230,
+          "minKb": 20,
+          "maxKb": 50,
+          "fit": "crop",
+          "physical": "4.5 cm x 3.5 cm"
+        },
+        {
+          "id": "signature",
+          "name": "Signature",
+          "width": 140,
+          "height": 60,
+          "minKb": 10,
+          "maxKb": 20,
+          "fit": "pad",
+          "note": "Sign on white paper with a black pen. A signature in capital letters is not accepted."
+        },
+        {
+          "id": "left-thumb",
+          "name": "Left thumb impression",
+          "width": 240,
+          "height": 240,
+          "minKb": 20,
+          "maxKb": 50,
+          "fit": "crop",
+          "physical": "3 cm x 3 cm at 200 DPI",
+          "note": "Use black or blue ink on white paper."
+        },
+        {
+          "id": "declaration",
+          "name": "Handwritten declaration",
+          "width": 800,
+          "height": 400,
+          "minKb": 50,
+          "maxKb": 100,
+          "fit": "pad",
+          "physical": "10 cm x 5 cm at 200 DPI",
+          "note": "It must be in your own handwriting, in English, and not in capital letters."
+        }
+      ]
+    },
+    {
+      "id": "sbi-po-2026-27",
+      "name": "SBI PO (2026-27)",
+      "cycle": "Probationary Officers, advertisement CRPD/PO/2026-27/09 (online registration 18.06.2026 to 08.07.2026)",
+      "source": {
+        "title": "Detailed advertisement CRPD/PO/2026-27/09, Annexure II: Guidelines for scanning and Upload of Photograph, Signature, Left-Hand Thumb Impression & Hand-Written Declaration",
+        "url": "https://sbi.bank.in/csfile/18062026_1_Detailed_Adv.2026.pdf",
+        "location": "PDF page 15 of 17",
+        "retrieved": "2026-11-14"
+      },
+      "notes": [
+        "SBI marks the pixel sizes as preferred, and the file sizes as the limits to meet.",
+        "The document says the image file should be JPG or JPEG, and this tool always makes JPG.",
+        "A live photograph is also captured through a webcam or mobile phone during registration, separate from this upload.",
+        "A corrigendum to this advertisement exists and was not checked for changes to the upload rules."
+      ],
+      "documents": [
+        {
+          "id": "photo",
+          "name": "Photograph",
+          "width": 200,
+          "height": 230,
+          "minKb": 20,
+          "maxKb": 50,
+          "fit": "crop",
+          "physical": "4.5 cm x 3.5 cm"
+        },
+        {
+          "id": "signature",
+          "name": "Signature",
+          "width": 140,
+          "height": 60,
+          "minKb": 10,
+          "maxKb": 20,
+          "fit": "pad",
+          "note": "Sign on white paper with a black pen. A signature in capital letters is not accepted."
+        },
+        {
+          "id": "left-thumb",
+          "name": "Left-hand thumb impression",
+          "width": 240,
+          "height": 240,
+          "minKb": 20,
+          "maxKb": 50,
+          "fit": "crop",
+          "physical": "3 cm x 3 cm at 200 DPI",
+          "note": "Use black or blue ink on white paper."
+        },
+        {
+          "id": "declaration",
+          "name": "Handwritten declaration",
+          "width": 800,
+          "height": 400,
+          "minKb": 50,
+          "maxKb": 100,
+          "fit": "pad",
+          "physical": "10 cm x 5 cm at 200 DPI",
+          "note": "It must be in your own handwriting, in English, and not in capital letters."
+        }
+      ]
+    },
+    {
+      "id": "sbi-clerk-2026-27",
+      "name": "SBI Clerk (Junior Associates, 2026-27)",
+      "cycle": "Junior Associates (Customer Support & Sales), advertisement CRPD/CR/2026-27/17 (online registration 11.08.2026 to 31.08.2026)",
+      "source": {
+        "title": "Detailed advertisement CRPD/CR/2026-27/17, Annexure II: Guidelines for scanning and Upload of Photograph, Signature, Left Hand Thumb Impression and Hand-written Declaration",
+        "url": "https://sbi.bank.in/webfiles/uploads/files_2627/08/JA_2026_Detailed_Advt_Eng.pdf",
+        "location": "PDF page 9 of 12",
+        "retrieved": "2026-11-14"
+      },
+      "notes": [
+        "SBI marks the pixel sizes as preferred, and the file sizes as the limits to meet.",
+        "The document says the image file should be JPG or JPEG, and this tool always makes JPG."
+      ],
+      "documents": [
+        {
+          "id": "photo",
+          "name": "Photograph",
+          "width": 200,
+          "height": 230,
+          "minKb": 20,
+          "maxKb": 50,
+          "fit": "crop",
+          "physical": "4.5 cm x 3.5 cm"
+        },
+        {
+          "id": "signature",
+          "name": "Signature",
+          "width": 140,
+          "height": 60,
+          "minKb": 10,
+          "maxKb": 20,
+          "fit": "pad",
+          "note": "Sign on white paper with a black pen. A signature in capital letters is not accepted."
+        },
+        {
+          "id": "left-thumb",
+          "name": "Left hand thumb impression",
+          "width": 240,
+          "height": 240,
+          "minKb": 20,
+          "maxKb": 50,
+          "fit": "crop",
+          "physical": "3 cm x 3 cm at 200 DPI",
+          "note": "Use black or blue ink on white paper."
+        },
+        {
+          "id": "declaration",
+          "name": "Handwritten declaration",
+          "width": 800,
+          "height": 400,
+          "minKb": 50,
+          "maxKb": 100,
+          "fit": "pad",
+          "physical": "10 cm x 5 cm at 200 DPI",
+          "note": "It must be in your own handwriting, in English, and not in capital letters."
+        }
+      ]
+    },
+    {
+      "id": "cuet-ug-2026",
+      "name": "CUET (UG) 2026",
+      "cycle": "CUET (UG) 2026, NTA Information Bulletin",
+      "source": {
+        "title": "CUET (UG) 2026 Information Bulletin: Upload Scanned/JPG/JPEG Images of the Candidate's Photograph, Signature and disability/UDID certificate",
+        "url": "https://cdnbbsr.s3waas.gov.in/s3d1a21da7bca4abff8b0b61b87597de73/uploads/2026/01/202601031633478370.pdf",
+        "location": "PDF page 10 of 97 (printed page 9)",
+        "retrieved": "2026-11-14"
+      },
+      "notes": [
+        "The bulletin gives file sizes only, with no pixel size, so your picture keeps its own pixel size and only the file size is fitted.",
+        "The bulletin asks for a recent passport-size colour photograph with 80 percent of the face visible (including ears, without a mask) against a white background, in JPG or JPEG.",
+        "A live photograph is also captured in the application form, separate from this upload."
+      ],
+      "documents": [
+        {
+          "id": "photo",
+          "name": "Photograph",
+          "width": null,
+          "height": null,
+          "minKb": 10,
+          "maxKb": 200,
+          "fit": "crop"
+        },
+        {
+          "id": "signature",
+          "name": "Signature",
+          "width": null,
+          "height": null,
+          "minKb": 10,
+          "maxKb": 50,
+          "fit": "pad"
+        }
+      ]
+    },
+    {
+      "id": "ctet-sep-2026",
+      "name": "CTET (September 2026)",
+      "cycle": "CTET September 2026, 22nd edition (online application 11.05.2026 to 10.06.2026)",
+      "source": {
+        "title": "CTET September 2026 Information Bulletin: Online Uploading of Scanned Images",
+        "url": "https://cdnbbsr.s3waas.gov.in/s3443dec3062d0286986e21dc0631734c9/uploads/2026/05/202605111250310617.pdf",
+        "location": "PDF page 3, repeated on PDF page 27 (printed page 21)",
+        "retrieved": "2026-11-14"
+      },
+      "notes": [
+        "The bulletin gives the picture sizes in centimetres only, with no pixel size, so your picture keeps its own pixel size and only the file size is fitted. Crop the picture to the shape given in the bulletin first.",
+        "The bulletin says to upload JPG or JPEG files, and the photograph is matched with the candidate at the exam centre."
+      ],
+      "documents": [
+        {
+          "id": "photo",
+          "name": "Photograph",
+          "width": null,
+          "height": null,
+          "minKb": 10,
+          "maxKb": 100,
+          "fit": "crop",
+          "physical": "3.5 cm (width) x 4.5 cm (height)"
+        },
+        {
+          "id": "signature",
+          "name": "Signature",
+          "width": null,
+          "height": null,
+          "minKb": 3,
+          "maxKb": 30,
+          "fit": "pad",
+          "physical": "3.5 cm (length) x 1.5 cm (height)"
+        }
+      ]
+    },
+    {
+      "id": "gate-2026",
+      "name": "GATE 2026",
+      "cycle": "GATE 2026, organised by IIT Guwahati (examination in February 2026)",
+      "source": {
+        "title": "GATE 2026 website, Photograph and Signature page",
+        "url": "https://gate2026.iitg.ac.in/photograph-and-signature.html",
+        "location": "sections Photograph Requirements and Signature Specifications (a web page, no page numbers)",
+        "retrieved": "2026-11-14"
+      },
+      "notes": [
+        "The website gives pixel ranges, not one size. For the photograph it gives 200 x 260 px at the smallest and 530 x 690 px at the largest, with a width to height ratio between 0.66 and 0.89. This tool uses 350 x 450 px, which is inside the range and matches the 3.5 cm x 4.5 cm shape. For the signature it gives 250 x 80 px to 580 x 180 px and a height to width ratio of 1 to between 2.75 and 3.75. This tool uses 400 x 120 px. These two sizes are our choice inside the stated ranges, not figures from the website.",
+        "The website asks for a colour photograph on a white background with the face covering 60 to 70 percent of the image, in JPEG or JPG. The signature must be in black or dark blue ink and cover 70 to 80 percent of the image.",
+        "This is the GATE 2026 cycle. A newer GATE cycle may use a different website with different numbers."
+      ],
+      "documents": [
+        {
+          "id": "photo",
+          "name": "Photograph",
+          "width": 350,
+          "height": 450,
+          "minKb": 5,
+          "maxKb": 600,
+          "fit": "crop",
+          "physical": "3.5 cm x 4.5 cm"
+        },
+        {
+          "id": "signature",
+          "name": "Signature",
+          "width": 400,
+          "height": 120,
+          "minKb": 3,
+          "maxKb": 300,
+          "fit": "pad",
+          "note": "Sign in black or dark blue ink. The signature should fill 70 to 80 percent of the image."
+        }
+      ]
+    },
+    {
+      "id": "uk-passport-digital",
+      "name": "UK passport (digital photo)",
+      "cycle": "GOV.UK page Get a passport photo, digital photos (no update date shown on the page)",
+      "source": {
+        "title": "GOV.UK: Get a passport photo, Rules for digital photos",
+        "url": "https://www.gov.uk/photos-for-passports",
+        "location": "section Rules for digital photos, The quality of your digital photo",
+        "retrieved": "2026-11-14"
+      },
+      "notes": [
+        "The page gives a minimum of 600 pixels wide by 750 pixels tall and a file size of at least 50 KB and no more than 10 MB. This tool uses the smallest size, 600 x 750 px.",
+        "The page also says the photo must be in colour, taken against a plain light-coloured background, taken in the last month, and unaltered by computer software. If you use a photo taken on your own device, include your head, shoulders and upper body: the page says it will be cropped for you.",
+        "The page does not name a file format. This tool makes a JPG. Printed photos have different rules on a different GOV.UK page, which was not read."
+      ],
+      "documents": [
+        {
+          "id": "photo",
+          "name": "Digital photo",
+          "width": 600,
+          "height": 750,
+          "minKb": 50,
+          "maxKb": 10240,
+          "fit": "crop"
+        }
+      ]
+    },
+    {
+      "id": "canada-passport-digital",
+      "name": "Canada passport (digital photo)",
+      "cycle": "Canada.ca page Passport photo requirements, online renewals (page details date 2026-09-23)",
+      "source": {
+        "title": "Passport photo requirements, Online renewals: Digital photo specifications",
+        "url": "https://www.canada.ca/en/immigration-refugees-citizenship/services/canadian-passports/photos.html",
+        "location": "section Online renewals, Digital photo specifications: Format, size and more",
+        "retrieved": "2026-11-14"
+      },
+      "notes": [
+        "The page gives a 3:2 aspect ratio in portrait, at least 1,800 pixels high by 1,200 pixels wide and no larger than 4,500 by 3,000 pixels, in .jpeg or .jpg, between 200 KB and 5 MB. This tool uses the smallest size, 1,200 x 1,800 px.",
+        "The page also asks for a chin-to-crown measurement between 45 and 50 percent of the photo height, a plain white or light-coloured background, and a photo taken no more than 6 months before you apply. It says the file must be saved directly from the original file the camera captured, so use the original photo and not a screenshot or an already edited copy.",
+        "Physical photos have different rules (50 mm x 70 mm) on the same page. They are not covered here."
+      ],
+      "documents": [
+        {
+          "id": "photo",
+          "name": "Digital photo",
+          "width": 1200,
+          "height": 1800,
+          "minKb": 200,
+          "maxKb": 5120,
+          "fit": "crop"
+        }
+      ]
+    },
+    {
+      "id": "ssc-chsl-2026",
+      "name": "SSC CHSL 2026",
+      "cycle": "Combined Higher Secondary (10+2) Level Examination, 2026 (online applications 07.09.2026 to 07.10.2026)",
+      "source": {
+        "title": "Notice of the Combined Higher Secondary (10+2) Level Examination, 2026",
+        "url": "https://ssc.gov.in/api/attachment/uploads/masterData/NoticeBoards/Notice_of_adv_chsl_2026.pdf",
+        "location": "paragraph 9.6, PDF page 12 of 89 (repeated on PDF page 35)",
+        "retrieved": "2026-11-14"
+      },
+      "notes": [
+        "In this notice the photograph is captured with the camera inside the application form, so there is no photo file to upload.",
+        "The notice gives the signature size in centimetres only, with no pixel size, so this tool keeps your image's pixel size and only fits the file size.",
+        "The notice gives about 6.0 cm x 2.0 cm in paragraph 9.6, but a later list of documents on PDF page 53 says about 4.0 cm x 2.0 cm. Both are \"about\" sizes. Check the form when you upload."
+      ],
+      "documents": [
+        {
+          "id": "signature",
+          "name": "Signature",
+          "width": null,
+          "height": null,
+          "minKb": 10,
+          "maxKb": 20,
+          "fit": "pad",
+          "physical": "about 6.0 cm x 2.0 cm",
+          "note": "Blurred or miniature signatures are rejected."
+        }
+      ]
+    },
+    {
+      "id": "ssc-gd-2026",
+      "name": "SSC GD Constable 2026",
+      "cycle": "Constable (GD) in CAPFs and SSF, and Rifleman (GD) in Assam Rifles Examination, 2026 (online applications 01.12.2025 to 31.12.2025)",
+      "source": {
+        "title": "Notice of the Constable (GD) in Central Armed Police Forces (CAPFs) and SSF, and Rifleman (GD) in Assam Rifles Examination, 2026",
+        "url": "https://ssc.gov.in/api/attachment/uploads/masterData/NoticeBoards/Notice_of_CTGD_2026.pdf",
+        "location": "paragraph 8.7, PDF page 10 of 75 (repeated on PDF pages 29 and 45; PDF page 48 adds a resolution of 300 DPI)",
+        "retrieved": "2026-11-14"
+      },
+      "notes": [
+        "In this notice the photograph is captured with the camera inside the application form, so there is no photo file to upload.",
+        "The notice gives the signature size in centimetres only, with no pixel size, so this tool keeps your image's pixel size and only fits the file size. PDF page 48 also asks for a resolution of 300 DPI.",
+        "This exam cycle has already closed. SSC publishes a new notice for each cycle, so check the latest one."
+      ],
+      "documents": [
+        {
+          "id": "signature",
+          "name": "Signature",
+          "width": null,
+          "height": null,
+          "minKb": 10,
+          "maxKb": 20,
+          "fit": "pad",
+          "physical": "about 6.0 cm x 2.0 cm at 300 DPI",
+          "note": "Blurred or miniature signatures are rejected. The signature should be horizontally aligned."
+        }
+      ]
+    },
+    {
+      "id": "ssc-mts-2025",
+      "name": "SSC MTS and Havaldar 2025",
+      "cycle": "Multi Tasking (Non-Technical) Staff, and Havaldar (CBIC & CBN) Examination, 2025 (online applications 26-06-2025 to 24-07-2025)",
+      "source": {
+        "title": "Notice of the Multi Tasking (Non-Technical) Staff, and Havaldar (CBIC & CBN) Examination, 2025",
+        "url": "https://ssc.gov.in/api/attachment/uploads/masterData/NoticeBoards/Notice_of_adv_mts_2025.pdf",
+        "location": "paragraph 10.6, PDF page 13 of 88 (repeated on PDF page 37)",
+        "retrieved": "2026-11-14"
+      },
+      "notes": [
+        "In this notice the photograph is captured with the camera inside the application form, so there is no photo file to upload.",
+        "The notice gives the signature size in centimetres only, with no pixel size, so this tool keeps your image's pixel size and only fits the file size.",
+        "This is the 2025 notice, the latest MTS notice we could find on ssc.gov.in on the read date. SSC publishes a new notice for each cycle, so check the newest one."
+      ],
+      "documents": [
+        {
+          "id": "signature",
+          "name": "Signature",
+          "width": null,
+          "height": null,
+          "minKb": 10,
+          "maxKb": 20,
+          "fit": "pad",
+          "physical": "about 6.0 cm x 2.0 cm",
+          "note": "Blurred or miniature signatures are rejected."
+        }
+      ]
+    },
+    {
+      "id": "neet-ug-2026",
+      "name": "NEET (UG) 2026",
+      "cycle": "NEET (UG) 2026, examination held on 03 May 2026",
+      "source": {
+        "title": "Information Bulletin NEET (UG)-2026: Upload Scanned Images of Candidate's Photograph, Signature, Left and Right Hands Fingers and Thumb impressions",
+        "url": "https://cdnbbsr.s3waas.gov.in/s37bc1ec1d9c3426357e69acd5bf320061/uploads/2026/02/202602081576322299.pdf",
+        "location": "item d, PDF page 21 of 125 (printed page 16)",
+        "retrieved": "2026-11-14"
+      },
+      "notes": [
+        "The bulletin gives file sizes only, with no pixel size, so your picture keeps its own pixel size and only the file size is fitted.",
+        "The bulletin asks for a recent passport-size photograph in colour or black and white, with 80 percent of the face visible (including ears, without a mask) against a white background, in JPG or JPEG. It also says the photograph must have been taken on or after 01 January 2026.",
+        "The thumb and finger impressions are not included here: the bulletin gives 10 to 200 KB for them on PDF page 21 and 50 to 300 KB on PDF page 22.",
+        "This is the 2026 bulletin. NTA publishes a new one for each year, so check the latest."
+      ],
+      "documents": [
+        {
+          "id": "photo",
+          "name": "Photograph",
+          "width": null,
+          "height": null,
+          "minKb": 10,
+          "maxKb": 200,
+          "fit": "crop"
+        },
+        {
+          "id": "signature",
+          "name": "Signature",
+          "width": null,
+          "height": null,
+          "minKb": 10,
+          "maxKb": 100,
+          "fit": "pad"
+        }
+      ]
+    },
+    {
+      "id": "jee-main-2027",
+      "name": "JEE (Main) 2027",
+      "cycle": "JEE (Main) 2027, Session 1 (January 2027) and Session 2 (April 2027)",
+      "source": {
+        "title": "Information Bulletin, Joint Entrance Examination (Main) 2027: Upload Scanned Images of the Candidate's Photograph and Signature",
+        "url": "https://cdnbbsr.s3waas.gov.in/s3f8e59f4b2fe7c5705bf878bbd494ccdf/uploads/2026/10/202610241890224107.pdf",
+        "location": "sections Photograph and Signature, PDF page 9 of 94 (printed page 8)",
+        "retrieved": "2026-11-14"
+      },
+      "notes": [
+        "The bulletin gives file sizes only, with no pixel size, so your picture keeps its own pixel size and only the file size is fitted.",
+        "The bulletin asks for a recent scanned passport-size photograph in colour with 80 percent of the face visible (including ears, without a mask) against a white background, in JPG or JPEG, and the signature in JPG or JPEG.",
+        "A live photograph is also captured in the application form, separate from this upload."
+      ],
+      "documents": [
+        {
+          "id": "photo",
+          "name": "Photograph",
+          "width": null,
+          "height": null,
+          "minKb": 10,
+          "maxKb": 200,
+          "fit": "crop"
+        },
+        {
+          "id": "signature",
+          "name": "Signature",
+          "width": null,
+          "height": null,
+          "minKb": 10,
+          "maxKb": 100,
+          "fit": "pad"
+        }
+      ]
     }
   ]
 }

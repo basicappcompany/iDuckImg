@@ -4,13 +4,28 @@
  * same source and read date. Nothing is typed in twice, which is how a page could drift from its
  * source. A test fails when a document in the data has no page.
  */
-import { EXAMS, describeRequirements, type ExamDocument, type ExamPreset } from './exam-presets';
+import { EXAMS, describeRequirements, formatKb, type ExamDocument, type ExamPreset } from './exam-presets';
 import type { LandingPage } from './landing';
 
 /** Short name for headings and slugs. Falls back to the full name for an exam not listed here. */
 const SHORT: Record<string, { name: string; slug: string }> = {
   'ibps-po-xv': { name: 'IBPS PO', slug: 'ibps-po' },
   'ssc-cgl-2026': { name: 'SSC CGL', slug: 'ssc-cgl' },
+  'ssc-chsl-2026': { name: 'SSC CHSL', slug: 'ssc-chsl' },
+  'ssc-gd-2026': { name: 'SSC GD', slug: 'ssc-gd' },
+  'ssc-mts-2025': { name: 'SSC MTS', slug: 'ssc-mts' },
+  'neet-ug-2026': { name: 'NEET UG', slug: 'neet-ug' },
+  'jee-main-2027': { name: 'JEE Main', slug: 'jee-main' },
+  'ibps-clerk-csa-xvi': { name: 'IBPS Clerk', slug: 'ibps-clerk' },
+  'ibps-rrb-xv': { name: 'IBPS RRB', slug: 'ibps-rrb' },
+  'ibps-so-spl-xvi': { name: 'IBPS SO', slug: 'ibps-so' },
+  'sbi-po-2026-27': { name: 'SBI PO', slug: 'sbi-po' },
+  'sbi-clerk-2026-27': { name: 'SBI Clerk', slug: 'sbi-clerk' },
+  'cuet-ug-2026': { name: 'CUET UG', slug: 'cuet-ug' },
+  'ctet-sep-2026': { name: 'CTET', slug: 'ctet' },
+  'gate-2026': { name: 'GATE 2026', slug: 'gate-2026' },
+  'uk-passport-digital': { name: 'UK passport', slug: 'uk-passport' },
+  'canada-passport-digital': { name: 'Canada passport', slug: 'canada-passport' },
 };
 
 const DOC_SLUG: Record<string, string> = {
@@ -69,8 +84,8 @@ function examPage(exam: ExamPreset, doc: ExamDocument): LandingPage {
 
   const notes = [
     hasPixels
-      ? `The picture is ${fitText}, then saved at the best quality that fits under ${doc.maxKb} KB.${doc.minKb !== null ? ` If a simple picture comes out under ${doc.minKb} KB, harmless filler data is added to the JPG so it reaches the minimum. The picture itself is not changed by that.` : ''}`
-      : `The notice gives no pixel size, so your picture keeps its own pixel size and only the file size is fitted, to ${doc.minKb !== null ? `${doc.minKb} to ${doc.maxKb}` : `up to ${doc.maxKb}`} KB.`,
+      ? `The picture is ${fitText}, then saved at the best quality that fits under ${formatKb(doc.maxKb)}.${doc.minKb !== null ? ` If a simple picture comes out under ${formatKb(doc.minKb)}, harmless filler data is added to the JPG so it reaches the minimum. The picture itself is not changed by that.` : ''}`
+      : `The notice gives no pixel size, so your picture keeps its own pixel size and only the file size is fitted, to ${doc.minKb !== null ? `${formatKb(doc.minKb)} to ${formatKb(doc.maxKb)}` : `up to ${formatKb(doc.maxKb)}`}.`,
     ...(doc.physical ? [`The notice gives the physical size as ${doc.physical}. That is shown here as written and is not converted into pixels.`] : []),
     ...(doc.note ? [doc.note] : []),
     ...(exam.notes ?? []),
@@ -85,7 +100,7 @@ function examPage(exam: ExamPreset, doc: ExamDocument): LandingPage {
     {
       q: 'How does the file get to the right size?',
       a: hasPixels
-        ? `It is ${fitText}, then saved as a JPG at the best quality that stays under the maximum.${doc.minKb !== null ? ` If it would be under ${doc.minKb} KB, filler data is added so it reaches the minimum.` : ''} Everything happens in your browser, so the picture is never uploaded.`
+        ? `It is ${fitText}, then saved as a JPG at the best quality that stays under the maximum.${doc.minKb !== null ? ` If it would be under ${formatKb(doc.minKb)}, filler data is added so it reaches the minimum.` : ''} Everything happens in your browser, so the picture is never uploaded.`
         : 'Your picture keeps its pixel size and is saved as a JPG at the best quality that fits the file size range. It happens in your browser, so the picture is never uploaded.',
     },
     {

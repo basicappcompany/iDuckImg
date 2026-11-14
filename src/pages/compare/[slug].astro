@@ -1,0 +1,72 @@
+---
+import CommunityLayout from '../../components/CommunityLayout.astro';
+import { COMPARE_CHECKED, COMPARE_PAGES, type ComparePage } from '../../lib/compare';
+import { breadcrumbLd } from '../../lib/seo';
+import { readableDate } from '../../lib/exam-landing';
+
+export function getStaticPaths() {
+  return COMPARE_PAGES.map((page) => ({ params: { slug: page.slug }, props: { page } }));
+}
+const { page } = Astro.props as { page: ComparePage };
+const checked = readableDate(COMPARE_CHECKED);
+const jsonLd = [
+  breadcrumbLd([
+    { name: 'Home', path: '/' },
+    { name: `iDuckIMG vs ${page.other}`, path: `/compare/${page.slug}/` },
+  ]),
+];
+---
+
+<CommunityLayout title={`${page.title} | iDuckIMG`} description={page.description} before="iDuckIMG vs" mark={page.other} intro={page.intro} jsonLd={jsonLd}>
+  <section class="card p-5" aria-labelledby="table">
+    <h2 id="table" class="text-2xl font-black tracking-tight">Side by side</h2>
+    <p class="mt-2 text-sm text-muted">
+      Checked on {checked}. Facts about {page.other} are what its own pages say; where a page does not say, we write so.
+    </p>
+    <div class="mt-3 overflow-x-auto">
+      <table class="w-full min-w-[40rem] border-collapse text-left text-sm">
+        <thead>
+          <tr class="border-b-2 border-line">
+            <th class="py-2 pr-3">Question</th>
+            <th class="py-2 pr-3">iDuckIMG</th>
+            <th class="py-2 pr-3">{page.other}</th>
+            <th class="py-2">Source for {page.other}</th>
+          </tr>
+        </thead>
+        <tbody>
+          {
+            page.rows.map((row) => (
+              <tr class="border-b border-line align-top">
+                <th scope="row" class="py-2 pr-3 font-bold">{row.question}</th>
+                <td class="py-2 pr-3">{row.us}</td>
+                <td class="py-2 pr-3">{row.them}</td>
+                <td class="py-2">
+                  <a class="link" href={row.source.url} rel="noopener nofollow">{row.source.label}</a>, {checked}
+                </td>
+              </tr>
+            ))
+          }
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <section class="card p-5" aria-labelledby="theirs">
+    <h2 id="theirs" class="text-2xl font-black tracking-tight">What {page.other} does that we do not</h2>
+    <ul class="mt-2 list-disc space-y-1 pl-5 leading-relaxed">{page.theirStrengths.map((s) => <li>{s}</li>)}</ul>
+  </section>
+
+  <section class="card p-5" aria-labelledby="choose">
+    <h2 id="choose" class="text-2xl font-black tracking-tight">Which should you use?</h2>
+    <h3 class="mt-3 text-lg font-black">iDuckIMG is a good fit if</h3>
+    <ul class="mt-1 list-disc space-y-1 pl-5 leading-relaxed">{page.chooseUs.map((s) => <li>{s}</li>)}</ul>
+    <h3 class="mt-4 text-lg font-black">{page.other} is a good fit if</h3>
+    <ul class="mt-1 list-disc space-y-1 pl-5 leading-relaxed">{page.chooseThem.map((s) => <li>{s}</li>)}</ul>
+    <p class="mt-4 text-sm">
+      This page is written by the makers of iDuckIMG, so weigh it accordingly. We keep it to facts you can check at the links
+      above. If something is out of date, <a class="link" href="/feedback/">tell us</a>. Learn more about
+      <a class="link" href="/how-it-works/">how iDuckIMG works</a> and
+      <a class="link" href="/guides/are-online-image-tools-safe/">how to tell if an online image tool is safe</a>.
+    </p>
+  </section>
+</CommunityLayout>

@@ -44,7 +44,8 @@ describe('landing pages', () => {
   it('size-target pages set a target and keep the picture size', () => {
     for (const p of LANDING_PAGES.filter((x) => x.engine === 'resize')) {
       const o = { ...defaultResizeOptions, ...p.initial } as ResizeOptions;
-      expect(o.targetKb).toBe(Number(p.slug.match(/(\d+)kb$/)![1]));
+      const mb = p.slug.match(/(\d+)mb$/);
+      expect(o.targetKb).toBe(mb ? Number(mb[1]) * 1024 : Number(p.slug.match(/(\d+)kb$/)![1]));
       expect(computeSize({ width: 4000, height: 3000 }, o)).toEqual({ width: 4000, height: 3000 });
     }
   });

@@ -1,6 +1,6 @@
 import { TOOLS, toolPath } from '../lib/tools';
 import { SITE_URL } from '../lib/seo';
-import { LANDING_PAGES, landingPath } from '../lib/landing';
+import { LANDING_PAGES, isTranslatable, landingPath } from '../lib/landing';
 import { GUIDES, guidePath } from '../lib/guides';
 import { ukDeep } from './uk';
 import { en } from './en';
@@ -61,7 +61,7 @@ export interface Alternate {
 }
 
 /** Slugs that have a translated page, with the home page. */
-const TRANSLATED_PATHS = new Set<string>(['/', ...TOOLS.map((t) => toolPath(t.slug)), ...LANDING_PAGES.map((p) => landingPath(p.slug)), '/guides/', '/chat/', ...GUIDES.map((g) => guidePath(g.slug))]);
+const TRANSLATED_PATHS = new Set<string>(['/', ...TOOLS.map((t) => toolPath(t.slug)), ...LANDING_PAGES.filter(isTranslatable).map((p) => landingPath(p.slug)), '/guides/', '/chat/', ...GUIDES.map((g) => guidePath(g.slug))]);
 
 /** True when this English path has a translated version in every published language. */
 export function hasTranslations(englishPath: string): boolean {

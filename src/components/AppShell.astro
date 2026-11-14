@@ -48,7 +48,8 @@ const localNames = isEn ? null : new Map(localizedQuickGroups(locale).flatMap((g
 const quick = quickGroups().map((g) => ({
   ...g,
   name: isEn ? g.name : sc.chrome.groups[g.id as keyof typeof sc.chrome.groups],
-  items: g.items.map((i) => ({ ...i, name: localNames?.get(i.slug) ?? i.name })),
+  // A translated sidebar lists only pages that exist in that language (English-only size pages are left out).
+  items: g.items.filter((i) => isEn || localNames!.has(i.slug)).map((i) => ({ ...i, name: localNames?.get(i.slug) ?? i.name })),
 }));
 // Only "Compress & resize" is open to start with. A shortcut page opens its own group instead.
 const openQuick = (toolForPath(path) ? undefined : quick.find((g) => g.items.some((i) => i.href === path))?.id) ?? 'compress';
@@ -358,6 +359,7 @@ const openGroup = toolForPath(path)?.group ?? TOOL_GROUPS[0];
             <a class="link" href="/terms/">Terms</a>
             <a class="link" href="/feedback/">Feedback</a>
             <a class="link" href="/how-it-works/">How iDuckIMG works</a>
+            <a class="link" href="/photo-and-signature-requirements/">Exam photo sizes</a>
           </p>
           <p class="mt-3 text-xs">© 2026 Basic App Company · iDuckIMG · iduckimg.com · Free image tools that run in your browser. Last updated {SITE_UPDATED}.</p>
         </footer>

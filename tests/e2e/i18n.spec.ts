@@ -14,7 +14,7 @@ const LANGS = [
 ] as const;
 
 /** Links in the Quick tools sidebar: the shortcut pages plus the tools some groups list. */
-const QUICK_LINKS = 39;
+const QUICK_LINKS = 81; // translated sidebar: every Quick tools link except the English-only size pages
 
 const hreflangs = (page: Page) =>
   page.locator('link[rel="alternate"][hreflang]').evaluateAll((links) =>

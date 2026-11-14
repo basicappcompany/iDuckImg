@@ -82,11 +82,18 @@ export function findExam(id: string): ExamPreset | undefined {
   return EXAMS.find((e) => e.id === id);
 }
 
+/** 50 -> "50 KB"; 5120 -> "5 MB" (whole megabytes read better than 5120 KB). */
+export function formatKb(kb: number): string {
+  return kb >= 1024 && kb % 1024 === 0 ? `${kb / 1024} MB` : `${kb} KB`;
+}
+
 /** One line such as "200 x 230 px, 20 to 50 KB". */
 export function describeRequirements(doc: ExamDocument): string {
   const parts: string[] = [];
   if (doc.width !== null && doc.height !== null) parts.push(`${doc.width} x ${doc.height} px`);
-  parts.push(doc.minKb !== null ? `${doc.minKb} to ${doc.maxKb} KB` : `up to ${doc.maxKb} KB`);
+  if (doc.minKb === null) parts.push(`up to ${formatKb(doc.maxKb)}`);
+  else if (doc.maxKb < 1024) parts.push(`${doc.minKb} to ${doc.maxKb} KB`);
+  else parts.push(`${formatKb(doc.minKb)} to ${formatKb(doc.maxKb)}`);
   parts.push('JPG');
   return parts.join(', ');
 }

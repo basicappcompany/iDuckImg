@@ -1,4 +1,72 @@
 import { expect, test, type Page } from '@playwright/test';
+import { addFiles, makeImage, readResults } from './helpers';
+
+/**
+ * Every exam page, in the order the sidebar lists them: one per document of each exam in
+ * src/data/exam-presets.json. Written out here because Playwright cannot import the data module;
+ * the unit test "has a page for every document" fails first if a document is added without a page.
+ */
+const EXAM_PATHS = [
+  '/ibps-po-photo-size/',
+  '/ibps-po-signature-size/',
+  '/ibps-po-thumb-impression-size/',
+  '/ibps-po-declaration-size/',
+  '/ssc-cgl-signature-size/',
+  '/ibps-clerk-photo-size/',
+  '/ibps-clerk-signature-size/',
+  '/ibps-clerk-thumb-impression-size/',
+  '/ibps-clerk-declaration-size/',
+  '/ibps-rrb-photo-size/',
+  '/ibps-rrb-signature-size/',
+  '/ibps-rrb-thumb-impression-size/',
+  '/ibps-rrb-declaration-size/',
+  '/ibps-so-photo-size/',
+  '/ibps-so-signature-size/',
+  '/ibps-so-thumb-impression-size/',
+  '/ibps-so-declaration-size/',
+  '/sbi-po-photo-size/',
+  '/sbi-po-signature-size/',
+  '/sbi-po-thumb-impression-size/',
+  '/sbi-po-declaration-size/',
+  '/sbi-clerk-photo-size/',
+  '/sbi-clerk-signature-size/',
+  '/sbi-clerk-thumb-impression-size/',
+  '/sbi-clerk-declaration-size/',
+  '/cuet-ug-photo-size/',
+  '/cuet-ug-signature-size/',
+  '/ctet-photo-size/',
+  '/ctet-signature-size/',
+  '/gate-2026-photo-size/',
+  '/gate-2026-signature-size/',
+  '/uk-passport-photo-size/',
+  '/canada-passport-photo-size/',
+  '/ssc-chsl-signature-size/',
+  '/ssc-gd-signature-size/',
+  '/ssc-mts-signature-size/',
+  '/neet-ug-photo-size/',
+  '/neet-ug-signature-size/',
+  '/jee-main-photo-size/',
+  '/jee-main-signature-size/',
+];
+/** The size-target, minimum-size and picture-size pages, in the order they are defined in src/lib/landing-growth.ts. */
+const GROWTH_PATHS = [
+  '/compress-image-to-10kb/',
+  '/compress-image-to-15kb/',
+  '/compress-image-to-30kb/',
+  '/compress-image-to-40kb/',
+  '/compress-image-to-150kb/',
+  '/compress-image-to-300kb/',
+  '/compress-image-to-500kb/',
+  '/compress-image-to-1mb/',
+  '/compress-image-to-2mb/',
+  '/increase-image-size-in-kb/',
+  '/resize-signature-10-20kb/',
+  '/resize-image-to-35x45-mm/',
+  '/resize-image-to-2x2-inch/',
+  '/resize-image-to-200x230-px/',
+  '/passport-size-photo/',
+  '/add-name-and-date-to-photo/',
+];
 
 /** Same order as the sidebar and the homepage: grouped. */
 const GROUPS: Record<string, string[]> = {
@@ -13,7 +81,8 @@ const TOOL_PATHS = Object.values(GROUPS).flat();
 /** The shortcuts (landing pages) listed under the tool they open, after the group's own tools. */
 const SHORTCUTS: Record<string, string[]> = {
   'Shrink & resize': ['/compress-image-to-100kb/', '/compress-image-to-50kb/', '/compress-image-to-200kb/', '/compress-image-to-20kb/',
-    '/ibps-po-photo-size/', '/ibps-po-signature-size/', '/ibps-po-thumb-impression-size/', '/ibps-po-declaration-size/', '/ssc-cgl-signature-size/'],
+    ...EXAM_PATHS, ...GROWTH_PATHS.filter((p) => p !== '/add-name-and-date-to-photo/')],
+  'Add text & effects': ['/add-name-and-date-to-photo/'],
   'Convert & combine': [
     '/heic-to-jpg/', '/heic-to-png/', '/png-to-jpg/', '/jpg-to-png/', '/webp-to-jpg/',
     '/webp-to-png/', '/jpg-to-webp/', '/png-to-webp/', '/jpg-to-pdf/', '/png-to-pdf/',
@@ -25,6 +94,8 @@ const QUICK: Record<string, string[]> = {
   'Compress & resize': [
     '/compress-image/', '/resize-image/', '/compress-image-to-100kb/', '/compress-image-to-50kb/',
     '/compress-image-to-200kb/', '/compress-image-to-20kb/',
+    '/compress-image-to-10kb/', '/compress-image-to-15kb/', '/compress-image-to-30kb/', '/compress-image-to-40kb/',
+    '/compress-image-to-150kb/', '/compress-image-to-300kb/', '/compress-image-to-500kb/', '/compress-image-to-1mb/', '/compress-image-to-2mb/',
   ],
   'Convert a format': [
     '/heic-to-jpg/', '/heic-to-png/', '/png-to-jpg/', '/jpg-to-png/', '/webp-to-jpg/',
@@ -32,7 +103,7 @@ const QUICK: Record<string, string[]> = {
   ],
   'Open other formats': ['/avif-to-jpg/', '/avif-to-png/', '/svg-to-png/', '/svg-to-jpg/', '/bmp-to-jpg/', '/gif-to-png/'],
   'Make a PDF': ['/jpg-to-pdf/', '/png-to-pdf/', '/image-to-pdf/'],
-  'Photos for forms': ['/exam-photo-resizer/', '/ibps-po-photo-size/', '/ibps-po-signature-size/', '/ibps-po-thumb-impression-size/', '/ibps-po-declaration-size/', '/ssc-cgl-signature-size/', '/remove-exif-data/', '/blur-image/'],
+  'Photos for forms': ['/exam-photo-resizer/', ...EXAM_PATHS, '/increase-image-size-in-kb/', '/resize-signature-10-20kb/', '/resize-image-to-35x45-mm/', '/resize-image-to-2x2-inch/', '/resize-image-to-200x230-px/', '/passport-size-photo/', '/add-name-and-date-to-photo/', '/remove-exif-data/', '/blur-image/'],
   'Quick edits': ['/crop-image/', '/rotate-image/', '/add-watermark-to-image/', '/add-logo-to-image/', '/circle-crop-image/', '/merge-images/', '/adjust-image-colors/', '/add-border-to-image/'],
 };
 /** Everything the home page and the sidebar list, in order: each group's tools, then its shortcuts. */
@@ -293,7 +364,7 @@ test.describe('site', () => {
       const cards = page.locator('[data-card-group]:not([hidden]) [data-card]');
       await expect(cards).toHaveCount(LISTED.length);
       await page.getByRole('switch', { name: /^Add text & effects/ }).click();
-      await expect(cards).toHaveCount(GROUPS['Add text & effects']!.length);
+      await expect(cards).toHaveCount(GROUPS['Add text & effects']!.length + (SHORTCUTS['Add text & effects']?.length ?? 0));
       await expect(page.getByRole('switch', { name: /^Add text & effects/ })).toHaveAttribute('aria-checked', 'true');
       await expect(page.getByRole('switch', { name: /^Everything/ })).toHaveAttribute('aria-checked', 'false');
       await page.getByRole('switch', { name: /^Everything/ }).click();
@@ -337,5 +408,64 @@ test.describe('site', () => {
       await expect(page.getByRole('dialog', { name: 'Search' })).toBeVisible();
       await expect(page.getByRole('combobox', { name: /Search tools, pages and actions/ })).toBeFocused();
     });
+  });
+});
+
+test.describe('size-target and picture-size pages', () => {
+  test('compress to 10 KB, 15 KB, 1 MB: a real result under the target at the same pixel size', async ({ page }) => {
+    for (const [path, kb, w, h] of [['/compress-image-to-10kb/', 10, 400, 300], ['/compress-image-to-15kb/', 15, 600, 400], ['/compress-image-to-1mb/', 1024, 1600, 1200]] as const) {
+      await page.goto(path);
+      await addFiles(page, [await makeImage(page, 'image/jpeg', 'photo.jpg', w, h)]);
+      await page.getByRole('button', { name: 'Resize', exact: true }).click();
+      const [r] = await readResults(page, 1);
+      expect(r!.size, path).toBeLessThanOrEqual(kb * 1024);
+      expect([r!.width, r!.height], path).toEqual([w, h]);
+    }
+  });
+
+  test('increase image size in KB reaches the minimum without changing the pixels', async ({ page }) => {
+    await page.goto('/increase-image-size-in-kb/');
+    await page.waitForFunction(() => document.querySelector('astro-island[ssr]') === null);
+    await expect(page.getByLabel('Exam', { exact: true })).toHaveValue('custom');
+    await expect(page.getByLabel('Minimum size (KB)')).toHaveValue('100');
+    await addFiles(page, [await makeImage(page, 'image/jpeg', 'tiny.jpg', 120, 80)]);
+    await page.getByRole('button', { name: 'Make my file', exact: true }).click();
+    const [r] = await readResults(page, 1);
+    expect(r!.size / 1024).toBeGreaterThanOrEqual(100);
+    expect(r!.size / 1024).toBeLessThanOrEqual(200);
+    expect([r!.width, r!.height]).toEqual([120, 80]);
+  });
+
+  test('the picture-size pages make the exact pixel size', async ({ page }) => {
+    for (const [path, w, h] of [['/resize-image-to-35x45-mm/', 413, 531], ['/resize-image-to-2x2-inch/', 600, 600], ['/passport-size-photo/', 413, 531]] as const) {
+      await page.goto(path);
+      await page.waitForFunction(() => document.querySelector('astro-island[ssr]') === null);
+      await addFiles(page, [await makeImage(page, 'image/jpeg', 'me.jpg', 1500, 1000)]);
+      await page.getByRole('button', { name: 'Make my file', exact: true }).click();
+      const [r] = await readResults(page, 1);
+      expect([r!.width, r!.height], path).toEqual([w, h]);
+      expect(r!.size / 1024, path).toBeLessThanOrEqual(500);
+    }
+  });
+
+  test('add name and date opens with two lines and draws them without changing the picture size', async ({ page }) => {
+    await page.goto('/add-name-and-date-to-photo/');
+    await page.waitForFunction(() => document.querySelector('astro-island[ssr]') === null);
+    await addFiles(page, [await makeImage(page, 'image/jpeg', 'me.jpg', 800, 600)]);
+    await page.getByRole('button', { name: 'Add text', exact: true }).click();
+    const [r] = await readResults(page, 1);
+    expect([r!.width, r!.height]).toEqual([800, 600]);
+    expect(r!.type).toBe('image/jpeg');
+  });
+
+  test('the signature page keeps the picture size and lands in 10 to 20 KB', async ({ page }) => {
+    await page.goto('/resize-signature-10-20kb/');
+    await page.waitForFunction(() => document.querySelector('astro-island[ssr]') === null);
+    await addFiles(page, [await makeImage(page, 'image/jpeg', 'sign.jpg', 500, 200)]);
+    await page.getByRole('button', { name: 'Make my file', exact: true }).click();
+    const [r] = await readResults(page, 1);
+    expect(r!.size / 1024).toBeGreaterThanOrEqual(10);
+    expect(r!.size / 1024).toBeLessThanOrEqual(20);
+    expect([r!.width, r!.height]).toEqual([500, 200]);
   });
 });

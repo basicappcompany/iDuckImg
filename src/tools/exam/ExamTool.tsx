@@ -30,15 +30,17 @@ interface Props {
   /** Landing pages open with one exam and document already chosen. */
   initialExam?: string;
   initialDoc?: string;
+  /** With initialExam 'custom': the numbers to start the "Other exam" form with (a page for a size or a minimum file size). */
+  initialCustom?: Partial<Custom>;
 }
 
-export default function ExamTool({ initialExam, initialDoc }: Props = {}) {
+export default function ExamTool({ initialExam, initialDoc, initialCustom }: Props = {}) {
   const ui = useUi();
-  const start = EXAMS.find((e) => e.id === initialExam) ?? EXAMS[0];
+  const start = initialExam === CUSTOM ? undefined : (EXAMS.find((e) => e.id === initialExam) ?? EXAMS[0]);
   const [files, setFiles] = useState<File[]>([]);
   const [examId, setExamId] = useState<string>(start?.id ?? CUSTOM);
   const [docId, setDocId] = useState<string>(start?.documents.find((d) => d.id === initialDoc)?.id ?? start?.documents[0]?.id ?? '');
-  const [custom, setCustom] = useState<Custom>({ width: 200, height: 230, minKb: 20, maxKb: 50, fit: 'crop' });
+  const [custom, setCustom] = useState<Custom>({ width: 200, height: 230, minKb: 20, maxKb: 50, fit: 'crop', ...initialCustom });
   const runner = useToolRunner(examTool);
   const running = runner.state === 'running';
 
