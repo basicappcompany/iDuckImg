@@ -1,6 +1,8 @@
 /** Structured data (JSON-LD) builders. Pure functions so they can be unit tested. */
 export const SITE_URL = 'https://iduckimg.com';
-export const SITE_NAME = 'iDuckImg';
+export const SITE_NAME = 'iDuckIMG';
+/** Shown in the footer and as "Last reviewed" on pages. Update when the content is re-checked. */
+export const SITE_UPDATED = '2026-11-14';
 export const OG_IMAGE = `${SITE_URL}/og.png`;
 
 type Json = Record<string, unknown>;
@@ -16,7 +18,7 @@ export function organizationLd(): Json {
     name: 'Basic App Company',
     url: SITE_URL,
     logo: absolute('/favicon.svg'),
-    sameAs: ['https://iduckpdf.com/', 'https://github.com/basicappcompany/iDuckImg'],
+    sameAs: ['https://iduckpdf.com/', 'https://iduckcalculator.com/', 'https://iduckconvert.com/', 'https://github.com/basicappcompany/iDuckImg'],
   };
 }
 
@@ -40,7 +42,7 @@ export function webApplicationLd(name: string, path: string, description: string
     description,
     inLanguage: lang,
     applicationCategory: 'MultimediaApplication',
-    operatingSystem: 'Any (web browser)',
+    operatingSystem: 'Any',
     browserRequirements: 'Requires a modern browser with JavaScript',
     isAccessibleForFree: true,
     offers: { '@type': 'Offer', price: '0', priceCurrency: 'USD' },

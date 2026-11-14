@@ -12,7 +12,7 @@ export const hi: ShortcutText = {
       roadmap: `रोडमैप`,
       request: `फ़ीचर माँगें`,
       feedback: `फ़ीडबैक भेजें`,
-      support: `iDuckImg का समर्थन करें`,
+      support: `iDuckIMG का समर्थन करें`,
       settings: `सेटिंग`,
       about: `परिचय`,
     },

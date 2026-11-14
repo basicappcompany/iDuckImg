@@ -48,7 +48,7 @@ export const deHelper: HelperText = {
     feedback: `Feedback senden`,
     request: `Funktion vorschlagen`,
     roadmap: `Roadmap ansehen`,
-    support: `iDuckImg unterstützen`,
+    support: `iDuckIMG unterstützen`,
     settings: `Einstellungen öffnen`,
     browse: `Alle Bildwerkzeuge ansehen`,
   },

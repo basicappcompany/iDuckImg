@@ -26,7 +26,7 @@ test.describe('how-to guides', () => {
   test('a guide answers first, links to its tool, and carries structured data', async ({ page }) => {
     const response = await page.goto(FIRST);
     expect(response?.status()).toBe(200);
-    await expect(page).toHaveTitle(/How to Compress an Image Without Losing Quality.*iDuckImg/);
+    await expect(page).toHaveTitle(/How to Compress an Image Without Losing Quality.*iDuckIMG/);
     await expect(page.getByRole('heading', { level: 1 })).toHaveText('How to compress an image without losing quality');
     await expect(page.getByRole('region', { name: 'Quick answer' })).toContainText('To compress an image');
     await expect(page.getByRole('link', { name: /Open Compress images/ })).toHaveAttribute('href', '/compress-image/');

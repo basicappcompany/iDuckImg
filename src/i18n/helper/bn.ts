@@ -48,7 +48,7 @@ export const bnHelper: HelperText = {
     feedback: 'ফিডব্যাক পাঠান',
     request: 'নতুন ফিচার চান',
     roadmap: 'রোডম্যাপ দেখুন',
-    support: 'iDuckImg-কে সমর্থন করুন',
+    support: 'iDuckIMG-কে সমর্থন করুন',
     settings: 'সেটিংস খুলুন',
     browse: 'সব ইমেজ টুল দেখুন',
   },

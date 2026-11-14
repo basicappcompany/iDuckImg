@@ -257,8 +257,8 @@ export const frGuidesC: Record<string, GuideText> = {
   'are-online-image-tools-safe': {
     title: `Les outils d'image en ligne sont-ils sûrs ? Comment vérifier le vôtre`,
     seoTitle: `Les outils d'image en ligne sont-ils sûrs ? Vérifiez`,
-    description: `Beaucoup d'outils d'image en ligne envoient votre photo à un serveur. Voici comment le savoir, le vérifier en deux minutes, et ce que fait iDuckImg à la place.`,
-    intro: `Un outil d'image en ligne n'est aussi privé que l'endroit où il fait son travail. Beaucoup envoient votre photo à un serveur ; iDuckImg fait le travail dans votre navigateur : le fichier reste donc sur votre appareil. Vous pouvez le vérifier vous-même dans l'onglet Réseau du navigateur.`,
+    description: `Beaucoup d'outils d'image en ligne envoient votre photo à un serveur. Voici comment le savoir, le vérifier en deux minutes, et ce que fait iDuckIMG à la place.`,
+    intro: `Un outil d'image en ligne n'est aussi privé que l'endroit où il fait son travail. Beaucoup envoient votre photo à un serveur ; iDuckIMG fait le travail dans votre navigateur : le fichier reste donc sur votre appareil. Vous pouvez le vérifier vous-même dans l'onglet Réseau du navigateur.`,
     steps: [
       `Ouvrez la page de l'outil, puis les outils de développement de votre navigateur (F12) et choisissez l'onglet Réseau.`,
       `Videz la liste, puis déposez une image dans l'outil et lancez-le.`,
@@ -274,16 +274,16 @@ export const frGuidesC: Record<string, GuideText> = {
         ],
       },
       {
-        h: `Ce que fait iDuckImg`,
+        h: `Ce que fait iDuckIMG`,
         p: [
-          `Chaque outil iDuckImg fonctionne dans votre navigateur. Vos images ne sont pas envoyées, il n'y a pas d'inscription et aucun filigrane n'est ajouté. La page charge son propre code et ses propres fichiers depuis le même site, et, pour certains formats comme le HEIC, un décodeur provenant du même site. Elle n'envoie aucune requête à d'autres entreprises.`,
+          `Chaque outil iDuckIMG fonctionne dans votre navigateur. Vos images ne sont pas envoyées, il n'y a pas d'inscription et aucun filigrane n'est ajouté. La page charge son propre code et ses propres fichiers depuis le même site, et, pour certains formats comme le HEIC, un décodeur provenant du même site. Elle n'envoie aucune requête à d'autres entreprises.`,
           `À faire quand même : retirez les données de position cachées avant de partager une photo, et utilisez "Cover" plutôt qu'un flou léger pour masquer tout ce qui est privé. Les outils Supprimer les données EXIF et Flouter ou masquer des parties d'une image font ces tâches sur votre appareil.`,
         ],
       },
     ],
     faq: [
       { q: `Comment savoir si un outil envoie ma photo ?`, a: `Ouvrez l'onglet Réseau des outils de développement de votre navigateur, lancez l'outil et cherchez une grosse requête qui transporte votre image. S'il n'y en a pas, le travail s'est fait sur votre appareil.` },
-      { q: `iDuckImg envoie-t-il mes images ?`, a: `Non. Chaque outil fonctionne dans votre navigateur et vos fichiers restent sur votre appareil.` },
+      { q: `iDuckIMG envoie-t-il mes images ?`, a: `Non. Chaque outil fonctionne dans votre navigateur et vos fichiers restent sur votre appareil.` },
       { q: `Peut-on partager une photo sans risque après l'avoir modifiée ?`, a: `Retirez d'abord les données de position et d'appareil cachées, et masquez tout ce qui est privé dans l'image elle-même avec un bloc uni.` },
     ],
   },

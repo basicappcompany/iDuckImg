@@ -12,7 +12,7 @@ export const tr: ShortcutText = {
       roadmap: `Yol haritası`,
       request: `Özellik iste`,
       feedback: `Geri bildirim gönder`,
-      support: `iDuckImg’i destekle`,
+      support: `iDuckIMG’i destekle`,
       settings: `Ayarlar`,
       about: `Hakkında`,
     },

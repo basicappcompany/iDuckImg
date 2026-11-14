@@ -10,7 +10,7 @@ import { TOOLS, toolPath } from '../lib/tools';
  */
 export const GET: APIRoute = () => {
   const out: string[] = [
-    '# iDuckImg: how-to guides',
+    '# iDuckIMG: how-to guides',
     '',
     `> Free image tools that run in the visitor's browser. Files are processed on the device and are not uploaded. Source: ${SITE_URL}/guides/`,
     '',

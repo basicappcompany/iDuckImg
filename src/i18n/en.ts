@@ -4,7 +4,7 @@ import type { Dict } from './types';
 export const en: Dict = {
   skipToTool: 'Skip to the tool',
   siteMenu: 'Site menu',
-  homeAria: 'iDuckImg home',
+  homeAria: 'iDuckIMG home',
   searchPlaceholder: 'Search…',
   searchAria: 'Search tools, pages and actions',
   searchButton: 'Search · Ctrl K',
@@ -15,9 +15,9 @@ export const en: Dict = {
   openMenu: 'Open the menu',
   themeToggle: 'Switch between light and dark mode',
   support: 'Support',
-  supportAria: 'Support iDuckImg',
+  supportAria: 'Support iDuckIMG',
   language: 'Language',
-  footerTagline: 'iDuckImg: free image tools that run in your browser.',
+  footerTagline: 'iDuckIMG: free image tools that run in your browser.',
   footerPrivacy: 'Privacy',
   footerTerms: 'Terms',
   footerFeedback: 'Feedback',
@@ -35,7 +35,7 @@ export const en: Dict = {
   controlsEnglish: 'The file picker and download buttons below are translated. The options and buttons of the tool itself are in English for now.',
   toolDescSuffix: 'Free, in your browser, no upload.',
 
-  homeTitle: 'iDuckImg: free online image tools',
+  homeTitle: 'iDuckIMG: Compress, Resize and Convert Images Online, Free',
   homeDescription: 'Compress, resize, crop, convert and clean images free in your browser. No upload, no signup. Your files never leave your device.',
   heroBefore: 'Images,',
   heroMark: 'sorted',
@@ -58,10 +58,10 @@ export const en: Dict = {
   faqHeading: 'Common questions',
   faqs: [
     {
-      q: 'What is iDuckImg?',
+      q: 'What is iDuckIMG?',
       a: 'A free set of image tools: compress, resize, crop, convert, rotate and flip, combine images into one PDF, remove EXIF data, and prepare photos and signatures for exam forms.',
     },
-    { q: 'Is iDuckImg free?', a: 'Yes. There is no sign-up and no watermark on your results. We may show ads to cover the running costs.' },
+    { q: 'Is iDuckIMG free?', a: 'Yes. There is no sign-up and no watermark on your results. We may show ads to cover the running costs.' },
     { q: 'Are my images uploaded to a server?', a: 'No. Every tool runs in your browser, so your pictures stay on your device and are not sent to us.' },
     { q: 'Which image formats work?', a: 'JPG, PNG and WebP work in every tool. The converter and the PDF tools also open HEIC photos from an iPhone.' },
     { q: 'Do I need to install anything?', a: 'No. Open a tool in any modern browser, on a computer or a phone.' },

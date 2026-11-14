@@ -1,38 +1,51 @@
 ---
 import ToolLayout from '../components/ToolLayout.astro';
+import ToolGuide from '../components/ToolGuide.astro';
 import ConvertTool from '../tools/convert/ConvertTool';
+
+const steps = [
+  "Drop your HEIC, AVIF, SVG, GIF, BMP, JPG, PNG or WebP files, or paste them.",
+  "Choose the format you want: JPG, PNG, WebP or PDF.",
+  "Press Convert.",
+  "Download each file, or all of them as a ZIP."
+];
+const notes = [
+  "iPhones save photos as HEIC, which many apps and websites cannot open. Choose JPG to get a file that works everywhere. The first HEIC file loads a decoder of about 2 MB, which is why it can take a moment to start. HEIC is for input only.",
+  "AVIF, SVG, GIF and BMP also work as input. A GIF keeps only its first frame, so it does not animate. An SVG is drawn at least 1024 pixels on its longer side. AVIF needs a current browser. Converting to JPG fills transparent areas with white. PDF output makes one PDF per image."
+];
+const faqs = [
+  {
+    "q": "Why will my iPhone photo not upload?",
+    "a": "iPhones save photos as HEIC, and many sites only accept JPG or PNG. Convert it to JPG here, then upload the result."
+  },
+  {
+    "q": "Can I convert to HEIC or AVIF?",
+    "a": "No. Those formats work as input only. You can create JPG, PNG, WebP or PDF files."
+  },
+  {
+    "q": "What happens to a transparent background?",
+    "a": "It is kept in PNG and WebP. In JPG and PDF it becomes white, because those formats here have no transparency."
+  },
+  {
+    "q": "Does an animated GIF stay animated?",
+    "a": "No. Only the first frame is converted, so the result is a still picture."
+  },
+  {
+    "q": "How do I put many pictures in one PDF?",
+    "a": "Use Combine images into one PDF. The PDF output on this page makes one PDF for each picture."
+  }
+];
 ---
 
 <ToolLayout
-  title="Convert HEIC, AVIF, SVG, GIF, JPG, PNG, WebP | iDuckImg"
+  title="Convert HEIC, AVIF, SVG, GIF, JPG, PNG, WebP | iDuckIMG"
   description="Convert HEIC, AVIF, SVG, GIF and BMP to JPG or PNG, switch between JPG, PNG and WebP, or turn images into PDF. Free, in your browser, no upload and no signup."
   heading="Convert images"
+  steps={steps}
+  faqs={faqs}
 >
   <ConvertTool client:load />
-  <section slot="content" class="prose">
-    <h2>How to convert an image</h2>
-    <ol>
-      <li>Drop your HEIC, AVIF, SVG, GIF, BMP, JPG, PNG or WebP files, or paste them.</li>
-      <li>Choose the format you want: JPG, PNG, WebP or PDF.</li>
-      <li>Press Convert and download each file, or all of them as a ZIP.</li>
-    </ol>
-    <h2>HEIC photos from an iPhone</h2>
-    <p class="mt-2 text-sm">
-      iPhones save photos as HEIC, which many apps and websites cannot open. Choose JPG to get a file
-      that works everywhere. The first HEIC file loads a decoder of about 2 MB, which is why it can take a
-      moment to start. HEIC is for input only; to make a HEIC you would need a different tool.
-    </p>
-    <h2 class="mt-6">AVIF, SVG, GIF and BMP</h2>
-    <p class="mt-2 text-sm">
-      These four also work as input, here and on every other picture tool. They are turned into a PNG first, in
-      your browser. A GIF keeps only its first frame, so it does not animate. An SVG has no pixel size, so it is
-      drawn at least 1024 pixels on its longer side. AVIF needs a browser that can open it (current Chrome, Edge,
-      Firefox and Safari 16.4 or later); if yours cannot, you get a message instead of a broken file.
-    </p>
-    <p class="mt-3 text-sm">
-      Converting to JPG fills transparent areas with white because JPG cannot store transparency.
-      PDF output here makes one PDF per image. To put several images into a single PDF, use
-      <a class="link" href="/image-to-pdf/">Combine images into one PDF</a>.
-    </p>
-  </section>
+  <div slot="content">
+    <ToolGuide title="How to convert an image" steps={steps} notes={notes} faqs={faqs} />
+  </div>
 </ToolLayout>

@@ -282,6 +282,19 @@ export function groupMates(tool: ToolLink): ToolLink[] {
   return TOOLS.filter((t) => t.group === tool.group && t.slug !== tool.slug);
 }
 
+/** At least this many links to other tools sit at the bottom of every tool page. */
+export const MIN_RELATED = 3;
+
+/** The tool's group mates, topped up with popular tools from other groups when the group is small. */
+export function relatedTools(tool: ToolLink): { tools: ToolLink[]; toppedUp: boolean } {
+  const mates = groupMates(tool);
+  if (mates.length >= MIN_RELATED) return { tools: mates, toppedUp: false };
+  const fillers = ['compress-image', 'resize-image', 'convert-image', 'crop-image', 'remove-exif-data']
+    .map((slug) => TOOLS.find((t) => t.slug === slug))
+    .filter((t): t is ToolLink => !!t && t.slug !== tool.slug && !mates.some((m) => m.slug === t.slug));
+  return { tools: [...mates, ...fillers].slice(0, Math.max(MIN_RELATED, mates.length)), toppedUp: true };
+}
+
 /** The other tools, for places that list everything but the current page. */
 export function otherTools(currentPath: string): ToolLink[] {
   const p = normalise(currentPath);

@@ -150,7 +150,7 @@ const wrap76 = (s: string): string => s.replace(/.{1,76}/g, '$&\r\n').trimEnd();
 /** The full text of an email: plain text, UTF-8, base64 so any language survives. */
 export function buildMime(mail: Mail, messageId: string, date: Date): string {
   const headers = [
-    `From: iDuckImg <${mail.from}>`,
+    `From: iDuckIMG <${mail.from}>`,
     `To: ${oneLine(mail.to)}`,
     ...(mail.replyTo ? [`Reply-To: ${oneLine(mail.replyTo)}`] : []),
     `Subject: ${encodeHeader(mail.subject)}`,

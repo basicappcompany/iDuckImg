@@ -264,9 +264,9 @@ export const idGuidesC: Record<string, GuideText> = {
   'are-online-image-tools-safe': {
     title: 'Apakah alat gambar online aman? Cara memeriksa alat Anda',
     seoTitle: 'Apakah Alat Gambar Online Aman? Cara Memeriksanya',
-    description: 'Banyak alat gambar online mengunggah foto Anda ke server. Begini cara mengetahuinya, memeriksanya dalam dua menit, dan apa yang dilakukan iDuckImg.',
+    description: 'Banyak alat gambar online mengunggah foto Anda ke server. Begini cara mengetahuinya, memeriksanya dalam dua menit, dan apa yang dilakukan iDuckIMG.',
     intro:
-      'Alat gambar online hanya sepribadi tempat ia bekerja. Banyak yang mengirim foto Anda ke server; iDuckImg bekerja di browser Anda, jadi file tetap di perangkat Anda. Anda bisa memeriksanya sendiri di tab Network browser.',
+      'Alat gambar online hanya sepribadi tempat ia bekerja. Banyak yang mengirim foto Anda ke server; iDuckIMG bekerja di browser Anda, jadi file tetap di perangkat Anda. Anda bisa memeriksanya sendiri di tab Network browser.',
     steps: [
       'Buka halaman alatnya, lalu buka developer tools browser Anda (F12) dan pilih tab Network.',
       'Bersihkan daftarnya, lalu letakkan gambar di alat dan jalankan.',
@@ -282,16 +282,16 @@ export const idGuidesC: Record<string, GuideText> = {
         ],
       },
       {
-        h: 'Apa yang dilakukan iDuckImg',
+        h: 'Apa yang dilakukan iDuckIMG',
         p: [
-          'Setiap alat iDuckImg berjalan di browser Anda. Gambar Anda tidak diunggah, tidak ada pendaftaran, dan tidak ada watermark yang ditambahkan. Halaman memuat kode dan file-nya sendiri dari situs yang sama, dan untuk beberapa format seperti HEIC, dekoder dari situs yang sama. Halaman tidak membuat permintaan ke perusahaan lain.',
+          'Setiap alat iDuckIMG berjalan di browser Anda. Gambar Anda tidak diunggah, tidak ada pendaftaran, dan tidak ada watermark yang ditambahkan. Halaman memuat kode dan file-nya sendiri dari situs yang sama, dan untuk beberapa format seperti HEIC, dekoder dari situs yang sama. Halaman tidak membuat permintaan ke perusahaan lain.',
           'Tetap layak dilakukan: hapus data lokasi tersembunyi sebelum membagikan foto, dan gunakan "Cover", bukan blur ringan, untuk menyembunyikan apa pun yang bersifat pribadi. Alat Hapus data EXIF dan Buramkan atau sembunyikan bagian gambar mengerjakan hal itu di perangkat Anda.',
         ],
       },
     ],
     faq: [
       { q: 'Bagaimana saya tahu apakah sebuah alat mengunggah foto saya?', a: 'Buka tab Network di developer tools browser, jalankan alatnya, dan cari permintaan besar yang membawa gambar Anda. Jika tidak ada, pekerjaannya terjadi di perangkat Anda.' },
-      { q: 'Apakah iDuckImg mengunggah gambar saya?', a: 'Tidak. Setiap alat berjalan di browser Anda dan file Anda tetap di perangkat Anda.' },
+      { q: 'Apakah iDuckIMG mengunggah gambar saya?', a: 'Tidak. Setiap alat berjalan di browser Anda dan file Anda tetap di perangkat Anda.' },
       { q: 'Apakah aman membagikan foto setelah mengeditnya?', a: 'Hapus dulu data lokasi dan kamera yang tersembunyi, dan sembunyikan apa pun yang bersifat pribadi di dalam gambar itu sendiri dengan penutup solid.' },
     ],
   },

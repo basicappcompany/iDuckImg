@@ -264,8 +264,8 @@ export const deGuidesC: Record<string, GuideText> = {
   'are-online-image-tools-safe': {
     title: `Sind Online-Bildwerkzeuge sicher? So prüfen Sie Ihres`,
     seoTitle: `Sind Online-Bildwerkzeuge sicher? So prüfen Sie es`,
-    description: `Viele Online-Bildwerkzeuge laden Ihr Foto auf einen Server hoch. So erkennen Sie das, prüfen es in zwei Minuten und was iDuckImg stattdessen tut.`,
-    intro: `Ein Online-Bildwerkzeug ist nur so privat wie der Ort, an dem es seine Arbeit erledigt. Viele senden Ihr Foto an einen Server. iDuckImg erledigt die Arbeit in Ihrem Browser, sodass die Datei auf Ihrem Gerät bleibt. Das können Sie selbst im Netzwerk-Tab des Browsers prüfen.`,
+    description: `Viele Online-Bildwerkzeuge laden Ihr Foto auf einen Server hoch. So erkennen Sie das, prüfen es in zwei Minuten und was iDuckIMG stattdessen tut.`,
+    intro: `Ein Online-Bildwerkzeug ist nur so privat wie der Ort, an dem es seine Arbeit erledigt. Viele senden Ihr Foto an einen Server. iDuckIMG erledigt die Arbeit in Ihrem Browser, sodass die Datei auf Ihrem Gerät bleibt. Das können Sie selbst im Netzwerk-Tab des Browsers prüfen.`,
     steps: [
       `Öffnen Sie die Seite des Werkzeugs, öffnen Sie dann die Entwicklertools Ihres Browsers (F12) und wählen Sie den Tab „Netzwerk“ (Network).`,
       `Leeren Sie die Liste, legen Sie dann ein Bild im Werkzeug ab und führen Sie es aus.`,
@@ -281,16 +281,16 @@ export const deGuidesC: Record<string, GuideText> = {
         ],
       },
       {
-        h: `Was iDuckImg tut`,
+        h: `Was iDuckIMG tut`,
         p: [
-          `Jedes iDuckImg-Werkzeug läuft in Ihrem Browser. Ihre Bilder werden nicht hochgeladen, es gibt keine Anmeldung, und es wird kein Wasserzeichen hinzugefügt. Die Seite lädt ihren eigenen Code und ihre Dateien von derselben Website und für einige Formate wie HEIC einen Decoder von derselben Website. Sie stellt keine Anfragen an andere Unternehmen.`,
+          `Jedes iDuckIMG-Werkzeug läuft in Ihrem Browser. Ihre Bilder werden nicht hochgeladen, es gibt keine Anmeldung, und es wird kein Wasserzeichen hinzugefügt. Die Seite lädt ihren eigenen Code und ihre Dateien von derselben Website und für einige Formate wie HEIC einen Decoder von derselben Website. Sie stellt keine Anfragen an andere Unternehmen.`,
           `Trotzdem sinnvoll: Entfernen Sie versteckte Standortdaten, bevor Sie ein Foto teilen, und nutzen Sie „Cover“ statt einer leichten Unschärfe, um alles Private zu verbergen. Die Werkzeuge „EXIF-Daten entfernen“ und „Bildbereiche verwischen oder verdecken“ erledigen diese Aufgaben auf Ihrem Gerät.`,
         ],
       },
     ],
     faq: [
       { q: `Wie erkenne ich, ob ein Werkzeug mein Foto hochlädt?`, a: `Öffnen Sie den Netzwerk-Tab in den Entwicklertools Ihres Browsers, führen Sie das Werkzeug aus und suchen Sie nach einer großen Anfrage, die Ihr Bild enthält. Gibt es keine, ist die Arbeit auf Ihrem Gerät geschehen.` },
-      { q: `Lädt iDuckImg meine Bilder hoch?`, a: `Nein. Jedes Werkzeug läuft in Ihrem Browser, und Ihre Dateien bleiben auf Ihrem Gerät.` },
+      { q: `Lädt iDuckIMG meine Bilder hoch?`, a: `Nein. Jedes Werkzeug läuft in Ihrem Browser, und Ihre Dateien bleiben auf Ihrem Gerät.` },
       { q: `Ist es sicher, ein Foto nach dem Bearbeiten zu teilen?`, a: `Entfernen Sie zuerst die versteckten Standort- und Kameradaten und verbergen Sie alles Private im Bild selbst mit einer einfarbigen Abdeckung.` },
     ],
   },

@@ -22,7 +22,7 @@ describe('handleFeedback', () => {
     expect(res.status).toBe(200);
     expect(await res.json()).toEqual({ ok: true });
     expect(sent).toHaveLength(1);
-    expect(sent[0]).toMatchObject({ from: FEEDBACK_EMAIL, to: 'inbox@example.test', replyTo: 'me@example.com', subject: 'iDuckImg feedback: Something broke' });
+    expect(sent[0]).toMatchObject({ from: FEEDBACK_EMAIL, to: 'inbox@example.test', replyTo: 'me@example.com', subject: 'iDuckIMG feedback: Something broke' });
     expect(sent[0]!.body).toContain('The crop box jumps');
     expect(sent[0]!.body).toContain('Page: https://iduckimg.com/crop-image/');
   });
@@ -30,7 +30,7 @@ describe('handleFeedback', () => {
   it('sends a request with its title in the subject', async () => {
     const { sent, call } = setup();
     await call({ mode: 'request', kind: 'new', title: 'Add QR codes', message: 'For flyers', token: 'tok' });
-    expect(sent[0]!.subject).toBe('iDuckImg request: Add QR codes');
+    expect(sent[0]!.subject).toBe('iDuckIMG request: Add QR codes');
     expect(sent[0]!.replyTo).toBeNull();
   });
 
@@ -85,7 +85,7 @@ describe('payload', () => {
 });
 
 describe('buildMime', () => {
-  const mail: Mail = { from: FEEDBACK_EMAIL, to: 'inbox@example.test', replyTo: 'me@example.com', subject: 'iDuckImg feedback: x', body: 'Hello 日本語 🦆\n\nline 2' };
+  const mail: Mail = { from: FEEDBACK_EMAIL, to: 'inbox@example.test', replyTo: 'me@example.com', subject: 'iDuckIMG feedback: x', body: 'Hello 日本語 🦆\n\nline 2' };
   const decode = (m: string) => {
     const [head, body] = m.split('\r\n\r\n') as [string, string];
     return { head, body: new TextDecoder().decode(Uint8Array.from(atob(body.replace(/\r\n/g, '')), (c) => c.charCodeAt(0))) };
@@ -94,7 +94,7 @@ describe('buildMime', () => {
   it('has the headers a mail server needs and a body that survives any language', () => {
     const m = buildMime(mail, 'abc', new Date('2026-11-13T10:00:00Z'));
     const { head, body } = decode(m);
-    expect(head).toContain(`From: iDuckImg <${FEEDBACK_EMAIL}>`);
+    expect(head).toContain(`From: iDuckIMG <${FEEDBACK_EMAIL}>`);
     expect(head).toContain('To: inbox@example.test');
     expect(head).toContain('Reply-To: me@example.com');
     expect(head).toContain('Message-ID: <abc@iduckimg.com>');

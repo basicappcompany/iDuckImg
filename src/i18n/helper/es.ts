@@ -48,7 +48,7 @@ export const esHelper: HelperText = {
     feedback: `Enviar comentarios`,
     request: `Pedir una función`,
     roadmap: `Ver la hoja de ruta`,
-    support: `Apoyar iDuckImg`,
+    support: `Apoyar iDuckIMG`,
     settings: `Abrir Ajustes`,
     browse: `Ver todas las herramientas de imagen`,
   },

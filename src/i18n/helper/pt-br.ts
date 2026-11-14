@@ -48,7 +48,7 @@ export const ptBRHelper: HelperText = {
     feedback: `Enviar feedback`,
     request: `Pedir um recurso`,
     roadmap: `Ver o roteiro`,
-    support: `Apoiar o iDuckImg`,
+    support: `Apoiar o iDuckIMG`,
     settings: `Abrir Configurações`,
     browse: `Ver todas as ferramentas de imagem`,
   },

@@ -1,29 +1,51 @@
 ---
 import ToolLayout from '../components/ToolLayout.astro';
+import ToolGuide from '../components/ToolGuide.astro';
 import ExifTool from '../tools/exif/ExifTool';
+
+const steps = [
+  "Drop your JPG, PNG or WebP photos, or paste them.",
+  "Press Remove metadata.",
+  "Check the results list.",
+  "Download each cleaned file, or all of them as a ZIP."
+];
+const notes = [
+  "Photos from phones and cameras often carry hidden details: the exact GPS location where it was taken, the date and time, and the device model. Removing them before you post or send a picture protects your privacy.",
+  "Removed: EXIF (camera, date, GPS location), XMP, IPTC, comments, embedded thumbnails and any data appended after the picture. Kept: what is needed to show the picture the same way, such as the color profile, transparency and size. The picture itself is not recompressed."
+];
+const faqs = [
+  {
+    "q": "What is EXIF data?",
+    "a": "EXIF is information a camera or phone stores inside a photo: when it was taken, the device model, camera settings and often the GPS location."
+  },
+  {
+    "q": "Does this remove the GPS location?",
+    "a": "Yes. The location, date, camera details and any embedded thumbnail are removed from the file."
+  },
+  {
+    "q": "Does it lower the photo quality?",
+    "a": "No. The picture is not recompressed, so it looks the same. Only the hidden information is taken out."
+  },
+  {
+    "q": "Which formats work?",
+    "a": "JPG, PNG and WebP."
+  },
+  {
+    "q": "Are my photos uploaded?",
+    "a": "No. The cleaning happens in your browser, so the photos never leave your device."
+  }
+];
 ---
 
 <ToolLayout
-  title="Remove EXIF data from photos online free | iDuckImg"
+  title="Remove EXIF data from photos online free | iDuckIMG"
   description="Remove location, camera and date data from JPG, PNG and WebP photos before you share them. Free, in your browser, no upload. Quality is not changed."
   heading="Remove EXIF data from photos"
+  steps={steps}
+  faqs={faqs}
 >
   <ExifTool client:load />
-  <section slot="content" class="prose">
-    <h2>Why remove EXIF data</h2>
-    <p class="mt-2 text-sm">
-      Photos from phones and cameras often carry hidden details: the exact GPS location where it was taken,
-      the date and time, and the device model. Removing them before you post or send a picture protects your
-      privacy.
-    </p>
-    <h2>How to remove it</h2>
-    <ol>
-      <li>Drop your JPG, PNG or WebP photos, or paste them.</li>
-      <li>Press Remove metadata.</li>
-      <li>Download each cleaned file, or all of them as a ZIP.</li>
-    </ol>
-    <p class="mt-3 text-sm">
-      Your photos are processed in your browser and never uploaded. The picture itself is not recompressed.
-    </p>
-  </section>
+  <div slot="content">
+    <ToolGuide title="How to remove EXIF data from a photo" steps={steps} notes={notes} faqs={faqs} />
+  </div>
 </ToolLayout>

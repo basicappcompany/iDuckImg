@@ -48,7 +48,7 @@ export const ruHelper: HelperText = {
     feedback: `Отправить отзыв`,
     request: `Предложить функцию`,
     roadmap: `Посмотреть планы`,
-    support: `Поддержать iDuckImg`,
+    support: `Поддержать iDuckIMG`,
     settings: `Открыть настройки`,
     browse: `Все инструменты для изображений`,
   },

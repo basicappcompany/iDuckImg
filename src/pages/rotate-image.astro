@@ -1,24 +1,50 @@
 ---
 import ToolLayout from '../components/ToolLayout.astro';
+import ToolGuide from '../components/ToolGuide.astro';
 import RotateTool from '../tools/rotate/RotateTool';
+
+const steps = [
+  "Drop your JPG, PNG or WebP files, or paste them.",
+  "Use the buttons to rotate left or right, or to flip. The preview shows the result.",
+  "Press Apply.",
+  "Download each file, or all of them as a ZIP."
+];
+const notes = [
+  "The same change is applied to every image you add. PNG stays lossless. JPG and WebP are saved again at high quality."
+];
+const faqs = [
+  {
+    "q": "How do I rotate an image 90 degrees?",
+    "a": "Drop it in, press the rotate-right or rotate-left button, check the preview and press Apply."
+  },
+  {
+    "q": "What is the difference between rotating and flipping?",
+    "a": "Rotating turns the picture around its middle, in steps of 90 degrees. Flipping makes a mirror image, left to right or top to bottom."
+  },
+  {
+    "q": "Is the same change applied to many pictures?",
+    "a": "Yes. Whatever you choose is applied to every picture in the list, which is useful for a batch of scans taken sideways."
+  },
+  {
+    "q": "Does rotating reduce quality?",
+    "a": "A PNG stays lossless. A JPG or WebP is saved again at high quality, so a very small change is possible."
+  },
+  {
+    "q": "Are my pictures uploaded?",
+    "a": "No. Everything happens in your browser."
+  }
+];
 ---
 
 <ToolLayout
-  title="Rotate and flip images online free | iDuckImg"
+  title="Rotate and flip images online free | iDuckIMG"
   description="Rotate images 90, 180 or 270 degrees and flip them horizontally or vertically. Free, in your browser, no upload. Works with JPG, PNG and WebP."
   heading="Rotate and flip images"
+  steps={steps}
+  faqs={faqs}
 >
   <RotateTool client:load />
-  <section slot="content" class="prose">
-    <h2>How to rotate or flip an image</h2>
-    <ol>
-      <li>Drop your JPG, PNG or WebP files, or paste them.</li>
-      <li>Use the buttons to rotate left or right, or to flip. The preview shows the result.</li>
-      <li>Press Apply and download each file, or all of them as a ZIP.</li>
-    </ol>
-    <p class="mt-3 text-sm">
-      The same change is applied to every image you add. PNG stays lossless. JPG and WebP are saved again
-      at high quality.
-    </p>
-  </section>
+  <div slot="content">
+    <ToolGuide title="How to rotate or flip an image" steps={steps} notes={notes} faqs={faqs} />
+  </div>
 </ToolLayout>

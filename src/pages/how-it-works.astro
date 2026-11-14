@@ -1,0 +1,68 @@
+---
+import CommunityLayout from '../components/CommunityLayout.astro';
+import { SITE_UPDATED } from '../lib/seo';
+---
+
+<CommunityLayout
+  title="How iDuckIMG works: what runs in your browser"
+  description="How iDuckIMG processes images on your own device: the engines it uses, what is sent over the network, and how you can check it yourself."
+  before="How"
+  mark="iDuckIMG works"
+  intro="Every image tool runs on your device. Here is what that means, which engines do the work and how to check it."
+>
+  <section class="card p-5" aria-labelledby="short">
+    <h2 id="short" class="text-2xl font-black tracking-tight">The short answer</h2>
+    <p class="mt-2 leading-relaxed">
+      When you choose a picture, your browser reads it from your device and a small program running in a background worker
+      changes it there. The result is made in your browser's memory and you save it from there. No picture is sent to our
+      servers, because our servers only hand out the page and its code. Last reviewed {SITE_UPDATED}.
+    </p>
+  </section>
+
+  <section class="card p-5" aria-labelledby="engines">
+    <h2 id="engines" class="text-2xl font-black tracking-tight">Which engines do the work</h2>
+    <ul class="mt-2 list-disc space-y-1 pl-5 leading-relaxed">
+      <li><strong>jSquash</strong> (the codecs from Google's Squoosh, compiled to WebAssembly): reads and writes JPG, PNG and WebP, shrinks PNG files with oxipng, and resizes with high-quality filters.</li>
+      <li><strong>libheif</strong> (compiled to WebAssembly): opens iPhone HEIC and HEIF photos. It is only downloaded when you pick a HEIC file.</li>
+      <li><strong>pdf-lib</strong> (the maintained @cantoo fork): builds the PDF when you turn pictures into one PDF.</li>
+      <li><strong>JSZip</strong>: packs many results into one ZIP file.</li>
+      <li><strong>Your browser's own canvas</strong>: rotates, flips, crops, draws text and watermarks, adjusts colors and draws SVG, BMP, GIF and AVIF pictures.</li>
+      <li>Metadata removal (EXIF, GPS, camera details, thumbnails) works directly on the file's bytes, so a JPG is not recompressed.</li>
+    </ul>
+    <p class="mt-3 leading-relaxed">
+      All of this is open-source code that ships with the site. Nothing is loaded from another company's server, with one
+      exception: the feedback form uses Cloudflare Turnstile to keep spam out, and only on that page.
+    </p>
+  </section>
+
+  <section class="card p-5" aria-labelledby="check">
+    <h2 id="check" class="text-2xl font-black tracking-tight">How to check it yourself</h2>
+    <ol class="mt-2 list-decimal space-y-1 pl-5 leading-relaxed">
+      <li>Open a tool and press F12 (or open the browser's developer tools).</li>
+      <li>Choose the Network tab and clear it.</li>
+      <li>Add a picture and run the tool.</li>
+      <li>You will see no request carrying your picture. At most you will see our own code files loading, such as the codec for the format you chose.</li>
+    </ol>
+    <p class="mt-3 leading-relaxed">
+      The site also tells the browser to refuse anything else: its Content-Security-Policy only allows scripts and files
+      from iduckimg.com, so a page cannot quietly send your picture to a third party.
+    </p>
+  </section>
+
+  <section class="card p-5" aria-labelledby="limits">
+    <h2 id="limits" class="text-2xl font-black tracking-tight">Limits you should know about</h2>
+    <p class="mt-2 leading-relaxed">
+      Because your own device does the work, speed depends on it. Pictures over 25 megapixels show a warning, and pictures
+      over 100 megapixels are refused with a message so the tab does not freeze. There is no file-count limit, but files
+      are processed one after another. Close the tab when you are done and nothing is kept.
+    </p>
+  </section>
+
+  <section class="card p-5" aria-labelledby="who">
+    <h2 id="who" class="text-2xl font-black tracking-tight">Who is behind it</h2>
+    <p class="mt-2 leading-relaxed">
+      iDuckIMG is made by Basic App Company. Read <a class="link" href="/about/">About</a>, the
+      <a class="link" href="/privacy/">privacy policy</a> or <a class="link" href="/guides/are-online-image-tools-safe/">how to tell if an online image tool is safe</a>.
+    </p>
+  </section>
+</CommunityLayout>

@@ -10,11 +10,11 @@ import { faqLd, organizationLd, websiteLd } from '../lib/seo';
 
 const faqs = [
   {
-    q: 'What is iDuckImg?',
+    q: 'What is iDuckIMG?',
     a: 'A free set of image tools: compress, resize, crop, convert, rotate and flip, combine images into one PDF, remove EXIF data, and prepare photos and signatures for exam forms.',
   },
   {
-    q: 'Is iDuckImg free?',
+    q: 'Is iDuckIMG free?',
     a: 'Yes. There is no sign-up and no watermark on your results. We may show ads to cover the running costs.',
   },
   {
@@ -41,7 +41,7 @@ const why = [
 <AppShell
   alternates={alternatesFor('/')}
   jsonLd={[websiteLd(), organizationLd(), faqLd(faqs)]}
-  title="iDuckImg: free online image tools"
+  title="iDuckIMG: Compress, Resize and Convert Images Online, Free"
   description="Compress, resize, crop, convert and clean images free in your browser. No upload, no signup. Your files never leave your device."
 >
   <section class="text-center">
@@ -157,7 +157,7 @@ const why = [
     </div>
   </section>
 
-  <section class="mt-14" aria-label="Why iDuckImg">
+  <section class="mt-14" aria-label="Why iDuckIMG">
     <ul class="grid gap-4 sm:grid-cols-3">
       {
         why.map((item) => (

@@ -49,7 +49,7 @@ export const HELPER_EN: HelperText = {
     feedback: 'Send feedback',
     request: 'Request a feature',
     roadmap: 'See the roadmap',
-    support: 'Support iDuckImg',
+    support: 'Support iDuckIMG',
     settings: 'Open Settings',
     browse: 'Browse all image tools',
   },

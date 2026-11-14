@@ -9,7 +9,7 @@ import { OTHER_LOCALES, localePath } from '../i18n';
 /** A plain-text summary for AI assistants and answer engines (the llms.txt convention). Built from the same lists as the site, so it cannot go stale. */
 export const GET: APIRoute = () => {
   const lines = [
-    '# iDuckImg',
+    '# iDuckIMG',
     '',
     '> Free online image tools that run in the visitor\'s browser: compress, resize to a target size in KB, crop, convert (including iPhone HEIC), rotate, remove EXIF data, make PDFs, and resize photos and signatures for exam forms. No sign-up, no watermark. Images are processed on the device and are not uploaded.',
     '',
@@ -27,12 +27,14 @@ export const GET: APIRoute = () => {
     `Full text of every guide: ${SITE_URL}/llms-full.txt`,
     '',
     '## Languages',
-    'The tools, the how-to guides and the home page are also available in British English (the same text with UK spelling; the main site uses US spelling) and in nine more languages (machine-translated; some tool controls are still in English):',
-    ...OTHER_LOCALES.map((l) => `- [${l.native} (${l.name})](${SITE_URL}${localePath(l.code, '/')})`),
+    'The tools, the how-to guides and the home page are also available in British English (the same text with UK spelling; the main site uses US spelling):',
+    ...OTHER_LOCALES.filter((l) => l.status === 'reviewed').map((l) => `- [${l.native} (${l.name})](${SITE_URL}${localePath(l.code, '/')})`),
+    'Nine more languages exist as machine translations that a person has not read yet. They are kept out of search results and are not listed here until they have been reviewed.',
     '',
     '## About',
     `- [All image tools](${SITE_URL}/image-tools/)`,
     ...COMMUNITY.filter((c) => c.indexable).map((c) => `- [${c.name}](${SITE_URL}${communityPath(c.slug)}): ${c.summary}`),
+    `- [How iDuckIMG works](${SITE_URL}/how-it-works/): what runs in the browser, which engines do the work and how to check it.`,
     `- [Privacy policy](${SITE_URL}/privacy/)`,
     `- [Terms of use](${SITE_URL}/terms/)`,
     '',

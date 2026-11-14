@@ -48,7 +48,7 @@ export const frHelper: HelperText = {
     feedback: `Envoyer un commentaire`,
     request: `Proposer une fonctionnalité`,
     roadmap: `Voir la feuille de route`,
-    support: `Soutenir iDuckImg`,
+    support: `Soutenir iDuckIMG`,
     settings: `Ouvrir les Réglages`,
     browse: `Parcourir tous les outils d’image`,
   },

@@ -14,8 +14,8 @@ const api = {
   async begin(): Promise<void> {
     const { PDFDocument } = await import('@cantoo/pdf-lib');
     doc = await PDFDocument.create();
-    doc.setProducer('iDuckImg');
-    doc.setCreator('iDuckImg');
+    doc.setProducer('iDuckIMG');
+    doc.setCreator('iDuckIMG');
   },
 
   async addImage(buffer: ArrayBuffer, format: InputFormat, mode: PdfPageMode): Promise<void> {

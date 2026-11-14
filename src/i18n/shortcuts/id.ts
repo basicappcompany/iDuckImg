@@ -12,7 +12,7 @@ export const id: ShortcutText = {
       roadmap: `Peta jalan`,
       request: `Minta fitur`,
       feedback: `Kirim masukan`,
-      support: `Dukung iDuckImg`,
+      support: `Dukung iDuckIMG`,
       settings: `Pengaturan`,
       about: `Tentang`,
     },
