@@ -42,5 +42,11 @@ Preview and live. Real headers confirmed on both. Browser tests run against the 
 2. Lower the image size limit from 100 MP to 50 MP?
 3. Test "Take a photo" on a phone with a tighter camera policy (see A3).
 
-## Part B and Part C
+## Part B: SEO, AEO and GEO
+| # | Item | Status | Notes |
+|---|------|--------|-------|
+| B1 | Search consoles | partly done, needs me | Google is signed in as basicappcompany@gmail.com and a verified **Domain property for iduckimg.com already exists** (DNS TXT present). Search Console says "Processing data, please check again in a day or so" for Performance, Indexing, Experience and Enhancements: the domain was registered on 2026-11-09, so there is no 3-month export and no ranking, impressions or indexing findings yet. **Sitemap: not submitted.** The Sitemaps list is empty. I typed `sitemap-index.xml` and clicked Submit three times; the box cleared but the list stayed empty, and the browser tab froze repeatedly, so I stopped. Please add `sitemap-index.xml` at search.google.com/search-console/sitemaps, or tell me to retry. Bing Webmaster Tools: not checked yet. |
+| B2 to B12 | Meta tags, AI crawlers, languages, thin pages, no-JS check, answer-first content, structured data, family links and footer, trust pages, llms.txt, speed | not started | Already in place from earlier work: AI crawler Allow groups in robots.txt (Bingbot added in PR #54), a generated /llms.txt, JSON-LD (WebApplication, BreadcrumbList, HowTo, FAQPage, WebSite, Organization) and hreflang in the sitemap. They still need checking against your list. |
+
+## Part C
 Not started.
