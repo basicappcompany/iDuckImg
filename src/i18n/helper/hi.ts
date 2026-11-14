@@ -48,7 +48,7 @@ export const hiHelper: HelperText = {
     feedback: 'फ़ीडबैक भेजें',
     request: 'नया फ़ीचर सुझाएँ',
     roadmap: 'रोडमैप देखें',
-    support: 'iDuckImg को सपोर्ट करें',
+    support: 'iDuckIMG को सपोर्ट करें',
     settings: 'सेटिंग खोलें',
     browse: 'सारे इमेज टूल देखें',
   },

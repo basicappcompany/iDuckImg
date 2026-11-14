@@ -293,12 +293,12 @@ export const GUIDES_C: Guide[] = [
     slug: 'are-online-image-tools-safe',
     title: 'Are online image tools safe? How to check yours',
     seoTitle: 'Are Online Image Tools Safe? How to Check Yours',
-    description: 'Many online image tools upload your photo to a server. Here is how to tell, how to check in two minutes, and what iDuckImg does instead.',
+    description: 'Many online image tools upload your photo to a server. Here is how to tell, how to check in two minutes, and what iDuckIMG does instead.',
     tool: 'remove-exif-data',
     related: ['how-to-remove-location-and-exif-data-from-a-photo', 'how-to-blur-or-hide-part-of-an-image', 'how-to-compress-an-image'],
     updated: '2026-11-12',
     intro:
-      'An online image tool is only as private as the place it does its work. Many send your photo to a server; iDuckImg does the work in your browser, so the file stays on your device. You can check this yourself in the browser Network tab.',
+      'An online image tool is only as private as the place it does its work. Many send your photo to a server; iDuckIMG does the work in your browser, so the file stays on your device. You can check this yourself in the browser Network tab.',
     steps: [
       'Open the tool page, then open your browser developer tools (F12) and choose the Network tab.',
       'Clear the list, then drop a picture into the tool and run it.',
@@ -314,16 +314,16 @@ export const GUIDES_C: Guide[] = [
         ],
       },
       {
-        h: 'What iDuckImg does',
+        h: 'What iDuckIMG does',
         p: [
-          'Every iDuckImg tool runs in your browser. Your pictures are not uploaded, there is no sign-up and no watermark is added. The page loads its own code and files from the same site, and for some formats such as HEIC a decoder from the same site. It makes no requests to other companies.',
+          'Every iDuckIMG tool runs in your browser. Your pictures are not uploaded, there is no sign-up and no watermark is added. The page loads its own code and files from the same site, and for some formats such as HEIC a decoder from the same site. It makes no requests to other companies.',
           'Still worth doing: remove hidden location data before you share a photo, and use Cover rather than a light blur to hide anything private. The Remove EXIF data and Blur or hide tools do those jobs on your device.',
         ],
       },
     ],
     faq: [
       { q: 'How can I tell if a tool uploads my photo?', a: 'Open the Network tab in your browser developer tools, run the tool and look for a large request that carries your picture. If there is none, the work happened on your device.' },
-      { q: 'Does iDuckImg upload my pictures?', a: 'No. Each tool runs in your browser and your files stay on your device.' },
+      { q: 'Does iDuckIMG upload my pictures?', a: 'No. Each tool runs in your browser and your files stay on your device.' },
       { q: 'Is it safe to share a photo after editing it?', a: 'Remove the hidden location and camera data first, and hide anything private in the picture itself with a solid cover.' },
     ],
   },

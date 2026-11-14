@@ -7,6 +7,7 @@
  */
 import { TOOLS, type ToolGroup, type ToolLink } from './tools';
 import { EXAM_LANDING_PAGES } from './exam-landing';
+import { RICH, type RichSection } from './landing-rich';
 
 export type LandingEngine = 'compress' | 'resize' | 'convert' | 'exam';
 
@@ -59,6 +60,8 @@ export interface LandingPage {
   steps: string[];
   /** Plain paragraphs shown under the steps. */
   notes: string[];
+  /** Longer explanation blocks (what the formats are, what changes, when to choose it). Format pages only. */
+  sections?: RichSection[];
   faqs: LandingFaq[];
   /** Slugs of tools or other landing pages to link to. */
   related: string[];
@@ -137,7 +140,7 @@ const convertPage = (
   related: p.related,
 });
 
-export const LANDING_PAGES: readonly LandingPage[] = [
+const BASE_PAGES: readonly LandingPage[] = [
   kbPage(
     100,
     'A limit of 100 KB is the most common one on job, bank and government forms, so this is the page most people want.',
@@ -491,6 +494,14 @@ export const LANDING_PAGES: readonly LandingPage[] = [
   }),
   ...EXAM_LANDING_PAGES,
 ];
+
+/** Format pages get their own copy from landing-rich.ts: titles, summaries, steps, explanations and extra questions. */
+export const LANDING_PAGES: readonly LandingPage[] = BASE_PAGES.map((page) => {
+  const rich = RICH[page.slug];
+  if (!rich) return page;
+  const { moreFaqs, ...copy } = rich;
+  return { ...page, ...copy, faqs: [...page.faqs, ...moreFaqs] };
+});
 
 export function landingForSlug(slug: string): LandingPage | undefined {
   return LANDING_PAGES.find((p) => p.slug === slug);

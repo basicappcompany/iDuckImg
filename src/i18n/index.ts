@@ -71,7 +71,9 @@ export function hasTranslations(englishPath: string): boolean {
 /** Every language version of an English path, as absolute URLs, or nothing when it has none. */
 export function alternatesFor(englishPath: string): Alternate[] {
   if (!hasTranslations(englishPath)) return [];
-  return LOCALES.filter((l) => l.status !== 'planned').map((locale) => ({
+  // Only reviewed languages are indexed, so only they are listed in hreflang. A machine-translated
+  // language that nobody has read is noindex (see AppShell) and must not be pointed at.
+  return LOCALES.filter((l) => l.status === 'reviewed').map((locale) => ({
     hreflang: locale.hreflang,
     href: `${SITE_URL}${localePath(locale.code, englishPath)}`,
     locale,

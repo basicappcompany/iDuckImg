@@ -329,15 +329,15 @@ describe('lookups', () => {
     for (const p of ['/privacy/', '/about/']) expect(hasTranslations(p), p).toBe(false);
   });
 
-  it('lists every language version of a translated page for hreflang', () => {
+  it('lists only reviewed language versions of a translated page for hreflang', () => {
+    // Machine-translated languages nobody has read are noindex, so hreflang must not point at them.
+    const reviewed = LOCALES.filter((l) => l.status === 'reviewed');
     const alts = alternatesFor('/compress-image/');
-    expect(alts.map((a) => a.locale.code)).toEqual(EXPECTED_ALL);
+    expect(alts.map((a) => a.locale.code)).toEqual(reviewed.map((l) => l.code));
     expect(alts[0]!.href).toBe('https://iduckimg.com/compress-image/');
-    expect(alts.find((a) => a.hreflang === 'pt-BR')!.href).toBe('https://iduckimg.com/pt-br/compress-image/');
+    expect(alts[0]!.hreflang).toBe('en-US');
     expect(alternatesFor('/')[1]!.href).toBe('https://iduckimg.com/en-gb/');
-    expect(alternatesFor('/')[2]!.href).toBe('https://iduckimg.com/hi/');
-    expect(alts.map((a) => a.hreflang)).toEqual(['en-US', 'en-GB', 'hi', 'bn', 'pt-BR', 'id', 'ru', 'de', 'es', 'fr', 'tr']);
-    expect(alternatesFor('/guides/how-to-resize-an-image/').find((a) => a.locale.code === 'de')!.href).toBe('https://iduckimg.com/de/guides/how-to-resize-an-image/');
+    expect(alts.some((a) => a.locale.status === 'machine')).toBe(false);
     expect(alternatesFor('/privacy/')).toEqual([]);
   });
 

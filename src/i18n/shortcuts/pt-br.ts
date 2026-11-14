@@ -12,7 +12,7 @@ export const ptBR: ShortcutText = {
       roadmap: `Roteiro`,
       request: `Pedir um recurso`,
       feedback: `Enviar feedback`,
-      support: `Apoiar o iDuckImg`,
+      support: `Apoiar o iDuckIMG`,
       settings: `Configurações`,
       about: `Sobre`,
     },

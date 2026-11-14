@@ -1,25 +1,50 @@
 ---
 import ToolLayout from '../components/ToolLayout.astro';
+import ToolGuide from '../components/ToolGuide.astro';
 import ImagesToPdfTool from '../tools/pdf/ImagesToPdfTool';
+
+const steps = [
+  "Drop your JPG, PNG or WebP images. You can add more at any time.",
+  "Put them in the order you want with Up and Down. Remove any you do not need.",
+  "Choose A4 with margins, or pages that match each image.",
+  "Press Create PDF and download the file."
+];
+const notes = [
+  "Each image becomes one page of a single PDF. Your images are combined in your browser and never uploaded. Need a separate PDF for every image instead? Use the image converter."
+];
+const faqs = [
+  {
+    "q": "How do I put several pictures in one PDF?",
+    "a": "Add them all, put them in order with Up and Down, and press Create PDF. Each picture becomes one page."
+  },
+  {
+    "q": "Can I choose the page size?",
+    "a": "Yes. Choose A4 with margins, or let each page match the size of its picture."
+  },
+  {
+    "q": "Can I change the order afterwards?",
+    "a": "Yes. Use Up and Down before you press Create PDF, and remove any picture you do not need."
+  },
+  {
+    "q": "How do I make a separate PDF for every picture?",
+    "a": "Use the image converter and choose PDF. It makes one PDF per picture."
+  },
+  {
+    "q": "Are my pictures uploaded?",
+    "a": "No. The PDF is built in your browser, so your pictures stay on your device."
+  }
+];
 ---
 
 <ToolLayout
-  title="Combine images into one PDF online free | iDuckImg"
+  title="Combine images into one PDF online free | iDuckIMG"
   description="Turn several JPG, PNG or WebP images into a single PDF. Reorder the pages, choose A4 or image size. Free, in your browser, no upload."
   heading="Combine images into one PDF"
+  steps={steps}
+  faqs={faqs}
 >
   <ImagesToPdfTool client:load />
-  <section slot="content" class="prose">
-    <h2>How to make a PDF from images</h2>
-    <ol>
-      <li>Drop your JPG, PNG or WebP images. You can add more at any time.</li>
-      <li>Put them in the order you want with Up and Down. Remove any you do not need.</li>
-      <li>Choose A4 with margins, or pages that match each image, then press Create PDF.</li>
-    </ol>
-    <p class="mt-3 text-sm">
-      Each image becomes one page. Your images are combined in your browser and never uploaded. Need a
-      separate PDF for every image instead? Use the
-      <a class="link" href="/convert-image/">image converter</a>.
-    </p>
-  </section>
+  <div slot="content">
+    <ToolGuide title="How to make a PDF from images" steps={steps} notes={notes} faqs={faqs} />
+  </div>
 </ToolLayout>

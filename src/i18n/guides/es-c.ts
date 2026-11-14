@@ -264,9 +264,9 @@ export const esGuidesC: Record<string, GuideText> = {
   'are-online-image-tools-safe': {
     title: '¿Son seguras las herramientas de imagen en línea? Cómo comprobar la tuya',
     seoTitle: '¿Son seguras las herramientas de imagen en línea?',
-    description: 'Muchas herramientas de imagen en línea suben tu foto a un servidor. Cómo saberlo, cómo comprobarlo en dos minutos y qué hace iDuckImg en cambio.',
+    description: 'Muchas herramientas de imagen en línea suben tu foto a un servidor. Cómo saberlo, cómo comprobarlo en dos minutos y qué hace iDuckIMG en cambio.',
     intro:
-      'Una herramienta de imagen en línea es tan privada como el lugar donde hace su trabajo. Muchas envían tu foto a un servidor; iDuckImg trabaja en tu navegador, así que el archivo se queda en tu dispositivo. Puedes comprobarlo tú mismo en la pestaña Red del navegador.',
+      'Una herramienta de imagen en línea es tan privada como el lugar donde hace su trabajo. Muchas envían tu foto a un servidor; iDuckIMG trabaja en tu navegador, así que el archivo se queda en tu dispositivo. Puedes comprobarlo tú mismo en la pestaña Red del navegador.',
     steps: [
       'Abre la página de la herramienta, luego abre las herramientas para desarrolladores de tu navegador (F12) y elige la pestaña Red.',
       'Vacía la lista, suelta una imagen en la herramienta y ejecútala.',
@@ -282,16 +282,16 @@ export const esGuidesC: Record<string, GuideText> = {
         ],
       },
       {
-        h: 'Qué hace iDuckImg',
+        h: 'Qué hace iDuckIMG',
         p: [
-          'Todas las herramientas de iDuckImg funcionan en tu navegador. Tus imágenes no se suben, no hay registro y no se añade ninguna marca de agua. La página carga su propio código y sus archivos desde el mismo sitio, y para algunos formatos, como HEIC, un decodificador del mismo sitio. No hace peticiones a otras empresas.',
+          'Todas las herramientas de iDuckIMG funcionan en tu navegador. Tus imágenes no se suben, no hay registro y no se añade ninguna marca de agua. La página carga su propio código y sus archivos desde el mismo sitio, y para algunos formatos, como HEIC, un decodificador del mismo sitio. No hace peticiones a otras empresas.',
           'Aun así conviene hacer esto: elimina los datos de ubicación ocultos antes de compartir una foto, y usa "Cover" en lugar de un desenfoque ligero para ocultar cualquier cosa privada. Las herramientas Eliminar datos EXIF y Desenfocar u ocultar partes de una imagen hacen esos trabajos en tu dispositivo.',
         ],
       },
     ],
     faq: [
       { q: '¿Cómo sé si una herramienta sube mi foto?', a: 'Abre la pestaña Red en las herramientas para desarrolladores de tu navegador, ejecuta la herramienta y busca una petición grande que lleve tu imagen. Si no hay ninguna, el trabajo se hizo en tu dispositivo.' },
-      { q: '¿iDuckImg sube mis imágenes?', a: 'No. Cada herramienta funciona en tu navegador y tus archivos se quedan en tu dispositivo.' },
+      { q: '¿iDuckIMG sube mis imágenes?', a: 'No. Cada herramienta funciona en tu navegador y tus archivos se quedan en tu dispositivo.' },
       { q: '¿Es seguro compartir una foto después de editarla?', a: 'Elimina primero los datos ocultos de ubicación y de la cámara, y oculta cualquier cosa privada de la propia imagen con una tapa sólida.' },
     ],
   },

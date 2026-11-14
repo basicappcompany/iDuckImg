@@ -12,7 +12,7 @@ export const bn: ShortcutText = {
       roadmap: `রোডম্যাপ`,
       request: `ফিচার চান`,
       feedback: `মতামত পাঠান`,
-      support: `iDuckImg-কে সমর্থন করুন`,
+      support: `iDuckIMG-কে সমর্থন করুন`,
       settings: `সেটিংস`,
       about: `পরিচিতি`,
     },

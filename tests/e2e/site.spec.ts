@@ -108,7 +108,10 @@ test.describe('site', () => {
       const group = groupOf(path);
       const more = page.getByRole('navigation', { name: `More in ${group}` });
       const mates = GROUPS[group]!.filter((p) => p !== path);
-      expect(await hrefs(page, more.getByRole('link'))).toEqual(mates);
+      // The group's own tools come first; a small group is topped up so there are always at least three links.
+      const links = await hrefs(page, more.getByRole('link'));
+      expect(links.slice(0, mates.length)).toEqual(mates);
+      expect(links.length).toBeGreaterThanOrEqual(3);
     });
   }
 

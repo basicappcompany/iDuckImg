@@ -8,7 +8,7 @@ import { quickGroups } from '../lib/quick';
 import { LANDING_PAGES, landingPath } from '../lib/landing';
 import { THEME_STORAGE_KEY } from '../lib/theme';
 import { COMMUNITY, communityPath } from '../lib/community';
-import { OG_IMAGE, SITE_NAME, serialize } from '../lib/seo';
+import { OG_IMAGE, SITE_NAME, SITE_UPDATED, serialize } from '../lib/seo';
 import { flagSvg } from '../i18n/flags';
 import { localizedQuickGroups, shortcutText } from '../i18n/shortcuts';
 import { dictFor, languageLinks, localeByCode, localePath, splitLocalePath, toolText, type Alternate } from '../i18n';
@@ -25,8 +25,11 @@ interface Props {
   /** Every language version of this page, for hreflang. Empty when the page has no translations. */
   alternates?: Alternate[];
 }
-const { title, description, noindex = false, jsonLd = [], locale = 'en', alternates = [] } = Astro.props;
+const { title, description, noindex: noindexProp = false, jsonLd = [], locale = 'en', alternates = [] } = Astro.props;
 const loc = localeByCode(locale);
+// A language a person has not read yet (status 'machine') stays out of search: no indexing, no hreflang, no sitemap entry.
+const unreviewed = loc.status !== 'reviewed';
+const noindex = noindexProp || unreviewed;
 const d = dictFor(locale);
 const isEn = locale === 'en';
 const lp = (p: string) => localePath(locale, p);
@@ -60,7 +63,10 @@ const openGroup = toolForPath(path)?.group ?? TOOL_GROUPS[0];
     <meta name="color-scheme" content="light dark" />
     <title>{title}</title>
     <meta name="description" content={description} />
-    {noindex ? <meta name="robots" content="noindex" /> : <link rel="canonical" href={canonical} />}
+    {noindex ? <meta name="robots" content={unreviewed && !noindexProp ? 'noindex,follow' : 'noindex'} /> : <meta name="robots" content="index,follow,max-image-preview:large,max-snippet:-1" />}
+    {(!noindexProp || unreviewed) && <link rel="canonical" href={canonical} />}
+    <meta name="theme-color" content="#ffd23f" media="(prefers-color-scheme: light)" />
+    <meta name="theme-color" content="#121212" media="(prefers-color-scheme: dark)" />
     {!noindex && alternates.map((a) => <link rel="alternate" hreflang={a.hreflang} href={a.href} />)}
     {!noindex && englishHref && <link rel="alternate" hreflang="x-default" href={englishHref} />}
     <meta property="og:locale" content={loc.og} />
@@ -73,7 +79,7 @@ const openGroup = toolForPath(path)?.group ?? TOOL_GROUPS[0];
     <meta property="og:image" content={OG_IMAGE} />
     <meta property="og:image:width" content="1200" />
     <meta property="og:image:height" content="630" />
-    <meta property="og:image:alt" content="iDuckImg: free online image tools with a duck mascot" />
+    <meta property="og:image:alt" content="iDuckIMG: free online image tools with a duck mascot" />
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content={title} />
     <meta name="twitter:description" content={description} />
@@ -102,7 +108,7 @@ const openGroup = toolForPath(path)?.group ?? TOOL_GROUPS[0];
         <div class="nav-scroll">
           <a href={lp('/')} class="nav-brand" aria-label={d.homeAria}>
             <DuckMark size={34} />
-            <span>iDuckImg</span>
+            <span>iDuckIMG</span>
           </a>
 
           <button type="button" id="sidebar-search" class="nav-search" aria-label={d.searchAria}>
@@ -234,6 +240,12 @@ const openGroup = toolForPath(path)?.group ?? TOOL_GROUPS[0];
           <a class="nav-item" href="https://iduckpdf.com/" rel="noopener">
             <span class="nav-icon" aria-hidden="true">📚</span><span class="nav-text">{sc.chrome.iduckpdf}</span>
           </a>
+          <a class="nav-item" href="https://iduckcalculator.com/" rel="noopener">
+            <span class="nav-icon" aria-hidden="true">🧮</span><span class="nav-text">iDuckCalculator</span>
+          </a>
+          <a class="nav-item" href="https://iduckconvert.com/" rel="noopener">
+            <span class="nav-icon" aria-hidden="true">🔁</span><span class="nav-text">iDuckConvert</span>
+          </a>
         </div>
       </aside>
 
@@ -251,7 +263,7 @@ const openGroup = toolForPath(path)?.group ?? TOOL_GROUPS[0];
           >
           <a href={lp('/')} class="flex items-center gap-2 rounded-lg min-[900px]:hidden">
             <DuckMark size={28} />
-            <span class="hidden font-black min-[370px]:inline">iDuckImg</span>
+            <span class="hidden font-black min-[370px]:inline">iDuckIMG</span>
           </a>
           <div class="ml-auto flex items-center gap-1.5 min-[400px]:gap-2">
             <button type="button" class="btn btn-sm" id="search-open" aria-label={d.openSearch}>
@@ -333,8 +345,10 @@ const openGroup = toolForPath(path)?.group ?? TOOL_GROUPS[0];
             </ul>
           </nav>
           <p class="mt-5">
-            iDuckImg: free image tools that run in your browser. Also try{" "}
-            <a class="link" href="https://iduckpdf.com/" rel="noopener">iDuckPDF</a>.
+            Also from iDuck:{" "}
+            <a class="link" href="https://iduckpdf.com/" rel="noopener">iDuckPDF</a>,{" "}
+            <a class="link" href="https://iduckcalculator.com/" rel="noopener">iDuckCalculator</a>,{" "}
+            <a class="link" href="https://iduckconvert.com/" rel="noopener">iDuckConvert</a>.
           </p>
           <p class="mt-2 flex flex-wrap gap-x-4">
             <a class="link" href="/image-tools/">All image tools</a>
@@ -343,7 +357,9 @@ const openGroup = toolForPath(path)?.group ?? TOOL_GROUPS[0];
             <a class="link" href="/privacy/">Privacy</a>
             <a class="link" href="/terms/">Terms</a>
             <a class="link" href="/feedback/">Feedback</a>
+            <a class="link" href="/how-it-works/">How iDuckIMG works</a>
           </p>
+          <p class="mt-3 text-xs">© 2026 Basic App Company · iDuckIMG · iduckimg.com · Free image tools that run in your browser. Last updated {SITE_UPDATED}.</p>
         </footer>
         )}
       </div>

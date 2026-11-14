@@ -5,6 +5,9 @@ import tailwindcss from '@tailwindcss/vite';
 import { NOINDEX_PATHS } from './src/lib/community';
 import { LOCALES } from './src/i18n/locales';
 
+// Languages nobody has read yet are noindex, so they stay out of the sitemap too.
+const UNREVIEWED_PREFIXES = LOCALES.filter((l) => l.path && l.status !== 'reviewed').map((l) => `/${l.path}/`);
+
 export default defineConfig({
   site: 'https://iduckimg.com',
   output: 'static',
@@ -36,10 +39,12 @@ export default defineConfig({
     // Pages that are noindex (forms, settings) stay out of the sitemap too.
     // Each translated page lists its other language versions (hreflang) in the sitemap too.
     sitemap({
-      filter: (page) => !NOINDEX_PATHS.some((path) => page.endsWith(path)),
+      filter: (page) =>
+        !NOINDEX_PATHS.some((path) => page.endsWith(path)) &&
+        !UNREVIEWED_PREFIXES.some((prefix) => new URL(page).pathname.startsWith(prefix)),
       i18n: {
         defaultLocale: 'en',
-        locales: Object.fromEntries(LOCALES.filter((l) => l.status !== 'planned').map((l) => [l.path || 'en', l.hreflang])),
+        locales: Object.fromEntries(LOCALES.filter((l) => l.status === 'reviewed').map((l) => [l.path || 'en', l.hreflang])),
       },
     }),
   ],

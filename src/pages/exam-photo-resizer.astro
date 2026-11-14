@@ -1,31 +1,51 @@
 ---
 import ToolLayout from '../components/ToolLayout.astro';
+import ToolGuide from '../components/ToolGuide.astro';
 import ExamTool from '../tools/exam/ExamTool';
+
+const steps = [
+  "Pick your exam and the document you need to upload, or enter your own size.",
+  "Drop your photo or scan. HEIC photos from an iPhone work too.",
+  "Press the button to resize.",
+  "Download a JPG that is the right size in pixels and inside the allowed KB range."
+];
+const notes = [
+  "The picture is cut or padded to the exact pixel size, then saved at the best quality that fits under the maximum. If a form also asks for a minimum size and a simple picture comes out smaller, harmless filler data is added to the JPG file so it reaches the minimum. The picture itself is unchanged by that step.",
+  "We list only requirements we have read in official notices, each with a link to the document and the date we read it. If your exam is not listed, choose Other exam and type the sizes from your notice."
+];
+const faqs = [
+  {
+    "q": "How do I resize a photo for an exam form?",
+    "a": "Pick your exam and the document, drop your photo, and press the button. The result has the exact pixel size and a file size inside the allowed range."
+  },
+  {
+    "q": "Where do the requirements come from?",
+    "a": "From official notices. Each preset shows a link to the document and the date we read it. We do not copy sizes from other sites."
+  },
+  {
+    "q": "My exam is not listed. What do I do?",
+    "a": "Choose Other exam and type the width, height and KB range from your notice. The tool then works the same way."
+  },
+  {
+    "q": "What if my file is too small?",
+    "a": "If a form needs a minimum size and your picture comes out smaller, harmless filler data is added so the file reaches it. The picture does not change."
+  },
+  {
+    "q": "Is my photo uploaded?",
+    "a": "No. It is resized in your browser, so your photo and signature stay on your device."
+  }
+];
 ---
 
 <ToolLayout
-  title="Exam photo and signature resizer: exact pixels and KB | iDuckImg"
+  title="Exam photo and signature resizer: exact pixels and KB | iDuckIMG"
   description="Resize your photo, signature or thumb impression to the exact pixel size and file size an exam form asks for. Requirements copied from official notices, with sources. Free, in your browser."
   heading="Exam photo and signature resizer"
+  steps={steps}
+  faqs={faqs}
 >
   <ExamTool client:load />
-  <section slot="content" class="prose">
-    <h2>How it works</h2>
-    <ol>
-      <li>Pick your exam and the document you need to upload, or enter your own size.</li>
-      <li>Drop your photo or scan. HEIC photos from an iPhone work too.</li>
-      <li>Download a JPG that is the right size in pixels and inside the allowed KB range.</li>
-    </ol>
-    <p class="mt-3 text-sm">
-      The picture is cut or padded to the exact pixel size, then saved at the best quality that fits under
-      the maximum. If a form also asks for a minimum size and a simple picture comes out smaller, harmless
-      filler data is added to the JPG file so it reaches the minimum. The picture itself is unchanged by
-      that step.
-    </p>
-    <p class="mt-3 text-sm">
-      We list only requirements we have read in official notices, each with a link to the document and
-      the date we read it. If your exam is not listed, choose "Other exam" and type the sizes from your
-      notice.
-    </p>
-  </section>
+  <div slot="content">
+    <ToolGuide title="How it works" steps={steps} notes={notes} faqs={faqs} />
+  </div>
 </ToolLayout>

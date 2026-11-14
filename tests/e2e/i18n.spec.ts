@@ -39,7 +39,7 @@ test.describe('languages', () => {
       expect(tool?.status()).toBe(200);
       await expect(page.locator('html')).toHaveAttribute('lang', l.code);
       await expect(page.getByRole('heading', { level: 1 })).toContainText(l.toolName);
-      await expect(page).toHaveTitle(new RegExp(`${l.toolName}.*iDuckImg`));
+      await expect(page).toHaveTitle(new RegExp(`${l.toolName}.*iDuckIMG`));
       // Compress has its own options translated, so it carries no "still English" note; a tool that is not translated yet does.
       await expect(page.locator('[data-controls-note]')).toHaveCount(0);
       await expect(page.locator('meta[property="og:locale"]')).toHaveCount(1);
@@ -48,23 +48,23 @@ test.describe('languages', () => {
     });
   }
 
-  test('every page tells search engines about all ten languages, and English is the default', async ({ page }) => {
-    // [page, the same page in English, the same page in Spanish]
-    const cases: [string, string, string][] = [
-      ['/', '/', '/es/'],
-      ['/compress-image/', '/compress-image/', '/es/compress-image/'],
-      ['/es/', '/', '/es/'],
-      ['/de/compress-image/', '/compress-image/', '/es/compress-image/'],
-      ['/pt-br/favicon-generator/', '/favicon-generator/', '/es/favicon-generator/'],
-    ];
-    for (const [path, english, spanish] of cases) {
+  test('English pages list the reviewed language versions for hreflang; unreviewed machine translations are noindex and unlisted', async ({ page }) => {
+    // Only reviewed languages (English US and UK) are indexed, so only they are in hreflang.
+    for (const [path, english] of [['/', '/'], ['/compress-image/', '/compress-image/'], ['/en-gb/', '/'], ['/en-gb/favicon-generator/', '/favicon-generator/']] as const) {
       await page.goto(path);
       const tags = await hreflangs(page);
-      expect(tags.map(([code]) => code), path).toEqual(['en-US', 'en-GB', 'hi', 'bn', 'pt-BR', 'id', 'ru', 'de', 'es', 'fr', 'tr', 'x-default']);
+      expect(tags.map(([code]) => code), path).toEqual(['en-US', 'en-GB', 'x-default']);
       expect(tags.find(([code]) => code === 'x-default')![1], path).toBe(english);
-      expect(tags.find(([code]) => code === 'en-US')![1], path).toBe(english);
       expect(tags.find(([code]) => code === 'en-GB')![1], path).toBe(english === '/' ? '/en-gb/' : `/en-gb${english}`);
-      expect(tags.find(([code]) => code === 'es')![1], path).toBe(spanish);
+      await expect(page.locator('meta[name="robots"]')).toHaveAttribute('content', 'index,follow,max-image-preview:large,max-snippet:-1');
+      await expect(page.locator('meta[name="theme-color"]')).toHaveCount(2);
+      await expect(page.locator('link[rel="canonical"]')).toHaveAttribute('href', `https://iduckimg.com${path}`);
+    }
+    for (const path of ['/es/', '/de/compress-image/', '/pt-br/favicon-generator/', '/hi/', '/bn/', '/id/']) {
+      await page.goto(path);
+      await expect(page.locator('meta[name="robots"]'), path).toHaveAttribute('content', 'noindex,follow');
+      await expect(page.locator('link[rel="canonical"]'), path).toHaveAttribute('href', `https://iduckimg.com${path}`);
+      expect(await hreflangs(page), path).toEqual([]);
     }
   });
 
@@ -157,7 +157,7 @@ test.describe('languages', () => {
     const blocks = await page.locator('script[type="application/ld+json"]').allTextContents();
     const all = blocks.join(' ');
     expect(all).toContain('"inLanguage":"de"');
-    expect(all).toContain('Was ist iDuckImg?');
+    expect(all).toContain('Was ist iDuckIMG?');
     await expect(page.getByRole('region', { name: 'Häufige Fragen' }).locator('details')).toHaveCount(5);
     await page.goto('/de/compress-image/');
     const tool = (await page.locator('script[type="application/ld+json"]').allTextContents()).join(' ');
@@ -253,16 +253,16 @@ test.describe('languages', () => {
     await page.goto('/es/heic-to-jpg/');
     await expect(page.locator('html')).toHaveAttribute('lang', 'es');
     await expect(page.getByRole('heading', { level: 1 })).toContainText('Convertir HEIC a JPG');
-    await expect(page).toHaveTitle(/HEIC a JPG.*iDuckImg/);
+    await expect(page).toHaveTitle(/HEIC a JPG.*iDuckIMG/);
     await expect(page.getByRole('region', { name: 'Cómo usarlo' }).getByRole('listitem')).toHaveCount(4);
     await expect(page.getByRole('region', { name: 'Preguntas frecuentes' }).locator('details')).toHaveCount(2);
     await expect(page.getByRole('navigation', { name: 'Relacionado' }).locator('a[href^="/es/"]').first()).toBeVisible();
-    const tags = await hreflangs(page);
-    expect(tags.map(([c]) => c)).toEqual(['en-US', 'en-GB', 'hi', 'bn', 'pt-BR', 'id', 'ru', 'de', 'es', 'fr', 'tr', 'x-default']);
-    expect(tags.find(([c]) => c === 'de')![1]).toBe('/de/heic-to-jpg/');
-    // The English page now points at its translations.
+    // An unreviewed machine translation stays out of search: noindex, and no hreflang.
+    await expect(page.locator('meta[name="robots"]')).toHaveAttribute('content', 'noindex,follow');
+    expect(await hreflangs(page)).toEqual([]);
+    // The English page lists only reviewed versions.
     await page.goto('/heic-to-jpg/');
-    expect((await hreflangs(page)).find(([c]) => c === 'fr')![1]).toBe('/fr/heic-to-jpg/');
+    expect((await hreflangs(page)).map(([c]) => c)).toEqual(['en-US', 'en-GB', 'x-default']);
     // The language menu keeps you on the same page.
     await page.locator('[data-lang-menu] summary').click();
     await expect(page.locator('[data-lang-menu] a[hreflang="tr"]')).toHaveAttribute('href', '/tr/heic-to-jpg/');
@@ -321,10 +321,13 @@ test.describe('languages', () => {
     await expect(page.getByRole('heading', { level: 1 })).toContainText('Bild');
     await expect(page.locator('ol li').first()).toBeVisible();
     await expect(page.locator('article details')).toHaveCount(3);
+    await expect(page.locator('meta[name="robots"]')).toHaveAttribute('content', 'noindex,follow');
+    expect(await hreflangs(page)).toEqual([]);
+    await page.goto('/guides/how-to-compress-an-image/');
     const tags = await hreflangs(page);
-    expect(tags.map(([c]) => c)).toEqual(['en-US', 'en-GB', 'hi', 'bn', 'pt-BR', 'id', 'ru', 'de', 'es', 'fr', 'tr', 'x-default']);
+    expect(tags.map(([c]) => c)).toEqual(['en-US', 'en-GB', 'x-default']);
     expect(tags.find(([c]) => c === 'en-GB')![1]).toBe('/en-gb/guides/how-to-compress-an-image/');
-    expect(tags.find(([c]) => c === 'fr')![1]).toBe('/fr/guides/how-to-compress-an-image/');
+    await page.goto('/de/guides/how-to-compress-an-image/');
     await expect(page.locator('script[type="application/ld+json"]').first()).toBeAttached();
     const ld = await page.locator('script[type="application/ld+json"]').allTextContents();
     expect(ld.some((t) => t.includes('"inLanguage":"de"'))).toBe(true);
@@ -347,18 +350,19 @@ test.describe('languages', () => {
     await expect(page.getByRole('heading', { level: 1 })).toContainText('colors');
   });
 
-  test('is in the sitemap with language alternates', async ({ request }) => {
+  test('the sitemap lists English (US and UK) with alternates and leaves out unreviewed machine translations', async ({ request }) => {
     const xml = await (await request.get('/sitemap-0.xml')).text();
-    expect(xml).toContain('<loc>https://iduckimg.com/es/compress-image/</loc>');
-    expect(xml).toContain('<loc>https://iduckimg.com/pt-br/</loc>');
-    expect(xml).toMatch(/xhtml:link rel="alternate" hreflang="tr" href="https:\/\/iduckimg\.com\/tr\/compress-image\/"/);
-    expect(xml).toMatch(/hreflang="pt-BR" href="https:\/\/iduckimg\.com\/pt-br\/"/);
+    expect(xml).toContain('<loc>https://iduckimg.com/en-gb/compress-image/</loc>');
+    expect(xml).toMatch(/xhtml:link rel="alternate" hreflang="en-GB" href="https:\/\/iduckimg\.com\/en-gb\/compress-image\/"/);
+    for (const path of ['hi', 'bn', 'pt-br', 'id', 'ru', 'de', 'es', 'fr', 'tr']) expect(xml, path).not.toContain(`https://iduckimg.com/${path}/`);
+    expect(xml).not.toContain('hreflang="tr"');
   });
 
-  test('llms.txt points assistants at every translated home page', async ({ request }) => {
+  test('llms.txt lists the reviewed languages and says the machine translations are not indexed yet', async ({ request }) => {
     const text = await (await request.get('/llms.txt')).text();
     expect(text).toContain('## Languages');
-    for (const path of ['hi', 'bn', 'pt-br', 'id', 'ru', 'de', 'es', 'fr', 'tr']) expect(text).toContain(`https://iduckimg.com/${path}/`);
+    expect(text).toContain('https://iduckimg.com/en-gb/');
+    for (const path of ['hi', 'bn', 'pt-br', 'id', 'ru', 'de', 'es', 'fr', 'tr']) expect(text).not.toContain(`https://iduckimg.com/${path}/`);
   });
 
   test('long languages do not scroll sideways on a phone', async ({ page }) => {

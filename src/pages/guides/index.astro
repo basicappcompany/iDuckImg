@@ -3,6 +3,7 @@ import AppShell from '../../components/AppShell.astro';
 import { GUIDES, guidePath } from '../../lib/guides';
 import { TOOLS } from '../../lib/tools';
 import { breadcrumbLd, collectionLd } from '../../lib/seo';
+import { alternatesFor } from '../../i18n';
 
 const emoji = (slug: string) => TOOLS.find((t) => t.slug === slug)?.emoji ?? '📖';
 const description =
@@ -21,7 +22,7 @@ const jsonLd = [
 ];
 ---
 
-<AppShell title="Image how-to guides: compress, resize, convert and more | iDuckImg" description={description} jsonLd={jsonLd}>
+<AppShell alternates={alternatesFor('/guides/')} title="Image how-to guides: compress, resize, convert and more | iDuckIMG" description={description} jsonLd={jsonLd}>
   <p class="eyebrow">
     <a href="/" class="underline decoration-2 underline-offset-2">Home</a>
     <span aria-hidden="true"> / </span>

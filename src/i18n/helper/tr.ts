@@ -48,7 +48,7 @@ export const trHelper: HelperText = {
     feedback: `Geri bildirim gönder`,
     request: `Özellik öner`,
     roadmap: `Yol haritasına bak`,
-    support: `iDuckImg'e destek ol`,
+    support: `iDuckIMG'e destek ol`,
     settings: `Ayarlar'ı aç`,
     browse: `Tüm görsel araçlarına göz at`,
   },

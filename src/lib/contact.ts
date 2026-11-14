@@ -89,7 +89,7 @@ export function composeFeedback(input: {
   const email = input.email.trim();
   return {
     to: FEEDBACK_EMAIL,
-    subject: `iDuckImg feedback: ${label(FEEDBACK_KINDS, input.kind)}`,
+    subject: `iDuckIMG feedback: ${label(FEEDBACK_KINDS, input.kind)}`,
     body:
       input.message.trim() +
       footer([
@@ -105,7 +105,7 @@ export function composeRequest(input: { kind: RequestKind; title: string; detail
   const title = input.title.trim().replace(/\s+/g, ' ').slice(0, 80);
   return {
     to: FEEDBACK_EMAIL,
-    subject: `iDuckImg request: ${title}`,
+    subject: `iDuckIMG request: ${title}`,
     body: input.details.trim() + footer([`Kind: ${label(REQUEST_KINDS, input.kind)}`, email ? `Reply to: ${email}` : null]),
   };
 }

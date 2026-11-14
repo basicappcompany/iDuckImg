@@ -12,7 +12,7 @@ export const ru: ShortcutText = {
       roadmap: `Дорожная карта`,
       request: `Предложить функцию`,
       feedback: `Отправить отзыв`,
-      support: `Поддержать iDuckImg`,
+      support: `Поддержать iDuckIMG`,
       settings: `Настройки`,
       about: `О проекте`,
     },

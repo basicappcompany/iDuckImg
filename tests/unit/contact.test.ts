@@ -50,7 +50,7 @@ describe('composeFeedback', () => {
   it('names the kind in the subject and adds the page', () => {
     const d = composeFeedback({ kind: 'great', message: ' Loved it ', email: '', page: 'https://iduckimg.com/crop-image/' });
     expect(d.to).toBe(FEEDBACK_EMAIL);
-    expect(d.subject).toBe('iDuckImg feedback: It worked great');
+    expect(d.subject).toBe('iDuckIMG feedback: It worked great');
     expect(d.body).toBe('Loved it\n\n---\nPage: https://iduckimg.com/crop-image/');
   });
   it('adds the browser only when something broke, and the reply address only when given', () => {
@@ -65,10 +65,10 @@ describe('composeFeedback', () => {
 describe('composeRequest', () => {
   it('puts the title in the subject, tidied and capped, and the details in the body', () => {
     const d = composeRequest({ kind: 'new', title: '  Add   a\n watermark ', details: 'I need it', email: '' });
-    expect(d.subject).toBe('iDuckImg request: Add a watermark');
+    expect(d.subject).toBe('iDuckIMG request: Add a watermark');
     expect(d.body).toBe('I need it\n\n---\nKind: A new tool');
     expect(composeRequest({ kind: 'improve', title: 'x'.repeat(200), details: 'd', email: '' }).subject.length).toBeLessThanOrEqual(
-      'iDuckImg request: '.length + 80,
+      'iDuckIMG request: '.length + 80,
     );
   });
 });

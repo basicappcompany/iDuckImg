@@ -1,26 +1,50 @@
 ---
 import ToolLayout from '../components/ToolLayout.astro';
+import ToolGuide from '../components/ToolGuide.astro';
 import ResizeTool from '../tools/resize/ResizeTool';
+
+const steps = [
+  "Drop your JPG, PNG or WebP files, or paste them.",
+  "Set a width and height in pixels, or a percentage. Leave one box empty to keep the proportions.",
+  "Optionally enter a target size in KB, for example 100, and the best quality that fits is chosen.",
+  "Press Resize and download each file, or all of them as a ZIP."
+];
+const notes = [
+  "A target size works for JPG and WebP. PNG is lossless, so a PNG with a target size is saved as WebP. If the target is too small for the chosen dimensions, you will see a message and can choose a smaller size."
+];
+const faqs = [
+  {
+    "q": "How do I resize an image without stretching it?",
+    "a": "Type only a width or only a height and leave the other box empty. The other side follows, so the proportions stay the same."
+  },
+  {
+    "q": "Can I resize to a percentage?",
+    "a": "Yes. Choose percent and enter a number, for example 50 for half the width and height."
+  },
+  {
+    "q": "How do I make an image a certain size in KB?",
+    "a": "Enter the target size in KB, such as 100. The tool tries lower qualities until the file fits. If it cannot, it tells you, and you can choose a smaller pixel size."
+  },
+  {
+    "q": "Why was my PNG saved as WebP?",
+    "a": "A PNG is lossless, so its size cannot be tuned by quality. With a target size, it is saved as WebP, which can reach the size. Use the Convert page first if a form needs JPG."
+  },
+  {
+    "q": "Are my pictures uploaded?",
+    "a": "No. Resizing happens in your browser, so the files stay on your device."
+  }
+];
 ---
 
 <ToolLayout
-  title="Resize image online free: pixels, percent or KB | iDuckImg"
+  title="Resize image online free: pixels, percent or KB | iDuckIMG"
   description="Resize JPG, PNG and WebP by pixels or percentage, or shrink to a target file size in KB. Free, in your browser, no upload."
   heading="Resize images"
+  steps={steps}
+  faqs={faqs}
 >
   <ResizeTool client:load />
-  <section slot="content" class="prose">
-    <h2>How to resize an image</h2>
-    <ol>
-      <li>Drop your JPG, PNG or WebP files, or paste them.</li>
-      <li>Set a width and height in pixels, or a percentage. Leave one box empty to keep the proportions.</li>
-      <li>Optionally enter a target size in KB, for example 100, and we pick the best quality that fits.</li>
-      <li>Press Resize and download each file, or all of them as a ZIP.</li>
-    </ol>
-    <p class="mt-3 text-sm">
-      A target size works for JPG and WebP. PNG is lossless, so a PNG with a target size is saved as
-      WebP. If the target is too small for the chosen dimensions, you will see a message and can
-      choose a smaller size.
-    </p>
-  </section>
+  <div slot="content">
+    <ToolGuide title="How to resize an image" steps={steps} notes={notes} faqs={faqs} />
+  </div>
 </ToolLayout>

@@ -69,3 +69,43 @@ describe('structured data', () => {
     expect(serialize({ a: '</script><b>' })).not.toContain('</script>');
   });
 });
+
+describe('format pages are distinct, not templates', () => {
+  const formatPages = LANDING_PAGES.filter((p) => p.kind.kind === 'convert');
+
+  it('every format page has its own title, description, summary and quick answer', () => {
+    for (const field of ['title', 'description', 'summary', 'quick'] as const) {
+      const values = formatPages.map((p) => p[field]);
+      expect(new Set(values).size, `duplicate ${field}`).toBe(values.length);
+    }
+    for (const p of formatPages) {
+      expect(p.summary, p.slug).not.toMatch(/in a few seconds/i);
+      expect(p.title.length + ' | iDuckIMG'.length, `${p.slug} title length`).toBeLessThanOrEqual(65);
+      expect(p.description.length, `${p.slug} description`).toBeGreaterThanOrEqual(70);
+      expect(p.description.length, `${p.slug} description`).toBeLessThanOrEqual(160);
+      expect(p.quick, p.slug).toMatch(/^To /);
+    }
+  });
+
+  it('every format page explains the formats, the change and when to choose it, and has 4 to 6 questions', () => {
+    for (const p of formatPages) {
+      expect(p.sections?.length, `${p.slug} sections`).toBeGreaterThanOrEqual(3);
+      expect(p.sections![0]!.h, p.slug).toMatch(/^What /);
+      expect(p.sections![1]!.h, p.slug).toMatch(/What changes/);
+      expect(p.sections![2]!.h, p.slug).toMatch(/When to choose/);
+      expect(p.faqs.length, `${p.slug} faqs`).toBeGreaterThanOrEqual(4);
+      expect(p.faqs.length, `${p.slug} faqs`).toBeLessThanOrEqual(6);
+    }
+  });
+
+  it('no paragraph is repeated between two format pages', () => {
+    const seen = new Map<string, string>();
+    for (const p of formatPages) {
+      for (const para of [...(p.sections ?? []).flatMap((s) => s.paragraphs), ...p.notes]) {
+        const other = seen.get(para);
+        expect(other, `${p.slug} repeats a paragraph from ${other}`).toBeUndefined();
+        seen.set(para, p.slug);
+      }
+    }
+  });
+});

@@ -257,8 +257,8 @@ export const trGuidesC: Record<string, GuideText> = {
   'are-online-image-tools-safe': {
     title: `Çevrimiçi görsel araçları güvenli mi? Kendinizinkini nasıl kontrol edersiniz`,
     seoTitle: `Çevrimiçi Görsel Araçları Güvenli mi? Nasıl Kontrol Edilir`,
-    description: `Birçok çevrimiçi görsel aracı fotoğrafınızı bir sunucuya yükler. Nasıl anlaşılır, iki dakikada nasıl kontrol edilir ve iDuckImg bunun yerine ne yapar.`,
-    intro: `Çevrimiçi bir görsel aracı, işini yaptığı yer kadar gizlidir. Birçoğu fotoğrafınızı bir sunucuya gönderir; iDuckImg ise işi tarayıcınızda yapar, yani dosya cihazınızda kalır. Bunu tarayıcının Ağ sekmesinde kendiniz kontrol edebilirsiniz.`,
+    description: `Birçok çevrimiçi görsel aracı fotoğrafınızı bir sunucuya yükler. Nasıl anlaşılır, iki dakikada nasıl kontrol edilir ve iDuckIMG bunun yerine ne yapar.`,
+    intro: `Çevrimiçi bir görsel aracı, işini yaptığı yer kadar gizlidir. Birçoğu fotoğrafınızı bir sunucuya gönderir; iDuckIMG ise işi tarayıcınızda yapar, yani dosya cihazınızda kalır. Bunu tarayıcının Ağ sekmesinde kendiniz kontrol edebilirsiniz.`,
     steps: [
       `Araç sayfasını açın, sonra tarayıcı geliştirici araçlarını (F12) açın ve Ağ (Network) sekmesini seçin.`,
       `Listeyi temizleyin, sonra araca bir görsel bırakın ve çalıştırın.`,
@@ -274,16 +274,16 @@ export const trGuidesC: Record<string, GuideText> = {
         ],
       },
       {
-        h: `iDuckImg ne yapar`,
+        h: `iDuckIMG ne yapar`,
         p: [
-          `Her iDuckImg aracı tarayıcınızda çalışır. Görselleriniz yüklenmez, kayıt yoktur ve filigran eklenmez. Sayfa kendi kodunu ve dosyalarını aynı siteden yükler; HEIC gibi bazı biçimler için de aynı siteden bir çözücü yükler. Başka şirketlere hiçbir istek yapmaz.`,
+          `Her iDuckIMG aracı tarayıcınızda çalışır. Görselleriniz yüklenmez, kayıt yoktur ve filigran eklenmez. Sayfa kendi kodunu ve dosyalarını aynı siteden yükler; HEIC gibi bazı biçimler için de aynı siteden bir çözücü yükler. Başka şirketlere hiçbir istek yapmaz.`,
           `Yine de yapmaya değer: bir fotoğrafı paylaşmadan önce gizli konum verilerini kaldırın ve özel her şeyi gizlemek için hafif bir bulanıklık yerine "Cover" kullanın. EXIF verilerini kaldır ile Görselin bölümlerini bulanıklaştır veya gizle araçları bu işleri cihazınızda yapar.`,
         ],
       },
     ],
     faq: [
       { q: `Bir aracın fotoğrafımı yükleyip yüklemediğini nasıl anlarım?`, a: `Tarayıcı geliştirici araçlarında Ağ sekmesini açın, aracı çalıştırın ve görselinizi taşıyan büyük bir istek arayın. Yoksa iş cihazınızda yapılmıştır.` },
-      { q: `iDuckImg görsellerimi yüklüyor mu?`, a: `Hayır. Her araç tarayıcınızda çalışır ve dosyalarınız cihazınızda kalır.` },
+      { q: `iDuckIMG görsellerimi yüklüyor mu?`, a: `Hayır. Her araç tarayıcınızda çalışır ve dosyalarınız cihazınızda kalır.` },
       { q: `Bir fotoğrafı düzenledikten sonra paylaşmak güvenli mi?`, a: `Önce gizli konum ve kamera verilerini kaldırın, görselin kendisindeki özel her şeyi de düz bir kapatmayla gizleyin.` },
     ],
   },

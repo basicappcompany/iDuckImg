@@ -48,7 +48,7 @@ export const idHelper: HelperText = {
     feedback: 'Kirim masukan',
     request: 'Minta fitur',
     roadmap: 'Lihat peta jalan',
-    support: 'Dukung iDuckImg',
+    support: 'Dukung iDuckIMG',
     settings: 'Buka Pengaturan',
     browse: 'Jelajahi semua alat gambar',
   },

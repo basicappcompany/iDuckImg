@@ -1,25 +1,51 @@
 ---
 import ToolLayout from '../components/ToolLayout.astro';
+import ToolGuide from '../components/ToolGuide.astro';
 import CompressTool from '../tools/compress/CompressTool';
+
+const steps = [
+  "Drop your JPG, PNG or WebP files, or paste them.",
+  "Pick a quality. Around 75 keeps photos looking the same at a much smaller size.",
+  "Press Compress and check the new size next to each file.",
+  "Download each file, or all of them as a ZIP."
+];
+const notes = [
+  "JPG and WebP are compressed with adjustable quality. PNG is optimized losslessly, so the picture is unchanged but the savings are smaller. If a file cannot be made smaller, you get the original back.",
+  "For a specific size, such as under 100 KB, use Resize images with a target size in KB, or the ready-made pages for 20, 50, 100 and 200 KB."
+];
+const faqs = [
+  {
+    "q": "How do I compress a JPG without it looking worse?",
+    "a": "Choose a quality of about 75. For most photos the difference is hard to see, and the file is much smaller. Raise the quality if you notice blur, and compare the sizes in the list."
+  },
+  {
+    "q": "Does compressing a PNG change how it looks?",
+    "a": "No. PNG files are optimized without losing any detail, so the picture is identical. Savings are smaller than for JPG, because nothing is thrown away."
+  },
+  {
+    "q": "What happens if the file cannot get smaller?",
+    "a": "You get the original file back instead of a bigger one, so a compressed result is never larger than what you put in."
+  },
+  {
+    "q": "How do I compress an image to an exact size like 100 KB?",
+    "a": "Use Resize images and enter a target size in KB, or open the page for the size you need, such as Compress image to 100 KB. The tool lowers the quality step by step until the file fits."
+  },
+  {
+    "q": "Are my pictures uploaded?",
+    "a": "No. The compression runs inside your browser, so the files stay on your device."
+  }
+];
 ---
 
 <ToolLayout
-  title="Compress images online free: JPG, PNG, WebP | iDuckImg"
+  title="Compress images online free: JPG, PNG, WebP | iDuckIMG"
   description="Reduce image file size in your browser. Compress JPG, PNG and WebP with no upload and no signup. Your files never leave your device."
   heading="Compress images"
+  steps={steps}
+  faqs={faqs}
 >
   <CompressTool client:load />
-  <section slot="content" class="prose">
-    <h2>How to compress an image</h2>
-    <ol>
-      <li>Drop your JPG, PNG or WebP files, or paste them.</li>
-      <li>Pick a quality. Around 75 keeps photos looking the same at a much smaller size.</li>
-      <li>Press Compress and download each file, or all of them as a ZIP.</li>
-    </ol>
-    <p class="mt-3 text-sm">
-      JPG and WebP are compressed with adjustable quality. PNG is optimized losslessly, so the
-      picture is unchanged but savings are smaller. If a file cannot be made smaller, you get the
-      original back.
-    </p>
-  </section>
+  <div slot="content">
+    <ToolGuide title="How to compress an image" steps={steps} notes={notes} faqs={faqs} />
+  </div>
 </ToolLayout>

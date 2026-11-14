@@ -60,7 +60,7 @@ const relatedLinks = (page?.related ?? []).flatMap((rel) => {
   page && local ? (
     <ToolLayout
       locale={locale.code}
-      title={`${local.title} | iDuckImg`}
+      title={`${local.title} | iDuckIMG`}
       description={local.description}
       heading={local.h1}
       landing={{ emoji: page.emoji, summary: local.summary, quick: local.quick, parentSlug: landingParent(page).slug }}
@@ -112,7 +112,7 @@ const relatedLinks = (page?.related ?? []).flatMap((rel) => {
       </div>
     </ToolLayout>
   ) : (
-<ToolLayout locale={locale.code} title={`${text.name} | iDuckImg`} description={`${text.summary} ${d.toolDescSuffix}`} heading={text.name}>
+<ToolLayout locale={locale.code} title={`${text.name} | iDuckIMG`} description={`${text.summary} ${d.toolDescSuffix}`} heading={text.name}>
   {slug === 'compress-image' && <CompressTool client:load />}
   {slug === 'resize-image' && <ResizeTool client:load />}
   {slug === 'crop-image' && <CropTool client:load />}
