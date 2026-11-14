@@ -12,12 +12,14 @@ https://:version.:project.pages.dev/*
   X-Robots-Tag: noindex
 
 # Security headers for the real site and every host (they are harmless on pages.dev).
-# The script/style part of the Content-Security-Policy is a <meta> tag Astro writes per page
-# (astro.config.ts, security.csp), because inline scripts are allowed by hash. A meta tag cannot carry
-# frame-ancestors, so it is here. Camera: the drop zone has a "Take a photo" button on tool pages.
+# The Content-Security-Policy line below is the short form used by `astro preview`. At build time
+# scripts/csp-headers.mjs replaces it in dist/_headers with the full site-wide policy (the hashes of every
+# inline script and style in dist/, the directives from astro.config.ts, plus frame-ancestors). Astro also
+# writes a stricter per-page <meta> copy. Camera: the drop zone has a "Take a photo" button on tool pages.
 /*
   Content-Security-Policy: frame-ancestors 'none'; base-uri 'self'; object-src 'none'; form-action 'self'
   Strict-Transport-Security: max-age=31536000; includeSubDomains
+  X-Frame-Options: DENY
   X-Content-Type-Options: nosniff
   Referrer-Policy: strict-origin-when-cross-origin
   Permissions-Policy: camera=(self), microphone=(), geolocation=(), payment=(), usb=(), interest-cohort=()
