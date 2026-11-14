@@ -10,3 +10,15 @@ https://:project.pages.dev/*
 # Preview deployments of pull requests: https://<hash>.iduckimg.pages.dev
 https://:version.:project.pages.dev/*
   X-Robots-Tag: noindex
+
+# Security headers for the real site and every host (they are harmless on pages.dev).
+# The script/style part of the Content-Security-Policy is a <meta> tag Astro writes per page
+# (astro.config.ts, security.csp), because inline scripts are allowed by hash. A meta tag cannot carry
+# frame-ancestors, so it is here. Camera: the drop zone has a "Take a photo" button on tool pages.
+/*
+  Content-Security-Policy: frame-ancestors 'none'; base-uri 'self'; object-src 'none'; form-action 'self'
+  Strict-Transport-Security: max-age=31536000; includeSubDomains
+  X-Content-Type-Options: nosniff
+  Referrer-Policy: strict-origin-when-cross-origin
+  Permissions-Policy: camera=(self), microphone=(), geolocation=(), payment=(), usb=(), interest-cohort=()
+  Cross-Origin-Opener-Policy: same-origin

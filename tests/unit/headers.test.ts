@@ -50,3 +50,35 @@ describe('public/_headers', () => {
     ]);
   });
 });
+
+describe('security headers', () => {
+  const all = rules.find((r) => r.pattern === '/*');
+
+  it('sends the hardening headers on every page', () => {
+    expect(all, 'a /* rule').toBeDefined();
+    const h = all!.headers;
+    expect(h['content-security-policy']).toContain("frame-ancestors 'none'");
+    expect(h['strict-transport-security']).toMatch(/max-age=31536000; includeSubDomains/);
+    expect(h['x-content-type-options']).toBe('nosniff');
+    expect(h['referrer-policy']).toBe('strict-origin-when-cross-origin');
+    expect(h['cross-origin-opener-policy']).toBe('same-origin');
+    for (const off of ['microphone=()', 'geolocation=()', 'payment=()']) expect(h['permissions-policy']).toContain(off);
+  });
+
+  it('the bare /* rule never carries noindex (that would remove the real site from search)', () => {
+    expect(Object.keys(all!.headers)).not.toContain('x-robots-tag');
+  });
+
+  it('astro.config.ts keeps the script policy free of unsafe-inline and unsafe-eval', () => {
+    const cfg = readFileSync('astro.config.ts', 'utf8');
+    const csp = cfg
+      .slice(cfg.indexOf('csp:'), cfg.indexOf('integrations:'))
+      .replace(/\/\/.*$/gm, ''); // ignore comments
+    expect(csp).not.toMatch(/(?<!wasm-)unsafe-eval/); // wasm-unsafe-eval (WebAssembly only) is allowed
+    // The one allowed 'unsafe-inline' is for style="" attributes, which cannot run script.
+    const scriptPart = csp.slice(csp.indexOf('scriptDirective'), csp.indexOf('styleDirective'));
+    expect(scriptPart).not.toMatch(/unsafe-inline/);
+    expect(csp).toContain("default-src 'self'");
+    expect(csp).toContain("worker-src 'self' blob:");
+  });
+});
