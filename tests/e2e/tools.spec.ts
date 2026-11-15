@@ -46,6 +46,26 @@ test.describe('compress', () => {
   });
 });
 
+test.describe('cancel in other tools', () => {
+  const CASES: Array<[string, string]> = [
+    ['/resize-image/', 'Resize'],
+    ['/convert-image/', 'Convert'],
+    ['/image-to-pdf/', 'Create PDF'],
+  ];
+  for (const [path, run] of CASES) {
+    test(`cancel works on ${path}`, async ({ page }) => {
+      await page.goto(path);
+      const images = [];
+      for (let i = 0; i < 6; i++) images.push(await makeImage(page, 'image/jpeg', `big${i}.jpg`, 4000, 3000));
+      await addFiles(page, images, path === '/image-to-pdf/' ? /\d+ pages?/ : undefined);
+      await page.getByRole('button', { name: run, exact: true }).click();
+      await page.getByRole('button', { name: 'Cancel' }).click();
+      await expect(page.getByRole('button', { name: run, exact: true })).toBeEnabled();
+      expect(await page.locator('section[aria-label="Results"] a[download]').count()).toBeLessThan(6);
+    });
+  }
+});
+
 test.describe('resize', () => {
   test('resizes by width keeping proportions', async ({ page }) => {
     await page.goto('/resize-image/');
