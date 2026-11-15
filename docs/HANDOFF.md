@@ -1,6 +1,6 @@
-# Handoff (updated 2026-11-14, after PR #51)
+# Handoff (updated 2026-11-15, after PR #57)
 
-Everything below is merged to `main` and live at https://iduckimg.com (PRs #20 to #51, each merged on green CI). The site has 24 tools and 25 shortcut pages in eleven language versions (857 built pages), from a 59-tool plan. `pnpm verify` passes with 544 unit tests and `pnpm test:e2e` with 225 browser tests (4 HEIC tests skipped without a fixture). For what is done and what is next, open `docs/status.html`; for conventions and the lessons learned, read `CLAUDE.md`.
+Everything below is merged to `main` and live at https://iduckimg.com (PRs #20 to #57, each merged on green CI). The site has 24 tools and 25 shortcut pages in eleven language versions (1332 built pages), from a 59-tool plan. `pnpm verify` passes with 544 unit tests and `pnpm test:e2e` with 225 browser tests (4 HEIC tests skipped without a fixture). For what is done and what is next, open `docs/status.html`; for conventions and the lessons learned, read `CLAUDE.md`.
 
 
 ## What exists
@@ -20,7 +20,7 @@ Everything below is merged to `main` and live at https://iduckimg.com (PRs #20 t
 1. DONE: command palette, text watermark, circle crop, split into grid, add text, pixel art, Quick tools in the sidebar, Ask the helper. Merge images, blur/hide and the logo watermark are done too. BMP/GIF/SVG/AVIF inputs are done too (see CLAUDE.md, Extra input formats). The exam landing pages are done too (`src/lib/exam-landing.ts`, built from the preset JSON). Four more tools are done (adjust colours, border, pixel/cm/inch converter, aspect ratio calculator). Colour picker, palette, Image to Base64 and the favicon generator are done too. Next: the plan's remaining `next` tools (compare images, ASCII art, GIF to frames, view EXIF, transparent background, signature maker, placeholder image, QR code make and read).
 2. (see 1)
 3. DONE: the exam preset picker takes a starting choice, and there is one landing page per exam document. More exams: see status item 2.25.
-4. AI foundation with the visitor's own key (shared settings + provider adapters; "Describe an image" and "Image to text"). The security headers / CSP (status 3.9) must come first. Provider browser access (preflight only, tested 2026-11-12): Anthropic needs the header `anthropic-dangerous-direct-browser-access`; OpenAI, Gemini, OpenRouter, Mistral, Groq, Stability and remove.bg allow it; Replicate does not (needs a proxy). Real responses and image input are not tested. AI pages must not carry ads and must say the image goes to the provider.
+4. AI foundation with the visitor's own key (shared settings + provider adapters; "Describe an image" and "Image to text"). The security headers and CSP (status 3.9) are done. Provider browser access (preflight only, tested 2026-11-12): Anthropic needs the header `anthropic-dangerous-direct-browser-access`; OpenAI, Gemini, OpenRouter, Mistral, Groq, Stability and remove.bg allow it; Replicate does not (needs a proxy). Real responses and image input are not tested. AI pages must not carry ads and must say the image goes to the provider.
 5. OCR, then background remover (check each model's licence for commercial use first).
 
 ## Also done: how-to guides
@@ -31,6 +31,12 @@ English (US) at the root, English (UK) at `/en-gb/` (made from the US text at bu
 
 ## Also done: automatic feedback sending
 `worker/index.ts` (Cloudflare Worker `iduckimg-feedback`, route `iduckimg.com/api/feedback`) with its logic in `src/lib/feedback-api.ts`. Deployed by hand with wrangler on 2026-11-13 and answering; `TURNSTILE_SECRET` and `FORWARD_TO` are set. Not yet checked: a real message from the live form reaching the inbox (status 3.11, yours). Deploy order and the rest: "Feedback worker" in `CLAUDE.md`.
+
+## Also done: security, SEO and growth audit (PRs #54 to #57, 2026-11-14)
+CSP and security headers (securityheaders.com A+, Observatory A+ 130), the SEO/AEO/GEO foundations, 17 exams and IDs from official documents, more size and dimension pages, comparison pages, OUTREACH.md and Lighthouse 98 to 99. Everything, including what was not built and why, is in `AUDIT.md`. Nine languages are noindex until a person reads them.
+
+## Waiting on the owner (also in status.html)
+HEIC to JPG on the live site (3.14), GitHub two-factor and a branch rule for main (3.15), DNSSEC and auto-renew at GoDaddy (3.16), submit the sitemap in Search Console (5.7), Rich Results Test on ten pages (5.22), ads or no ads (6.5), a real feedback message (3.11), camera policy on a phone, a person to read each language.
 
 ## Decisions waiting on you
 - Governing law and legal name for the legal pages (status 4.2, 4.3); a lawyer review before real money (4.4).
