@@ -29,6 +29,7 @@ export const fr: LocaleData = {
     runsInBrowser: `Fonctionne dans votre navigateur`,
     noSignup: `Sans inscription`,
     noWatermark: `Sans filigrane`,
+    countrySpecific: `Propre à {country}`,
     filesNeverLeave: `Vos fichiers ne quittent jamais votre appareil.`,
     quickAnswer: `Réponse rapide`,
     readGuide: `Lire le guide`,

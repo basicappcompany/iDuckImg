@@ -4,6 +4,7 @@ import OptionsPanel, { Field } from '../../components/OptionsPanel';
 import ProgressBar from '../../components/ProgressBar';
 import DownloadPanel from '../../components/DownloadPanel';
 import { useToolRunner } from '../../engine/useToolRunner';
+import { COUNTRY_ORDER, countryName } from '../../lib/country';
 import { EXAMS, describeRequirements, type FitMode } from '../../lib/exam-presets';
 import { examTool } from './tool';
 import { checkOptions, presetOptions, type ExamOptions } from './options';
@@ -91,10 +92,14 @@ export default function ExamTool({ initialExam, initialDoc, initialCustom }: Pro
               })
             }
           >
-            {EXAMS.map((x) => (
-              <option key={x.id} value={x.id}>
-                {x.name}
-              </option>
+            {COUNTRY_ORDER.map((code) => (
+              <optgroup key={code} label={countryName(code)}>
+                {EXAMS.filter((x) => x.country === code).map((x) => (
+                  <option key={x.id} value={x.id}>
+                    {x.name}
+                  </option>
+                ))}
+              </optgroup>
             ))}
             <option value={CUSTOM}>Other exam: enter the size myself</option>
           </select>

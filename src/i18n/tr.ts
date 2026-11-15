@@ -29,6 +29,7 @@ export const tr: LocaleData = {
     runsInBrowser: `Tarayıcınızda çalışır`,
     noSignup: `Kayıt gerekmez`,
     noWatermark: `Filigran yok`,
+    countrySpecific: `{country} için özel`,
     filesNeverLeave: `Dosyalarınız cihazınızdan asla çıkmaz.`,
     quickAnswer: `Kısa yanıt`,
     readGuide: `Rehberi okuyun`,

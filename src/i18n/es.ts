@@ -29,6 +29,7 @@ export const es: LocaleData = {
     runsInBrowser: `Funciona en tu navegador`,
     noSignup: `Sin registro`,
     noWatermark: `Sin marca de agua`,
+    countrySpecific: `Específico de {country}`,
     filesNeverLeave: `Tus archivos nunca salen de tu dispositivo.`,
     quickAnswer: `Respuesta rápida`,
     readGuide: `Lee la guía`,

@@ -5,6 +5,7 @@ import CommandPalette from './CommandPalette.astro';
 import { TOOL_GROUPS, toolForPath, toolPath, toolsInGroup } from '../lib/tools';
 import { PLAN_CATEGORIES } from '../lib/tool-plan';
 import { quickGroups } from '../lib/quick';
+import { countryName } from '../lib/country';
 import { LANDING_PAGES, landingPath } from '../lib/landing';
 import { THEME_STORAGE_KEY } from '../lib/theme';
 import { COMMUNITY, communityPath } from '../lib/community';
@@ -47,7 +48,7 @@ const sc = shortcutText(locale);
 const localNames = isEn ? null : new Map(localizedQuickGroups(locale).flatMap((g) => g.items.map((i) => [i.slug, i.name] as const)));
 const quick = quickGroups().map((g) => ({
   ...g,
-  name: isEn ? g.name : sc.chrome.groups[g.id as keyof typeof sc.chrome.groups],
+  name: g.country ? countryName(g.country, locale) : isEn ? g.name : sc.chrome.groups[g.id as keyof typeof sc.chrome.groups],
   // A translated sidebar lists only pages that exist in that language (English-only size pages are left out).
   items: g.items.filter((i) => isEn || localNames!.has(i.slug)).map((i) => ({ ...i, name: localNames?.get(i.slug) ?? i.name })),
 }));

@@ -1,5 +1,6 @@
 import { LANDING_PAGES, isTranslatable, type LandingPage } from '../../lib/landing';
 import { QUICK_GROUPS } from '../../lib/quick';
+import { countryName } from '../../lib/country';
 import { TOOLS, toolPath } from '../../lib/tools';
 import { localePath } from '../locales';
 import { toolText } from '../index';
@@ -101,7 +102,7 @@ export function localizedQuickGroups(code: string): LocalQuickGroup[] {
   return QUICK_GROUPS.map((group) => ({
     id: group.id,
     emoji: group.emoji,
-    name: t.chrome.groups[group.id as keyof ShortcutText['chrome']['groups']],
+    name: group.country ? countryName(group.country, code) : t.chrome.groups[group.id as keyof ShortcutText['chrome']['groups']],
     items: group.slugs.flatMap((slug) => {
       const tool = TOOLS.find((x) => x.slug === slug);
       if (tool) return [{ slug, href: localePath(code, toolPath(slug)), name: toolText(code, slug).name, emoji: tool.emoji }];

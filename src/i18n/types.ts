@@ -36,6 +36,8 @@ export interface Dict {
   runsInBrowser: string;
   noSignup: string;
   noWatermark: string;
+  /** Pill on pages that only apply to one country; `{country}` is that country's name. */
+  countrySpecific: string;
   filesNeverLeave: string;
   quickAnswer: string;
   readGuide: string;

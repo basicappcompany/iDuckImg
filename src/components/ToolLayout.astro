@@ -3,6 +3,7 @@ import AppShell from './AppShell.astro';
 import AdSlot from './AdSlot.astro';
 import { relatedTools, toolForPath, toolPath } from '../lib/tools';
 import { breadcrumbLd, faqLd, howToLd, webApplicationLd } from '../lib/seo';
+import { countryName } from '../lib/country';
 import { guideForTool, guidePath } from '../lib/guides';
 import { guideTextFor } from '../i18n/guides';
 import { TRANSLATED_TOOL_SLUGS } from '../i18n/tools/translated';
@@ -20,13 +21,15 @@ interface Props {
    * For landing pages ("heic to jpg"), which are not in the tool list: the details a tool page
    * would get from src/lib/tools.ts, plus the parent tool for "More in" and the breadcrumb.
    */
+  /** ISO code of the one country this page applies to; leave out for pages that work anywhere. */
+  country?: string | null;
   landing?: { emoji: string; summary: string; quick: string; parentSlug: string };
   steps?: string[];
   faqs?: { q: string; a: string }[];
   /** The language of the page. Translated tool pages live at /es/compress-image/ and so on. */
   locale?: string;
 }
-const { title, description, heading, clientSide = true, usesFiles = true, landing, steps = [], faqs = [], locale = 'en' } = Astro.props;
+const { title, description, heading, clientSide = true, usesFiles = true, country = null, landing, steps = [], faqs = [], locale = 'en' } = Astro.props;
 const isEn = locale === 'en';
 const d = dictFor(locale);
 const lp = (p: string) => localePath(locale, p);
@@ -82,6 +85,7 @@ const jsonLd = [
     {clientSide && <span class="pill pill-ok">{d.runsInBrowser}</span>}
     <span class="pill">{d.noSignup}</span>
     <span class="pill">{d.noWatermark}</span>
+    {country && <span class="pill pill-country" data-country={country}><span aria-hidden="true">📍</span> {format(d.countrySpecific, { country: countryName(country, locale) })}</span>}
   </div>
   {clientSide && usesFiles && <p class="mt-3 text-sm font-bold">{d.filesNeverLeave}</p>}
 

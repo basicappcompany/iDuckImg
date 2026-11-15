@@ -69,6 +69,11 @@ const GROWTH_PATHS = [
   '/add-name-and-date-to-photo/',
 ];
 
+/** The sidebar files each exam page under its country (a UK or Canada page is not an India page). */
+const EXAM_PATHS_GB = EXAM_PATHS.filter((p) => p.startsWith('/uk-passport'));
+const EXAM_PATHS_CA = EXAM_PATHS.filter((p) => p.startsWith('/canada-passport'));
+const EXAM_PATHS_IN = EXAM_PATHS.filter((p) => !EXAM_PATHS_GB.includes(p) && !EXAM_PATHS_CA.includes(p));
+
 /** Same order as the sidebar and the homepage: grouped. */
 const GROUPS: Record<string, string[]> = {
   'Shrink & resize': ['/compress-image/', '/resize-image/', '/exam-photo-resizer/', '/pixel-to-cm-converter/', '/aspect-ratio-calculator/'],
@@ -104,7 +109,10 @@ const QUICK: Record<string, string[]> = {
   ],
   'Open other formats': ['/avif-to-jpg/', '/avif-to-png/', '/svg-to-png/', '/svg-to-jpg/', '/bmp-to-jpg/', '/gif-to-png/'],
   'Make a PDF': ['/jpg-to-pdf/', '/png-to-pdf/', '/image-to-pdf/'],
-  'Photos for forms': ['/exam-photo-resizer/', ...EXAM_PATHS, '/increase-image-size-in-kb/', '/resize-signature-10-20kb/', '/resize-image-to-35x45-mm/', '/resize-image-to-2x2-inch/', '/resize-image-to-200x230-px/', '/passport-size-photo/', '/add-name-and-date-to-photo/', '/remove-exif-data/', '/blur-image/'],
+  'Photos for forms': ['/exam-photo-resizer/', '/increase-image-size-in-kb/', '/resize-signature-10-20kb/', '/resize-image-to-35x45-mm/', '/resize-image-to-2x2-inch/', '/resize-image-to-200x230-px/', '/passport-size-photo/', '/add-name-and-date-to-photo/', '/remove-exif-data/', '/blur-image/'],
+  India: EXAM_PATHS_IN,
+  'United Kingdom': EXAM_PATHS_GB,
+  Canada: EXAM_PATHS_CA,
   'Quick edits': ['/crop-image/', '/rotate-image/', '/add-watermark-to-image/', '/add-logo-to-image/', '/circle-crop-image/', '/merge-images/', '/adjust-image-colors/', '/add-border-to-image/'],
 };
 /** Everything the home page and the sidebar list, in order: each group's tools, then its shortcuts. */
@@ -480,5 +488,54 @@ test.describe('size-target and picture-size pages', () => {
     expect(r!.size / 1024).toBeGreaterThanOrEqual(10);
     expect(r!.size / 1024).toBeLessThanOrEqual(20);
     expect([r!.width, r!.height]).toEqual([500, 200]);
+  });
+});
+
+test.describe('country-specific pages', () => {
+  test('an exam page says which country it is for; a general page does not', async ({ page }) => {
+    await page.goto('/ibps-po-photo-size/');
+    await expect(page.locator('.pill-country')).toHaveText(/Specific to India/);
+    await page.goto('/uk-passport-photo-size/');
+    await expect(page.locator('.pill-country')).toHaveText(/Specific to United Kingdom/);
+    await page.goto('/canada-passport-photo-size/');
+    await expect(page.locator('.pill-country')).toHaveText(/Specific to Canada/);
+    await page.goto('/resize-image-to-35x45-mm/');
+    await expect(page.locator('.pill-country')).toHaveCount(0);
+    await page.goto('/compress-image/');
+    await expect(page.locator('.pill-country')).toHaveCount(0);
+  });
+
+  test('the sidebar files each exam page under its own country', async ({ page }) => {
+    await page.goto('/uk-passport-photo-size/');
+    const quick = page.getByRole('navigation', { name: 'Quick tools' });
+    const uk = quick.locator('[data-nav-group]', { hasText: 'United Kingdom' });
+    await expect(uk).toHaveAttribute('aria-expanded', 'true');
+    await expect(quick.locator('[data-nav-group]', { hasText: 'India' })).toHaveAttribute('aria-expanded', 'false');
+  });
+
+  test('the requirements page is split by country with a link to each', async ({ page }) => {
+    await page.goto('/photo-and-signature-requirements/');
+    for (const name of ['India', 'United Kingdom', 'Canada']) {
+      await expect(page.getByRole('heading', { level: 2, name: new RegExp(name) })).toBeVisible();
+    }
+    // A UK exam is only in the UK section, never in the India one.
+    await expect(page.locator('[data-country-section="IN"]').getByText('UK passport (digital photo)')).toHaveCount(0);
+    await expect(page.locator('[data-country-section="GB"]').getByText('UK passport (digital photo)')).toBeVisible();
+    await page.locator('[data-country-link="CA"]').click();
+    await expect(page).toHaveURL(/#country-CA$/);
+  });
+
+  test('the exam resizer lists exams under their country', async ({ page }) => {
+    await page.goto('/exam-photo-resizer/');
+    const groups = page.locator('#exam optgroup');
+    await expect(groups).toHaveCount(3);
+    await expect(groups.nth(0)).toHaveAttribute('label', 'India');
+    await expect(groups.nth(1)).toHaveAttribute('label', 'United Kingdom');
+    await expect(groups.nth(2)).toHaveAttribute('label', 'Canada');
+  });
+
+  test('a translated exam page names the country in its own language', async ({ page }) => {
+    await page.goto('/de/ibps-po-photo-size/');
+    await expect(page.locator('.pill-country')).toHaveText(/Nur für Indien/);
   });
 });
