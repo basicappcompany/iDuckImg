@@ -9,4 +9,5 @@ minimumReleaseAgeExclude:
 
 # wasm-feature-detect 1.10 ships import.source(), a syntax error in browsers without source-phase imports (breaks dev for jSquash).
 overrides:
+  minimatch: 11.0.8
   wasm-feature-detect: 1.9.0
