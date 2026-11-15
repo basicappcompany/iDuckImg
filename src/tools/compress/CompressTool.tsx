@@ -79,6 +79,7 @@ export default function CompressTool({ initial }: { initial?: Partial<CompressOp
               >
                 <option value="same">{t.keep}</option>
                 <option value="webp">{t.webp}</option>
+                <option value="avif">AVIF</option>
               </select>
             </Field>
           </OptionsPanel>

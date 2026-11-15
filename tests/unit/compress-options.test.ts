@@ -26,6 +26,7 @@ describe('targetFormat', () => {
   it('keeps the input format or converts to webp', () => {
     expect(targetFormat('png', { quality: 70, format: 'same' })).toBe('png');
     expect(targetFormat('jpeg', { quality: 70, format: 'webp' })).toBe('webp');
+    expect(targetFormat('png', { quality: 70, format: 'avif' })).toBe('avif');
   });
 });
 

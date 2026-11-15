@@ -5,6 +5,7 @@ const MIME: Record<ImageFormat, string> = {
   jpeg: 'image/jpeg',
   png: 'image/png',
   webp: 'image/webp',
+  avif: 'image/avif',
 };
 
 /** Decode JPG/PNG/WebP/HEIC bytes to pixels. Runs in a worker (OffscreenCanvas). */
@@ -43,7 +44,7 @@ function flattenOnWhite(image: ImageData): ImageData {
   return image;
 }
 
-/** Encode pixels. Quality 1 to 100 applies to JPEG and WebP; PNG is lossless. */
+/** Encode pixels. Quality 1 to 100 applies to JPEG, WebP and AVIF; PNG is lossless. */
 export async function encodeImage(
   image: ImageData,
   format: ImageFormat,
@@ -56,6 +57,11 @@ export async function encodeImage(
   if (format === 'webp') {
     const { encode } = await import('@jsquash/webp');
     return encode(image, { quality });
+  }
+  if (format === 'avif') {
+    const { encode } = await import('@jsquash/avif');
+    // Speed 8 (of 0 to 10) keeps phones responsive; the file is a little larger than at the slowest setting.
+    return encode(image, { quality, speed: 8 });
   }
   const { encode } = await import('@jsquash/png');
   return encode(image);

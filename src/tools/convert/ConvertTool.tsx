@@ -32,7 +32,7 @@ export default function ConvertTool({ initial }: { initial?: Partial<ConvertOpti
     setFiles((prev) => [...prev, ...added]);
   };
 
-  const lossy = options.target === 'jpeg' || options.target === 'webp';
+  const lossy = options.target === 'jpeg' || options.target === 'webp' || options.target === 'avif';
 
   return (
     <div class="grid gap-5">
@@ -73,6 +73,7 @@ export default function ConvertTool({ initial }: { initial?: Partial<ConvertOpti
                 <option value="jpeg">JPG</option>
                 <option value="png">PNG</option>
                 <option value="webp">WebP</option>
+                <option value="avif">AVIF</option>
                 <option value="pdf">{t.pdfOption}</option>
               </select>
             </Field>

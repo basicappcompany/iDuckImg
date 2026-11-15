@@ -6,7 +6,7 @@ export type PdfPageMode = 'fit' | 'a4';
 
 export interface ConvertOptions {
   target: ConvertTarget;
-  /** JPG and WebP output only. */
+  /** JPG, WebP and AVIF output only. */
   quality: number;
   /** PDF output only. 'fit' makes the page the size of the image; 'a4' centres it on A4. */
   pdfPage: PdfPageMode;
@@ -69,7 +69,7 @@ export function outputName(inputName: string, target: ConvertTarget): string {
 
 export function mimeOfTarget(target: ConvertTarget): string {
   if (target === 'pdf') return 'application/pdf';
-  return { jpeg: 'image/jpeg', png: 'image/png', webp: 'image/webp' }[target];
+  return { jpeg: 'image/jpeg', png: 'image/png', webp: 'image/webp', avif: 'image/avif' }[target];
 }
 
 /** True when the target format has no transparency, so transparent areas become white. */
