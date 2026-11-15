@@ -42,12 +42,20 @@ describe('landing pages', () => {
   });
 
   it('size-target pages set a target and keep the picture size', () => {
-    for (const p of LANDING_PAGES.filter((x) => x.engine === 'resize')) {
+    for (const p of LANDING_PAGES.filter((x) => x.engine === 'resize' && x.slug !== 'bulk-resize-images')) {
       const o = { ...defaultResizeOptions, ...p.initial } as ResizeOptions;
       const mb = p.slug.match(/(\d+)mb$/);
       expect(o.targetKb).toBe(mb ? Number(mb[1]) * 1024 : Number(p.slug.match(/(\d+)kb$/)![1]));
       expect(computeSize({ width: 4000, height: 3000 }, o)).toEqual({ width: 4000, height: 3000 });
     }
+  });
+
+  it('bulk resize sets one width, keeps proportions and no file-size target', () => {
+    const p = LANDING_PAGES.find((x) => x.slug === 'bulk-resize-images')!;
+    const o = { ...defaultResizeOptions, ...p.initial } as ResizeOptions;
+    expect(o.targetKb).toBeNull();
+    expect(computeSize({ width: 2000, height: 1000 }, o)).toEqual({ width: 1080, height: 540 });
+    expect(computeSize({ width: 900, height: 1200 }, o)).toEqual({ width: 1080, height: 1440 });
   });
 
   it('convert pages name their output format in the page text', () => {

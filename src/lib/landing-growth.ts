@@ -106,6 +106,45 @@ export const GROWTH_PAGES: readonly LandingPage[] = [
     ],
   ),
 
+  {
+    slug: 'bulk-resize-images',
+    kind: { kind: 'custom' },
+    engine: 'resize',
+    initial: { mode: 'pixels', width: 1080, height: null, keepAspect: true, targetKb: null, format: 'same' },
+    emoji: '🗂️',
+    h1: 'Bulk resize images: many pictures at once',
+    title: 'Bulk resize images online, free, no upload',
+    description: 'Resize many JPG, PNG, WebP or HEIC pictures to the same width in one go and download them as a ZIP. Runs in your browser, nothing is uploaded.',
+    summary: 'Resize a whole folder of pictures to one width in one go.',
+    quick:
+      'To bulk resize images, drop all of them in at once and press Resize: every picture is scaled to a width of 1080 pixels with its proportions kept, one after another, and you can download them together as a ZIP. Change the width, or use percent, if you need something else. Nothing is uploaded.',
+    steps: [
+      'Select or drop all the pictures you want to resize. You can pick many files at once, or paste them.',
+      'The width is set to 1080 pixels and the height follows each picture. Change the number, or switch to percent.',
+      'Press Resize. The pictures are done one at a time, so a large batch does not freeze your phone.',
+      'Download each result, or use Download all as ZIP.',
+    ],
+    notes: [
+      'Every picture gets the same width, so portrait and landscape pictures end up with different heights. That keeps each one undistorted. If you need every picture to be exactly the same shape, use Crop first.',
+      'Pictures smaller than the width you choose are enlarged, which makes them blurry. Check the size column in the list before downloading.',
+      'There is no fixed limit on the number of pictures. The pictures are processed one at a time in your browser, so the practical limit is the memory of your device: for several hundred large photos, work in batches.',
+      'A picture that fails (a damaged file, for example) is marked and the rest carry on.',
+    ],
+    faqs: [
+      { q: 'How many pictures can I resize at once?', a: 'There is no set limit. They run one after another in your browser, so the real limit is your device. On a phone, a batch of a few dozen photos is comfortable.' },
+      { q: 'Can I give every picture the same width and height?', a: 'This page keeps proportions. For one exact shape, crop the pictures first, or use the exam and form resizer with a custom size, which fits each picture to the box.' },
+      { q: 'Do the file names change?', a: 'Each result keeps the name of the original with -resized added, for example photo-resized.jpg, so you can match them up.' },
+      { q: 'Is anything uploaded?', a: 'No. The resizing runs inside your browser tab and the files stay on your device.' },
+    ],
+    related: ['resize-image', 'compress-image', 'crop-image', 'convert-image'],
+    sections: [
+      section(
+        'Bulk resizing without an upload',
+        'Pictures are decoded, scaled and saved by code running in your own browser. A batch is therefore as private as resizing one picture.',
+      ),
+    ],
+  },
+
   // Sizes in MB. English only for now (there is no translated template for them).
   {
     slug: 'compress-image-to-1mb',

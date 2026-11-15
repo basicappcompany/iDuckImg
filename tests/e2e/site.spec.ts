@@ -57,6 +57,7 @@ const GROWTH_PATHS = [
   '/compress-image-to-150kb/',
   '/compress-image-to-300kb/',
   '/compress-image-to-500kb/',
+  '/bulk-resize-images/',
   '/compress-image-to-1mb/',
   '/compress-image-to-2mb/',
   '/increase-image-size-in-kb/',
@@ -95,7 +96,7 @@ const QUICK: Record<string, string[]> = {
     '/compress-image/', '/resize-image/', '/compress-image-to-100kb/', '/compress-image-to-50kb/',
     '/compress-image-to-200kb/', '/compress-image-to-20kb/',
     '/compress-image-to-10kb/', '/compress-image-to-15kb/', '/compress-image-to-30kb/', '/compress-image-to-40kb/',
-    '/compress-image-to-150kb/', '/compress-image-to-300kb/', '/compress-image-to-500kb/', '/compress-image-to-1mb/', '/compress-image-to-2mb/',
+    '/compress-image-to-150kb/', '/compress-image-to-300kb/', '/compress-image-to-500kb/', '/bulk-resize-images/', '/compress-image-to-1mb/', '/compress-image-to-2mb/',
   ],
   'Convert a format': [
     '/heic-to-jpg/', '/heic-to-png/', '/png-to-jpg/', '/jpg-to-png/', '/webp-to-jpg/',
@@ -421,6 +422,18 @@ test.describe('size-target and picture-size pages', () => {
       expect(r!.size, path).toBeLessThanOrEqual(kb * 1024);
       expect([r!.width, r!.height], path).toEqual([w, h]);
     }
+  });
+
+  test('bulk resize makes every picture the same width and keeps each proportion', async ({ page }) => {
+    await page.goto('/bulk-resize-images/');
+    await addFiles(page, [
+      await makeImage(page, 'image/jpeg', 'a.jpg', 2000, 1000),
+      await makeImage(page, 'image/png', 'b.png', 900, 1200),
+      await makeImage(page, 'image/webp', 'c.webp', 3000, 1500),
+    ]);
+    await page.getByRole('button', { name: 'Resize', exact: true }).click();
+    const results = await readResults(page, 3);
+    expect(results.map((r) => [r.width, r.height])).toEqual([[1080, 540], [1080, 1440], [1080, 540]]);
   });
 
   test('increase image size in KB reaches the minimum without changing the pixels', async ({ page }) => {
