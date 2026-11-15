@@ -58,6 +58,7 @@ export default defineConfig({
         '@jsquash/jpeg',
         '@jsquash/png',
         '@jsquash/webp',
+        '@jsquash/avif',
         '@jsquash/oxipng',
         '@jsquash/resize',
       ],

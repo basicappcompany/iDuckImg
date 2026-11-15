@@ -4,10 +4,10 @@ import { extensionOf, type ImageFormat } from '../image-format';
 export { detectFormat, mimeOf, type ImageFormat } from '../image-format';
 
 export interface CompressOptions {
-  /** 1 to 100. Applies to JPEG and WebP. PNG is always lossless. */
+  /** 1 to 100. Applies to JPEG, WebP and AVIF. PNG is always lossless. */
   quality: number;
-  /** 'same' keeps each file's format; 'webp' converts everything to WebP. */
-  format: 'same' | 'webp';
+  /** 'same' keeps each file's format; 'webp' and 'avif' convert everything to that format. */
+  format: 'same' | 'webp' | 'avif';
 }
 
 export const defaultCompressOptions: CompressOptions = { quality: 75, format: 'same' };
@@ -15,7 +15,7 @@ export const defaultCompressOptions: CompressOptions = { quality: 75, format: 's
 export const COMPRESS_ACCEPTS = ['image/jpeg', 'image/png', 'image/webp'] as const;
 
 export function targetFormat(input: ImageFormat, options: CompressOptions): ImageFormat {
-  return options.format === 'webp' ? 'webp' : input;
+  return options.format === 'same' ? input : options.format;
 }
 
 export function clampQuality(quality: number): number {

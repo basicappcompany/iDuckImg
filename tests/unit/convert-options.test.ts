@@ -25,6 +25,7 @@ describe('mimeOfTarget', () => {
     expect(mimeOfTarget('jpeg')).toBe('image/jpeg');
     expect(mimeOfTarget('png')).toBe('image/png');
     expect(mimeOfTarget('webp')).toBe('image/webp');
+    expect(mimeOfTarget('avif')).toBe('image/avif');
   });
 });
 

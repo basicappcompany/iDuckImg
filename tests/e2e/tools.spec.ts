@@ -1,5 +1,5 @@
 import { expect, test } from '@playwright/test';
-import { addFiles, makeImage, readResults } from './helpers';
+import { addFiles, makeImage, readResults, resultBytes } from './helpers';
 
 test.describe('compress', () => {
   test('shrinks JPG, PNG and WebP and offers a ZIP', async ({ page }) => {
@@ -19,6 +19,17 @@ test.describe('compress', () => {
       expect(r.size).toBeLessThan(images[i]!.buffer.length);
       expect([r.width, r.height]).toEqual([1200, 800]);
     });
+  });
+
+  test('compresses to AVIF and the file is smaller than the JPG', async ({ page }) => {
+    await page.goto('/compress-image/');
+    const image = await makeImage(page, 'image/jpeg', 'a.jpg');
+    await addFiles(page, [image]);
+    await page.getByLabel('Output format').selectOption('avif');
+    await page.getByRole('button', { name: 'Compress', exact: true }).click();
+    const [r] = await readResults(page, 1);
+    expect(r).toMatchObject({ name: 'a-compressed.avif', type: 'image/avif', width: 1200, height: 800 });
+    expect(r!.size).toBeLessThan(image.buffer.length);
   });
 
   test('cancel stops a batch', async ({ page }) => {
@@ -95,6 +106,17 @@ test.describe('convert', () => {
       ['a.jpg', 'image/jpeg'],
       ['b.jpg', 'image/jpeg'],
     ]);
+  });
+
+  test('converts to AVIF: a real AVIF file at the same pixel size', async ({ page }) => {
+    await page.goto('/convert-image/');
+    await addFiles(page, [await makeImage(page, 'image/png', 'a.png')]);
+    await page.getByLabel('Format').selectOption('avif');
+    await page.getByRole('button', { name: 'Convert', exact: true }).click();
+    const results = await readResults(page, 1);
+    expect(results[0]).toMatchObject({ name: 'a.avif', type: 'image/avif', width: 1200, height: 800 });
+    const bytes = await resultBytes(page, 0);
+    expect(new TextDecoder().decode(bytes.subarray(4, 12))).toBe('ftypavif');
   });
 
   test('makes PDFs', async ({ page }) => {

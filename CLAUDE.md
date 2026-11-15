@@ -134,7 +134,7 @@ Checklist, because every tool touches the same places: `src/lib/tools.ts` (name 
 - BMP, GIF, SVG and AVIF are accepted by every tool whose accept list has `image/png`. `FileDropzone` turns them into a PNG as soon as they arrive (`normalizeInput` in `src/tools/shared/normalize.ts`, pure parts in `src/lib/extra-formats.ts`), so no tool and no worker knows about them. Do not add them to individual `*_ACCEPTS` lists.
 - A GIF keeps its first frame. An SVG is drawn through an `<img>` (no scripts, nothing fetched) at 1024 to 4096 px on its longer side; a worker cannot decode SVG, which is why this happens on the page. AVIF depends on the browser and gives a clear message when it cannot open one.
 - `originalSizeOf(file)` returns the size before conversion; `DownloadPanel` uses it so before/after sizes compare with what the visitor dropped, not the PNG we made. Use it for any new before/after figure.
-- Fixtures for the browser tests are in `tests/e2e/fixtures/` (made with Pillow). Output as BMP, GIF, SVG or AVIF is not built.
+- Fixtures for the browser tests are in `tests/e2e/fixtures/` (made with Pillow). Output as BMP, GIF or SVG is not built. AVIF output (`@jsquash/avif`, speed 8) exists in Convert and Compress only; `ImageFormat` includes `avif`, but `detectFormat` never returns it because AVIF input is turned into PNG first.
 
 ## Exam landing pages
 

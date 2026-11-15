@@ -1,11 +1,13 @@
-export type ImageFormat = 'jpeg' | 'png' | 'webp';
+/** AVIF is an output format only: AVIF files that arrive are turned into PNG first (see extra-formats). */
+export type ImageFormat = 'jpeg' | 'png' | 'webp' | 'avif';
 
 const MIME: Record<ImageFormat, string> = {
   jpeg: 'image/jpeg',
   png: 'image/png',
   webp: 'image/webp',
+  avif: 'image/avif',
 };
-const EXT: Record<ImageFormat, string> = { jpeg: 'jpg', png: 'png', webp: 'webp' };
+const EXT: Record<ImageFormat, string> = { jpeg: 'jpg', png: 'png', webp: 'webp', avif: 'avif' };
 
 export function mimeOf(format: ImageFormat): string {
   return MIME[format];
