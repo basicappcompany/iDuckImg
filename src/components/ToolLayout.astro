@@ -135,4 +135,20 @@ const jsonLd = [
       </nav>
     )
   }
+
+  {
+    faqs.length > 0 && (
+      <section class="mt-12" aria-label={d.faqHeading} data-faq>
+        <h2 class="text-3xl font-black tracking-tight">{d.faqHeading}</h2>
+        <div class="mt-4 grid gap-3">
+          {faqs.map((f) => (
+            <details class="card px-4 py-3">
+              <summary class="cursor-pointer text-lg font-black">{f.q}</summary>
+              <p class="mt-2 leading-relaxed">{f.a}</p>
+            </details>
+          ))}
+        </div>
+      </section>
+    )
+  }
 </AppShell>
