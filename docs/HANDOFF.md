@@ -1,4 +1,4 @@
-# Handoff (updated 2026-11-15, after PR #62)
+# Handoff (updated 2026-11-15, after PR #65)
 
 Everything below is merged to `main` and live at https://iduckimg.com (PRs #20 to #62, each merged on green CI). The site has 24 tools and 25 shortcut pages in eleven language versions (1333 built pages), from a 59-tool plan. `pnpm verify` passes with 544 unit tests and `pnpm test:e2e` with 225 browser tests (4 HEIC tests skipped without a fixture). For what is done and what is next, open `docs/status.html`; for conventions and the lessons learned, read `CLAUDE.md`.
 
@@ -37,6 +37,9 @@ CSP and security headers (securityheaders.com A+, Observatory A+ 130), the SEO/A
 
 ## Also done on 2026-11-15 (PRs #59 to #62)
 AVIF output in Convert and Compress, the Bulk resize page, the `minimatch` advisory fixed, `pica` removed, and a plain message for browsers without OffscreenCanvas. Firefox passes the tool tests; WebKit could only be run through Playwright's Windows build, which lacks OffscreenCanvas, so real Safari is untested.
+
+## Also done on 2026-11-15 (PRs #64 and #65)
+Cancel is tested in Resize, Convert and Images to PDF. Every exam has a country: exam pages carry a "Specific to X" pill, the sidebar has India, United Kingdom and Canada groups, and the requirements page and exam dropdown are split by country (`src/lib/country.ts`). General size pages are not marked. Not yet tested: the pill on a real phone, near-limit photos in Firefox and WebKit, Cancel in the other tools.
 
 ## Waiting on the owner (also in status.html)
 Cloudflare analytics decision (3.18: the injected beacon is blocked by the CSP and costs Lighthouse best practices 7 points), 
