@@ -1,5 +1,14 @@
 import { isAbortError, type CombinedToolDefinition, type FileResult, type ToolDefinition } from './types';
 
+/** A visitor-readable message for a failure. A missing OffscreenCanvas means an old browser (Safari before 16.4, for example). */
+export function describeError(error: unknown): string {
+  const message = error instanceof Error ? error.message : String(error);
+  if (/OffscreenCanvas/.test(message)) {
+    return 'This browser is too old to run this tool. Please update it: Safari 16.4 or later, or a current Chrome, Edge or Firefox.';
+  }
+  return message;
+}
+
 export interface BatchCallbacks {
   /** Called whenever any file's result changes. Receives a fresh copy. */
   onUpdate?: (results: FileResult[]) => void;
@@ -46,7 +55,7 @@ export async function runBatch<Options>(
         result.status = 'cancelled';
       } else {
         result.status = 'error';
-        result.error = error instanceof Error ? error.message : String(error);
+        result.error = describeError(error);
       }
     }
     emit();
@@ -87,7 +96,7 @@ export async function runCombined<Options>(
       result.status = 'cancelled';
     } else {
       result.status = 'error';
-      result.error = error instanceof Error ? error.message : String(error);
+      result.error = describeError(error);
     }
   }
   emit();

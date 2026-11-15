@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { runBatch, runCombined } from '../../src/engine/runner';
+import { describeError, runBatch, runCombined } from '../../src/engine/runner';
 import { AbortError, type CombinedToolDefinition, type ToolDefinition } from '../../src/engine/types';
 
 const file = (name: string) => new File(['x'], name);
@@ -123,5 +123,16 @@ describe('runCombined', () => {
       onFileProgress: (i, f) => seen.push([i, f]),
     });
     expect(seen).toEqual([[0, 0.5], [0, 1]]);
+  });
+});
+
+describe('describeError', () => {
+  it('explains a missing OffscreenCanvas as an old browser', () => {
+    expect(describeError(new ReferenceError("Can't find variable: OffscreenCanvas"))).toMatch(/too old.*Safari 16\.4/);
+    expect(describeError(new ReferenceError('OffscreenCanvas is not defined'))).toMatch(/too old/);
+  });
+  it('leaves every other message alone', () => {
+    expect(describeError(new Error('Could not read the image.'))).toBe('Could not read the image.');
+    expect(describeError('plain text')).toBe('plain text');
   });
 });
