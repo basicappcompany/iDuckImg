@@ -36,6 +36,7 @@ export const QUICK_GROUPS: readonly QuickGroupDef[] = [
       'compress-image-to-150kb',
       'compress-image-to-300kb',
       'compress-image-to-500kb',
+      'bulk-resize-images',
       'compress-image-to-1mb',
       'compress-image-to-2mb',
     ],
