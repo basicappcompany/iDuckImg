@@ -1,6 +1,6 @@
-# Handoff (updated 2026-11-15, after PR #57)
+# Handoff (updated 2026-11-15, after PR #62)
 
-Everything below is merged to `main` and live at https://iduckimg.com (PRs #20 to #57, each merged on green CI). The site has 24 tools and 25 shortcut pages in eleven language versions (1332 built pages), from a 59-tool plan. `pnpm verify` passes with 544 unit tests and `pnpm test:e2e` with 225 browser tests (4 HEIC tests skipped without a fixture). For what is done and what is next, open `docs/status.html`; for conventions and the lessons learned, read `CLAUDE.md`.
+Everything below is merged to `main` and live at https://iduckimg.com (PRs #20 to #62, each merged on green CI). The site has 24 tools and 25 shortcut pages in eleven language versions (1333 built pages), from a 59-tool plan. `pnpm verify` passes with 544 unit tests and `pnpm test:e2e` with 225 browser tests (4 HEIC tests skipped without a fixture). For what is done and what is next, open `docs/status.html`; for conventions and the lessons learned, read `CLAUDE.md`.
 
 
 ## What exists
@@ -35,7 +35,11 @@ English (US) at the root, English (UK) at `/en-gb/` (made from the US text at bu
 ## Also done: security, SEO and growth audit (PRs #54 to #57, 2026-11-14)
 CSP and security headers (securityheaders.com A+, Observatory A+ 130), the SEO/AEO/GEO foundations, 17 exams and IDs from official documents, more size and dimension pages, comparison pages, OUTREACH.md and Lighthouse 98 to 99. Everything, including what was not built and why, is in `AUDIT.md`. Nine languages are noindex until a person reads them.
 
+## Also done on 2026-11-15 (PRs #59 to #62)
+AVIF output in Convert and Compress, the Bulk resize page, the `minimatch` advisory fixed, `pica` removed, and a plain message for browsers without OffscreenCanvas. Firefox passes the tool tests; WebKit could only be run through Playwright's Windows build, which lacks OffscreenCanvas, so real Safari is untested.
+
 ## Waiting on the owner (also in status.html)
+Cloudflare analytics decision (3.18: the injected beacon is blocked by the CSP and costs Lighthouse best practices 7 points), 
 HEIC to JPG on the live site (3.14), GitHub two-factor and a branch rule for main (3.15), DNSSEC and auto-renew at GoDaddy (3.16), submit the sitemap in Search Console (5.7), Rich Results Test on ten pages (5.22), ads or no ads (6.5), a real feedback message (3.11), camera policy on a phone, a person to read each language.
 
 ## Decisions waiting on you
