@@ -31,6 +31,8 @@ test.describe('landing pages', () => {
   });
 
   test('every shortcut page has its answer, steps, questions, structured data and links to real pages', async ({ page, request }) => {
+    // Visits every shortcut page in turn, so the time grows with the page list; 90 s was too tight.
+    test.setTimeout(300_000);
     const hub = await page.goto('/image-tools/');
     expect(hub?.status()).toBe(200);
     const paths = await page

@@ -89,20 +89,6 @@ const jsonLd = [
   </div>
   {clientSide && usesFiles && <p class="mt-3 text-sm font-bold">{d.filesNeverLeave}</p>}
 
-  {
-    info && (
-      <section aria-label="Quick answer" class="card mt-5 p-4">
-        <p class="eyebrow">{d.quickAnswer}</p>
-        <p class="mt-1 leading-relaxed">{lengthen(info.quick)}</p>
-        {guide && (
-          <p class="mt-2 text-sm">
-            <span aria-hidden="true">📖</span> <a class="link" href={lp(guidePath(guide.slug))}>{d.readGuide}: {guideTextFor(locale, guide).title}</a>
-          </p>
-        )}
-      </section>
-    )
-  }
-
   {controlsNote && <p class="mt-5 text-sm font-bold" data-controls-note>{d.controlsEnglish}</p>}
 
   <section class="tool-area mt-5 grid gap-5" aria-label="Tool">
@@ -137,8 +123,22 @@ const jsonLd = [
   }
 
   {
+    info && (
+      <section aria-label="Quick answer" class="card mt-12 p-4" data-quick-answer>
+        <p class="eyebrow">{d.quickAnswer}</p>
+        <p class="mt-1 leading-relaxed">{lengthen(info.quick)}</p>
+        {guide && (
+          <p class="mt-2 text-sm">
+            <span aria-hidden="true">📖</span> <a class="link" href={lp(guidePath(guide.slug))}>{d.readGuide}: {guideTextFor(locale, guide).title}</a>
+          </p>
+        )}
+      </section>
+    )
+  }
+
+  {
     faqs.length > 0 && (
-      <section class="mt-12" aria-label={d.faqHeading} data-faq>
+      <section class="mt-8" aria-label={d.faqHeading} data-faq>
         <h2 class="text-3xl font-black tracking-tight">{d.faqHeading}</h2>
         <div class="mt-4 grid gap-3">
           {faqs.map((f) => (

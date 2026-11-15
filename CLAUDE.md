@@ -143,7 +143,7 @@ Checklist, because every tool touches the same places: `src/lib/tools.ts` (name 
 
 ## Page block order
 
-- `ToolLayout` draws the Common questions itself, from its `faqs` prop, as the last block on every tool and shortcut page: quick answer, tool, how-to and notes (page content slot), Related, "More in ...", then the questions. Do not draw questions inside a page's content slot, and `ToolGuide` takes no `faqs`. A browser test (`page block order` in `site.spec.ts`) fails if anything follows them. Guide pages are a different layout and keep "Related guides" after theirs.
+- `ToolLayout` draws the Common questions itself, from its `faqs` prop, as the last block on every tool and shortcut page: tool, how-to and notes (page content slot), Related, "More in ...", then the quick answer directly above the questions (the owner wants the quick answer only there, never above the tool). Do not draw questions inside a page's content slot, and `ToolGuide` takes no `faqs`. A browser test (`page block order` in `site.spec.ts`) fails if anything follows them. Guide pages are a different layout and keep "Related guides" after theirs.
 
 ## Country-specific pages
 
