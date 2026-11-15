@@ -3,6 +3,7 @@ import CommunityLayout from '../components/CommunityLayout.astro';
 import { EXAMS, describeRequirements, type ExamPreset } from '../lib/exam-presets';
 import { examPageSlug, readableDate } from '../lib/exam-landing';
 import { SITE_UPDATED, breadcrumbLd } from '../lib/seo';
+import { COUNTRY_ORDER, countryName } from '../lib/country';
 
 // Families, in the order shown. An exam not matched here is shown under "Other".
 const FAMILIES: { name: string; match: (e: ExamPreset) => boolean }[] = [
@@ -13,14 +14,19 @@ const FAMILIES: { name: string; match: (e: ExamPreset) => boolean }[] = [
   { name: 'CTET and GATE', match: (e) => /^(ctet|gate)-/.test(e.id) },
   { name: 'Passport photos (digital)', match: (e) => /passport/.test(e.id) },
 ];
-const used = new Set<string>();
-const families = FAMILIES.map((f) => {
-  const exams = EXAMS.filter((e) => f.match(e) && !used.has(e.id));
-  exams.forEach((e) => used.add(e.id));
-  return { name: f.name, exams };
-}).filter((f) => f.exams.length > 0);
-const other = EXAMS.filter((e) => !used.has(e.id));
-if (other.length > 0) families.push({ name: 'Other', exams: other });
+// Every exam belongs to one country; the countries are shown in the order of COUNTRY_ORDER.
+const countries = COUNTRY_ORDER.map((code) => {
+  const inCountry = EXAMS.filter((e) => e.country === code);
+  const used = new Set<string>();
+  const families = FAMILIES.map((f) => {
+    const exams = inCountry.filter((e) => f.match(e) && !used.has(e.id));
+    exams.forEach((e) => used.add(e.id));
+    return { name: f.name, exams };
+  }).filter((f) => f.exams.length > 0);
+  const rest = inCountry.filter((e) => !used.has(e.id));
+  if (rest.length > 0) families.push({ name: 'Other', exams: rest });
+  return { code, name: countryName(code), families, exams: inCountry };
+}).filter((c) => c.exams.length > 0);
 const docCount = EXAMS.reduce((n, e) => n + e.documents.length, 0);
 
 const jsonLd = [
@@ -53,13 +59,35 @@ const jsonLd = [
     </p>
   </section>
 
+  <nav class="card p-5" aria-label="Countries">
+    <h2 class="text-2xl font-black tracking-tight">Pick your country</h2>
+    <p class="mt-2 leading-relaxed">
+      Each exam or document below applies only to the country that sets it. Pages are grouped by country so you do not follow
+      another country's rules by mistake.
+    </p>
+    <ul class="mt-3 flex flex-wrap gap-2">
+      {
+        countries.map((c) => (
+          <li>
+            <a class="chip" href={`#country-${c.code}`} data-country-link={c.code}>
+              <span aria-hidden="true">📍</span> {c.name} ({c.exams.length})
+            </a>
+          </li>
+        ))
+      }
+    </ul>
+  </nav>
+
   {
-    families.map((family) => (
+    countries.map((country) => (
+      <section id={`country-${country.code}`} data-country-section={country.code} aria-label={country.name} class="grid gap-5 scroll-mt-4">
+        <h2 class="display text-3xl"><span aria-hidden="true">📍</span> {country.name}</h2>
+        {country.families.map((family) => (
       <section class="card p-5" aria-label={family.name}>
-        <h2 class="text-2xl font-black tracking-tight">{family.name}</h2>
+        <h3 class="text-2xl font-black tracking-tight">{family.name}</h3>
         {family.exams.map((exam) => (
           <div class="mt-5">
-            <h3 class="text-lg font-black">{exam.name}</h3>
+            <h4 class="text-lg font-black">{exam.name}</h4>
             <p class="mt-1 text-sm text-muted">{exam.cycle}</p>
             <div class="mt-2 overflow-x-auto">
               <table class="w-full min-w-[34rem] border-collapse text-left text-sm">
@@ -88,6 +116,8 @@ const jsonLd = [
               {readableDate(exam.source.retrieved)}.
             </p>
           </div>
+        ))}
+      </section>
         ))}
       </section>
     ))

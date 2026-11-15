@@ -29,6 +29,7 @@ export const de: LocaleData = {
     runsInBrowser: `Läuft in Ihrem Browser`,
     noSignup: `Keine Anmeldung`,
     noWatermark: `Kein Wasserzeichen`,
+    countrySpecific: `Nur für {country}`,
     filesNeverLeave: `Ihre Dateien verlassen nie Ihr Gerät.`,
     quickAnswer: `Kurze Antwort`,
     readGuide: `Anleitung lesen`,

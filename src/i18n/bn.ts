@@ -29,6 +29,7 @@ export const bn: LocaleData = {
     runsInBrowser: `আপনার ব্রাউজারে চলে`,
     noSignup: `সাইন-আপ লাগে না`,
     noWatermark: `কোনো ওয়াটারমার্ক নেই`,
+    countrySpecific: `{country}-এর জন্য নির্দিষ্ট`,
     filesNeverLeave: `আপনার ফাইল কখনোই আপনার ডিভাইসের বাইরে যায় না।`,
     quickAnswer: `সংক্ষিপ্ত উত্তর`,
     readGuide: `গাইড পড়ুন`,

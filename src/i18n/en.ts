@@ -28,6 +28,7 @@ export const en: Dict = {
   runsInBrowser: 'Runs in your browser',
   noSignup: 'No sign-up',
   noWatermark: 'No watermark',
+  countrySpecific: 'Specific to {country}',
   filesNeverLeave: 'Your files never leave your device.',
   quickAnswer: 'Quick answer',
   readGuide: 'Read the guide',

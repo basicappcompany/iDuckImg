@@ -1,4 +1,5 @@
 ---
+import { countryOfLanding } from '../lib/country';
 import ToolLayout from '../components/ToolLayout.astro';
 import CompressTool from '../tools/compress/CompressTool';
 import ResizeTool from '../tools/resize/ResizeTool';
@@ -28,6 +29,7 @@ const relatedLinks = page.related.flatMap((slug) => {
   title={`${page.title} | iDuckIMG`}
   description={page.description}
   heading={page.h1}
+  country={countryOfLanding(page)}
   landing={{ emoji: page.emoji, summary: page.summary, quick: page.quick, parentSlug }}
   steps={page.steps}
   faqs={page.faqs}

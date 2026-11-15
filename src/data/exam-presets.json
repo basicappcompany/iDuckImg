@@ -3,6 +3,7 @@
   "exams": [
     {
       "id": "ibps-po-xv",
+      "country": "IN",
       "name": "IBPS PO/MT (CRP PO/MT-XV)",
       "cycle": "CRP PO/MT-XV, vacancies of 2026-27 (registration dates in the document: 01.07.2025 to 21.07.2025)",
       "source": {
@@ -63,6 +64,7 @@
     },
     {
       "id": "ssc-cgl-2026",
+      "country": "IN",
       "name": "SSC CGL 2026",
       "cycle": "Combined Graduate Level Examination, 2026 (online applications until 22.06.2026)",
       "source": {
@@ -91,6 +93,7 @@
     },
     {
       "id": "ibps-clerk-csa-xvi",
+      "country": "IN",
       "name": "IBPS Clerk (CRP CSA-XVI)",
       "cycle": "CRP CSA-XVI, Customer Service Associates (online registration 01.8.2026 to 21.08.2026)",
       "source": {
@@ -152,6 +155,7 @@
     },
     {
       "id": "ibps-rrb-xv",
+      "country": "IN",
       "name": "IBPS RRB (CRP RRBs-XV)",
       "cycle": "CRP RRBs-XV, Officers (Scale I, II and III) and Office Assistants (online registration 01.09.2026 to 21.09.2026)",
       "source": {
@@ -213,6 +217,7 @@
     },
     {
       "id": "ibps-so-spl-xvi",
+      "country": "IN",
       "name": "IBPS SO (CRP SPL-XVI)",
       "cycle": "CRP SPL-XVI, Specialist Officers (online registration 01.07.2026 to 21.07.2026)",
       "source": {
@@ -274,6 +279,7 @@
     },
     {
       "id": "sbi-po-2026-27",
+      "country": "IN",
       "name": "SBI PO (2026-27)",
       "cycle": "Probationary Officers, advertisement CRPD/PO/2026-27/09 (online registration 18.06.2026 to 08.07.2026)",
       "source": {
@@ -335,6 +341,7 @@
     },
     {
       "id": "sbi-clerk-2026-27",
+      "country": "IN",
       "name": "SBI Clerk (Junior Associates, 2026-27)",
       "cycle": "Junior Associates (Customer Support & Sales), advertisement CRPD/CR/2026-27/17 (online registration 11.08.2026 to 31.08.2026)",
       "source": {
@@ -394,6 +401,7 @@
     },
     {
       "id": "cuet-ug-2026",
+      "country": "IN",
       "name": "CUET (UG) 2026",
       "cycle": "CUET (UG) 2026, NTA Information Bulletin",
       "source": {
@@ -430,6 +438,7 @@
     },
     {
       "id": "ctet-sep-2026",
+      "country": "IN",
       "name": "CTET (September 2026)",
       "cycle": "CTET September 2026, 22nd edition (online application 11.05.2026 to 10.06.2026)",
       "source": {
@@ -467,6 +476,7 @@
     },
     {
       "id": "gate-2026",
+      "country": "IN",
       "name": "GATE 2026",
       "cycle": "GATE 2026, organised by IIT Guwahati (examination in February 2026)",
       "source": {
@@ -505,6 +515,7 @@
     },
     {
       "id": "uk-passport-digital",
+      "country": "GB",
       "name": "UK passport (digital photo)",
       "cycle": "GOV.UK page Get a passport photo, digital photos (no update date shown on the page)",
       "source": {
@@ -532,6 +543,7 @@
     },
     {
       "id": "canada-passport-digital",
+      "country": "CA",
       "name": "Canada passport (digital photo)",
       "cycle": "Canada.ca page Passport photo requirements, online renewals (page details date 2026-09-23)",
       "source": {
@@ -559,6 +571,7 @@
     },
     {
       "id": "ssc-chsl-2026",
+      "country": "IN",
       "name": "SSC CHSL 2026",
       "cycle": "Combined Higher Secondary (10+2) Level Examination, 2026 (online applications 07.09.2026 to 07.10.2026)",
       "source": {
@@ -588,6 +601,7 @@
     },
     {
       "id": "ssc-gd-2026",
+      "country": "IN",
       "name": "SSC GD Constable 2026",
       "cycle": "Constable (GD) in CAPFs and SSF, and Rifleman (GD) in Assam Rifles Examination, 2026 (online applications 01.12.2025 to 31.12.2025)",
       "source": {
@@ -617,6 +631,7 @@
     },
     {
       "id": "ssc-mts-2025",
+      "country": "IN",
       "name": "SSC MTS and Havaldar 2025",
       "cycle": "Multi Tasking (Non-Technical) Staff, and Havaldar (CBIC & CBN) Examination, 2025 (online applications 26-06-2025 to 24-07-2025)",
       "source": {
@@ -646,6 +661,7 @@
     },
     {
       "id": "neet-ug-2026",
+      "country": "IN",
       "name": "NEET (UG) 2026",
       "cycle": "NEET (UG) 2026, examination held on 03 May 2026",
       "source": {
@@ -683,6 +699,7 @@
     },
     {
       "id": "jee-main-2027",
+      "country": "IN",
       "name": "JEE (Main) 2027",
       "cycle": "JEE (Main) 2027, Session 1 (January 2027) and Session 2 (April 2027)",
       "source": {

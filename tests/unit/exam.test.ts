@@ -31,6 +31,7 @@ describe('preset data', () => {
   });
 
   const base: ExamPreset = {
+    country: 'IN',
     id: 'x',
     name: 'X',
     cycle: 'c',

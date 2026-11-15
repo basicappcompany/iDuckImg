@@ -29,6 +29,7 @@ export const ru: LocaleData = {
     runsInBrowser: `Работает в вашем браузере`,
     noSignup: `Без регистрации`,
     noWatermark: `Без водяных знаков`,
+    countrySpecific: `Только для: {country}`,
     filesNeverLeave: `Ваши файлы никогда не покидают ваше устройство.`,
     quickAnswer: `Краткий ответ`,
     readGuide: `Читать руководство`,

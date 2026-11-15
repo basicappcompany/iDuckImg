@@ -1,6 +1,7 @@
 import { TOOLS, toolPath } from './tools';
 import { LANDING_PAGES, landingName, landingPath } from './landing';
 import { EXAM_LANDING_PAGES } from './exam-landing';
+import { COUNTRY_ORDER, countryName, countryOfLanding } from './country';
 
 /**
  * The "Quick tools" at the top of the sidebar: the jobs people come for most, in a few
@@ -14,6 +15,8 @@ export interface QuickGroupDef {
   id: string;
   name: string;
   emoji: string;
+  /** Set on a group that holds only one country's pages (ISO code); the name is then the country's. */
+  country?: string;
   slugs: readonly string[];
 }
 
@@ -74,7 +77,6 @@ export const QUICK_GROUPS: readonly QuickGroupDef[] = [
     emoji: '🪪',
     slugs: [
       'exam-photo-resizer',
-      ...EXAM_LANDING_PAGES.map((p) => p.slug),
       'increase-image-size-in-kb',
       'resize-signature-10-20kb',
       'resize-image-to-35x45-mm',
@@ -86,6 +88,15 @@ export const QUICK_GROUPS: readonly QuickGroupDef[] = [
       'blur-image',
     ],
   },
+  // One group per country, because an exam or ID page only applies to that country. The names are
+  // the country's own name in the visitor's language (see `countryName`), so they need no translation.
+  ...COUNTRY_ORDER.map((code) => ({
+    id: `country-${code}`,
+    name: countryName(code),
+    country: code,
+    emoji: '📍',
+    slugs: EXAM_LANDING_PAGES.filter((p) => countryOfLanding(p) === code).map((p) => p.slug),
+  })),
   {
     id: 'edit',
     name: 'Quick edits',

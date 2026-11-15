@@ -27,6 +27,8 @@ export interface ExamSource {
 
 export interface ExamPreset {
   id: string;
+  /** ISO 3166-1 country whose authority sets these rules (see `src/lib/country.ts`). */
+  country: string;
   name: string;
   cycle: string;
   source: ExamSource;
@@ -49,6 +51,7 @@ export function validatePresets(exams: readonly ExamPreset[]): string[] {
     if (!exam.id || ids.has(exam.id)) problems.push(`${where}: missing or duplicate id`);
     ids.add(exam.id);
     if (!exam.name) problems.push(`${where}: missing name`);
+    if (!/^[A-Z]{2}$/.test(exam.country ?? '')) problems.push(`${where}: country must be a two-letter ISO code such as IN`);
     if (!exam.cycle) problems.push(`${where}: missing cycle (which year or round the numbers are from)`);
     if (!exam.source?.url?.startsWith('https://')) problems.push(`${where}: source.url must be an https URL`);
     if (!exam.source?.title) problems.push(`${where}: missing source.title`);

@@ -29,6 +29,7 @@ export const hi: LocaleData = {
     runsInBrowser: `आपके ब्राउज़र में चलता है`,
     noSignup: `साइन-अप की ज़रूरत नहीं`,
     noWatermark: `कोई वॉटरमार्क नहीं`,
+    countrySpecific: `{country} के लिए विशेष`,
     filesNeverLeave: `आपकी फ़ाइलें आपके डिवाइस से बाहर कभी नहीं जातीं।`,
     quickAnswer: `संक्षिप्त उत्तर`,
     readGuide: `गाइड पढ़ें`,

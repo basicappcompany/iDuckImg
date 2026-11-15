@@ -29,6 +29,7 @@ export const id: LocaleData = {
     runsInBrowser: `Berjalan di browser Anda`,
     noSignup: `Tanpa pendaftaran`,
     noWatermark: `Tanpa watermark`,
+    countrySpecific: `Khusus untuk {country}`,
     filesNeverLeave: `File Anda tidak pernah meninggalkan perangkat Anda.`,
     quickAnswer: `Jawaban singkat`,
     readGuide: `Baca panduannya`,

@@ -265,6 +265,11 @@ body {
     background: var(--d-ok);
     color: var(--d-duckInk);
   }
+  /* Marks a page that only applies to one country, so nobody follows another country's rules. */
+  .pill-country {
+    background: var(--d-duck);
+    color: var(--d-duckInk);
+  }
   /* A pick-one button, used like a radio group. */
   .chip {
     display: inline-flex;

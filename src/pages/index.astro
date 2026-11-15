@@ -1,4 +1,5 @@
 ---
+import { countryName, countryOfLanding } from '../lib/country';
 import AppShell from '../components/AppShell.astro';
 import DuckMark from '../components/DuckMark.astro';
 import { TOOLS, TOOL_GROUPS, toolPath, toolsInGroup } from '../lib/tools';
@@ -147,6 +148,11 @@ const why = [
                     {landingName(page)}
                   </span>
                   <span class="mt-1 block text-sm leading-[19px] text-muted">{page.summary}</span>
+                  {countryOfLanding(page) && (
+                    <span class="pill pill-country mt-2 self-start" data-country={countryOfLanding(page)}>
+                      <span aria-hidden="true">📍</span> {countryName(countryOfLanding(page)!)}
+                    </span>
+                  )}
                 </a>
               </li>
             ))}

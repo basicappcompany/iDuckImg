@@ -29,6 +29,7 @@ export const ptBR: LocaleData = {
     runsInBrowser: `Funciona no seu navegador`,
     noSignup: `Sem cadastro`,
     noWatermark: `Sem marca d'água`,
+    countrySpecific: `Específico para {country}`,
     filesNeverLeave: `Seus arquivos nunca saem do seu dispositivo.`,
     quickAnswer: `Resposta rápida`,
     readGuide: `Leia o guia`,

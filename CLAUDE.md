@@ -141,6 +141,11 @@ Checklist, because every tool touches the same places: `src/lib/tools.ts` (name 
 
 - `src/lib/exam-landing.ts` builds one landing page per document in `src/data/exam-presets.json` (engine `exam`, opens `ExamTool` with `initialExam` and `initialDoc`). All numbers and the source come from the preset; never type an exam requirement into the page copy. A unit test fails when a document has no page. To add an exam: add it to the JSON with its source and read date, add a short name to `SHORT`, and update the slug lists in `tests/e2e/site.spec.ts`.
 
+## Country-specific pages
+
+- Every exam in `src/data/exam-presets.json` has a `country` (ISO code; validation fails without it). `src/lib/country.ts` holds `COUNTRY_ORDER`, `countryName` (localized with `Intl.DisplayNames`) and `countryOfLanding`. Exam pages show a "Specific to X" pill (`d.countrySpecific`, translated), the Quick tools sidebar has one group per country (`country-IN`, `country-GB`, `country-CA`; names are the country's name, no translation key), the requirements page is split by country and the exam resizer's dropdown uses optgroups. Adding an exam from a new country means adding its code to `COUNTRY_ORDER` and to `ENGLISH_NAMES`.
+- Size pages (35 x 45 mm, 2 x 2 inch, 200 x 230 px, passport size photo) are deliberately NOT marked: they are shapes used in many places. Mark a page only when an official document names the country.
+
 ## Adjust, border and the two calculators
 
 - Adjust colours (`src/tools/adjust/`) and border (`src/tools/border/`) follow the pixel tool: pure `options.ts` (`adjustPixels`, `borderedSize`) used by both the worker and the live preview, `SimpleToolShell`, output keeps the input format. A transparent border turns a JPG into a PNG (`outputFormat`).
