@@ -539,3 +539,27 @@ test.describe('country-specific pages', () => {
     await expect(page.locator('.pill-country')).toHaveText(/Nur für Indien/);
   });
 });
+
+test.describe('page block order', () => {
+  // Common questions is the last block on a tool or shortcut page: the quick answer, the tool, the
+  // how-to, related links and "More in ..." all come before it.
+  for (const path of ['/compress-image/', '/blur-image/', '/compress-image-to-100kb/', '/heic-to-jpg/', '/ibps-po-photo-size/', '/color-picker-from-image/', '/de/ibps-po-photo-size/']) {
+    test(`${path} ends with the common questions`, async ({ page }) => {
+      await page.goto(path);
+      const order = await page.locator('main h2, main nav, main [data-faq]').evaluateAll((els) => els.map((e) => (e.hasAttribute('data-faq') ? 'faq' : e.tagName.toLowerCase())));
+      expect(order.filter((x) => x === 'faq')).toHaveLength(1);
+      // Nothing that is a heading or a nav block follows the questions section.
+      const inside = await page.locator('main [data-faq] h2, main [data-faq] nav').count();
+      const after = await page.locator('main [data-faq] ~ h2, main [data-faq] ~ nav, main [data-faq] ~ section, main [data-faq] ~ div').count();
+      expect(after).toBe(0);
+      expect(inside).toBe(1); // only its own heading
+      await expect(page.locator('[aria-label="Quick answer"]')).toBeVisible();
+      const quickBeforeFaq = await page.evaluate(() => {
+        const q = document.querySelector('[aria-label="Quick answer"]')!;
+        const f = document.querySelector('[data-faq]')!;
+        return !!(q.compareDocumentPosition(f) & Node.DOCUMENT_POSITION_FOLLOWING);
+      });
+      expect(quickBeforeFaq).toBe(true);
+    });
+  }
+});

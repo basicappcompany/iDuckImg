@@ -50,16 +50,5 @@ const faqs = [
       photo and on a large one. Pictures are saved in their own format. JPG and WebP are saved again at high quality,
       and PNG stays lossless. Want text instead? Use <a href="/add-watermark-to-image/">Add a watermark</a>.
     </p>
-    <h2 class="mt-8">Common questions</h2>
-    <div class="mt-4 grid gap-3">
-      {
-        faqs.map((f) => (
-          <details class="card px-4 py-3">
-            <summary class="cursor-pointer text-lg font-black">{f.q}</summary>
-            <p class="mt-2 leading-relaxed">{f.a}</p>
-          </details>
-        ))
-      }
-    </div>
   </section>
 </ToolLayout>

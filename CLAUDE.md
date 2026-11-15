@@ -141,6 +141,10 @@ Checklist, because every tool touches the same places: `src/lib/tools.ts` (name 
 
 - `src/lib/exam-landing.ts` builds one landing page per document in `src/data/exam-presets.json` (engine `exam`, opens `ExamTool` with `initialExam` and `initialDoc`). All numbers and the source come from the preset; never type an exam requirement into the page copy. A unit test fails when a document has no page. To add an exam: add it to the JSON with its source and read date, add a short name to `SHORT`, and update the slug lists in `tests/e2e/site.spec.ts`.
 
+## Page block order
+
+- `ToolLayout` draws the Common questions itself, from its `faqs` prop, as the last block on every tool and shortcut page: quick answer, tool, how-to and notes (page content slot), Related, "More in ...", then the questions. Do not draw questions inside a page's content slot, and `ToolGuide` takes no `faqs`. A browser test (`page block order` in `site.spec.ts`) fails if anything follows them. Guide pages are a different layout and keep "Related guides" after theirs.
+
 ## Country-specific pages
 
 - Every exam in `src/data/exam-presets.json` has a `country` (ISO code; validation fails without it). `src/lib/country.ts` holds `COUNTRY_ORDER`, `countryName` (localized with `Intl.DisplayNames`) and `countryOfLanding`. Exam pages show a "Specific to X" pill (`d.countrySpecific`, translated), the Quick tools sidebar has one group per country (`country-IN`, `country-GB`, `country-CA`; names are the country's name, no translation key), the requirements page is split by country and the exam resizer's dropdown uses optgroups. Adding an exam from a new country means adding its code to `COUNTRY_ORDER` and to `ENGLISH_NAMES`.
